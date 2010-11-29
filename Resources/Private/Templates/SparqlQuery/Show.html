@@ -1,0 +1,16 @@
+<f:layout name="default" />
+
+<f:section name="main">
+
+<f:flashMessages />
+
+<table>
+
+	<f:for each="{queryResult}" as="singleResult">
+		<tr>
+			<td><f:link.external uri="{singleResult.link}">{singleResult.link}</f:link.external></td>
+		</tr>
+	</f:for>
+</table>
+
+</f:section>

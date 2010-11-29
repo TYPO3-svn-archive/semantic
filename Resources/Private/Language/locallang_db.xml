@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for database tables/fields belonging to extension 'semantic'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="tx_semantic_domain_model_sparqlquery">Sparql Query</label>
+			<label index="tx_semantic_domain_model_sparqlquery.name">Name</label>
+			<label index="tx_semantic_domain_model_sparqlquery.query_string">Query String</label>
+			<label index="tx_semantic_domain_model_sparqlquery.endpoint">Endpoint</label>
+			<label index="tx_semantic_domain_model_sparqlquery.namespaces">Namespaces</label>
+			<label index="tx_semantic_domain_model_sparqlendpoint">Sparql Endpoint</label>
+			<label index="tx_semantic_domain_model_sparqlendpoint.name">Name</label>
+			<label index="tx_semantic_domain_model_sparqlendpoint.uri">Uri</label>
+			<label index="tx_semantic_domain_model_namespace">Namespace</label>
+			<label index="tx_semantic_domain_model_namespace.prefix">Prefix</label>
+			<label index="tx_semantic_domain_model_namespace.uri">Uri</label>
+		</languageKey>
+	</data>
+</T3locallang>

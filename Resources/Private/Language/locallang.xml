@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for the Semantic Web Integration extension in the FRONTEND</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="tx_semantic_domain_model_sparqlquery">SparqlQuery</label>
+			<label index="tx_semantic_domain_model_sparqlquery.name">name</label>
+			<label index="tx_semantic_domain_model_sparqlquery.query_string">queryString</label>
+			<label index="tx_semantic_domain_model_sparqlquery.endpoint">endpoint</label>
+			<label index="tx_semantic_domain_model_sparqlquery.namespaces">namespaces</label>
+			<label index="tx_semantic_domain_model_sparqlendpoint">SparqlEndpoint</label>
+			<label index="tx_semantic_domain_model_sparqlendpoint.name">name</label>
+			<label index="tx_semantic_domain_model_sparqlendpoint.uri">uri</label>
+			<label index="tx_semantic_domain_model_namespace">Namespace</label>
+			<label index="tx_semantic_domain_model_namespace.prefix">prefix</label>
+			<label index="tx_semantic_domain_model_namespace.uri">uri</label>
+		</languageKey>
+	</data>
+</T3locallang>
