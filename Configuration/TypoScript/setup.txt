@@ -14,7 +14,6 @@ config.namespaces {
   og = http://opengraphprotocol.org/schema/
 }
 
-
 # Add RDFa attributes to the default cObject
 tt_content.stdWrap.innerWrap.cObject.default {
 	12 = COA
@@ -36,11 +35,11 @@ tt_content.stdWrap.innerWrap.cObject.default {
 
 # Add dc:title property to headings 1-5
 tt_content.text {
-	10.1.fontTag = <h1{register:headerStyle}{register:headerClass} property="dc:title">|</h1>
-	10.2.fontTag = <h2{register:headerStyle}{register:headerClass} property="dc:title">|</h2>
-	10.3.fontTag = <h3{register:headerStyle}{register:headerClass} property="dc:title">|</h3>
-	10.4.fontTag = <h4{register:headerStyle}{register:headerClass} property="dc:title">|</h4>
-	10.5.fontTag = <h5{register:headerStyle}{register:headerClass} property="dc:title">|</h5>
+	10.10.1.fontTag = <h1{register:headerStyle}{register:headerClass} property="dc:title">|</h1>
+	10.10.2.fontTag = <h2{register:headerStyle}{register:headerClass} property="dc:title">|</h2>
+	10.10.3.fontTag = <h3{register:headerStyle}{register:headerClass} property="dc:title">|</h3>
+	10.10.4.fontTag = <h4{register:headerStyle}{register:headerClass} property="dc:title">|</h4>
+	10.10.5.fontTag = <h5{register:headerStyle}{register:headerClass} property="dc:title">|</h5>
 }
 
 
