@@ -82,6 +82,27 @@ class Tx_Semantic_Domain_Model_Sparql_Endpoint extends Tx_Extbase_DomainObject_A
 	public function getIri() {
 		return $this->iri;
 	}
-	
+
+	public function execute() {
+		$statement = '';
+		foreach ($this->getNamespaces() as $namespace) {
+			$statement .= 'PREFIX ' . $namespace->getPrefix() . ': <' . $namespace->getIri() . '>';
+		}
+		$statement .= $this->getQuery();
+
+		$status = array();
+		$response = t3lib_div::getURL($this->getEndpoint()->getIri() . '?query=' . urlencode($statement), 0, FALSE, $status);
+		print_r($response);
+		if ($status['error'] === 0) {
+			$responseObject = new SimpleXMLElement($response);
+			$queryResult = new Tx_Semantic_Domain_Model_Sparql_QueryResult($this);
+			foreach ($responseObject->head->variable as $variable) {
+				$queryResult->addBoundVariableName((string) $variable['name']);
+			}
+		}
+		debug($queryResult);
+		return $queryResult;
+	}
+
 }
 ?>

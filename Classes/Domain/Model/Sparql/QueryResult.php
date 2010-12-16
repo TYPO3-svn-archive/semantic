@@ -97,17 +97,39 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult extends Tx_Extbase_DomainObjec
 				foreach ($responseObject->results->result as $result) {
 					$bindings = array();
 					foreach ($result->binding as $boundVariableValue) {
-						$bindings[(string) $boundVariableValue['name']]= $this->convertBoundVariableValueToString($boundVariableValue);
+						$bindings[(string) $boundVariableValue['name']]= $this->convertBoundVariableValue($boundVariableValue);
 					}
 					$this->queryResult[]= $bindings;
 				}
-
 			}
 		}
 	}
 
-	public function convertBoundVariableValueToString($boundVariableValue) {
-		return $boundVariableValue->children();
+	/**
+	 * Converts the given variable value to the corresponding RDF object
+	 *
+	 * @return 
+	 **/
+	public function convertBoundVariableValue($boundVariableValue) {
+		$type = key($boundVariableValue->children());
+		$value = current($boundVariableValue->children());
+
+		switch ($type) {
+			case 'literal':
+				$value = new Tx_Semantic_Domain_Model_Rdf_Literal($value); 
+				break;
+			case 'bnode':
+				$value = new Tx_Semantic_Domain_Model_Rdf_BlankNode($value);
+				break;
+			case 'uri':
+				$value = new Tx_Semantic_Domain_Model_Rdf_Iri($value);
+				break;
+			default:
+				throw new Tx_Extbase_Exception('unknown type', 1234567);
+				break;
+		}
+
+		return $value;
 	}
 
 	/**

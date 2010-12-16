@@ -5,14 +5,20 @@ if (!defined ('TYPO3_MODE')) {
 
 Tx_Extbase_Utility_Extension::registerPlugin(
 	$_EXTKEY,
-	'sparqlclient',
-	'SPARQL Client (Semantic Web Integration)'
+	'SparqlQuery',
+	'Execute a Single SPARQL Query'
+);
+
+Tx_Extbase_Utility_Extension::registerPlugin(
+	$_EXTKEY,
+	'SparqlAdmin',
+	'SPARQL Query Admin'
 );
 
 t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'Semantic Web Integration');
 
-//$TCA['tt_content']['types']['list']['subtypes_addlist'][$_EXTKEY . '_sparqlclient'] = 'pi_flexform';
-//t3lib_extMgm::addPiFlexFormValue($_EXTKEY . '_sparqlclient', 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/flexform_sparqlclient.xml');
+$TCA['tt_content']['types']['list']['subtypes_addlist'][$_EXTKEY . '_sparqlquery'] = 'pi_flexform';
+t3lib_extMgm::addPiFlexFormValue($_EXTKEY . '_sparqlquery', 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForm/SparqlQuery.xml');
 
 
 t3lib_extMgm::addLLrefForTCAdescr('tx_semantic_domain_model_rdf_blanknode', 'EXT:semantic/Resources/Private/Language/locallang_csh_tx_semantic_domain_model_rdf_blanknode.xml');

@@ -31,6 +31,14 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
 interface Tx_Semantic_Domain_Model_Sparql_QueryInterface {
+
+	/**
+	 * Executes the query against the backend and returns the result
+	 *
+	 * @return Tx_Extbase_Persistence_QueryResultInterface|array The query result object or an array if $this->getQuerySettings()->getReturnRawQueryResult() is TRUE
+	 * @api
+	 */
+	public function execute();
 	
 }
 ?>

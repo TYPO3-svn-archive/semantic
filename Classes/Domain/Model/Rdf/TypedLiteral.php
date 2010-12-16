@@ -30,7 +30,7 @@
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class Tx_Semantic_Domain_Model_Rdf_TypedLiteral extends Tx_Extbase_DomainObject_AbstractEntity {
+class Tx_Semantic_Domain_Model_Rdf_TypedLiteral extends Tx_Semantic_Domain_Model_Rdf_Literal {
 	
 	/**
 	 * datatype
@@ -38,16 +38,6 @@ class Tx_Semantic_Domain_Model_Rdf_TypedLiteral extends Tx_Extbase_DomainObject_
 	 */
 	protected $datatype;
 	
-	/**
-	 * Setter for datatype
-	 *
-	 * @param string $datatype datatype
-	 * @return void
-	 */
-	public function setDatatype($datatype) {
-		$this->datatype = $datatype;
-	}
-
 	/**
 	 * Getter for datatype
 	 *

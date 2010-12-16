@@ -38,14 +38,13 @@ class Tx_Semantic_Domain_Model_Rdf_BlankNode extends Tx_Extbase_DomainObject_Abs
 	 * @validate NotEmpty
 	 */
 	protected $identifier;
-	
+
 	/**
-	 * Setter for identifier
+	 * Constructor
 	 *
-	 * @param string $identifier identifier
 	 * @return void
-	 */
-	public function setIdentifier($identifier) {
+	 **/
+	public function __construct($identifier) {
 		$this->identifier = $identifier;
 	}
 
@@ -56,6 +55,10 @@ class Tx_Semantic_Domain_Model_Rdf_BlankNode extends Tx_Extbase_DomainObject_Abs
 	 */
 	public function getIdentifier() {
 		return $this->identifier;
+	}
+
+	public function __toString() {
+		return (string) $this->identifier;
 	}
 	
 }
