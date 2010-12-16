@@ -1,0 +1,19 @@
+<f:layout name="default" />
+
+This template displays a EDIT form for the current domain object.
+
+<f:section name="main">
+<h1>Edit Query</h1>
+
+<f:flashMessages />
+
+<f:render partial="formErrors" />
+
+<f:form method="post" action="update" name="query" object="{query}">
+	<label for="title"><f:translate key="tx_semantic_domain_model_sparql_query.name" /> <span class="required">(required)</span></label><br />
+	<f:form.textbox property="name" /><br />
+	<label for="title"><f:translate key="tx_semantic_domain_model_sparql_query.query" /></label><br />
+	<f:form.textarea property="query" cols="40" rows="15" /><br />
+	<f:form.submit value="Edit" />
+</f:form>
+</f:section>

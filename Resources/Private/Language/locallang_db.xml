@@ -6,17 +6,35 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
-			<label index="tx_semantic_domain_model_sparqlquery">Sparql Query</label>
-			<label index="tx_semantic_domain_model_sparqlquery.name">Name</label>
-			<label index="tx_semantic_domain_model_sparqlquery.query_string">Query String</label>
-			<label index="tx_semantic_domain_model_sparqlquery.endpoint">Endpoint</label>
-			<label index="tx_semantic_domain_model_sparqlquery.namespaces">Namespaces</label>
-			<label index="tx_semantic_domain_model_sparqlendpoint">Sparql Endpoint</label>
-			<label index="tx_semantic_domain_model_sparqlendpoint.name">Name</label>
-			<label index="tx_semantic_domain_model_sparqlendpoint.uri">Uri</label>
-			<label index="tx_semantic_domain_model_namespace">Namespace</label>
-			<label index="tx_semantic_domain_model_namespace.prefix">Prefix</label>
-			<label index="tx_semantic_domain_model_namespace.uri">Uri</label>
+			<label index="tx_semantic_domain_model_rdf_blanknode">Blank Node</label>
+			<label index="tx_semantic_domain_model_rdf_blanknode.identifier">Identifier</label>
+			<label index="tx_semantic_domain_model_rdf_iri">Iri</label>
+			<label index="tx_semantic_domain_model_rdf_iri.value">Value</label>
+			<label index="tx_semantic_domain_model_rdf_literal">Literal</label>
+			<label index="tx_semantic_domain_model_rdf_literal.value">Value</label>
+			<label index="tx_semantic_domain_model_sparql_endpoint">Endpoint</label>
+			<label index="tx_semantic_domain_model_sparql_endpoint.name">Name</label>
+			<label index="tx_semantic_domain_model_sparql_endpoint.iri">Iri</label>
+			<label index="tx_semantic_domain_model_rdf_namespace">Namespace</label>
+			<label index="tx_semantic_domain_model_rdf_namespace.prefix">Prefix</label>
+			<label index="tx_semantic_domain_model_rdf_namespace.iri">Iri</label>
+			<label index="tx_semantic_domain_model_rdf_graph">Graph</label>
+			<label index="tx_semantic_domain_model_rdf_graph.name">Name</label>
+			<label index="tx_semantic_domain_model_rdf_graph.statement">Statement</label>
+			<label index="tx_semantic_domain_model_rdf_statement">Statement</label>
+			<label index="tx_semantic_domain_model_rdf_statement.subject">Subject</label>
+			<label index="tx_semantic_domain_model_rdf_statement.predicate">Predicate</label>
+			<label index="tx_semantic_domain_model_rdf_statement.object">Object</label>
+			<label index="tx_semantic_domain_model_rdf_statement.context">Context</label>
+			<label index="tx_semantic_domain_model_rdf_plainliteral">Plain Literal</label>
+			<label index="tx_semantic_domain_model_rdf_plainliteral.language">Language</label>
+			<label index="tx_semantic_domain_model_rdf_typedliteral">Typed Literal</label>
+			<label index="tx_semantic_domain_model_rdf_typedliteral.datatype">Datatype</label>
+			<label index="tx_semantic_domain_model_sparql_query">Query</label>
+			<label index="tx_semantic_domain_model_sparql_query.name">Name</label>
+			<label index="tx_semantic_domain_model_sparql_query.query">Query</label>
+			<label index="tx_semantic_domain_model_sparql_query.endpoint">Endpoint</label>
+			<label index="tx_semantic_domain_model_sparql_query.namespaces">Namespaces</label>
 		</languageKey>
 	</data>
 </T3locallang>

@@ -5,12 +5,12 @@ if (!defined ('TYPO3_MODE')) {
 
 Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,
-	'table',
+	'sparqlclient',
 	array(
-		'SparqlQuery' => 'index, show, new, create, edit, update, delete',
+		'Query' => 'index, show, new, create, edit, update, delete','Endpoint' => 'index, show, new, create, edit, update, delete','Graph' => 'index, show, new, create, edit, update, delete','Statement' => 'index, show, new, create, edit, update, delete',
 	),
 	array(
-		'SparqlQuery' => 'create, update, delete',
+		'Endpoint' => 'create, update, delete','Graph' => 'create, update, delete','Statement' => 'create, update, delete','Query' => 'create, update, delete',
 	)
 );
 
