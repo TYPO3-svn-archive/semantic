@@ -6,10 +6,10 @@ if (!defined ('TYPO3_MODE')) {
 $TCA['tx_semantic_domain_model_sparql_query'] = array(
 	'ctrl' => $TCA['tx_semantic_domain_model_sparql_query']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList'	=> 'name,query,endpoint,namespaces'
+		'showRecordFieldList'	=> 'name,endpoint,namespaces,query'
 	),
 	'types' => array(
-		'1' => array('showitem'	=> 'name,query,endpoint,namespaces')
+		'1' => array('showitem'	=> 'name,endpoint,namespaces,query')
 	),
 	'palettes' => array(
 		'1' => array('showitem'	=> '')
@@ -75,8 +75,8 @@ $TCA['tx_semantic_domain_model_sparql_query'] = array(
 			'label'		=> 'LLL:EXT:semantic/Resources/Private/Language/locallang_db.xml:tx_semantic_domain_model_sparql_query.query',
 			'config'	=> array(
 				'type' => 'text',
-				'cols' => 40,
-				'rows' => 15,
+				'cols' => 60,
+				'rows' => 25,
 				'eval' => 'trim'
 			)
 		),
@@ -84,7 +84,7 @@ $TCA['tx_semantic_domain_model_sparql_query'] = array(
 			'exclude'	=> 0,
 			'label'		=> 'LLL:EXT:semantic/Resources/Private/Language/locallang_db.xml:tx_semantic_domain_model_sparql_query.endpoint',
 			'config'	=> array(
-				'type' => 'inline',
+				'type' => 'select',
 				'foreign_table' => 'tx_semantic_domain_model_sparql_endpoint',
 				'minitems' => 0,
 				'maxitems' => 1,
@@ -92,19 +92,68 @@ $TCA['tx_semantic_domain_model_sparql_query'] = array(
 					'collapse' => 0,
 					'newRecordLinkPosition' => 'bottom',
 				),
+				'wizards' => array(
+					'_PADDING' => 1,
+					'_VERTICAL' => 0,
+					'edit' => array(
+						'type' => 'popup',
+						'title' => 'Edit',
+						'script' => 'wizard_edit.php',
+						'icon' => 'edit2.gif',
+						'popup_onlyOpenIfSelected' => 1,
+						'JSopenParams' => 'height=350,width=580,status=0,menubar=0,scrollbars=1',
+					),
+					'add' => Array(
+						'type' => 'script',
+						'title' => 'Create new',
+						'icon' => 'add.gif',
+						'params' => array(
+							'table'=>'tx_semantic_domain_model_sparql_endpoint',
+							'pid' => '###CURRENT_PID###',
+							'setValue' => 'prepend'
+						),
+						'script' => 'wizard_add.php',
+					),
+				),
 			)
 		),
 		'namespaces' => array(
 			'exclude'	=> 0,
 			'label'		=> 'LLL:EXT:semantic/Resources/Private/Language/locallang_db.xml:tx_semantic_domain_model_sparql_query.namespaces',
 			'config'	=> array(
-				'type' => 'inline',
+				'type' => 'select',
 				'foreign_table' => 'tx_semantic_domain_model_rdf_namespace',
 				'MM' => 'tx_semantic_query_namespace_mm',
-				'maxitems' => 99999,
+				'size' => 10,
+				'autoSizeMax' => 30,
+				'minitems' => 0,
+				'maxitems' => 999999,
 				'appearance' => array(
 					'collapse' => 0,
 					'newRecordLinkPosition' => 'bottom',
+				),
+				'wizards' => array(
+					'_PADDING' => 1,
+					'_VERTICAL' => 0,
+					'edit' => array(
+						'type' => 'popup',
+						'title' => 'Edit',
+						'script' => 'wizard_edit.php',
+						'icon' => 'edit2.gif',
+						'popup_onlyOpenIfSelected' => 1,
+						'JSopenParams' => 'height=350,width=580,status=0,menubar=0,scrollbars=1',
+					),
+					'add' => Array(
+						'type' => 'script',
+						'title' => 'Create new',
+						'icon' => 'add.gif',
+						'params' => array(
+							'table'=>'tx_semantic_domain_model_sparql_endpoint',
+							'pid' => '###CURRENT_PID###',
+							'setValue' => 'prepend'
+						),
+						'script' => 'wizard_add.php',
+					),
 				),
 			)
 		),
