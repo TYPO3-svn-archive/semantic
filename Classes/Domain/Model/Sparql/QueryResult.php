@@ -125,7 +125,7 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult extends Tx_Extbase_DomainObjec
 				$value = new Tx_Semantic_Domain_Model_Rdf_Iri($value);
 				break;
 			default:
-				throw new Tx_Extbase_Exception('unknown type', 1234567);
+				throw new Tx_Semantic_Exception("The variable type of a SPARQL result doesn't match any RDF element type.'", 1292470296);
 				break;
 		}
 
