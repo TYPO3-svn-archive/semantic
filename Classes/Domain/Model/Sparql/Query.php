@@ -30,8 +30,13 @@
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class Tx_Semantic_Domain_Model_Sparql_Query extends Tx_Extbase_DomainObject_AbstractEntity {
+class Tx_Semantic_Domain_Model_Sparql_Query extends Tx_Extbase_DomainObject_AbstractEntity implements Tx_Semantic_Domain_Model_Sparql_QueryInterface {
 	
+	/**
+	 * @var Tx_Extbase_Object_ObjectManagerInterface
+	 */
+	protected $objectManager;
+
 	/**
 	 * name
 	 * @var string
@@ -57,6 +62,14 @@ class Tx_Semantic_Domain_Model_Sparql_Query extends Tx_Extbase_DomainObject_Abst
 	 */
 	protected $namespaces;
 	
+	/**
+	 * @param Tx_Extbase_Object_ObjectManagerInterface $objectManager
+	 * @return void
+	 */
+	public function injectObjectManager(Tx_Extbase_Object_ObjectManagerInterface $objectManager) {
+		$this->objectManager = $objectManager;
+	}
+
 	/**
 	 * Setter for name
 	 *
@@ -153,5 +166,15 @@ class Tx_Semantic_Domain_Model_Sparql_Query extends Tx_Extbase_DomainObject_Abst
 		$this->namespaces->detach($namespace);
 	}
 	
+	/**
+	 * Executes the query against the SPARQL Endpoint and returns the result
+	 *
+	 * @return Tx_Semantic_Domain_Model_Sparql_QueryResultInterface The query result object 
+	 * @api
+	 */
+	public function execute() {
+		return new Tx_Semantic_Domain_Model_Sparql_QueryResult($this);
+	}
+
 }
 ?>

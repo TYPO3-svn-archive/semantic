@@ -65,6 +65,16 @@ class Tx_Semantic_Controller_QueryController extends Tx_Extbase_MVC_Controller_A
 	}
 
 	/**
+	 * Executes a SparqlQuery
+	 *
+	 * @param Tx_Semantic_Domain_Model_Sparql_Query $query the Sparql Query to display
+	 */
+	public function executeAction(Tx_Semantic_Domain_Model_Sparql_Query $query) {
+		$queryResult = $query->execute();
+		$this->view->assign('queryResult', $queryResult);
+	}
+
+	/**
 	 * Displays a form for creating a new Query
 	 *
 	 * @param Tx_Semantic_Domain_Model_Sparql_Query $newQuery a fresh Query object taken as a basis for the rendering

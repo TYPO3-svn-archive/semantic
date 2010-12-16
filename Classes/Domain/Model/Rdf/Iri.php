@@ -58,5 +58,8 @@ class Tx_Semantic_Domain_Model_Rdf_Iri extends Tx_Extbase_DomainObject_AbstractE
 		return $this->value;
 	}
 	
+	public function __toString() {
+		return (string) $this->getValue();
+	}
 }
 ?>

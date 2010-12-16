@@ -1,0 +1,22 @@
+<f:layout name="default" />
+<f:section name="main">
+
+<f:flashMessages />
+
+<table>
+	<tr>
+	<f:for each="{queryResult.boundVariableNames}" as="variableName">
+		<th>{variableName}</th>
+	</f:for>
+	</tr>
+
+	<f:for each="{queryResult}" as="singleResult">
+		<tr>
+			<f:for each="{singleResult}" as="binding">
+		<td>{binding}</td>
+		</f:for>
+		</tr>
+	</f:for>
+</table>
+
+</f:section>

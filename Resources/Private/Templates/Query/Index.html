@@ -1,9 +1,5 @@
 <f:layout name="default" />
-
-This Template is responsible for creating a table of domain objects.
-
 <f:section name="main">
-<h1>Listing for Query</h1>
 
 <f:flashMessages />
 
@@ -18,7 +14,7 @@ This Template is responsible for creating a table of domain objects.
 	<f:for each="{queries}" as="query">
 		<tr>
 			<td><f:link.action action="show" arguments="{query : query}"> {query.name}</f:link.action></td>
-			<td><f:link.action action="show" arguments="{query : query}"> {query.query}</f:link.action></td>
+			<td><f:link.action action="execute" arguments="{query : query}">Execute</f:link.action></td>
 			<td><f:link.action action="edit" arguments="{query : query}">Edit</f:link.action></td>
 			<td><f:link.action action="delete" arguments="{query : query}">Delete</f:link.action></td>
 		</tr>
