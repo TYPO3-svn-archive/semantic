@@ -30,7 +30,7 @@
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class Tx_Semantic_Domain_Model_Rdf_BlankNode extends Tx_Extbase_DomainObject_AbstractEntity {
+class Tx_Semantic_Domain_Model_Rdf_BlankNode implements Tx_Semantic_Domain_Model_Rdf_SubjectInterface {
 	
 	/**
 	 * identifier

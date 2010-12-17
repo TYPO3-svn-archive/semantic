@@ -30,7 +30,7 @@
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class Tx_Semantic_Domain_Model_Rdf_Iri extends Tx_Extbase_DomainObject_AbstractEntity {
+class Tx_Semantic_Domain_Model_Rdf_Iri extends Tx_Extbase_DomainObject_AbstractEntity implements Tx_Semantic_Domain_Model_Rdf_SubjectInterface, Tx_Semantic_Domain_Model_Rdf_PredicateInterface, Tx_Semantic_Domain_Model_Rdf_ObjectInterface {
 	
 	/**
 	 * The uri string representation.
