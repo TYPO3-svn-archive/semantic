@@ -38,12 +38,24 @@ class Tx_Semantic_Controller_QueryController extends Tx_Extbase_MVC_Controller_A
 	protected $queryRepository;
 
 	/**
+	 * @var Tx_Semantic_Domain_Repository_Sparql_EndpointRepository
+	 */
+	protected $endpointRepository;
+
+	/**
+	 * @var Tx_Semantic_Domain_Repository_Rdf_NamespaceRepository
+	 */
+	protected $namespaceRepository;
+
+	/**
 	 * Initializes the current action
 	 *
 	 * @return void
 	 */
 	protected function initializeAction() {
 		$this->queryRepository = t3lib_div::makeInstance('Tx_Semantic_Domain_Repository_Sparql_QueryRepository');
+		$this->endpointRepository = t3lib_div::makeInstance('Tx_Semantic_Domain_Repository_Sparql_EndpointRepository');
+		$this->namespaceRepository = t3lib_div::makeInstance('Tx_Semantic_Domain_Repository_Rdf_NamespaceRepository');
 	}
 	
 
@@ -88,6 +100,8 @@ class Tx_Semantic_Controller_QueryController extends Tx_Extbase_MVC_Controller_A
 	 */
 	public function newAction(Tx_Semantic_Domain_Model_Sparql_Query $newQuery = NULL) {
 		$this->view->assign('newQuery', $newQuery);
+		$this->view->assign('endpoints', $this->endpointRepository->findAll());
+		$this->view->assign('namespaces', $this->namespaceRepository->findAll());
 	}
 
 	/**
@@ -109,6 +123,8 @@ class Tx_Semantic_Controller_QueryController extends Tx_Extbase_MVC_Controller_A
 	 */
 	public function editAction(Tx_Semantic_Domain_Model_Sparql_Query $query) {
 		$this->view->assign('query', $query);
+		$this->view->assign('endpoints', $this->endpointRepository->findAll());
+		$this->view->assign('namespaces', $this->namespaceRepository->findAll());
 	}
 
 	/**
