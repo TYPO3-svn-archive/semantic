@@ -148,7 +148,7 @@ $TCA['tx_semantic_domain_model_sparql_query'] = array(
 						'title' => 'Create new',
 						'icon' => 'add.gif',
 						'params' => array(
-							'table'=>'tx_semantic_domain_model_sparql_endpoint',
+							'table'=>'tx_semantic_domain_model_rdf_namespace',
 							'pid' => '###CURRENT_PID###',
 							'setValue' => 'prepend'
 						),
