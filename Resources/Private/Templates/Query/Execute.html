@@ -15,7 +15,7 @@
 	<f:cycle values="{0: 'odd', 1: 'even'}" as="zebra">
 		<tr class="tr-{zebra}">
 			<f:for each="{singleResult}" as="binding">
-			<td class="td-{zebra}">{binding}</td>
+			<td class="td-{zebra}">{binding->s:parse()}</td>
 			</f:for>
 		</tr>
 	</f:cycle>
