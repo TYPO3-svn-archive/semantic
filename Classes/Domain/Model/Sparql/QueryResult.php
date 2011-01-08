@@ -86,6 +86,7 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult extends Tx_Extbase_DomainObjec
 				$statement .= 'PREFIX ' . $namespace->getPrefix() . ': <' . $namespace->getIri() . '>';
 			}
 			$statement .= $this->query->getQuery();
+			//debug($statement);
 
 			$status = array();
 			$response = t3lib_div::getURL($this->query->getEndpoint()->getIri() . '?query=' . urlencode($statement), 0, FALSE, $status);
@@ -102,6 +103,7 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult extends Tx_Extbase_DomainObjec
 					$this->queryResult[]= $bindings;
 				}
 			}
+			//debug($this->queryResult);
 		}
 	}
 
