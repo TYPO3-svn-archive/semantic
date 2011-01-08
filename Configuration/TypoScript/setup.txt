@@ -20,7 +20,7 @@ tt_content.stdWrap.innerWrap.cObject.default {
 	12 {
 		10 = TEXT
 		10 {
-			value = {tsfe:baseUrl}resource/cms/content/{field:uid}
+			value = {tsfe:baseUrl}res/content-{field:uid}
 			insertData = 1
 			noTrimWrap= | about="|" |
 		}
@@ -50,15 +50,16 @@ plugin.tx_semantic._CSS_DEFAULT_STYLE (
 	}
 
 	.tx-semantic-pi1 table {
-		border-collapse:separate;
-		border-spacing:10px;
+		padding: 3px;
 	}
 
 	.tx-semantic-pi1 table th {
 		font-weight:bold;
+		padding: .5em .5em .7em .5em !important;
 	}
 
 	.tx-semantic-pi1 table td {
 		vertical-align:top;
+		padding: .5em .5em .7em .5em !important;
 	}
 )
