@@ -1,21 +1,24 @@
+{namespace s=Tx_Semantic_ViewHelpers}
 <f:layout name="default" />
 <f:section name="main">
 
 <f:flashMessages />
 
-<table>
-	<tr>
+<table class="contenttable contenttable-3">
+	<tr class="tr-even tr-0">
 	<f:for each="{queryResult.boundVariableNames}" as="variableName">
-		<th>{variableName}</th>
+	<td>{variableName->s:humanize()}</td>
 	</f:for>
 	</tr>
 
 	<f:for each="{queryResult}" as="singleResult">
-		<tr>
+	<f:cycle values="{0: 'odd', 1: 'even'}" as="zebra">
+		<tr class="tr-{zebra}">
 			<f:for each="{singleResult}" as="binding">
-		<td>{binding}</td>
-		</f:for>
+			<td class="td-{zebra}">{binding}</td>
+			</f:for>
 		</tr>
+	</f:cycle>
 	</f:for>
 </table>
 
