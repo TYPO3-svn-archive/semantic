@@ -7,10 +7,10 @@
     </meta>
     <data type="array">
         <languageKey index="default" type="array">
-			<label index="name.description">name</label>
-			<label index="query.description">query</label>
-			<label index="endpoint.description">endpoint</label>
-			<label index="namespaces.description">namespaces</label>
+			<label index="name.description">Name</label>
+			<label index="query.description">Query</label>
+			<label index="endpoint.description">Endpoint</label>
+			<label index="namespaces.description">Namespaces</label>
 		</languageKey>
     </data>
 </T3locallang>
