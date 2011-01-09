@@ -4,14 +4,19 @@ plugin.tx_semantic.settings {
 # Set the doctype and add common namespaces
 config.doctype = xhtml+rdfa_10
 config.namespaces {
-  dc = http://purl.org/dc/elements/1.1/
-  dcterm = http://purl.org/dc/terms/
-  ctag = http://commontag.org/ns#
-  foaf = http://xmlns.com/foaf/0.1/
-  sioc = http://rdfs.org/sioc/ns#
-  sioctypes = http://rdfs.org/sioc/types#
-  fb = http://developers.facebook.com/schema/
-  og = http://opengraphprotocol.org/schema/
+	rdf = http://www.w3.org/1999/02/22-rdf-syntax-ns#
+	rdfs = http://www.w3.org/2000/01/rdf-schema#
+	owl = http://www.w3.org/2002/07/owl#
+	dbo = http://dbpedia.org/ontology/
+	dbr = http://dbpedia.org/resource/
+	dc = http://purl.org/dc/elements/1.1/
+	dcterm = http://purl.org/dc/terms/
+	ctag = http://commontag.org/ns#
+	foaf = http://xmlns.com/foaf/0.1/
+	sioc = http://rdfs.org/sioc/ns#
+	sioctypes = http://rdfs.org/sioc/types#
+	fb = http://developers.facebook.com/schema/
+	og = http://opengraphprotocol.org/schema/
 }
 
 # Add RDFa attributes to the default cObject
@@ -20,7 +25,7 @@ tt_content.stdWrap.innerWrap.cObject.default {
 	12 {
 		10 = TEXT
 		10 {
-			value = {tsfe:baseUrl}res/content-{field:uid}
+			value = {tsfe:baseUrl}resource/content#{field:uid}
 			insertData = 1
 			noTrimWrap= | about="|" |
 		}
