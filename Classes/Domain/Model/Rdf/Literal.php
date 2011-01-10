@@ -37,7 +37,7 @@ class Tx_Semantic_Domain_Model_Rdf_Literal extends Tx_Extbase_DomainObject_Abstr
 	 * @var string
 	 * @validate NotEmpty
 	 */
-	protected $value;
+	protected $value = '';
 
 	/**
 	 * Constructor
@@ -45,7 +45,7 @@ class Tx_Semantic_Domain_Model_Rdf_Literal extends Tx_Extbase_DomainObject_Abstr
 	 * @return void
 	 **/
 	public function __construct($value) {
-		$this->value = $value;
+		$this->value = (string)$value;
 	}
 
 	/**
