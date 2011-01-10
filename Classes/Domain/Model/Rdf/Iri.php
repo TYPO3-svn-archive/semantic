@@ -38,6 +38,15 @@ class Tx_Semantic_Domain_Model_Rdf_Iri extends Tx_Extbase_DomainObject_AbstractE
 	 * @validate NotEmpty
 	 */
 	protected $value;
+
+	/**
+	 * Constructor
+	 *
+	 * @return void
+	 **/
+	public function __construct($value) {
+		$this->value = $value;
+	}
 	
 	/**
 	 * Setter for value
