@@ -33,7 +33,7 @@ tt_content.stdWrap.innerWrap.cObject.default {
 		20 {
 			value = foaf:Document sioc:Item
 			insertData = 1
-			noTrimWrap= | typeOf="|" |
+			noTrimWrap= | typeof="|" |
 		}
 	}	
 }
