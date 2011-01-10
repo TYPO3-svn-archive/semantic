@@ -16,7 +16,7 @@
 		<tr class="tr-{zebra}">
 			<f:for each="{singleResult}" as="binding">
 			<td>
-				<f:if condition="{binding} instanceof Tx_Semantic_Domain_Model_Rdf_Iri">
+				<f:if condition="{binding->s:instanceof(className : 'Tx_Semantic_Domain_Model_Rdf_Iri')">
 				<f:then>
 				<f:link.external uri="{binding}">{binding->s:parse()}</f:link.external>
 				</f:then>
