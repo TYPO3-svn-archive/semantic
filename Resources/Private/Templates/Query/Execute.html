@@ -15,7 +15,16 @@
 	<f:cycle values="{0: 'odd', 1: 'even'}" as="zebra">
 		<tr class="tr-{zebra}">
 			<f:for each="{singleResult}" as="binding">
-			<td class="td-{zebra}">{binding->s:parse()}</td>
+			<td>
+				<f:if condition="{binding} instanceof Tx_Semantic_Domain_Model_Rdf_Iri">
+				<f:then>
+				<f:link.external uri="{binding}">{binding->s:parse()}</f:link.external>
+				</f:then>
+				<f:else>
+				{binding->s:parse()}
+				</f:else>
+				</f:if>
+			</td>
 			</f:for>
 		</tr>
 	</f:cycle>

@@ -91,14 +91,25 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult extends Tx_Extbase_DomainObjec
 			$status = array();
 			$response = t3lib_div::getURL($this->query->getEndpoint()->getIri() . '?query=' . urlencode($statement), 0, FALSE, $status);
 			if ($status['error'] === 0) {
-				$responseObject = new SimpleXMLElement($response);
-				foreach ($responseObject->head->variable as $variable) {
-					$this->addBoundVariableName((string) $variable['name']);
+				$responseArray = t3lib_div::xml2tree($response);
+				//debug($responseArray);
+				foreach ($responseArray['sparql'][0]['ch']['head'][0]['ch']['variable'] as $variable) {
+					$this->addBoundVariableName((string) $variable['attrs']['name']);
 				}
-				foreach ($responseObject->results->result as $result) {
+				foreach ($responseArray['sparql'][0]['ch']['results'][0]['ch']['result'] as $result) {
+					$variables = array();
+					foreach ($result['ch']['binding'] as $binding) {
+						$child = current($binding['ch']);
+						$variables[$binding['attrs']['name']] = array(
+							'type' => key($binding['ch']),
+							'language' => $child[0]['attrs']['xml:lang'],
+							'datatype' => $child[0]['attrs']['datatype'],
+							'value' => $child[0]['values'][0]
+						);
+					}
 					$bindings = array();
-					foreach ($result->binding as $boundVariableValue) {
-						$bindings[(string) $boundVariableValue['name']]= $this->convertBoundVariableValue($boundVariableValue);
+					foreach ($this->getBoundVariableNames() as $boundVariableName) {
+						$bindings[$boundVariableName]= isset($variables[$boundVariableName]) ? $this->convertBoundVariableValue($variables[$boundVariableName]) : NULL;
 					}
 					$this->queryResult[]= $bindings;
 				}
@@ -112,19 +123,16 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult extends Tx_Extbase_DomainObjec
 	 *
 	 * @return 
 	 **/
-	public function convertBoundVariableValue($boundVariableValue) {
-		$type = key($boundVariableValue->children());
-		$value = current($boundVariableValue->children());
-
-		switch ($type) {
+	public function convertBoundVariableValue($variable) {
+		switch ($variable['type']) {
 			case 'literal':
-				$value = new Tx_Semantic_Domain_Model_Rdf_Literal($value); 
+				$value = new Tx_Semantic_Domain_Model_Rdf_Literal($variable['value']); 
 				break;
 			case 'bnode':
-				$value = new Tx_Semantic_Domain_Model_Rdf_BlankNode($value);
+				$value = new Tx_Semantic_Domain_Model_Rdf_BlankNode($variable['value']);
 				break;
 			case 'uri':
-				$value = new Tx_Semantic_Domain_Model_Rdf_Iri($value);
+				$value = new Tx_Semantic_Domain_Model_Rdf_Iri($variable['value']);
 				break;
 			default:
 				throw new Tx_Semantic_Exception("The variable type of a SPARQL result doesn't match any RDF element type.'", 1292470296);
