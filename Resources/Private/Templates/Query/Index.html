@@ -4,13 +4,6 @@
 <f:flashMessages />
 
 <table>
-	<tr>
-		<th><f:translate key="tx_semantic_domain_model_sparql_query.name" /></th>
-		<th><f:translate key="tx_semantic_domain_model_sparql_query.query" /></th>
-		<th> </th>
-		<th> </th>
-	</tr>
-
 	<f:for each="{queries}" as="query">
 		<tr>
 			<td><f:link.action action="show" arguments="{query : query}"> {query.name}</f:link.action></td>
