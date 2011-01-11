@@ -16,7 +16,7 @@ config.namespaces {
 	sioc = http://rdfs.org/sioc/ns#
 	sioctypes = http://rdfs.org/sioc/types#
 	fb = http://developers.facebook.com/schema/
-	og = http://opengraphprotocol.org/schema/
+	og = http://ogp.me/ns#
 }
 
 # Add RDFa attributes to the default cObject
