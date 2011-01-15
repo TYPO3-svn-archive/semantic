@@ -3,6 +3,22 @@ if (!defined ('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
+if (TYPO3_MODE == 'BE') {
+	// register the cache in BE so it will be cleared with "clear all caches"
+	try {
+		t3lib_cache::initializeCachingFramework();
+			// Reflection cache
+		$GLOBALS['typo3CacheFactory']->create(
+			'cache_semantic_sparql_queryresult',
+			$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['cache_semantic_sparql_queryresult']['frontend'],
+			$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['cache_semantic_sparql_queryresult']['backend'],
+			$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['cache_semantic_sparql_queryresult']['options']
+		);
+	} catch(t3lib_cache_exception_NoSuchCache $exception) {
+
+	}
+}
+
 Tx_Extbase_Utility_Extension::registerPlugin(
 	$_EXTKEY,
 	'SparqlQuery',

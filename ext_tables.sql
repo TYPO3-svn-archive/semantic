@@ -1,3 +1,25 @@
+CREATE TABLE tx_semantic_cache_sparql_queryresult (
+	id int(11) unsigned NOT NULL auto_increment,
+	identifier varchar(250) DEFAULT '' NOT NULL,
+	crdate int(11) unsigned DEFAULT '0' NOT NULL,
+	content mediumtext,
+	tags mediumtext,
+	lifetime int(11) unsigned DEFAULT '0' NOT NULL,
+	PRIMARY KEY (id),
+	KEY cache_id (identifier)
+) ENGINE=InnoDB;
+
+CREATE TABLE tx_semantic_cache_sparql_queryresult_tags (
+	id int(11) unsigned NOT NULL auto_increment,
+	identifier varchar(128) DEFAULT '' NOT NULL,
+	tag varchar(128) DEFAULT '' NOT NULL,
+	PRIMARY KEY (id),
+	KEY cache_id (identifier),
+	KEY cache_tag (tag)
+) ENGINE=InnoDB;
+
+
+
 CREATE TABLE tx_semantic_domain_model_rdf_blanknode (
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
