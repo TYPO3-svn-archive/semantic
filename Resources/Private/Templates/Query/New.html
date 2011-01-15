@@ -18,7 +18,7 @@ This template displays a NEW form for the current domain object.
 	<label for="namespaces"><f:translate key="tx_semantic_domain_model_sparql_query.namespaces" /></label><br />
 	<f:form.select property="namespaces" options="{namespaces}" optionValueField="uid" optionLabelField="prefix" multiple="multiple" size="5" style="width: 20em;"><select><option>###dummy###</option></select></f:form.select><br />
 	<label for="title"><f:translate key="tx_semantic_domain_model_sparql_query.query" /></label><br />
-	<s:form.codeeditor property="query" language="sparql" cols="80" rows="25" /><br />
+	<s:form.codeEditor property="query" language="sparql" cols="80" rows="25" /><br />
 	<f:form.submit value="Save" />
 </f:form>
 </f:section>
