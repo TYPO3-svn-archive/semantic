@@ -64,7 +64,7 @@ class Tx_Semantic_ViewHelpers_Form_CodeEditorViewHelper extends Tx_Fluid_ViewHel
 			var editor = CodeMirror.fromTextArea("code-editor", {
 				path: "' . $pathToCodemirror . 'js/",
 				parserfile: "parsesparql.js",
-				stylesheet: "' . $GLOBALS['TSFE']->baseUrl . t3lib_extMgm::siteRelPath('semantic') . 'Resources/Public/css/sparqlcolors.css",
+				stylesheet: "' . $GLOBALS['TSFE']->baseUrl . t3lib_extMgm::siteRelPath('semantic') . 'Resources/Public/Css/sparqlcolors.css",
 				height: "250px",
 				tabMode: "shift",
 				textWrapping: false,
