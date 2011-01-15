@@ -67,4 +67,8 @@ plugin.tx_semantic._CSS_DEFAULT_STYLE (
 		vertical-align:top;
 		padding: .5em .5em .7em .5em !important;
 	}
+
+	.CodeMirror-wrapping {
+		border: 1px #666 solid;
+	}
 )
