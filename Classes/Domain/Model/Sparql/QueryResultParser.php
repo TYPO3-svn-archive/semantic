@@ -85,6 +85,11 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResultParser implements Tx_Semantic_D
 	 **/
 	protected $processCharacterData = FALSE;
 
+	/**
+	 * Sets up the PHP parser.
+	 *
+	 * @return void
+	 **/
 	public function __construct() {
 		$this->parser = xml_parser_create();
 		xml_set_object($this->parser, $this);
@@ -92,10 +97,21 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResultParser implements Tx_Semantic_D
 		xml_set_character_data_handler($this->parser, 'handleCharacterData');
 	}
 
+	/**
+	 * Frees the memory of the PHP parser.
+	 *
+	 * @return void
+	 **/
 	public function __destruct() {
 		xml_parser_free($this->parser);
 	}
-
+	
+	/**
+	 * Parses the given XML document. The resulting array has two top level keys: 'values' and 'results'.
+	 *
+	 * @return void
+	 * @api
+	 **/
 	public function parse($document) {
 		$status = xml_parse($this->parser, $document);
 		if ($status === 1) {
@@ -105,6 +121,11 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResultParser implements Tx_Semantic_D
 		}
 	}
 
+	/**
+	 * Handles an event fired by an opening element.
+	 *
+	 * @return void
+	 **/
 	protected function handleElementStart($parser, $elementName, $elementAttributes) {
 		switch ($elementName) {
 			case 'VARIABLE':
@@ -136,6 +157,11 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResultParser implements Tx_Semantic_D
 		}
 	}
 
+	/**
+	 * Handles an event fired by a closing element.
+	 *
+	 * @return void
+	 **/
 	protected function handleElementStop($parser, $elementName) {
 		switch ($elementName) {
 			case 'BINDING':
@@ -170,6 +196,11 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResultParser implements Tx_Semantic_D
 		}
 	}
 
+	/**
+	 * Handes character data.
+	 *
+	 * @return void
+	 **/
 	protected function handleCharacterData($parser, $characterData) {
 		if ($this->processCharacterData === TRUE) {
 			$this->currentCharacterData .= $characterData;

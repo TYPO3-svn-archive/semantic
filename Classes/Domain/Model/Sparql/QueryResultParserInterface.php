@@ -32,5 +32,12 @@
  */
 interface Tx_Semantic_Domain_Model_Sparql_QueryResultParserInterface {
 	
+	/**
+	 * Parses the given XML document. The resulting array has two top level keys: 'values' and 'results'.
+	 *
+	 * @return void
+	 * @api
+	 **/
+	public function parse($document);
 }
 ?>
