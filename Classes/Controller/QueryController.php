@@ -84,9 +84,9 @@ class Tx_Semantic_Controller_QueryController extends Tx_Extbase_MVC_Controller_A
 	public function executeAction(Tx_Semantic_Domain_Model_Sparql_Query $query = NULL) {
 		if ($query === NULL) {
 			$query = $this->queryRepository->findByUid($this->settings['query']);
-		}
-		if ($query === NULL) {
-			return '';
+			if ($query === NULL) {
+				return '';
+			}
 		}
 		$queryResult = $query->execute();
 		$this->view->assign('queryResult', $queryResult);

@@ -2,8 +2,7 @@
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010 Jochen Rau <jochen.rau@typoplanet.de>, typoplanet
- *  			
+ *  (c) 201 Jochen Rau <jochen.rau@typoplanet.de>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -24,13 +23,29 @@
  ***************************************************************/
 
 /**
- * Sparql_QueryResultMapperInterface
- *
- * @version $Id$
- * @copyright Copyright belongs to the respective authors
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ * A view helper
  */
-interface Tx_Semantic_Domain_Model_Sparql_QueryResultMapperInterface {
-	
+class Tx_Semantic_ViewHelpers_IsOfViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+
+	/**
+	 * Checks if the given object is an instance of the given class name
+	 *
+	 * @param string $type The type
+	 * @param mixed $subject The subject to be tested
+	 * @return boolean TRUE if the given subject is of the given type
+	 */
+	public function render($type, $subject = NULL) {
+		if ($subject === NULL) {
+			$subject = $this->renderChildren();
+		}
+		if (is_object($subject)) {
+			return $subject instanceof $type;
+		} elseif (is_array($subject) && isset($subject['type'])) {
+			return $subject['type'] === $type;
+		} else {
+			return FALSE;
+		}
+	}
 }
+
 ?>

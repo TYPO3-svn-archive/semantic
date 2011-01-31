@@ -27,13 +27,13 @@ class Tx_Semantic_Tests_Unit_Domain_Model_Sparql_QueryTest extends Tx_Extbase_Te
 	/**
 	 * @test
 	 */
-	public function executeReturnsQueryResultInstanceAndInjectsItself() {
-		$query = new Tx_Semantic_Domain_Model_Sparql_Query();
-		$queryResult = $this->getMock('Tx_Semantic_Domain_Model_Sparql_QueryResultInterface', array(), array(), '', FALSE);
-		$objectManager = $this->getMock('Tx_Extbase_Object_ObjectManagerInterface');
-		$objectManager->expects($this->once())->method('create')->with('Tx_Semantic_Domain_Model_Sparql_QueryResultInterface', $query)->will($this->returnValue($queryResult));
-		$this->assertSame($queryResult, $query->execute());
-	}
+	//public function executeReturnsQueryResultInstanceAndInjectsItself() {
+		//$query = new Tx_Semantic_Domain_Model_Sparql_Query();
+		//$queryResult = $this->getMock('Tx_Semantic_Domain_Model_Sparql_QueryResultInterface', array(), array(), '', FALSE);
+		//$objectManager = $this->getMock('Tx_Extbase_Object_ObjectManagerInterface');
+		//$objectManager->expects($this->once())->method('create')->with('Tx_Semantic_Domain_Model_Sparql_QueryResultInterface', $query)->will($this->returnValue($queryResult));
+		//$this->assertSame($queryResult, $query->execute());
+	//}
 
 }
 ?>

@@ -30,18 +30,20 @@
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class Tx_Semantic_Domain_Model_Sparql_QueryResult extends Tx_Extbase_DomainObject_AbstractEntity implements Tx_Semantic_Domain_Model_Sparql_QueryResultInterface {
+class Tx_Semantic_Domain_Model_Sparql_QueryResult implements Tx_Semantic_Domain_Model_Sparql_QueryResultInterface {
 
 	/**
-	 * boundVariableNames
+	 * Names of the bound variable names
 	 * @var array
+	 * @transient
 	 */
-	protected $boundVariableNames = array();
+	protected $variables = array();
 
 	/**
-	 * @var Tx_Semantic_Domain_Model_Sparql_QueryResultMapperInterface
+	 * @var array
+	 * @transient
 	 */
-	protected $dataMapper;
+	protected $results = array();
 
 	/**
 	 * @var Tx_Semantic_Domain_Model_Sparql_QueryInterface
@@ -49,15 +51,19 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult extends Tx_Extbase_DomainObjec
 	protected $query;
 
 	/**
-	 * @var array
-	 * @transient
+	 * @var Tx_Semantic_Domain_Model_Sparql_QueryResultParserInterface
 	 */
-	protected $queryResult;
+	protected $queryResultParser;
 
 	/**
 	 * @var t3lib_cache_frontend_VariableFrontend
 	 */
 	protected $queryResultCache;
+
+	/**
+	 * @var bool
+	 */
+	protected $isInitialized = FALSE;
 
 	/**
 	 * Constructor
@@ -66,17 +72,19 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult extends Tx_Extbase_DomainObjec
 	 */
 	public function __construct(Tx_Semantic_Domain_Model_Sparql_QueryInterface $query) {
 		$this->query = $query;
+		$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');
+		$this->queryResultParser = $objectManager->create('Tx_Semantic_Domain_Model_Sparql_QueryResultParser');
 	}
 
 	/**
-	 * Injects the DataMapper to map records to objects
+	 * Injects the Query Result Parser
 	 *
-	 * @param Tx_Semantic_Domain_Model_Sparql_QueryResultMapperInterface $dataMapper
+	 * @param Tx_Semantic_Domain_Model_Sparql_QueryResultParserInterface $queryResultParser
 	 * @return void
 	 */
-	public function injectDataMapper(Tx_Semantic_Domain_Model_Sparql_QueryResultMapperInterface $dataMapper) {
-		$this->dataMapper = $dataMapper;
-	}
+	//public function injectQueryResultParser(Tx_Semantic_Domain_Model_Sparql_QueryResultParserInterface $queryResultParser) {
+		//$this->queryResultParser = $queryResultParser;
+	//}
 
 	/**
 	 * Loads the QueryResult
@@ -84,8 +92,8 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult extends Tx_Extbase_DomainObjec
 	 * @return void
 	 */
 	protected function initialize() {
-		if (!is_array($this->queryResult)) {
-			$this->queryResult = array();
+		if ($this->isInitialized === FALSE) {
+			$this->results = array();
 			$statement = '';
 			foreach ($this->query->getNamespaces() as $namespace) {
 				$statement .= 'PREFIX ' . $namespace->getPrefix() . ': <' . $namespace->getIri() . '>';
@@ -96,42 +104,20 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult extends Tx_Extbase_DomainObjec
 			$this->initializeCache();
 			$cacheIdentifier = sha1($this->query->getEndpoint()->getIri() . $statement);
 			if ($this->queryResultCache->has($cacheIdentifier)) {
-				$cachedData = $this->queryResultCache->get($cacheIdentifier);
-				$this->boundVariableNames = $cachedData['boundVariableNames'];
-				$this->queryResult = $cachedData['queryResult'];
+				$parsedResponse = $this->queryResultCache->get($cacheIdentifier);
 			} else {
 				$status = array();
 				$response = t3lib_div::getURL($this->query->getEndpoint()->getIri() . '?query=' . urlencode($statement), 0, FALSE, $status);
 				if ($status['error'] === 0) {
-					$responseArray = t3lib_div::xml2tree($response);
-					//debug($responseArray);
-					foreach ($responseArray['sparql'][0]['ch']['head'][0]['ch']['variable'] as $variable) {
-						$this->boundVariableNames[] = (string) $variable['attrs']['name'];
-					}
-					foreach ($responseArray['sparql'][0]['ch']['results'][0]['ch']['result'] as $result) {
-						$variables = array();
-						foreach ($result['ch']['binding'] as $binding) {
-							$child = current($binding['ch']);
-							$variables[$binding['attrs']['name']] = array(
-								'type' => key($binding['ch']),
-								'language' => $child[0]['attrs']['xml:lang'],
-								'datatype' => $child[0]['attrs']['datatype'],
-								'value' => $child[0]['values'][0]
-							);
-						}
-						$bindings = array();
-						foreach ($this->boundVariableNames as $boundVariableName) {
-							$bindings[$boundVariableName]= isset($variables[$boundVariableName]) ? $this->convertBoundVariableValue($variables[$boundVariableName]) : NULL;
-						}
-						$this->queryResult[]= $bindings;
-					}
-					$this->queryResultCache->set($cacheIdentifier, array('boundVariableNames' => $this->boundVariableNames, 'queryResult' => $this->queryResult));
+					$parsedResponse = $this->queryResultParser->parse($response);
+					$this->queryResultCache->set($cacheIdentifier, $parsedResponse);
 				} else {
 					throw new Tx_Semantic_Domain_Model_Sparql_Exception_SparqlEndpointException('The SPARQL Endpoint is temporarily unavailable.', 1295062323);
 				}
 			}
-
-			//debug($this->queryResult);
+			$this->setVariables($parsedResponse['variables']);
+			$this->setResults($parsedResponse['results']);
+			$this->isInitialized = TRUE;
 		}
 	}
 
@@ -155,76 +141,52 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult extends Tx_Extbase_DomainObjec
 	}
 
 	/**
-	 * Converts the given variable value to the corresponding RDF object
+	 * Setter for variable names
 	 *
-	 * @return 
-	 **/
-	public function convertBoundVariableValue($variable) {
-		switch ($variable['type']) {
-		case 'literal':
-			$value = new Tx_Semantic_Domain_Model_Rdf_Literal($variable['value']); 
-			break;
-		case 'bnode':
-			$value = new Tx_Semantic_Domain_Model_Rdf_BlankNode($variable['value']);
-			break;
-		case 'uri':
-			$value = new Tx_Semantic_Domain_Model_Rdf_Iri($variable['value']);
-			break;
-		default:
-			throw new Tx_Semantic_Exception("The variable type of a SPARQL result doesn't match any RDF element type.'", 1292470296);
-			break;
-		}
-
-		return $value;
-	}
-
-	/**
-	 * Setter for boundVariableNames
-	 *
-	 * @param array $boundVariableNames boundVariableNames
+	 * @param array $variables Set variable names
 	 * @return void
 	 */
-	public function setBoundVariableNames(array $boundVariableNames) {
-		$this->boundVariableNames = $boundVariableNames;
+	public function setVariables(array $variables) {
+		$this->variables = $variables;
 	}
 
 	/**
-	 * Adds a boundVariableName
+	 * Adds a variable name
 	 *
-	 * @param string $boundVariableName boundVariableName
+	 * @param string $boundVariableName A variable name
 	 * @return void
 	 */
-	public function addBoundVariableName($boundVariableName) {
-		$this->boundVariableNames[] = (string) $boundVariableName;
+	public function addVariable($variable) {
+		$this->variables[] = (string) $variable;
 	}
 
 	/**
-	 * Getter for boundVariableNames
+	 * Getter for variables
 	 *
-	 * @return array boundVariableNames
+	 * @return array variables
 	 */
-	public function getBoundVariableNames() {
+	public function getVariables() {
 		$this->initialize();
-		return $this->boundVariableNames;
+		return $this->variables;
 	}
 
 	/**
-	 * Setter for queryResult
+	 * Setter for results
 	 *
-	 * @param string $queryResult queryResult
+	 * @param string $results results
 	 * @return void
 	 */
-	public function setQueryResult($queryResult) {
-		$this->queryResult = $queryResult;
+	public function setResults($results) {
+		$this->results = $results;
 	}
 
 	/**
-	 * Getter for queryResult
+	 * Getter for results
 	 *
-	 * @return string queryResult
+	 * @return string results
 	 */
-	public function getQueryResult() {
-		return $this->queryResult;
+	public function getResults() {
+		return $this->results;
 	}
 
 	/**
@@ -244,11 +206,11 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult extends Tx_Extbase_DomainObjec
 	 * @api
 	 */
 	public function getFirst() {
-		if (is_array($this->queryResult)) {
-			$queryResult = $this->queryResult;
-			reset($queryResult);
+		if (is_array($this->results)) {
+			$results = $this->results;
+			reset($results);
 		}
-		$firstResult = current($queryResult);
+		$firstResult = current($results);
 		if ($firstResult === FALSE) {
 			$firstResult = NULL;
 		}
@@ -262,8 +224,8 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult extends Tx_Extbase_DomainObjec
 	 * @api
 	 */
 	public function count() {
-		if (is_array($this->queryResult)) {
-			return count($this->queryResult);
+		if (is_array($this->results)) {
+			return count($this->results);
 		}
 	}
 
@@ -288,7 +250,7 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult extends Tx_Extbase_DomainObjec
 	 */
 	public function offsetExists($offset) {
 		$this->initialize();
-		return isset($this->queryResult[$offset]);
+		return isset($this->results[$offset]);
 	}
 
 	/**
@@ -298,7 +260,7 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult extends Tx_Extbase_DomainObjec
 	 */
 	public function offsetGet($offset) {
 		$this->initialize();
-		return isset($this->queryResult[$offset]) ? $this->queryResult[$offset] : NULL;
+		return isset($this->results[$offset]) ? $this->results[$offset] : NULL;
 	}
 
 	/**
@@ -311,7 +273,7 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult extends Tx_Extbase_DomainObjec
 	 */
 	public function offsetSet($offset, $value) {
 		$this->initialize();
-		$this->queryResult[$offset] = $value;
+		$this->results[$offset] = $value;
 	}
 
 	/**
@@ -323,7 +285,7 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult extends Tx_Extbase_DomainObjec
 	 */
 	public function offsetUnset($offset) {
 		$this->initialize();
-		unset($this->queryResult[$offset]);
+		unset($this->results[$offset]);
 	}
 
 	/**
@@ -332,7 +294,7 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult extends Tx_Extbase_DomainObjec
 	 */
 	public function current() {
 		$this->initialize();
-		return current($this->queryResult);
+		return current($this->results);
 	}
 
 	/**
@@ -341,7 +303,7 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult extends Tx_Extbase_DomainObjec
 	 */
 	public function key() {
 		$this->initialize();
-		return key($this->queryResult);
+		return key($this->results);
 	}
 
 	/**
@@ -350,7 +312,7 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult extends Tx_Extbase_DomainObjec
 	 */
 	public function next() {
 		$this->initialize();
-		next($this->queryResult);
+		next($this->results);
 	}
 
 	/**
@@ -359,7 +321,7 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult extends Tx_Extbase_DomainObjec
 	 */
 	public function rewind() {
 		$this->initialize();
-		reset($this->queryResult);
+		reset($this->results);
 	}
 
 	/**
@@ -368,7 +330,7 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult extends Tx_Extbase_DomainObjec
 	 */
 	public function valid() {
 		$this->initialize();
-		return current($this->queryResult) !== FALSE;
+		return current($this->results) !== FALSE;
 	}
 
 }

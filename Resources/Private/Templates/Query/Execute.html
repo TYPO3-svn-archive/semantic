@@ -6,22 +6,22 @@
 
 <table class="contenttable contenttable-3">
 	<tr class="tr-even tr-0">
-	<f:for each="{queryResult.boundVariableNames}" as="variableName">
+	<f:for each="{queryResult.variables}" as="variableName">
 	<td>{variableName->s:humanize()}</td>
 	</f:for>
 	</tr>
 
-	<f:for each="{queryResult}" as="singleResult">
+	<f:for each="{queryResult.results}" as="result">
 	<f:cycle values="{0: 'odd', 1: 'even'}" as="zebra">
 		<tr class="tr-{zebra}">
-			<f:for each="{singleResult}" as="binding">
+			<f:for each="{result}" as="boundVariable">
 			<td>
-				<f:if condition="{binding->s:instanceof(className : 'Tx_Semantic_Domain_Model_Rdf_Iri')}">
+				<f:if condition="{boundVariable->s:isOf(type: 'uri')}">
 				<f:then>
-				<f:link.external uri="{binding}">{binding->s:parse()}</f:link.external>
+				<f:link.external uri="{boundVariable.value}">{boundVariable.value->s:parse()}</f:link.external>
 				</f:then>
 				<f:else>
-				{binding->s:parse()}
+				{boundVariable.value->s:parse()}
 				</f:else>
 				</f:if>
 			</td>

@@ -2,7 +2,7 @@
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 201 Jochen Rau <jochen.rau@typoplanet.de>
+ *  (c) 2011 Jochen Rau <jochen.rau@typoplanet.de>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -23,26 +23,9 @@
  ***************************************************************/
 
 /**
- * A view helper
+ * A generic Semantic exception
  */
-class Tx_Semantic_ViewHelpers_InstanceofViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class Tx_Semantic_Domain_Model_Sparql_Exception_QueryResultParserException extends Tx_Extbase_Exception {
 
-	/**
-	 * Checks if the given object is an instance of the given class name
-	 *
-	 * @param string $className The class name
-	 * @param mixed $object The object
-	 * @return boolean TRUE if the given object is an instance of the given class name
-	 */
-	public function render($className, $object = NULL) {
-		if ($object === NULL) {
-			$object = $this->renderChildren();
-		}
-		if (!is_object($object)) {
-			return FALSE;
-		}
-		return $object instanceof $className;
-	}
 }
-
 ?>
