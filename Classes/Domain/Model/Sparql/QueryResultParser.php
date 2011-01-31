@@ -33,7 +33,7 @@
 class Tx_Semantic_Domain_Model_Sparql_QueryResultParser implements Tx_Semantic_Domain_Model_Sparql_QueryResultParserInterface {
 
 	/**
-	 * A resource handler reference of the PHP Extpat parser
+	 * A resource handler reference to the PHP Extpat parser
 	 *
 	 * @var resource
 	 **/
@@ -140,6 +140,7 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResultParser implements Tx_Semantic_D
 		switch ($elementName) {
 			case 'BINDING':
 				$this->currentResult[$this->currentName] = array(
+					'name' => $this->currentName,
 					'value' => $this->currentCharacterData,
 					'type' => $this->currentType
 					);

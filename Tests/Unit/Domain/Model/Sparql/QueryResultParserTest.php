@@ -61,11 +61,11 @@ class Tx_Semantic_Tests_Unit_Domain_Model_Sparql_QueryResultParserTest extends T
 		$expected = array(
 			'variables' => array('x', 'hpage', 'name', 'age', 'mbox', 'friend'),
 			'results' => array(array(
-				'x' => array('value' => 'r2', 'type' => 'bnode'),
-				'hpage'	=> array('value' => 'http://work.example.org/bob/', 'type' => 'uri'),
-				'name' => array('value' => 'Bob', 'type' => 'literal', 'language' => 'en'),
-				'age' => array('value' => '30', 'type' => 'literal', 'datatype' => 'http://www.w3.org/2001/XMLSchema#integer'),
-				'mbox' => array('value' => 'mailto:bob@work.example.org', 'type' => 'uri')
+				'x' => array('name' => 'x', 'value' => 'r2', 'type' => 'bnode'),
+				'hpage'	=> array('name' => 'hpage', 'value' => 'http://work.example.org/bob/', 'type' => 'uri'),
+				'name' => array('name' => 'name', 'value' => 'Bob', 'type' => 'literal', 'language' => 'en'),
+				'age' => array('name' => 'age', 'value' => '30', 'type' => 'literal', 'datatype' => 'http://www.w3.org/2001/XMLSchema#integer'),
+				'mbox' => array('name' => 'mbox', 'value' => 'mailto:bob@work.example.org', 'type' => 'uri')
 				))
 			);
 		$parser = new Tx_Semantic_Domain_Model_Sparql_QueryResultParser();
