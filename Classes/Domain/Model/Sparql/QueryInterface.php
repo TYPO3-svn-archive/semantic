@@ -33,9 +33,95 @@
 interface Tx_Semantic_Domain_Model_Sparql_QueryInterface {
 
 	/**
-	 * Executes the query against the backend and returns the result
+	 * Setter for name
 	 *
-	 * @return Tx_Extbase_Persistence_QueryResultInterface|array The query result object or an array if $this->getQuerySettings()->getReturnRawQueryResult() is TRUE
+	 * @param string $name name
+	 * @return void
+	 * @api
+	 */
+	public function setName($name);
+
+	/**
+	 * Getter for name
+	 *
+	 * @return string name
+	 * @api
+	 */
+	public function getName();
+
+	/**
+	 * Setter for query
+	 *
+	 * @param string $query query
+	 * @return void
+	 * @api
+	 */
+	public function setQuery($query);
+
+	/**
+	 * Getter for query
+	 *
+	 * @return string query
+	 * @api
+	 */
+	public function getQuery();
+
+	/**
+	 * Setter for endpoint
+	 *
+	 * @param Tx_Semantic_Domain_Model_Sparql_Endpoint $endpoint endpoint
+	 * @return void
+	 * @api
+	 */
+	public function setEndpoint(Tx_Semantic_Domain_Model_Sparql_Endpoint $endpoint);
+
+	/**
+	 * Getter for endpoint
+	 *
+	 * @return Tx_Semantic_Domain_Model_Sparql_Endpoint endpoint
+	 * @api
+	 */
+	public function getEndpoint();
+
+	/**
+	 * Setter for namespaces
+	 *
+	 * @param Tx_Extbase_Persistence_ObjectStorage<Tx_Semantic_Domain_Model_Rdf_Namespace> $namespaces namespaces
+	 * @return void
+	 * @api
+	 */
+	public function setNamespaces(Tx_Extbase_Persistence_ObjectStorage $namespaces);
+
+	/**
+	 * Getter for namespaces
+	 *
+	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_Semantic_Domain_Model_Rdf_Namespace> namespaces
+	 * @api
+	 */
+	public function getNamespaces();
+
+	/**
+	 * Adds a Rdf_Namespace
+	 *
+	 * @param Tx_Semantic_Domain_Model_Rdf_Namespace the Rdf_Namespace to be added
+	 * @return void
+	 * @api
+	 */
+	public function addNamespace(Tx_Semantic_Domain_Model_Rdf_Namespace $namespace);
+
+	/**
+	 * Removes a Rdf_Namespace
+	 *
+	 * @param Tx_Semantic_Domain_Model_Rdf_Namespace the Rdf_Namespace to be removed
+	 * @return void
+	 * @api
+	 */
+	public function removeNamespace(Tx_Semantic_Domain_Model_Rdf_Namespace $namespace)	;
+
+	/**
+	 * Executes the query against the SPARQL Endpoint and returns the result
+	 *
+	 * @return Tx_Semantic_Domain_Model_Sparql_QueryResultInterface The query result object
 	 * @api
 	 */
 	public function execute();
