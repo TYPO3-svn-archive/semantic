@@ -18,10 +18,10 @@
 			<td>
 				<f:if condition="{boundVariable->s:isOf(type: 'uri')}">
 				<f:then>
-				<f:link.external uri="{boundVariable.value}">{boundVariable.value->s:parse()}</f:link.external>
+				<f:link.external uri="{boundVariable.value}">{boundVariable.value}</f:link.external>
 				</f:then>
 				<f:else>
-				{boundVariable.value->s:parse()}
+				{boundVariable.value}
 				</f:else>
 				</f:if>
 			</td>
