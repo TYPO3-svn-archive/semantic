@@ -61,13 +61,19 @@ class Tx_Semantic_Domain_Model_Sparql_Query extends Tx_Extbase_DomainObject_Abst
 	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_Semantic_Domain_Model_Rdf_Namespace>
 	 */
 	protected $namespaces;
-	
+
+	/**
+	 * Initializes the object storages.
+	 */
+	public function __construct() {
+		$this->namespaces = new Tx_Extbase_Persistence_ObjectStorage();
+	}
+
 	/**
 	 * @param Tx_Extbase_Object_ObjectManagerInterface $objectManager
 	 * @return void
 	 */
 	public function injectObjectManager(Tx_Extbase_Object_ObjectManagerInterface $objectManager) {
-		$this->namespaces = new Tx_Extbase_Persistence_ObjectStorage();
 		$this->objectManager = $objectManager;
 	}
 
@@ -174,6 +180,7 @@ class Tx_Semantic_Domain_Model_Sparql_Query extends Tx_Extbase_DomainObject_Abst
 	 * @api
 	 */
 	public function execute() {
+		// TODO Use DI here.
 		return new Tx_Semantic_Domain_Model_Sparql_QueryResult($this);
 	}
 
