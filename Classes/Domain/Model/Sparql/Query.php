@@ -67,6 +67,7 @@ class Tx_Semantic_Domain_Model_Sparql_Query extends Tx_Extbase_DomainObject_Abst
 	 * @return void
 	 */
 	public function injectObjectManager(Tx_Extbase_Object_ObjectManagerInterface $objectManager) {
+		$this->namespaces = new Tx_Extbase_Persistence_ObjectStorage();
 		$this->objectManager = $objectManager;
 	}
 
