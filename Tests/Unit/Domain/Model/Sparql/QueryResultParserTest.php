@@ -80,7 +80,7 @@ class Tx_Semantic_Tests_Unit_Domain_Model_Sparql_QueryResultParserTest extends T
 	public function parserThrowsExceptionIfAParsingErrorOccured() {
 		$document = '<foo></bar>';
 		$parser = new Tx_Semantic_Domain_Model_Sparql_QueryResultParser();
-		$result = $parser->parse($document);
+		$parser->parse($document);
 	}
 
 
