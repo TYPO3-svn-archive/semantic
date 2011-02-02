@@ -103,14 +103,14 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult implements Tx_Semantic_Domain_
 
 			$this->initializeCache();
 			$cacheIdentifier = sha1($this->query->getEndpoint()->getIri() . $statement);
-			if ($this->queryResultCache->has($cacheIdentifier)) {
+			if ($this->queryResultCache->has($cacheIdentifier) === TRUE) {
 				$parsedResponse = $this->queryResultCache->get($cacheIdentifier);
 			} else {
 				$status = array();
 				$response = t3lib_div::getURL($this->query->getEndpoint()->getIri() . '?query=' . urlencode($statement), 0, FALSE, $status);
 				if ($status['error'] === 0) {
 					$parsedResponse = $this->queryResultParser->parse($response);
-					$this->queryResultCache->set($cacheIdentifier, $parsedResponse);
+					$this->queryResultCache->set($cacheIdentifier, $parsedResponse, array(), 0);
 				} else {
 					throw new Tx_Semantic_Domain_Model_Sparql_Exception_SparqlEndpointException('The SPARQL Endpoint is temporarily unavailable.', 1295062323);
 				}
