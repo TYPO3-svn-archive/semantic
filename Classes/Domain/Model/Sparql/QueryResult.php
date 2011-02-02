@@ -145,6 +145,7 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult implements Tx_Semantic_Domain_
 	 *
 	 * @param array $variables Set variable names
 	 * @return void
+	 * @api
 	 */
 	public function setVariables(array $variables) {
 		$this->variables = $variables;
@@ -155,6 +156,7 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult implements Tx_Semantic_Domain_
 	 *
 	 * @param string $boundVariableName A variable name
 	 * @return void
+	 * @api
 	 */
 	public function addVariable($variable) {
 		$this->variables[] = (string) $variable;
@@ -164,6 +166,7 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult implements Tx_Semantic_Domain_
 	 * Getter for variables
 	 *
 	 * @return array variables
+	 * @api
 	 */
 	public function getVariables() {
 		$this->initialize();
@@ -175,6 +178,7 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult implements Tx_Semantic_Domain_
 	 *
 	 * @param string $results results
 	 * @return void
+	 * @api
 	 */
 	public function setResults($results) {
 		$this->results = $results;
@@ -184,6 +188,7 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult implements Tx_Semantic_Domain_
 	 * Getter for results
 	 *
 	 * @return string results
+	 * @api
 	 */
 	public function getResults() {
 		return $this->results;
