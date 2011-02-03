@@ -56,7 +56,7 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult implements Tx_Semantic_Domain_
 	protected $queryResultParser;
 
 	/**
-	 * @var t3lib_cache_frontend_VariableFrontend
+	 * @var Tx_Semantic_Domain_Model_Sparql_QueryResultCacheInterface
 	 */
 	protected $queryResultCache;
 
@@ -74,6 +74,7 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult implements Tx_Semantic_Domain_
 		$this->query = $query;
 		$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');
 		$this->queryResultParser = $objectManager->create('Tx_Semantic_Domain_Model_Sparql_QueryResultParser');
+		$this->queryResultCache = $objectManager->create('Tx_Semantic_Domain_Model_Sparql_QueryResultCache');
 	}
 
 	/**
@@ -99,18 +100,15 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult implements Tx_Semantic_Domain_
 				$statement .= 'PREFIX ' . $namespace->getPrefix() . ': <' . $namespace->getIri() . '>';
 			}
 			$statement .= $this->query->getQuery();
-			//debug($statement);
 
-			$this->initializeCache();
-			$cacheIdentifier = sha1($this->query->getEndpoint()->getIri() . $statement);
-			if ($this->queryResultCache->has($cacheIdentifier) === TRUE) {
-				$parsedResponse = $this->queryResultCache->get($cacheIdentifier);
+			if ($this->queryResultCache->hasResultFor($this->query) === TRUE) {
+				$parsedResponse = $this->queryResultCache->getResultFor($this->query);
 			} else {
 				$status = array();
 				$response = t3lib_div::getURL($this->query->getEndpoint()->getIri() . '?query=' . urlencode($statement), 0, FALSE, $status);
 				if ($status['error'] === 0) {
 					$parsedResponse = $this->queryResultParser->parse($response);
-					$this->queryResultCache->set($cacheIdentifier, $parsedResponse, array(), 0);
+					$this->queryResultCache->setFor($this->query, $parsedResponse);
 				} else {
 					throw new Tx_Semantic_Domain_Model_Sparql_Exception_SparqlEndpointException('The SPARQL Endpoint is temporarily unavailable.', 1295062323);
 				}
@@ -118,25 +116,6 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult implements Tx_Semantic_Domain_
 			$this->setVariables($parsedResponse['variables']);
 			$this->setResults($parsedResponse['results']);
 			$this->isInitialized = TRUE;
-		}
-	}
-
-	/**
-	 * Initialize cache instance to be ready to use
-	 *
-	 * @return void
-	 */
-	protected function initializeCache() {
-		t3lib_cache::initializeCachingFramework();
-		try {
-			$this->queryResultCache = $GLOBALS['typo3CacheManager']->getCache('cache_semantic_sparql_queryresult');
-		} catch (t3lib_cache_exception_NoSuchCache $exception) {
-			$this->queryResultCache = $GLOBALS['typo3CacheFactory']->create(
-				'cache_semantic_sparql_queryresult',
-				$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['cache_semantic_sparql_queryresult']['frontend'],
-				$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['cache_semantic_sparql_queryresult']['backend'],
-				$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['cache_semantic_sparql_queryresult']['options']
-			);
 		}
 	}
 

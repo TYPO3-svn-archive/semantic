@@ -5,7 +5,7 @@ if (!defined ('TYPO3_MODE')) {
 
 if (!is_array($TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['cache_semantic_sparql_queryresult'])) {
 	$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['cache_semantic_sparql_queryresult'] = array(
-		'frontend' => 't3lib_cache_frontend_VariableFrontend',
+		'frontend' => 't3lib_cache_frontend_StringFrontend',
 		'backend' => 't3lib_cache_backend_DbBackend',
 		'options' => array(
 			'cacheTable' => 'tx_semantic_cache_sparql_queryresult',

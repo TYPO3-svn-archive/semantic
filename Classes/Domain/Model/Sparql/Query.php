@@ -30,7 +30,7 @@
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class Tx_Semantic_Domain_Model_Sparql_Query extends Tx_Extbase_DomainObject_AbstractEntity implements Tx_Semantic_Domain_Model_Sparql_QueryInterface {
+class Tx_Semantic_Domain_Model_Sparql_Query extends Tx_Extbase_DomainObject_AbstractValueObject implements Tx_Semantic_Domain_Model_Sparql_QueryInterface {
 	
 	/**
 	 * @var Tx_Extbase_Object_ObjectManagerInterface
@@ -75,6 +75,21 @@ class Tx_Semantic_Domain_Model_Sparql_Query extends Tx_Extbase_DomainObject_Abst
 	 */
 	public function injectObjectManager(Tx_Extbase_Object_ObjectManagerInterface $objectManager) {
 		$this->objectManager = $objectManager;
+	}
+
+	/**
+	 * Returns a sha1 hash to identify the the Query. The hash is being built over the properties that affects the result
+	 * of the Query execution; namely the query, endpoint and namespaces property.
+	 *
+	 * @return void
+	 */
+	public function getHash() {
+		$hashSource = $this->getQuery();
+		$hashSource .= $this->getEndpoint()->getIri()->getValue();
+		foreach ($this->getNamespaces() as $namespace) {
+			$hashSource .= $namespace->getPrefix() . $namespace->getIri();
+		}
+		return sha1($hashSource);
 	}
 
 	/**
