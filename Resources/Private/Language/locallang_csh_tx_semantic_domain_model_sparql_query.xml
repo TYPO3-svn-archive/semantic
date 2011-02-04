@@ -8,7 +8,9 @@
     <data type="array">
         <languageKey index="default" type="array">
 			<label index="name.description">Name</label>
-			<label index="query.description">Query</label>
+	        <label index="query.description">Query</label>
+	        <label index="limit.description">Limits the elements in the Query Result</label>
+	        <label index="offset.description">Defines an Offset</label>
 			<label index="endpoint.description">Endpoint</label>
 			<label index="namespaces.description">Namespaces</label>
 		</languageKey>

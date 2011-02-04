@@ -33,6 +33,8 @@
 			<label index="tx_semantic_domain_model_sparql_query">Query</label>
 			<label index="tx_semantic_domain_model_sparql_query.name">Name</label>
 			<label index="tx_semantic_domain_model_sparql_query.query">Query</label>
+			<label index="tx_semantic_domain_model_sparql_query.limit">Limit</label>
+			<label index="tx_semantic_domain_model_sparql_query.offset">Offset</label>
 			<label index="tx_semantic_domain_model_sparql_query.endpoint">Endpoint</label>
 			<label index="tx_semantic_domain_model_sparql_query.namespaces">Namespaces</label>
 		</languageKey>

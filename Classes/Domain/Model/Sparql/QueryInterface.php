@@ -75,6 +75,42 @@ interface Tx_Semantic_Domain_Model_Sparql_QueryInterface {
 	public function getQuery();
 
 	/**
+	 * Sets the maximum size of the result set to limit. Returns $this to allow
+	 * for chaining (fluid interface)
+	 *
+	 * @param integer $limit
+	 * @return Tx_Semantic_Domain_Model_Sparql_QueryInterface
+	 * @api
+	 */
+	public function setLimit($limit);
+
+	/**
+	 * Returns the maximum size of the result set.
+	 *
+	 * @return int The limit
+	 * @api
+	 */
+	public function getLimit();
+
+	/**
+	 * Sets the start offset of the result set to offset. Returns $this to
+	 * allow for chaining (fluid interface)
+	 *
+	 * @param integer $offset
+	 * @return Tx_Semantic_Domain_Model_Sparql_QueryInterface
+	 * @api
+	 */
+	public function setOffset($offset);
+
+	/**
+	 * Returns the start offset of the result set.
+	 *
+	 * @return int The offset
+	 * @api
+	 */
+	public function getOffset();
+
+	/**
 	 * Setter for endpoint
 	 *
 	 * @param Tx_Semantic_Domain_Model_Sparql_Endpoint $endpoint endpoint

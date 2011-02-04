@@ -294,6 +294,8 @@ CREATE TABLE tx_semantic_domain_model_sparql_query (
 	
 	name varchar(255) DEFAULT '' NOT NULL,
 	query text NOT NULL,
+	tx_semantic_limit int(11) unsigned DEFAULT '0' NOT NULL,
+	offset int(11) unsigned DEFAULT '0' NOT NULL,
 	endpoint int(11) unsigned DEFAULT '0',
 	namespaces int(11) unsigned DEFAULT '0' NOT NULL,
 

@@ -11,7 +11,8 @@
 	</f:for>
 	</tr>
 
-	<f:for each="{queryResult.results}" as="result">
+	<f:widget.paginate objects="{queryResult}" as="paginatedResult">
+	<f:for each="{paginatedResult.results}" as="result">
 	<f:cycle values="{0: 'odd', 1: 'even'}" as="zebra">
 		<tr class="tr-{zebra}">
 			<f:for each="{result}" as="boundVariable">
@@ -29,6 +30,7 @@
 		</tr>
 	</f:cycle>
 	</f:for>
+	</f:widget.paginate>
 </table>
 
 </f:section>

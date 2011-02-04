@@ -30,7 +30,7 @@
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class Tx_Semantic_Domain_Model_Sparql_Query extends Tx_Extbase_DomainObject_AbstractValueObject implements Tx_Semantic_Domain_Model_Sparql_QueryInterface {
+class Tx_Semantic_Domain_Model_Sparql_Query extends Tx_Extbase_DomainObject_AbstractEntity implements Tx_Semantic_Domain_Model_Sparql_QueryInterface {
 	
 	/**
 	 * @var Tx_Extbase_Object_ObjectManagerInterface
@@ -49,6 +49,16 @@ class Tx_Semantic_Domain_Model_Sparql_Query extends Tx_Extbase_DomainObject_Abst
 	 * @var string
 	 */
 	protected $query;
+
+	/**
+	 * @var int
+	 */
+	protected $limit;
+
+	/**
+	 * @var int
+	 */
+	protected $offset;
 	
 	/**
 	 * endpoint
@@ -85,7 +95,8 @@ class Tx_Semantic_Domain_Model_Sparql_Query extends Tx_Extbase_DomainObject_Abst
 	 */
 	public function getHash() {
 		$hashSource = $this->getQuery();
-		$hashSource .= $this->getEndpoint()->getIri()->getValue();
+		$hashSource .= $this->getLimit() . ' ' . $this->getOffset();
+		$hashSource .= $this->getEndpoint()->getIri();
 		foreach ($this->getNamespaces() as $namespace) {
 			$hashSource .= $namespace->getPrefix() . $namespace->getIri();
 		}
@@ -128,6 +139,54 @@ class Tx_Semantic_Domain_Model_Sparql_Query extends Tx_Extbase_DomainObject_Abst
 	 */
 	public function getQuery() {
 		return $this->query;
+	}
+
+	/**
+	 * Sets the maximum size of the result set to limit. Returns $this to allow
+	 * for chaining (fluid interface)
+	 *
+	 * @param integer $limit
+	 * @return Tx_Semantic_Domain_Model_Sparql_QueryInterface
+	 * @api
+	 */
+	public function setLimit($limit) {
+		if (!is_int($limit) || $limit < 1) throw new InvalidArgumentException('The limit must be an integer >= 1', 1245071870);
+		$this->limit = $limit;
+		return $this;
+	}
+
+	/**
+	 * Returns the maximum size of the result set to limit.
+	 *
+	 * @param integer
+	 * @api
+	 */
+	public function getLimit() {
+		return $this->limit;
+	}
+
+	/**
+	 * Sets the start offset of the result set to offset. Returns $this to
+	 * allow for chaining (fluid interface)
+	 *
+	 * @param integer $offset
+	 * @return Tx_Semantic_Domain_Model_Sparql_QueryInterface
+	 * @api
+	 */
+	public function setOffset($offset) {
+		if (!is_int($offset) || $offset < 0) throw new InvalidArgumentException('The offset must be a positive integer', 1245071872);
+		$this->offset = $offset;
+		return $this;
+	}
+
+	/**
+	 * Returns the start offset of the result set.
+	 *
+	 * @return integer
+	 * @api
+	 */
+	public function getOffset() {
+		return $this->offset;
 	}
 	
 	/**

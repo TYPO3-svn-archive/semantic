@@ -1,0 +1,13 @@
+config.tx_extbase {
+	persistence{
+		classes {
+			Tx_Semantic_Domain_Model_Sparql_Query {
+				mapping {
+					columns {
+						tx_semantic_limit.mapOnProperty = limit
+					}
+				}
+			}
+		}
+	}
+}

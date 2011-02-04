@@ -35,7 +35,7 @@ tt_content.stdWrap.innerWrap.cObject.default {
 			insertData = 1
 			noTrimWrap= | typeof="|" |
 		}
-	}	
+	}
 }
 
 # Add dc:title property to headings 1-5
@@ -66,6 +66,45 @@ plugin.tx_semantic._CSS_DEFAULT_STYLE (
 	.tx-semantic-pi1 table td {
 		vertical-align:top;
 		padding: .5em .5em .7em .5em !important;
+	}
+
+	.f3-widget-paginator {
+		
+	}
+
+	.f3-widget-paginator {
+		font-family:tahoma;
+		text-align:center;
+	}
+
+	.f3-widget-paginator li {
+		display:block;
+		float:left;
+		font-size:11px;
+		line-height:13px;
+		margin: 2px 6px 2px 0;
+	}
+
+	.f3-widget-paginator li a {
+		background-color:#ffffff;
+		border:1px solid #bbbbbb;
+		color:#303030;
+		display:block;
+		padding:1px 5px 2px 5px;
+		text-decoration:none;
+	}
+
+	.f3-widget-paginator li a:hover, .f3-widget-paginator li a:active{
+		background-color: #bbbbbb;
+		border:1px solid #303030;
+	}
+
+	.f3-widget-paginator li.current {
+		background-color: #303030;
+		border:1px solid #303030;
+		color:#ffffff;
+		font-size:11px;
+		padding:1px 5px 2px 5px;
 	}
 
 	.CodeMirror-wrapping {

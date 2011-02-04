@@ -30,7 +30,7 @@
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class Tx_Semantic_Domain_Model_Sparql_QueryResult implements Tx_Semantic_Domain_Model_Sparql_QueryResultInterface {
+class Tx_Semantic_Domain_Model_Sparql_QueryResult implements Tx_Extbase_Persistence_QueryResultInterface {
 
 	/**
 	 * Names of the bound variable names
@@ -100,6 +100,12 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult implements Tx_Semantic_Domain_
 				$statement .= 'PREFIX ' . $namespace->getPrefix() . ': <' . $namespace->getIri() . '>';
 			}
 			$statement .= $this->query->getQuery();
+			if($this->query->getLimit() > 0) {
+				$statement .= 'LIMIT ' . $this->query->getLimit();
+			}
+			if($this->query->getOffset() > 0) {
+				$statement .= 'OFFSET ' . $this->query->getOffset();
+			}
 
 			if ($this->queryResultCache->hasResultFor($this->query) === TRUE) {
 				$parsedResponse = $this->queryResultCache->getResultFor($this->query);

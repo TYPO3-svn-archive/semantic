@@ -6,10 +6,10 @@ if (!defined ('TYPO3_MODE')) {
 $TCA['tx_semantic_domain_model_sparql_query'] = array(
 	'ctrl' => $TCA['tx_semantic_domain_model_sparql_query']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList'	=> 'name,endpoint,namespaces,query'
+		'showRecordFieldList'	=> 'name,endpoint,namespaces,query,tx_semantic_limit,offset'
 	),
 	'types' => array(
-		'1' => array('showitem'	=> 'name,endpoint,namespaces,query')
+		'1' => array('showitem'	=> 'name,endpoint,namespaces,query,tx_semantic_limit,offset')
 	),
 	'palettes' => array(
 		'1' => array('showitem'	=> '')
@@ -78,6 +78,24 @@ $TCA['tx_semantic_domain_model_sparql_query'] = array(
 				'cols' => 60,
 				'rows' => 25,
 				'eval' => 'trim'
+			)
+		),
+		'tx_semantic_limit' => array(
+			'exclude'	=> 0,
+			'label'		=> 'LLL:EXT:semantic/Resources/Private/Language/locallang_db.xml:tx_semantic_domain_model_sparql_query.limit',
+			'config'	=> array(
+				'type' => 'input',
+				'size' => 10,
+				'eval' => 'trim,integer'
+			)
+		),
+		'offset' => array(
+			'exclude'	=> 0,
+			'label'		=> 'LLL:EXT:semantic/Resources/Private/Language/locallang_db.xml:tx_semantic_domain_model_sparql_query.offset',
+			'config'	=> array(
+				'type' => 'input',
+				'size' => 10,
+				'eval' => 'trim,integer'
 			)
 		),
 		'endpoint' => array(
