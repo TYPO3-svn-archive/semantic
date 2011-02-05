@@ -30,25 +30,7 @@
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-interface Tx_Semantic_Domain_Model_Sparql_QueryResultInterface extends Countable, Iterator, ArrayAccess {
-
-	/**
-	 * Setter for variable names
-	 *
-	 * @param array $variables Set variable names
-	 * @return void
-	 * @api
-	 */
-	public function setVariables(array $variables);
-
-	/**
-	 * Adds a variable name
-	 *
-	 * @param string $boundVariableName A variable name
-	 * @return void
-	 * @api
-	 */
-	public function addVariable($variable);
+interface Tx_Semantic_Domain_Model_Sparql_QueryResultInterface extends Tx_Extbase_Persistence_QueryResultInterface {
 
 	/**
 	 * Getter for variables
@@ -59,35 +41,12 @@ interface Tx_Semantic_Domain_Model_Sparql_QueryResultInterface extends Countable
 	public function getVariables();
 
 	/**
-	 * Setter for results
-	 *
-	 * @param string $results results
-	 * @return void
-	 */
-	public function setResults($results);
-
-	/**
-	 * Getter for results
-	 *
-	 * @return string results
-	 */
-	public function getResults();
-
-	/**
 	 * Returns a clone of the query object
 	 *
 	 * @return Tx_Semantic_Domain_Model_Sparql_QueryInterface
 	 * @api
 	 */
 	public function getQuery();
-
-	/**
-	 * Returns the first object in the result set
-	 *
-	 * @return object
-	 * @api
-	 */
-	public function getFirst();
 	
 }
 ?>

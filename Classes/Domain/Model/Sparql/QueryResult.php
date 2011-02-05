@@ -130,9 +130,8 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult implements Tx_Extbase_Persiste
 	 *
 	 * @param array $variables Set variable names
 	 * @return void
-	 * @api
 	 */
-	public function setVariables(array $variables) {
+	protected function setVariables(array $variables) {
 		$this->variables = $variables;
 	}
 
@@ -141,9 +140,8 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult implements Tx_Extbase_Persiste
 	 *
 	 * @param string $boundVariableName A variable name
 	 * @return void
-	 * @api
 	 */
-	public function addVariable($variable) {
+	protected function addVariable($variable) {
 		$this->variables[] = (string) $variable;
 	}
 
@@ -163,9 +161,8 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult implements Tx_Extbase_Persiste
 	 *
 	 * @param string $results results
 	 * @return void
-	 * @api
 	 */
-	public function setResults($results) {
+	protected function setResults($results) {
 		$this->results = $results;
 	}
 
