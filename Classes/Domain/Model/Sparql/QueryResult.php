@@ -193,9 +193,14 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult implements Tx_Extbase_Persiste
 	 * @api
 	 */
 	public function getFirst() {
-		if (is_array($this->results)) {
+		if (is_array($this->results) && count($this->results) > 0) {
 			$results = $this->results;
 			reset($results);
+		} else {
+			// TODO This has side effects if the query gets executed twice in the request/response cycle.
+			$this->query->setLimit(1);
+			$this->initialize();
+			$results = $this->results;
 		}
 		$firstResult = current($results);
 		if ($firstResult === FALSE) {
