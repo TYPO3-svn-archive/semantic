@@ -17,7 +17,6 @@ if (!is_array($TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['cache_s
 Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,
 	'SparqlPlugin',
-	array('Query' => 'execute'),
 	array('Query' => 'execute')
 );
 
@@ -25,7 +24,7 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,
 	'SparqlContent',
 	array('Query' => 'execute'),
-	array('Query' => 'execute'),
+	array(),
 	Tx_Extbase_Utility_Extension::PLUGIN_TYPE_CONTENT_ELEMENT
 );
 
@@ -50,7 +49,7 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 		'Query' => 'index, show, execute, new, create, edit, update, delete',
 	),
 	array(
-		'Query' => 'execute, create, update, delete',
+		'Query' => 'create, update, delete',
 	)
 );
 
