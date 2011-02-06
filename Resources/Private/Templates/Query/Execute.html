@@ -1,9 +1,50 @@
 {namespace s=Tx_Semantic_ViewHelpers}
+
 <f:layout name="default"/>
 <f:section name="main">
-
 	<f:flashMessages/>
+	<f:render section="{settings.layout}" arguments="{queryResult: queryResult}"/>
+</f:section>
 
+<f:section name="raw">
+	<f:for each="{queryResult.results}" as="result">
+		<f:for each="{result}" as="boundVariable">
+			{boundVariable.value}<br/>
+		</f:for>
+	</f:for>
+</f:section>
+
+
+<f:section name="plainlist">
+	<ol>
+		<f:for each="{queryResult.results}" as="result">
+			<li><ul>
+				<f:for each="{result}" as="boundVariable">
+					<li>
+						{boundVariable.value}
+					</li>
+				</f:for>
+			</ul>
+			</li>
+		</f:for>
+	</ol>
+</f:section>
+
+<f:section name="plaintable">
+	<table>
+		<f:for each="{queryResult.results}" as="result">
+			<tr>
+				<f:for each="{result}" as="boundVariable">
+					<td>
+						{boundVariable.value}
+					</td>
+				</f:for>
+			</tr>
+		</f:for>
+	</table>
+</f:section>
+
+<f:section name="contenttable">
 	<table class="contenttable contenttable-3">
 		<tr class="tr-even tr-0">
 			<f:for each="{queryResult.variables}" as="variableName">
@@ -62,5 +103,4 @@
 			</f:else>
 		</f:if>
 	</table>
-
 </f:section>

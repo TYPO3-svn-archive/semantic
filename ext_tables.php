@@ -22,13 +22,13 @@ if (TYPO3_MODE == 'BE') {
 Tx_Extbase_Utility_Extension::registerPlugin(
 	$_EXTKEY,
 	'SparqlPlugin',
-	'SPARQL Query Result'
+	'Semantic Web Content'
 );
 
 Tx_Extbase_Utility_Extension::registerPlugin(
 	$_EXTKEY,
 	'SparqlContent',
-	'Linked Data'
+	'Semantic Web Content'
 );
 
 Tx_Extbase_Utility_Extension::registerPlugin(
