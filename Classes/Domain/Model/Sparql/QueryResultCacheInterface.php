@@ -47,7 +47,7 @@ interface Tx_Semantic_Domain_Model_Sparql_QueryResultCacheInterface {
 	 * @param	Tx_Semantic_Domain_Model_Sparql_QueryInterface The query which identifies the cached raw query result
 	 * @return	array The cached query result
 	 */
-	public function getResultFor(Tx_Semantic_Domain_Model_Sparql_QueryInterface $query);
+	public function getResultsFor(Tx_Semantic_Domain_Model_Sparql_QueryInterface $query);
 
 	/**
 	 * Checks if a query result for the specified query exists.
@@ -55,7 +55,7 @@ interface Tx_Semantic_Domain_Model_Sparql_QueryResultCacheInterface {
 	 * @param	Tx_Semantic_Domain_Model_Sparql_QueryInterface The query which identifies the cached raw query result
 	 * @return	boolean	TRUE if such an entry exists, FALSE if not
 	 */
-	public function hasResultFor(Tx_Semantic_Domain_Model_Sparql_QueryInterface $query);
+	public function hasResultsFor(Tx_Semantic_Domain_Model_Sparql_QueryInterface $query);
 
 }
 ?>

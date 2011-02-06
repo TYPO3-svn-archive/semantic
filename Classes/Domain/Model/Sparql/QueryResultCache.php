@@ -73,7 +73,7 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResultCache implements Tx_Semantic_Do
 	 * @param	Tx_Semantic_Domain_Model_Sparql_QueryInterface The query which identifies the cached raw query result
 	 * @return	array The cached query result
 	 */
-	public function getResultFor(Tx_Semantic_Domain_Model_Sparql_QueryInterface $query) {
+	public function getResultsFor(Tx_Semantic_Domain_Model_Sparql_QueryInterface $query) {
 		return json_decode($this->cache->get($query->getHash()), TRUE);
 	}
 
@@ -83,7 +83,7 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResultCache implements Tx_Semantic_Do
 	 * @param	Tx_Semantic_Domain_Model_Sparql_QueryInterface The query which identifies the cached raw query result
 	 * @return	boolean	TRUE if such an entry exists, FALSE if not
 	 */
-	public function hasResultFor(Tx_Semantic_Domain_Model_Sparql_QueryInterface $query) {
+	public function hasResultsFor(Tx_Semantic_Domain_Model_Sparql_QueryInterface $query) {
 		return $this->cache->has($query->getHash());
 	}
 

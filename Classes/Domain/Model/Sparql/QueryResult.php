@@ -107,8 +107,8 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult implements Tx_Extbase_Persiste
 				$statement .= 'OFFSET ' . $this->query->getOffset();
 			}
 
-			if ($this->queryResultCache->hasResultFor($this->query) === TRUE) {
-				$parsedResponse = $this->queryResultCache->getResultFor($this->query);
+			if ($this->queryResultCache->hasResultsFor($this->query) === TRUE) {
+				$parsedResponse = $this->queryResultCache->getResultsFor($this->query);
 			} else {
 				$status = array();
 				$response = t3lib_div::getURL($this->query->getEndpoint()->getIri() . '?query=' . urlencode($statement), 0, FALSE, $status);
