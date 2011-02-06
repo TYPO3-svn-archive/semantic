@@ -29,6 +29,20 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	Tx_Extbase_Utility_Extension::PLUGIN_TYPE_CONTENT_ELEMENT
 );
 
+$pluginSignature = strtolower(str_replace(' ', '', ucwords(str_replace('_', ' ', $_EXTKEY)))) . '_sparqlcontent';
+t3lib_extMgm::addPageTSConfig('
+mod.wizards.newContentElement.wizardItems.special {
+    elements.' . $pluginSignature . ' {
+		icon = ' . t3lib_extMgm::extRelPath('semantic') . '/Resources/Public/Icons/sparql.gif
+		title = Semantic Web Content
+		description = The result of a SPARQL Query.
+		tt_content_defValues {
+			CType = ' . $pluginSignature . '
+		}
+    }
+    show := addToList(' . $pluginSignature . ')
+}');
+
 Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,
 	'SparqlAdmin',
