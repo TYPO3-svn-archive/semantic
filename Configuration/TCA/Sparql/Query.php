@@ -106,10 +106,7 @@ $TCA['tx_semantic_domain_model_sparql_query'] = array(
 				'foreign_table' => 'tx_semantic_domain_model_sparql_endpoint',
 				'minitems' => 0,
 				'maxitems' => 1,
-				'appearance' => array(
-					'collapse' => 0,
-					'newRecordLinkPosition' => 'bottom',
-				),
+				'suppress_icons' => 1,
 				'wizards' => array(
 					'_PADDING' => 1,
 					'_VERTICAL' => 0,

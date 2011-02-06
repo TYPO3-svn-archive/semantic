@@ -106,7 +106,6 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult implements Tx_Extbase_Persiste
 			if($this->query->getOffset() > 0) {
 				$statement .= 'OFFSET ' . $this->query->getOffset();
 			}
-
 			if ($this->queryResultCache->hasResultsFor($this->query) === TRUE) {
 				$parsedResponse = $this->queryResultCache->getResultsFor($this->query);
 			} else {
@@ -116,7 +115,7 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult implements Tx_Extbase_Persiste
 					$parsedResponse = $this->queryResultParser->parse($response);
 					$this->queryResultCache->setFor($this->query, $parsedResponse);
 				} else {
-					throw new Tx_Semantic_Domain_Model_Sparql_Exception_SparqlEndpointException('The SPARQL Endpoint is temporarily unavailable.', 1295062323);
+					throw new Tx_Semantic_Domain_Model_Sparql_Exception_SparqlEndpointException('An Error #' . (int)$status['error'] .  'occurred. Message: ' . htmlspecialchars($status['message'] . '.'), 1295062323);
 				}
 			}
 			$this->setVariables($parsedResponse['variables']);

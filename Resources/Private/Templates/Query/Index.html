@@ -6,7 +6,7 @@
 <table>
 	<f:for each="{queries}" as="query">
 		<tr>
-			<td><f:link.action action="show" arguments="{query : query}"> {query.name}</f:link.action></td>
+			<td>{query.name}</td>
 			<td><f:link.action action="execute" arguments="{query : query}">Execute</f:link.action></td>
 			<td><f:link.action action="edit" arguments="{query : query}">Edit</f:link.action></td>
 			<td><f:link.action action="delete" arguments="{query : query}">Delete</f:link.action></td>

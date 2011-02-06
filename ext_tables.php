@@ -21,8 +21,14 @@ if (TYPO3_MODE == 'BE') {
 
 Tx_Extbase_Utility_Extension::registerPlugin(
 	$_EXTKEY,
-	'SparqlQuery',
-	'Execute a Single SPARQL Query'
+	'SparqlPlugin',
+	'SPARQL Query Result'
+);
+
+Tx_Extbase_Utility_Extension::registerPlugin(
+	$_EXTKEY,
+	'SparqlContent',
+	'Linked Data'
 );
 
 Tx_Extbase_Utility_Extension::registerPlugin(
@@ -33,9 +39,11 @@ Tx_Extbase_Utility_Extension::registerPlugin(
 
 t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'Semantic Web Integration');
 
-$TCA['tt_content']['types']['list']['subtypes_addlist'][$_EXTKEY . '_sparqlquery'] = 'pi_flexform';
-t3lib_extMgm::addPiFlexFormValue($_EXTKEY . '_sparqlquery', 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForm/SparqlQuery.xml');
+$TCA['tt_content']['types']['list']['subtypes_addlist'][$_EXTKEY . '_sparqlplugin'] = 'pi_flexform';
+t3lib_extMgm::addPiFlexFormValue($_EXTKEY . '_sparqlplugin', 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForm/QueryOptions.xml');
 
+$TCA['tt_content']['types'][$_EXTKEY . '_sparqlcontent']['showitem']='CType;;4;button;1-1-1, header;;3;;2-2-2, pi_flexform;;;;1-1-1';
+$TCA['tt_content']['columns']['pi_flexform']['config']['ds'][',' . $_EXTKEY . '_sparqlcontent'] = t3lib_div::getURL(t3lib_extMgm::extPath($_EXTKEY) . '/Configuration/FlexForm/QueryOptions.xml');
 
 t3lib_extMgm::addLLrefForTCAdescr('tx_semantic_domain_model_rdf_blanknode', 'EXT:semantic/Resources/Private/Language/locallang_csh_tx_semantic_domain_model_rdf_blanknode.xml');
 t3lib_extMgm::allowTableOnStandardPages('tx_semantic_domain_model_rdf_blanknode');

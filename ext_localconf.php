@@ -14,16 +14,19 @@ if (!is_array($TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['cache_s
 	);
 }
 
+Tx_Extbase_Utility_Extension::configurePlugin(
+	$_EXTKEY,
+	'SparqlPlugin',
+	array('Query' => 'execute'),
+	array('Query' => 'execute')
+);
 
 Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,
-	'SparqlQuery',
-	array(
-		'Query' => 'execute',
-	),
-	array(
-		'Query' => 'execute',
-	)
+	'SparqlContent',
+	array('Query' => 'execute'),
+	array('Query' => 'execute'),
+	Tx_Extbase_Utility_Extension::PLUGIN_TYPE_CONTENT_ELEMENT
 );
 
 Tx_Extbase_Utility_Extension::configurePlugin(
