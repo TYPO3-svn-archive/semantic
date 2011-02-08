@@ -25,7 +25,7 @@ tt_content.stdWrap.innerWrap.cObject.default {
 	12 {
 		10 = TEXT
 		10 {
-			value = {tsfe:baseUrl}resource/content#{field:uid}
+			value = /resource/content/{field:uid}
 			insertData = 1
 			noTrimWrap= | about="|" |
 		}
