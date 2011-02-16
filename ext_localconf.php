@@ -53,4 +53,6 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	)
 );
 
+$TYPO3_CONF_VARS['FE']['eID_include']['rule'] = 'EXT:semantic/Tests/Unit/Rule/ResultsetBuilderTest.php';
+
 ?>
