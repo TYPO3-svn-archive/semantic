@@ -19,11 +19,11 @@ if (TYPO3_MODE == 'BE') {
 	}
 }
 
-Tx_Extbase_Utility_Extension::registerPlugin(
-	$_EXTKEY,
-	'SparqlPlugin',
-	'Semantic Web Content'
-);
+//Tx_Extbase_Utility_Extension::registerPlugin(
+//	$_EXTKEY,
+//	'SparqlPlugin',
+//	'Semantic Web Content'
+//);
 
 Tx_Extbase_Utility_Extension::registerPlugin(
 	$_EXTKEY,
@@ -44,8 +44,107 @@ t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript/Sparql', 'SPARQL
 $TCA['tt_content']['types']['list']['subtypes_addlist'][$_EXTKEY . '_sparqlplugin'] = 'pi_flexform';
 t3lib_extMgm::addPiFlexFormValue($_EXTKEY . '_sparqlplugin', 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForm/QueryOptions.xml');
 
-$TCA['tt_content']['types'][$_EXTKEY . '_sparqlcontent']['showitem']='CType;;4;button;1-1-1, header;;3;;2-2-2, pi_flexform;;;;1-1-1';
-$TCA['tt_content']['columns']['pi_flexform']['config']['ds'][',' . $_EXTKEY . '_sparqlcontent'] = t3lib_div::getURL(t3lib_extMgm::extPath($_EXTKEY) . '/Configuration/FlexForm/QueryOptions.xml');
+//$TCA['tt_content']['types'][$_EXTKEY . '_sparqlcontent']['showitem']='CType;;4;button;1-1-1, header;;3;;2-2-2, pi_flexform;;;;1-1-1';
+//$TCA['tt_content']['columns']['pi_flexform']['config']['ds'][',' . $_EXTKEY . '_sparqlcontent'] = t3lib_div::getURL(t3lib_extMgm::extPath($_EXTKEY) . '/Configuration/FlexForm/QueryOptions.xml');
+
+// Add a field  "exclude this page from parsing" to the table "pages" and "tt_content"
+$tempColumns = array(
+	'tx_semantic_query' => array(
+		'exclude' => 1,
+		'label' => 'LLL:EXT:semantic/Resources/Private/Language/locallang_flex.php:queryoptions.query',
+		'config' => array(
+			'type' => 'select',
+			'foreign_table' => 'tx_semantic_domain_model_sparql_query',
+			'minitems' => 0,
+			'maxitems' => 1,
+			'suppress_icons' => 1,
+			'wizards' => array(
+				'_PADDING' => 1,
+				'_VERTICAL' => 0,
+				'edit' => array(
+					'type' => 'popup',
+					'title' => 'Edit',
+					'script' => 'wizard_edit.php',
+					'icon' => 'edit2.gif',
+					'popup_onlyOpenIfSelected' => 1,
+					'JSopenParams' => 'height=800,width=700,status=0,menubar=0,scrollbars=1',
+				),
+				'add' => Array(
+					'type' => 'script',
+					'title' => 'Create new',
+					'icon' => 'add.gif',
+					'params' => array(
+						'table' => 'tx_semantic_domain_model_sparql_query',
+						'pid' => '###CURRENT_PID###',
+						'setValue' => 'prepend'
+					),
+					'script' => 'wizard_add.php',
+				),
+			),
+		)
+	),
+	'tx_semantic_layout' => array(
+		'exclude' => 1,
+		'label' => 'LLL:EXT:semantic/Resources/Private/Language/locallang_flex.php:queryoptions.layout',
+		'config' => array(
+			'type' => 'select',
+			'items' => array(
+				array('LLL:EXT:semantic/Resources/Private/Language/locallang_flex.php:queryoptions.layout.raw', 'raw'),
+				array('LLL:EXT:semantic/Resources/Private/Language/locallang_flex.php:queryoptions.layout.plainlist', 'plainlist'),
+				array('LLL:EXT:semantic/Resources/Private/Language/locallang_flex.php:queryoptions.layout.plaintable', 'plaintable'),
+				array('LLL:EXT:semantic/Resources/Private/Language/locallang_flex.php:queryoptions.layout.contenttable', 'contenttable'),
+				array('LLL:EXT:semantic/Resources/Private/Language/locallang_flex.php:queryoptions.layout.customroot', 'customroot'),
+				array('LLL:EXT:semantic/Resources/Private/Language/locallang_flex.php:queryoptions.layout.customfile', 'customfile'),
+				array('LLL:EXT:semantic/Resources/Private/Language/locallang_flex.php:queryoptions.layout.customcode', 'customcode'),
+			)
+		)
+	),
+	'tx_semantic_customfile' => array(
+		'exclude' => 1,
+		'l10n_mode' => 'mergeIfNotBlank',
+		'label' => 'LLL:EXT:semantic/Resources/Private/Language/locallang_flex.php:queryoptions.customfile',
+		'config' => array(
+			'type' => 'input',
+			'size' => 40,
+		)
+	),
+	'tx_semantic_paginate' => array(
+		'exclude' => 1,
+		'label' => 'LLL:EXT:semantic/Resources/Private/Language/locallang_flex.php:queryoptions.paginate',
+		'config' => array(
+			'type' => 'check',
+			'default' => 1
+		)
+	),
+);
+t3lib_div::loadTCA('tt_content');
+t3lib_extMgm::addTCAcolumns('tt_content', $tempColumns, 1);
+
+$TCA['tt_content']['ctrl']['requestUpdate'] .= ',tx_semantic_layout';
+$TCA['tt_content']['types']['semantic_sparqlcontent'] = array(
+	'showitem' => 'CType;;4;button;1-1-1, header;;3;;2-2-2, tx_semantic_query;;;;1-1-1, tx_semantic_layout, tx_semantic_paginate',
+	'subtype_value_field' => 'tx_semantic_layout',
+	'subtypes_addlist' => array(
+		'customroot' => 'tx_semantic_customfile;LLL:EXT:semantic/Resources/Private/Language/locallang_flex.php:queryoptions.customroot',
+		'customfile' => 'tx_semantic_customfile;LLL:EXT:semantic/Resources/Private/Language/locallang_flex.php:queryoptions.customfile',
+		'customcode' => 'bodytext;LLL:EXT:semantic/Resources/Private/Language/locallang_flex.php:queryoptions.customcode;;nowrap',
+	),
+);
+//$TCA['tt_content']['palettes'] = array(
+//	'semantic_sparqlcontent_palette_1' => array(
+//		'showitem' => 'tx_semantic_customfile;LLL:EXT:semantic/Resources/Private/Language/locallang_flex.php:queryoptions.customroot, --linebreak--, tx_semantic_paginate',
+//		'canNotCollapse' => 1,
+//	),
+//	'semantic_sparqlcontent_palette_2' => array(
+//		'showitem' => '',
+//		'canNotCollapse' => 1,
+//	),
+//	'semantic_sparqlcontent_palette_3' => array(
+//		'showitem' => 'bodytext;LLL:EXT:semantic/Resources/Private/Language/locallang_flex.php:queryoptions.customcode;;nowrap, --linebreak--, tx_semantic_paginate',
+//		'canNotCollapse' => 1,
+//	),
+//);
+//t3lib_extMgm::addToAllTCAtypes('tt_content', 'tx_semantic_query;;;;1-1-1, tx_semantic_layout, tx_semantic_customfile, tx_semantic_customcode, tx_semantic_paginate');
 
 t3lib_extMgm::addLLrefForTCAdescr('tx_semantic_domain_model_rdf_blanknode', 'EXT:semantic/Resources/Private/Language/locallang_csh_tx_semantic_domain_model_rdf_blanknode.xml');
 t3lib_extMgm::allowTableOnStandardPages('tx_semantic_domain_model_rdf_blanknode');

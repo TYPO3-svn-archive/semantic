@@ -18,7 +18,15 @@ CREATE TABLE tx_semantic_cache_sparql_queryresult_tags (
 	KEY cache_tag (tag)
 ) ENGINE=InnoDB;
 
-
+#
+# Additional fields in tt_content
+#
+CREATE TABLE tt_content (
+	tx_semantic_query tinyint(3) DEFAULT '0' NOT NULL,
+	tx_semantic_layout varchar(255) DEFAULT '' NOT NULL,
+	tx_semantic_customfile text,
+	tx_semantic_paginate tinyint(4) unsigned DEFAULT '0' NOT NULL,
+);
 
 CREATE TABLE tx_semantic_domain_model_rdf_blanknode (
 	uid int(11) NOT NULL auto_increment,
@@ -200,7 +208,7 @@ CREATE TABLE tx_semantic_domain_model_rdf_graph (
 CREATE TABLE tx_semantic_domain_model_rdf_statement (
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
-	
+
 	
 	subject int(11) unsigned DEFAULT '0',
 	predicate int(11) unsigned DEFAULT '0',
@@ -261,8 +269,8 @@ CREATE TABLE tx_semantic_domain_model_rdf_plainliteral (
 CREATE TABLE tx_semantic_domain_model_rdf_typedliteral (
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
-	
-	
+
+
 	datatype varchar(255) DEFAULT '' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
@@ -290,8 +298,8 @@ CREATE TABLE tx_semantic_domain_model_rdf_typedliteral (
 CREATE TABLE tx_semantic_domain_model_sparql_query (
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
-	
-	
+
+
 	name varchar(255) DEFAULT '' NOT NULL,
 	query text NOT NULL,
 	tx_semantic_limit int(11) unsigned DEFAULT '0' NOT NULL,

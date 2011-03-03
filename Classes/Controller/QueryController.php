@@ -57,7 +57,7 @@ class Tx_Semantic_Controller_QueryController extends Tx_Extbase_MVC_Controller_A
 		$this->endpointRepository = t3lib_div::makeInstance('Tx_Semantic_Domain_Repository_Sparql_EndpointRepository');
 		$this->namespaceRepository = t3lib_div::makeInstance('Tx_Semantic_Domain_Repository_Rdf_NamespaceRepository');
 	}
-	
+
 
 	/**
 	 * Displays all Queries
@@ -74,22 +74,6 @@ class Tx_Semantic_Controller_QueryController extends Tx_Extbase_MVC_Controller_A
 	 */
 	public function showAction(Tx_Semantic_Domain_Model_Sparql_Query $query) {
 		$this->view->assign('query', $query);
-	}
-
-	/**
-	 * Executes a SparqlQuery
-	 *
-	 * @param Tx_Semantic_Domain_Model_Sparql_Query $query the Sparql Query to display
-	 */
-	public function executeAction(Tx_Semantic_Domain_Model_Sparql_Query $query = NULL) {
-		if ($query === NULL) {
-			$query = $this->queryRepository->findByUid($this->settings['query']);
-			if ($query === NULL) {
-				return '';
-			}
-		}
-		$queryResult = $query->execute();
-		$this->view->assign('queryResult', $queryResult);
 	}
 
 	/**

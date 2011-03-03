@@ -17,8 +17,13 @@ This Template is responsible for creating a single view for a domain object
 		<td>{query.query}</td>
 	</tr>
 </table>
-<f:link.action action="edit" arguments="{query : query}">Edit</f:link.action>
-<f:link.action action="delete" arguments="{query : query}">Delete</f:link.action>
 
-<f:link.action action="index">Back to listing</f:link.action>
+<p>
+	<f:link.action action="render" arguments="{query : query}">Execute</f:link.action><br />
+	<f:link.action action="edit" arguments="{query : query}">Edit</f:link.action><br />
+	<f:link.action action="delete" arguments="{query : query}">Delete</f:link.action>
+</p>
+
+<p><f:link.action action="index">Back to listing</f:link.action></p>
+
 </f:section>

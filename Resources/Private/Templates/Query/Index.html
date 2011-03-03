@@ -7,7 +7,7 @@
 	<f:for each="{queries}" as="query">
 		<tr>
 			<td>{query.name}</td>
-			<td><f:link.action action="execute" arguments="{query : query}">Execute</f:link.action></td>
+			<td><f:link.action controller="Content" action="render" arguments="{query : query}">Execute</f:link.action></td>
 			<td><f:link.action action="edit" arguments="{query : query}">Edit</f:link.action></td>
 			<td><f:link.action action="delete" arguments="{query : query}">Delete</f:link.action></td>
 		</tr>
