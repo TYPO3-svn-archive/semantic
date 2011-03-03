@@ -37,7 +37,9 @@ Tx_Extbase_Utility_Extension::registerPlugin(
 	'SPARQL Query Admin'
 );
 
-t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'Semantic Web Integration');
+t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'Basic Settings');
+t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript/Rdfa', 'RDFa');
+t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript/Sparql', 'SPARQL Client');
 
 $TCA['tt_content']['types']['list']['subtypes_addlist'][$_EXTKEY . '_sparqlplugin'] = 'pi_flexform';
 t3lib_extMgm::addPiFlexFormValue($_EXTKEY . '_sparqlplugin', 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForm/QueryOptions.xml');
