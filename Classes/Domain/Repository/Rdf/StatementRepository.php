@@ -30,5 +30,26 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
 class Tx_Semantic_Domain_Repository_Rdf_StatementRepository extends Tx_Extbase_Persistence_Repository {
+
+	public function find($subject = NULL, $predicate = NULL, $object = NULL, $context = NULL) {
+		$query = $this->createQuery();
+		$constraints = array();
+		if ($subject !== NULL) {
+			$query->equals('subject', $subject);
+		}
+		if ($predicate !== NULL) {
+			$query->equals('predicate', $predicate);
+		}
+		if ($object !== NULL) {
+			$query->equals('object', $object);
+		}
+		if ($context !== NULL) {
+			$query->equals('context', $context);
+		}
+		$query->matching($query->logicalAnd($constraints));
+		$query->getQuerySettings()->setReturnRawQueryResult(TRUE);
+		$statements = $query->execute();
+		return $statements;
+	}
 }
 ?>

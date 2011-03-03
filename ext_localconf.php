@@ -16,8 +16,10 @@ if (!is_array($TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['cache_s
 
 //Tx_Extbase_Utility_Extension::configurePlugin(
 //	$_EXTKEY,
-//	'SparqlPlugin',
-//	array('Query' => 'render')
+//	'Statements',
+//	array(
+//		'Statement' => 'index,show,new,create,edit,update,delete',
+//	)
 //);
 
 Tx_Extbase_Utility_Extension::configurePlugin(
@@ -47,9 +49,10 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	'SparqlAdmin',
 	array(
 		'Query' => 'index, show, render, new, create, edit, update, delete',
+		'Content' => 'render'
 	),
 	array(
-		'Query' => 'create, update, delete',
+		'Query' => 'create, update, delete'
 	)
 );
 

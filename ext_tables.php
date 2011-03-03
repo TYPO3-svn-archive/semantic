@@ -19,11 +19,11 @@ if (TYPO3_MODE == 'BE') {
 	}
 }
 
-//Tx_Extbase_Utility_Extension::registerPlugin(
-//	$_EXTKEY,
-//	'SparqlPlugin',
-//	'Semantic Web Content'
-//);
+Tx_Extbase_Utility_Extension::registerPlugin(
+	$_EXTKEY,
+	'Statements',
+	'Statements Admin'
+);
 
 Tx_Extbase_Utility_Extension::registerPlugin(
 	$_EXTKEY,
