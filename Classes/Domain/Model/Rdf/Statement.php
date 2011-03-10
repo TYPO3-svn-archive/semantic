@@ -56,19 +56,16 @@ class Tx_Semantic_Domain_Model_Rdf_Statement extends Tx_Extbase_DomainObject_Abs
 	 */
 	protected $context;
 	
-	public function __construct($subject, $predicate, $object, $context) {
-		if (is_string($subject)) {
-			if ($this->isIri($subject)) {
-				//$subject = $this->objectManager->create('Tx_Semantic_Domain_Model_Rdf_Iri', $subject);
-			} else {
-				//$subject = $this->objectManager->create('Tx_Semantic_Domain_Model_Rdf_BlankNode', $subject);
-			}
-		}
-		if ($subject instanceof Tx_Semantic_Domain_Model_Rdf_SubjectInterface) {
-			$this->subject = $subject;
-		} else {
-			throw new Tx_Semantic_Exception('The given subject must implement the Tx_Semantic_Domain_Model_Rdf_SubjectInterface.', 1292555734);
-		}
+	public function __construct(
+		Tx_Semantic_Domain_Model_Rdf_SubjectInterface $subject,
+		Tx_Semantic_Domain_Model_Rdf_PredicateInterface $predicate,
+		Tx_Semantic_Domain_Model_Rdf_ObjectInterface $object,
+		Tx_Semantic_Domain_Model_Rdf_Iri $context) {
+		
+		$this->subject = $subject;
+		$this->predicate = $predicate;
+		$this->object = $object;
+		$this->context = $context;
 	}
 
 	/**
@@ -146,6 +143,6 @@ class Tx_Semantic_Domain_Model_Rdf_Statement extends Tx_Extbase_DomainObject_Abs
 	public function getContext() {
 		return $this->context;
 	}
-	
+
 }
 ?>
