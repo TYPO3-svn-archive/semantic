@@ -91,6 +91,8 @@ class Tx_Semantic_Domain_Model_Sparql_Query extends Tx_Extbase_DomainObject_Abst
 	 * Returns a sha1 hash to identify the the Query. The hash is being built over the properties that affects the result
 	 * of the Query execution; namely the query, endpoint and namespaces property.
 	 *
+	 * This method is far from being perfect. A better generic algorithm should being built into Extbase.
+	 *
 	 * @return void
 	 */
 	public function getHash() {
