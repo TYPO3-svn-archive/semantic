@@ -158,10 +158,6 @@ $TCA['tx_semantic_domain_model_sparql_query'] = array(
 				'autoSizeMax' => 30,
 				'minitems' => 0,
 				'maxitems' => 999999,
-				'appearance' => array(
-					'collapse' => 0,
-					'newRecordLinkPosition' => 'bottom',
-				),
 				'wizards' => array(
 					'_PADDING' => 1,
 					'_VERTICAL' => 0,
@@ -179,7 +175,6 @@ $TCA['tx_semantic_domain_model_sparql_query'] = array(
 						'icon' => 'add.gif',
 						'params' => array(
 							'table'=>'tx_semantic_domain_model_rdf_namespace',
-							'pid' => '###CURRENT_PID###',
 							'setValue' => 'prepend'
 						),
 						'script' => 'wizard_add.php',

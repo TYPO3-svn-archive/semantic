@@ -147,6 +147,7 @@ $TCA['tx_semantic_domain_model_rdf_namespace'] = array(
 		'label'						=> 'prefix',
 		'label_alt'                 => 'iri',
 		'label_alt_force'           => TRUE,
+		'rootLevel'                 => 1,
 		'delete'					=> 'deleted',
 		'enablecolumns'				=> array(
 			'disabled'		=> 'hidden'
