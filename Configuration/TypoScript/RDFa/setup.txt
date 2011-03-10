@@ -1,3 +1,7 @@
+## These settings are subject to change. The defined namespaces should reflect the default profile of the W3C working
+## group as it is proposed. The template is by now an proof of concept. But it works quite nicely ;-).
+## In the end, we are able to annotate content even for TYPO3 3.8.
+
 # Set the doctype and add common namespaces
 config.doctype = xhtml+rdfa_10
 config.namespaces {

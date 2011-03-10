@@ -14,14 +14,6 @@ if (!is_array($TYPO3_CONF_VARS['SYS']['caching']['cacheConfigurations']['cache_s
 	);
 }
 
-//Tx_Extbase_Utility_Extension::configurePlugin(
-//	$_EXTKEY,
-//	'Statements',
-//	array(
-//		'Statement' => 'index,show,new,create,edit,update,delete',
-//	)
-//);
-
 Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY,
 	'SparqlContent',

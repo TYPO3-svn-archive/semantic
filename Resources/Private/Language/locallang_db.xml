@@ -6,30 +6,14 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
-			<label index="tx_semantic_domain_model_rdf_blanknode">Blank Node</label>
-			<label index="tx_semantic_domain_model_rdf_blanknode.identifier">Identifier</label>
 			<label index="tx_semantic_domain_model_rdf_iri">Iri</label>
 			<label index="tx_semantic_domain_model_rdf_iri.value">Value</label>
-			<label index="tx_semantic_domain_model_rdf_literal">Literal</label>
-			<label index="tx_semantic_domain_model_rdf_literal.value">Value</label>
 			<label index="tx_semantic_domain_model_sparql_endpoint">Endpoint</label>
 			<label index="tx_semantic_domain_model_sparql_endpoint.name">Name</label>
 			<label index="tx_semantic_domain_model_sparql_endpoint.iri">Iri</label>
 			<label index="tx_semantic_domain_model_rdf_namespace">Namespace</label>
 			<label index="tx_semantic_domain_model_rdf_namespace.prefix">Prefix</label>
 			<label index="tx_semantic_domain_model_rdf_namespace.iri">Iri</label>
-			<label index="tx_semantic_domain_model_rdf_graph">Graph</label>
-			<label index="tx_semantic_domain_model_rdf_graph.name">Name</label>
-			<label index="tx_semantic_domain_model_rdf_graph.statement">Statement</label>
-			<label index="tx_semantic_domain_model_rdf_statement">Statement</label>
-			<label index="tx_semantic_domain_model_rdf_statement.subject">Subject</label>
-			<label index="tx_semantic_domain_model_rdf_statement.predicate">Predicate</label>
-			<label index="tx_semantic_domain_model_rdf_statement.object">Object</label>
-			<label index="tx_semantic_domain_model_rdf_statement.context">Context</label>
-			<label index="tx_semantic_domain_model_rdf_plainliteral">Plain Literal</label>
-			<label index="tx_semantic_domain_model_rdf_plainliteral.language">Language</label>
-			<label index="tx_semantic_domain_model_rdf_typedliteral">Typed Literal</label>
-			<label index="tx_semantic_domain_model_rdf_typedliteral.datatype">Datatype</label>
 			<label index="tx_semantic_domain_model_sparql_query">Query</label>
 			<label index="tx_semantic_domain_model_sparql_query.name">Name</label>
 			<label index="tx_semantic_domain_model_sparql_query.query">Query</label>
@@ -37,6 +21,19 @@
 			<label index="tx_semantic_domain_model_sparql_query.offset">Offset</label>
 			<label index="tx_semantic_domain_model_sparql_query.endpoint">Endpoint</label>
 			<label index="tx_semantic_domain_model_sparql_query.namespaces">Namespaces</label>
+			<label index="tt_content.tx_semantic_query">Select a Query</label>
+			<label index="tt_content.tx_semantic_layout">Select a Layout</label>
+			<label index="tt_content.tx_semantic_layout.raw">Raw</label>
+			<label index="tt_content.tx_semantic_layout.plainlist">Plain List</label>
+			<label index="tt_content.tx_semantic_layout.plaintable">Plain Table</label>
+			<label index="tt_content.tx_semantic_layout.contenttable">Content Table</label>
+			<label index="tt_content.tx_semantic_layout.customroot">Custom Template Root Path</label>
+			<label index="tt_content.tx_semantic_layout.customfile">Custom Template File</label>
+			<label index="tt_content.tx_semantic_layout.customcode">Custom Template Code</label>
+			<label index="tt_content.tx_semantic_customroot">Custom Template Root Path</label>
+			<label index="tt_content.tx_semantic_customfile">Custom Template Path and File Name</label>
+			<label index="tt_content.bodytext">Template Code</label>
+			<label index="tt_content.tx_semantic_paginate">Paginate Query Result</label>
 		</languageKey>
 	</data>
 </T3locallang>

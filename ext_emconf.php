@@ -11,7 +11,7 @@
 
 $EM_CONF[$_EXTKEY] = array(
 	'title' => 'Semantic Web Integration',
-	'description' => 'This extension provides several components to consume and expose data of/to the Linked Data cloud.',
+	'description' => 'This extension provides components to consume and expose data of/to the Linked Data cloud.',
 	'category' => 'plugin',
 	'author' => 'Jochen Rau',
 	'author_email' => 'jochen.rau@typoplanet.de',

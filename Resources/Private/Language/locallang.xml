@@ -6,8 +6,6 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
-			<label index="tx_semantic_domain_model_rdf_blanknode">Blank Node</label>
-			<label index="tx_semantic_domain_model_rdf_blanknode.identifier">Identifier</label>
 			<label index="tx_semantic_domain_model_rdf_iri">Iri</label>
 			<label index="tx_semantic_domain_model_rdf_iri.value">The uri string representation.</label>
 			<label index="tx_semantic_domain_model_rdf_literal">Literal</label>
@@ -18,18 +16,6 @@
 			<label index="tx_semantic_domain_model_rdf_namespace">Namespace</label>
 			<label index="tx_semantic_domain_model_rdf_namespace.prefix">The prefix of the namespace.</label>
 			<label index="tx_semantic_domain_model_rdf_namespace.iri">iri</label>
-			<label index="tx_semantic_domain_model_rdf_graph">Rdf_Graph</label>
-			<label index="tx_semantic_domain_model_rdf_graph.name">name</label>
-			<label index="tx_semantic_domain_model_rdf_graph.statement">statement</label>
-			<label index="tx_semantic_domain_model_rdf_statement">This is a triple of subject, predicate, and object. A context is optional.</label>
-			<label index="tx_semantic_domain_model_rdf_statement.subject">subject</label>
-			<label index="tx_semantic_domain_model_rdf_statement.predicate">predicate</label>
-			<label index="tx_semantic_domain_model_rdf_statement.object">object</label>
-			<label index="tx_semantic_domain_model_rdf_statement.context">context</label>
-			<label index="tx_semantic_domain_model_rdf_plainliteral">Rdf_PlainLiteral</label>
-			<label index="tx_semantic_domain_model_rdf_plainliteral.language">language</label>
-			<label index="tx_semantic_domain_model_rdf_typedliteral">Rdf_TypedLiteral</label>
-			<label index="tx_semantic_domain_model_rdf_typedliteral.datatype">datatype</label>
 			<label index="tx_semantic_domain_model_sparql_query">SPARQL Query</label>
 			<label index="tx_semantic_domain_model_sparql_query.name">Name</label>
 			<label index="tx_semantic_domain_model_sparql_query.query">Query Body</label>
