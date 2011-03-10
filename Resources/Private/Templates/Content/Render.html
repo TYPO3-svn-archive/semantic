@@ -3,13 +3,13 @@
 <f:layout name="default"/>
 <f:section name="main">
 	<f:flashMessages/>
-	<f:render section="{settings.layout}" arguments="{queryResult: queryResult}"/>
+	<f:render section="{settings.layout}" arguments="{query: query}"/>
 </f:section>
 
 <f:section name="raw">
-	<f:for each="{queryResult.results}" as="result">
-		<f:for each="{result}" as="boundVariable">
-			{boundVariable.value}<br/>
+	<f:for each="{query.results}" as="result">
+		<f:for each="{result}" as="variable">
+			{variable.value}<br/>
 		</f:for>
 	</f:for>
 </f:section>
@@ -17,11 +17,11 @@
 
 <f:section name="plainlist">
 	<ol>
-		<f:for each="{queryResult.results}" as="result">
+		<f:for each="{query.results}" as="result">
 			<li><ul>
-				<f:for each="{result}" as="boundVariable">
+				<f:for each="{result}" as="variable">
 					<li>
-						{boundVariable.value}
+						{variable.value}
 					</li>
 				</f:for>
 			</ul>
@@ -32,11 +32,11 @@
 
 <f:section name="plaintable">
 	<table>
-		<f:for each="{queryResult.results}" as="result">
+		<f:for each="{query.results}" as="result">
 			<tr>
-				<f:for each="{result}" as="boundVariable">
+				<f:for each="{result}" as="variable">
 					<td>
-						{boundVariable.value}
+						{variable.value}
 					</td>
 				</f:for>
 			</tr>
@@ -45,62 +45,62 @@
 </f:section>
 
 <f:section name="contenttable">
-	<table class="contenttable contenttable-3">
-		<tr class="tr-even tr-0">
-			<f:for each="{queryResult.variables}" as="variableName">
-				<td>
-					<f:translate key="{variableName}" default="{variableName->s:humanize()}"/>
-				</td>
-			</f:for>
-		</tr>
+<table class="contenttable contenttable-3">
+<tr class="tr-even tr-0">
+	<f:for each="{query.variables}" as="variable">
+		<td>
+			<f:translate key="{variable}" default="{variable->s:humanize()}"/>
+		</td>
+	</f:for>
+</tr>
 
-		<f:if condition="{settings.paginate}">
-			<f:then>
-				<f:widget.paginate objects="{queryResult}" as="paginatedResult">
-					<f:for each="{paginatedResult.results}" as="result">
-						<f:cycle values="{0: 'odd', 1: 'even'}" as="zebra">
-							<tr class="tr-{zebra}">
-								<f:for each="{result}" as="boundVariable">
-									<td>
-										<f:if condition="{boundVariable->s:isOf(type: 'uri')}">
-											<f:then>
-												<f:link.external uri="{boundVariable.value}">
-													{boundVariable.value}
-												</f:link.external>
-											</f:then>
-											<f:else>
-												{boundVariable.value}
-											</f:else>
-										</f:if>
-									</td>
-								</f:for>
-							</tr>
-						</f:cycle>
+<f:if condition="{settings.paginate}">
+	<f:then>
+		<f:widget.paginate objects="{query}" as="paginatedQuery">
+			<f:for each="{paginatedQuery.results}" as="result">
+				<f:cycle values="{0: 'odd', 1: 'even'}" as="zebra">
+					<tr class="tr-{zebra}">
+						<f:for each="{result}" as="variable">
+							<td>
+								<f:if condition="{variable->s:isOf(type: 'uri')}">
+									<f:then>
+										<f:link.external uri="{variable.value}">
+											{variable.value}
+										</f:link.external>
+									</f:then>
+									<f:else>
+										{variable.value}
+									</f:else>
+								</f:if>
+							</td>
+						</f:for>
+					</tr>
+				</f:cycle>
+			</f:for>
+		</f:widget.paginate>
+	</f:then>
+	<f:else>
+		<f:for each="{query.results}" as="result">
+			<f:cycle values="{0: 'odd', 1: 'even'}" as="zebra">
+				<tr class="tr-{zebra}">
+					<f:for each="{result}" as="variable">
+						<td>
+							<f:if condition="{variable->s:isOf(type: 'uri')}">
+								<f:then>
+									<f:link.external uri="{variable.value}">
+										{variable.value}
+									</f:link.external>
+								</f:then>
+								<f:else>
+									{variable.value}
+								</f:else>
+							</f:if>
+						</td>
 					</f:for>
-				</f:widget.paginate>
-			</f:then>
-			<f:else>
-				<f:for each="{queryResult.results}" as="result">
-					<f:cycle values="{0: 'odd', 1: 'even'}" as="zebra">
-						<tr class="tr-{zebra}">
-							<f:for each="{result}" as="boundVariable">
-								<td>
-									<f:if condition="{boundVariable->s:isOf(type: 'uri')}">
-										<f:then>
-											<f:link.external uri="{boundVariable.value}">
-												{boundVariable.value}
-											</f:link.external>
-										</f:then>
-										<f:else>
-											{boundVariable.value}
-										</f:else>
-									</f:if>
-								</td>
-							</f:for>
-						</tr>
-					</f:cycle>
-				</f:for>
-			</f:else>
-		</f:if>
-	</table>
+				</tr>
+			</f:cycle>
+		</f:for>
+	</f:else>
+</f:if>
+</table>
 </f:section>

@@ -115,7 +115,7 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult implements Tx_Extbase_Persiste
 					$parsedResponse = $this->queryResultParser->parse($response);
 					$this->queryResultCache->setFor($this->query, $parsedResponse);
 				} else {
-					throw new Tx_Semantic_Domain_Model_Sparql_Exception_SparqlEndpointException('An Error #' . (int)$status['error'] .  'occurred. Message: ' . htmlspecialchars($status['message'] . '.'), 1295062323);
+					throw new Tx_Semantic_Domain_Model_Sparql_Exception_SparqlEndpointException('An Error #' . (int)$status['error'] .  ' occurred. Message: ' . htmlspecialchars($status['message'] . '.'), 1295062323);
 				}
 			}
 			$this->setVariables($parsedResponse['variables']);

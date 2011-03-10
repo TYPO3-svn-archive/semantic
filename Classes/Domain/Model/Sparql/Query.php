@@ -254,7 +254,6 @@ class Tx_Semantic_Domain_Model_Sparql_Query extends Tx_Extbase_DomainObject_Abst
 	 * @api
 	 */
 	public function execute() {
-		// TODO Use DI here.
 		return new Tx_Semantic_Domain_Model_Sparql_QueryResult($this);
 	}
 

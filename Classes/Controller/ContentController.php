@@ -31,7 +31,33 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
 class Tx_Semantic_Controller_ContentController extends Tx_Extbase_MVC_Controller_ActionController {
-	
+
+	/**
+	 * These constants designate how a custom template code is loaded by the controller.
+	 * custromroot => The controller expects a root path to the templates.
+	 * customfile => The controller loads a single template file.
+	 * customcode => The controller takes the bodytext of the content element as template code.
+	 */
+	const LAYOUT_CUSTOMROOT = 'customroot';
+	const LAYOUT_CUSTOMFILE = 'customfile';
+	const LAYOUT_CUSTOMCODE = 'customcode';
+
+	/**
+	 * The current view, as resolved by resolveView()
+	 *
+	 * @var Tx_Semantic_View_ContentView
+	 * @api
+	 */
+	protected $view = NULL;
+
+	/**
+	 * Pattern after which the view object name is built if no Fluid template
+	 * is found.
+	 * @var string
+	 * @api
+	 */
+	protected $viewObjectNamePattern = 'Tx_Semantic_View_ContentView';
+
 	/**
 	 * @var Tx_Semantic_Domain_Repository_Sparql_QueryRepository
 	 */
@@ -55,7 +81,15 @@ class Tx_Semantic_Controller_ContentController extends Tx_Extbase_MVC_Controller
 		$contentObjectData = $this->configurationManager->getContentObject()->data;
 		$this->settings['query'] = !isset($this->settings['query']) ? intval($contentObjectData['tx_semantic_query']) : intval($this->settings['query']);
 		$this->settings['layout'] = !isset($this->settings['layout']) ? $contentObjectData['tx_semantic_layout'] : $this->settings['layout'];
-//		$this->settings['templateCode'] = !isset($this->settings['templateCode'])strlen($this->settings['templateCode']) > 0 ? $contentObjectData['bodytext'] : '';
+		if ($this->settings['layout'] === self::LAYOUT_CUSTOMCODE) {
+			$templateCode = !isset($this->settings['templateCode']) ? $contentObjectData['bodytext'] : $this->settings['templateCode'];
+			$this->settings['templateCode'] = '
+				{namespace s=Tx_Semantic_ViewHelpers}
+				<f:layout name="default"/>
+				<f:section name="main">
+					' . $templateCode . '
+				</f:section>';
+		}
 		$this->settings['paginate'] = !isset($this->settings['paginate']) ? (bool)$contentObjectData['tx_semantic_paginate'] : (bool)$this->settings['paginate'];
 	}
 	
@@ -75,8 +109,14 @@ class Tx_Semantic_Controller_ContentController extends Tx_Extbase_MVC_Controller
 				return '';
 			}
 		}
-		$queryResult = $query->execute();
-		$this->view->assign('queryResult', $queryResult);
+		$this->view->setTemplateSource($this->settings['templateCode']);
+		try {
+			$this->view->assign('query', $query->execute());
+			$content = $this->view->render(); // The query gets executed lazily during render time. Thus, we include the render() method.
+		} catch (Tx_Semantic_Domain_Model_Sparql_Exception_SparqlEndpointException $exception){
+			$content = '';
+		}
+		return $content;
 	}
 
 }

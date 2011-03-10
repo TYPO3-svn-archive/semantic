@@ -9,7 +9,7 @@ $TCA['tx_semantic_domain_model_sparql_query'] = array(
 		'showRecordFieldList'	=> 'name,endpoint,namespaces,query,tx_semantic_limit,offset'
 	),
 	'types' => array(
-		'1' => array('showitem'	=> 'name,endpoint,namespaces,query,tx_semantic_limit,offset')
+		'1' => array('showitem'	=> 'name,endpoint,namespaces,query;;;nowrap:wizards[t3editor],tx_semantic_limit,offset')
 	),
 	'palettes' => array(
 		'1' => array('showitem'	=> '')
@@ -77,7 +77,22 @@ $TCA['tx_semantic_domain_model_sparql_query'] = array(
 				'type' => 'text',
 				'cols' => 60,
 				'rows' => 25,
-				'eval' => 'trim'
+				'eval' => 'trim',
+				'wizards' => array(
+					'_PADDING' => 4,
+					'_VALIGN' => 'middle',
+					't3editor' => array(
+						'enableByTypeConfig' => 1,
+						'type' => 'userFunc',
+						'userFunc' => 'EXT:t3editor/classes/class.tx_t3editor_tceforms_wizard.php:tx_t3editor_tceforms_wizard->main',
+						'title' => 't3editor',
+						'icon' => 'wizard_table.gif',
+						'script' => 'wizard_table.php',
+						'params' => array(
+							'format' => 'sparql',
+						),
+					),
+				),
 			)
 		),
 		'tx_semantic_limit' => array(

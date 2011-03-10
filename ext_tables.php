@@ -93,8 +93,8 @@ $tempColumns = array(
 				array('LLL:EXT:semantic/Resources/Private/Language/locallang_flex.php:queryoptions.layout.plainlist', 'plainlist'),
 				array('LLL:EXT:semantic/Resources/Private/Language/locallang_flex.php:queryoptions.layout.plaintable', 'plaintable'),
 				array('LLL:EXT:semantic/Resources/Private/Language/locallang_flex.php:queryoptions.layout.contenttable', 'contenttable'),
-				array('LLL:EXT:semantic/Resources/Private/Language/locallang_flex.php:queryoptions.layout.customroot', 'customroot'),
-				array('LLL:EXT:semantic/Resources/Private/Language/locallang_flex.php:queryoptions.layout.customfile', 'customfile'),
+//				array('LLL:EXT:semantic/Resources/Private/Language/locallang_flex.php:queryoptions.layout.customroot', 'customroot'),
+//				array('LLL:EXT:semantic/Resources/Private/Language/locallang_flex.php:queryoptions.layout.customfile', 'customfile'),
 				array('LLL:EXT:semantic/Resources/Private/Language/locallang_flex.php:queryoptions.layout.customcode', 'customcode'),
 			)
 		)
@@ -127,24 +127,9 @@ $TCA['tt_content']['types']['semantic_sparqlcontent'] = array(
 	'subtypes_addlist' => array(
 		'customroot' => 'tx_semantic_customfile;LLL:EXT:semantic/Resources/Private/Language/locallang_flex.php:queryoptions.customroot',
 		'customfile' => 'tx_semantic_customfile;LLL:EXT:semantic/Resources/Private/Language/locallang_flex.php:queryoptions.customfile',
-		'customcode' => 'bodytext;LLL:EXT:semantic/Resources/Private/Language/locallang_flex.php:queryoptions.customcode;;nowrap',
+		'customcode' => 'bodytext;LLL:EXT:semantic/Resources/Private/Language/locallang_flex.php:queryoptions.customcode;;nowrap:wizards[t3editor]',
 	),
 );
-//$TCA['tt_content']['palettes'] = array(
-//	'semantic_sparqlcontent_palette_1' => array(
-//		'showitem' => 'tx_semantic_customfile;LLL:EXT:semantic/Resources/Private/Language/locallang_flex.php:queryoptions.customroot, --linebreak--, tx_semantic_paginate',
-//		'canNotCollapse' => 1,
-//	),
-//	'semantic_sparqlcontent_palette_2' => array(
-//		'showitem' => '',
-//		'canNotCollapse' => 1,
-//	),
-//	'semantic_sparqlcontent_palette_3' => array(
-//		'showitem' => 'bodytext;LLL:EXT:semantic/Resources/Private/Language/locallang_flex.php:queryoptions.customcode;;nowrap, --linebreak--, tx_semantic_paginate',
-//		'canNotCollapse' => 1,
-//	),
-//);
-//t3lib_extMgm::addToAllTCAtypes('tt_content', 'tx_semantic_query;;;;1-1-1, tx_semantic_layout, tx_semantic_customfile, tx_semantic_customcode, tx_semantic_paginate');
 
 t3lib_extMgm::addLLrefForTCAdescr('tx_semantic_domain_model_rdf_blanknode', 'EXT:semantic/Resources/Private/Language/locallang_csh_tx_semantic_domain_model_rdf_blanknode.xml');
 t3lib_extMgm::allowTableOnStandardPages('tx_semantic_domain_model_rdf_blanknode');
