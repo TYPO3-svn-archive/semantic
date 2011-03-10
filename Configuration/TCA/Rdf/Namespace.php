@@ -74,14 +74,9 @@ $TCA['tx_semantic_domain_model_rdf_namespace'] = array(
 			'exclude'	=> 0,
 			'label'		=> 'LLL:EXT:semantic/Resources/Private/Language/locallang_db.xml:tx_semantic_domain_model_rdf_namespace.iri',
 			'config'	=> array(
-				'type' => 'inline',
-				'foreign_table' => 'tx_semantic_domain_model_rdf_iri',
-				'minitems' => 0,
-				'maxitems' => 1,
-				'appearance' => array(
-					'collapse' => 0,
-					'newRecordLinkPosition' => 'bottom',
-				),
+				'type' => 'input',
+				'size' => 30,
+				'eval' => 'trim,required'
 			)
 		),
 	),

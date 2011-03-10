@@ -41,7 +41,7 @@ class Tx_Semantic_Domain_Model_Sparql_Endpoint extends Tx_Extbase_DomainObject_A
 	
 	/**
 	 * iri
-	 * @var Tx_Semantic_Domain_Model_Rdf_Iri
+	 * @var string
 	 */
 	protected $iri;
 	
@@ -67,17 +67,17 @@ class Tx_Semantic_Domain_Model_Sparql_Endpoint extends Tx_Extbase_DomainObject_A
 	/**
 	 * Setter for iri
 	 *
-	 * @param Tx_Semantic_Domain_Model_Rdf_Iri $iri iri
+	 * @param string $iri iri
 	 * @return void
 	 */
-	public function setIri(Tx_Semantic_Domain_Model_Rdf_Iri $iri) {
-		$this->iri = $iri;
+	public function setIri($iri) {
+		$this->iri = (string) $iri;
 	}
 
 	/**
 	 * Getter for iri
 	 *
-	 * @return Tx_Semantic_Domain_Model_Rdf_Iri iri
+	 * @return string iri
 	 */
 	public function getIri() {
 		return $this->iri;

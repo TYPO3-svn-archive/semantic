@@ -6,8 +6,6 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
-			<label index="tx_semantic_domain_model_rdf_iri">Iri</label>
-			<label index="tx_semantic_domain_model_rdf_iri.value">Value</label>
 			<label index="tx_semantic_domain_model_sparql_endpoint">Endpoint</label>
 			<label index="tx_semantic_domain_model_sparql_endpoint.name">Name</label>
 			<label index="tx_semantic_domain_model_sparql_endpoint.iri">Iri</label>

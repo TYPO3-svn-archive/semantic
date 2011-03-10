@@ -6,16 +6,14 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
-			<label index="tx_semantic_domain_model_rdf_iri">Iri</label>
-			<label index="tx_semantic_domain_model_rdf_iri.value">The uri string representation.</label>
 			<label index="tx_semantic_domain_model_rdf_literal">Literal</label>
 			<label index="tx_semantic_domain_model_rdf_literal.value">The literal value.</label>
 			<label index="tx_semantic_domain_model_sparql_endpoint">SPARQL endpoint</label>
 			<label index="tx_semantic_domain_model_sparql_endpoint.name">The name of the endpoint.</label>
-			<label index="tx_semantic_domain_model_sparql_endpoint.iri">iri</label>
+			<label index="tx_semantic_domain_model_sparql_endpoint.iri">The uri string representation.</label>
 			<label index="tx_semantic_domain_model_rdf_namespace">Namespace</label>
 			<label index="tx_semantic_domain_model_rdf_namespace.prefix">The prefix of the namespace.</label>
-			<label index="tx_semantic_domain_model_rdf_namespace.iri">iri</label>
+			<label index="tx_semantic_domain_model_rdf_namespace.iri">The uri string representation.</label>
 			<label index="tx_semantic_domain_model_sparql_query">SPARQL Query</label>
 			<label index="tx_semantic_domain_model_sparql_query.name">Name</label>
 			<label index="tx_semantic_domain_model_sparql_query.query">Query Body</label>

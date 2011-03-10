@@ -119,40 +119,14 @@ $TCA['tt_content']['types']['semantic_sparqlcontent'] = array(
 	),
 );
 
-t3lib_extMgm::addLLrefForTCAdescr('tx_semantic_domain_model_rdf_iri', 'EXT:semantic/Resources/Private/Language/locallang_csh_tx_semantic_domain_model_rdf_iri.xml');
-t3lib_extMgm::allowTableOnStandardPages('tx_semantic_domain_model_rdf_iri');
-$TCA['tx_semantic_domain_model_rdf_iri'] = array(
-	'ctrl' => array(
-		'title'						=> 'LLL:EXT:semantic/Resources/Private/Language/locallang_db.xml:tx_semantic_domain_model_rdf_iri',
-		'label'						=> 'value',
-		'tstamp'					=> 'tstamp',
-		'crdate'					=> 'crdate',
-		'versioningWS'				=> 2,
-		'versioning_followPages'	=> TRUE,
-		'origUid'					=> 't3_origuid',
-		'languageField'				=> 'sys_language_uid',
-		'transOrigPointerField'		=> 'l18n_parent',
-		'transOrigDiffSourceField'	=> 'l18n_diffsource',
-		'delete'					=> 'deleted',
-		'enablecolumns'				=> array(
-			'disabled'		=> 'hidden'
-		),
-		'dynamicConfigFile'			=> t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/TCA/Rdf/Iri.php',
-		'iconfile'					=> t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_semantic_domain_model_rdf_iri.gif'
-	)
-);
-
 t3lib_extMgm::addLLrefForTCAdescr('tx_semantic_domain_model_sparql_endpoint', 'EXT:semantic/Resources/Private/Language/locallang_csh_tx_semantic_domain_model_sparql_endpoint.xml');
 t3lib_extMgm::allowTableOnStandardPages('tx_semantic_domain_model_sparql_endpoint');
 $TCA['tx_semantic_domain_model_sparql_endpoint'] = array(
 	'ctrl' => array(
 		'title'						=> 'LLL:EXT:semantic/Resources/Private/Language/locallang_db.xml:tx_semantic_domain_model_sparql_endpoint',
 		'label'						=> 'name',
-		'tstamp'					=> 'tstamp',
-		'crdate'					=> 'crdate',
-		'versioningWS'				=> 2,
-		'versioning_followPages'	=> TRUE,
-		'origUid'					=> 't3_origuid',
+		'label_alt'                 => 'iri',
+		'label_alt_force'           => TRUE,
 		'languageField'				=> 'sys_language_uid',
 		'transOrigPointerField'		=> 'l18n_parent',
 		'transOrigDiffSourceField'	=> 'l18n_diffsource',
@@ -171,11 +145,8 @@ $TCA['tx_semantic_domain_model_rdf_namespace'] = array(
 	'ctrl' => array(
 		'title'						=> 'LLL:EXT:semantic/Resources/Private/Language/locallang_db.xml:tx_semantic_domain_model_rdf_namespace',
 		'label'						=> 'prefix',
-		'tstamp'					=> 'tstamp',
-		'crdate'					=> 'crdate',
-		'versioningWS'				=> 2,
-		'versioning_followPages'	=> TRUE,
-		'origUid'					=> 't3_origuid',
+		'label_alt'                 => 'iri',
+		'label_alt_force'           => TRUE,
 		'delete'					=> 'deleted',
 		'enablecolumns'				=> array(
 			'disabled'		=> 'hidden'
