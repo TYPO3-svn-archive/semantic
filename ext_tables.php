@@ -115,9 +115,14 @@ $TCA['tt_content']['types']['semantic_sparqlcontent'] = array(
 	'subtypes_addlist' => array(
 		'customroot' => 'tx_semantic_customfile;LLL:EXT:semantic/Resources/Private/Language/locallang_db.php:tt_content.tx_semantic_customroot',
 		'customfile' => 'tx_semantic_customfile;LLL:EXT:semantic/Resources/Private/Language/locallang_db.php:tt_content.tx_semantic_customfile',
-		'customcode' => 'bodytext;LLL:EXT:semantic/Resources/Private/Language/locallang_db.php:tt_content.bodytext;;nowrap:wizards[t3editor]',
 	),
 );
+
+if (version_compare(t3lib_extMgm::getExtensionVersion('t3editor'), '1.5.0', '>=')) {
+	$TCA['tt_content']['types']['semantic_sparqlcontent']['subtypes_addlist']['customcode'] = 'bodytext;LLL:EXT:semantic/Resources/Private/Language/locallang_db.php:tt_content.bodytext;;nowrap:wizards[t3editor]';
+} else {
+	$TCA['tt_content']['types']['semantic_sparqlcontent']['subtypes_addlist']['customcode'] = 'bodytext;LLL:EXT:semantic/Resources/Private/Language/locallang_db.php:tt_content.bodytext;;nowrap';
+}
 
 t3lib_extMgm::addLLrefForTCAdescr('tx_semantic_domain_model_sparql_endpoint', 'EXT:semantic/Resources/Private/Language/locallang_csh_tx_semantic_domain_model_sparql_endpoint.xml');
 t3lib_extMgm::allowTableOnStandardPages('tx_semantic_domain_model_sparql_endpoint');
