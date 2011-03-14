@@ -19,7 +19,7 @@
 			<label index="tx_semantic_domain_model_sparql_query.offset">Offset</label>
 			<label index="tx_semantic_domain_model_sparql_query.endpoint">Endpoint</label>
 			<label index="tx_semantic_domain_model_sparql_query.namespaces">Namespaces</label>
-			<label index="tt_content.tx_semantic_query">Select a Query</label>
+			<label index="tt_content.tx_semantic_query">Select a Subtype</label>
 			<label index="tt_content.tx_semantic_layout">Select a Layout</label>
 			<label index="tt_content.tx_semantic_layout.raw">Raw</label>
 			<label index="tt_content.tx_semantic_layout.plainlist">Plain List</label>

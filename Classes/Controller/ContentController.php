@@ -79,18 +79,15 @@ class Tx_Semantic_Controller_ContentController extends Tx_Extbase_MVC_Controller
 
 	protected function initializeRenderAction() {
 		$contentObjectData = $this->configurationManager->getContentObject()->data;
-		$this->settings['query'] = !isset($this->settings['query']) ? intval($contentObjectData['tx_semantic_query']) : intval($this->settings['query']);
-		$this->settings['layout'] = !isset($this->settings['layout']) ? $contentObjectData['tx_semantic_layout'] : $this->settings['layout'];
-		if ($this->settings['layout'] === self::LAYOUT_CUSTOMCODE) {
-			$templateCode = !isset($this->settings['templateCode']) ? $contentObjectData['bodytext'] : $this->settings['templateCode'];
-			$this->settings['templateCode'] = '
-				{namespace s=Tx_Semantic_ViewHelpers}
-				<f:layout name="default"/>
-				<f:section name="main">
-					' . $templateCode . '
-				</f:section>';
-		}
-		$this->settings['paginate'] = !isset($this->settings['paginate']) ? (bool)$contentObjectData['tx_semantic_paginate'] : (bool)$this->settings['paginate'];
+		$contentObjectSettings = array(
+			'query' => $contentObjectData['tx_semantic_query'],
+			'layout' => $contentObjectData['tx_semantic_layout'],
+			'templateCode' => '{namespace s=Tx_Semantic_ViewHelpers}<f:layout name="default"/><f:section name="main">'
+					. $contentObjectData['bodytext']
+					. '</f:section>',
+			'paginate' => $contentObjectData['tx_semantic_paginate']
+		);
+		$this->settings = t3lib_div::array_merge_recursive_overrule($this->settings, $contentObjectSettings, 0, FALSE);
 	}
 	
 	/**
@@ -102,14 +99,14 @@ class Tx_Semantic_Controller_ContentController extends Tx_Extbase_MVC_Controller
 		if ($query === NULL) {
 			if (isset($this->settings['query'])) {
 				$query = $this->queryRepository->findByUid(intval($this->settings['query']));
-			} elseif (isset($this->contentObjectData['tx_semantic_query']) && !empty($this->contentObjectData['tx_semantic_query'])) {
-				$query = $this->queryRepository->findByUid(intval($this->contentObjectData['tx_semantic_query']));
 			}
 			if ($query === NULL) {
 				return '';
 			}
 		}
-		$this->view->setTemplateSource($this->settings['templateCode']);
+		if ($this->settings['layout'] === self::LAYOUT_CUSTOMCODE) {
+			$this->view->setTemplateSource($this->settings['templateCode']);
+		}
 		try {
 			$this->view->assign('query', $query->execute());
 			$content = $this->view->render(); // The query gets executed lazily during render time. Thus, we include the render() method.

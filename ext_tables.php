@@ -84,7 +84,8 @@ $tempColumns = array(
 //				array('LLL:EXT:semantic/Resources/Private/Language/locallang_db.php:tt_content.tx_semantic_layout.customroot', 'customroot'),
 //				array('LLL:EXT:semantic/Resources/Private/Language/locallang_db.php:tt_content.tx_semantic_layout.customfile', 'customfile'),
 				array('LLL:EXT:semantic/Resources/Private/Language/locallang_db.php:tt_content.tx_semantic_layout.customcode', 'customcode'),
-			)
+			),
+			'default' => 'contenttable'
 		)
 	),
 	'tx_semantic_customfile' => array(
