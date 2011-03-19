@@ -48,4 +48,6 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	)
 );
 
+$TYPO3_CONF_VARS['FE']['eID_include']['store'] = 'EXT:semantic/Tests/Unit/Statement/StoreTest.php';
+
 ?>
