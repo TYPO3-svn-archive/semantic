@@ -1,0 +1,49 @@
+Title:  Users Manual EXT:semantic
+Author: Jochen Rau
+Date:   March, 18 2011
+
+# EXT:semantic Users Manual
+
+## What does it do?
+
+This extension enables you to consume and expose data of/to the Linked Data cloud within yout TYPO3 installation. If you are not familiar with the conceptional ideas behind the Semantic Web you might want to read the [Wikipedia article](http://en.wikipedia.org/wiki/Semantic_Web) first.
+
+By now the extension provides the following features:
+
+- a SPARQL Content Element where an editor selects a SPARQL query to be executed and chooses an appropriate layout,
+- an administrator plugin to write and test SPARQL queries in the front-end,
+- code highlighting for the SPARQL queries and Fluid templates (front-end and back-end, if EXT:t3editor >=1.5.1 is available),
+- a query result cache (a result gets cached and is available even if the SPARQL endpoint is offline), and
+- a default set of RDF namespaces (according to the upcoming default profile specification of the W3C).
+
+For a list of planned features visit the [product backlog](http://forge.typo3.org/rb/master_backlogs/extension-semantic) on our project site.
+
+## Installation
+
+1.  Install the extension in the extension manager. The default profile namespaces are automatically imported (recommended). if you don't want to overwrite existing namespaces, uncheck the checkbox.
+2.  Include the static template(s) of the extension to your TypoScript template. There are two static templates:
+	- the SPARQL Client template
+	- the RDFa template
+3.  Add a new Query to a SysFolder. Example:
+	- Name it "Literature about PHP".
+	- Save it.
+	- Add a new SPARQL Endpoint by clicking on the "+".
+	- Name the Endpoint "Bibliographica"
+	- Fill in the following IRI: http://bnb.bibliographica.org/sparql.
+	- Save and close.
+
+4.  Insert a new content element called "Linked Data" (e.g. by using the Content Wizard)
+5.  Load the page
+
+## What's next?
+
+- You might want to add the SPARQL Admin Plugin on a access restricted page of your choice.
+- Learn about the [Resource Description Framework](http://rdfabout.com/intro/?section=contents).
+- Learn how to write more complex [SPARQL Queries](http://www.cambridgesemantics.com/2008/09/sparql-by-example/).
+- Contribute to the project by testing and writing code or documentation.
+- Have some great ideas and share them.
+
+## Known limitations
+
+- The extension is limited to SELECT queries by now. We plan to support also ASK, CONSTRUCT, etc. in one of the upcoming versions.
+- Although the SPARQL Content Element is stable to be used, the underlying structure may change in the future. Thus, if you use the Query object in your own extension programmatically, you might have to adapt your code in the future.

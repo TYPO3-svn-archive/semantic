@@ -39,7 +39,7 @@ INSERT INTO `tx_semantic_domain_model_rdf_namespace` VALUES (20,0,'dc','http://p
 INSERT INTO `tx_semantic_domain_model_rdf_namespace` VALUES (21,0,'dcterms','http://purl.org/dc/terms/',0,0);
 INSERT INTO `tx_semantic_domain_model_rdf_namespace` VALUES (22,0,'dbr','http://dbpedia.org/resource/',0,0);
 INSERT INTO `tx_semantic_domain_model_rdf_namespace` VALUES (23,0,'dbp','http://dbpedia.org/property/',0,0);
-INSERT INTO `tx_semantic_domain_model_rdf_namespace` VALUES (24,0,'dbp-owl','http://dbpedia.org/ontology/',0,0);
+INSERT INTO `tx_semantic_domain_model_rdf_namespace` VALUES (24,0,'dbo','http://dbpedia.org/ontology/',0,0);
 INSERT INTO `tx_semantic_domain_model_rdf_namespace` VALUES (25,0,'foaf','http://xmlns.com/foaf/0.1/',0,0);
 INSERT INTO `tx_semantic_domain_model_rdf_namespace` VALUES (26,0,'geo','http://www.w3.org/2003/01/geo/wgs84_pos#',0,0);
 INSERT INTO `tx_semantic_domain_model_rdf_namespace` VALUES (27,0,'gr','http://purl.org/goodrelations/v1#',0,0);
