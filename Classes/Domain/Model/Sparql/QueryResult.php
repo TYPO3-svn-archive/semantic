@@ -97,14 +97,14 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult implements Tx_Extbase_Persiste
 			$this->results = array();
 			$statement = '';
 			foreach ($this->query->getNamespaces() as $namespace) {
-				$statement .= 'PREFIX ' . $namespace->getPrefix() . ': <' . $namespace->getIri() . '>';
+				$statement .= 'PREFIX ' . $namespace->getPrefix() . ': <' . $namespace->getIri() . '>' . PHP_EOL;
 			}
-			$statement .= $this->query->getQuery();
+			$statement .= $this->query->getQuery() . PHP_EOL;
 			if($this->query->getLimit() > 0) {
-				$statement .= 'LIMIT ' . $this->query->getLimit();
+				$statement .= 'LIMIT ' . $this->query->getLimit() . PHP_EOL;
 			}
 			if($this->query->getOffset() > 0) {
-				$statement .= 'OFFSET ' . $this->query->getOffset();
+				$statement .= 'OFFSET ' . $this->query->getOffset() . PHP_EOL;
 			}
 			if ($this->queryResultCache->hasResultsFor($this->query) === TRUE) {
 				$parsedResponse = $this->queryResultCache->getResultsFor($this->query);
@@ -172,6 +172,7 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult implements Tx_Extbase_Persiste
 	 * @api
 	 */
 	public function getResults() {
+		$this->initialize();
 		return $this->results;
 	}
 
