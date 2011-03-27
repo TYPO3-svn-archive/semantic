@@ -3,11 +3,11 @@
 <f:layout name="default"/>
 <f:section name="main">
 	<f:flashMessages/>
-	<f:render section="{settings.layout}" arguments="{query: query}"/>
+	<f:render section="{settings.layout}" arguments="{results: results}"/>
 </f:section>
 
 <f:section name="raw">
-	<f:for each="{query.results}" as="result">
+	<f:for each="{results}" as="result">
 		<f:for each="{result}" as="variable">
 			{variable.value}<br/>
 		</f:for>
@@ -17,7 +17,7 @@
 
 <f:section name="plainlist">
 	<ol>
-		<f:for each="{query.results}" as="result">
+		<f:for each="{results}" as="result">
 			<li><ul>
 				<f:for each="{result}" as="variable">
 					<li>
@@ -32,7 +32,7 @@
 
 <f:section name="plaintable">
 	<table>
-		<f:for each="{query.results}" as="result">
+		<f:for each="{results}" as="result">
 			<tr>
 				<f:for each="{result}" as="variable">
 					<td>
@@ -47,7 +47,7 @@
 <f:section name="contenttable">
 <table class="contenttable contenttable-3">
 <tr class="tr-even tr-0">
-	<f:for each="{query.variables}" as="variable">
+	<f:for each="{results.variables}" as="variable">
 		<td>
 			<f:translate key="{variable}" default="{variable->s:humanize()}"/>
 		</td>
@@ -56,8 +56,8 @@
 
 <f:if condition="{settings.paginate}">
 	<f:then>
-		<f:widget.paginate objects="{query}" as="paginatedQuery">
-			<f:for each="{paginatedQuery.results}" as="result">
+		<f:widget.paginate objects="{results}" as="paginatedResults">
+			<f:for each="{paginatedResults}" as="result">
 				<f:cycle values="{0: 'odd', 1: 'even'}" as="zebra">
 					<tr class="tr-{zebra}">
 						<f:for each="{result}" as="variable">
@@ -80,7 +80,7 @@
 		</f:widget.paginate>
 	</f:then>
 	<f:else>
-		<f:for each="{query.results}" as="result">
+		<f:for each="{results}" as="result">
 			<f:cycle values="{0: 'odd', 1: 'even'}" as="zebra">
 				<tr class="tr-{zebra}">
 					<f:for each="{result}" as="variable">

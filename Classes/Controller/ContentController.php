@@ -108,7 +108,7 @@ class Tx_Semantic_Controller_ContentController extends Tx_Extbase_MVC_Controller
 			$this->view->setTemplateSource($this->settings['templateCode']);
 		}
 		try {
-			$this->view->assign('query', $query->execute());
+			$this->view->assign('results', $query->execute());
 			$content = $this->view->render(); // The query gets executed lazily during render time. Thus, we include the render() method.
 		} catch (Tx_Semantic_Domain_Model_Sparql_Exception_SparqlEndpointException $exception){
 			$content = '';
