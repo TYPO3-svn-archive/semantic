@@ -48,7 +48,7 @@ class Tx_Semantic_Domain_Model_Sparql_Query extends Tx_Extbase_DomainObject_Abst
 	 * query
 	 * @var string
 	 */
-	protected $query;
+	protected $body;
 
 	/**
 	 * @var int
@@ -96,7 +96,7 @@ class Tx_Semantic_Domain_Model_Sparql_Query extends Tx_Extbase_DomainObject_Abst
 	 * @return void
 	 */
 	public function getHash() {
-		$hashSource = $this->getQuery();
+		$hashSource = $this->getBody();
 		$hashSource .= $this->getLimit() . ' ' . $this->getOffset();
 		$hashSource .= $this->getEndpoint()->getIri();
 		foreach ($this->getNamespaces() as $namespace) {
@@ -125,22 +125,22 @@ class Tx_Semantic_Domain_Model_Sparql_Query extends Tx_Extbase_DomainObject_Abst
 	}
 	
 	/**
-	 * Setter for query
+	 * Setter for query body
 	 *
-	 * @param string $query query
+	 * @param string $body query body
 	 * @return void
 	 */
-	public function setQuery($query) {
-		$this->query = $query;
+	public function setBody($body) {
+		$this->body = $body;
 	}
 
 	/**
 	 * Getter for query
 	 *
-	 * @return string query
+	 * @return string body
 	 */
-	public function getQuery() {
-		return $this->query;
+	public function getBody() {
+		return $this->body;
 	}
 
 	/**

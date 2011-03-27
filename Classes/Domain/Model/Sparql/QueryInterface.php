@@ -64,7 +64,7 @@ interface Tx_Semantic_Domain_Model_Sparql_QueryInterface {
 	 * @return void
 	 * @api
 	 */
-	public function setQuery($query);
+	public function setBody($query);
 
 	/**
 	 * Getter for query
@@ -72,7 +72,7 @@ interface Tx_Semantic_Domain_Model_Sparql_QueryInterface {
 	 * @return string query
 	 * @api
 	 */
-	public function getQuery();
+	public function getBody();
 
 	/**
 	 * Sets the maximum size of the result set to limit. Returns $this to allow

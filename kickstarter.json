@@ -842,7 +842,7 @@
 						"propertyDescription":"",
 						"propertyIsExcludeField":false,
 						"propertyIsRequired":false,
-						"propertyName":"query",
+						"propertyName":"body",
 						"propertyType":"Text",
 						"uid":"6de843fad583ff7d2e370ffe6683ab21"
 					}

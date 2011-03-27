@@ -6,10 +6,10 @@ if (!defined ('TYPO3_MODE')) {
 $TCA['tx_semantic_domain_model_sparql_query'] = array(
 	'ctrl' => $TCA['tx_semantic_domain_model_sparql_query']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList'	=> 'name,endpoint,namespaces,query,tx_semantic_limit,offset'
+		'showRecordFieldList'	=> 'name,endpoint,namespaces,body,tx_semantic_limit,offset'
 	),
 	'types' => array(
-		'1' => array('showitem'	=> 'name,endpoint,namespaces,query;;;nowrap,tx_semantic_limit,offset')
+		'1' => array('showitem'	=> 'name,endpoint,namespaces,body;;;nowrap,tx_semantic_limit,offset')
 	),
 	'palettes' => array(
 		'1' => array('showitem'	=> '')
@@ -70,9 +70,9 @@ $TCA['tx_semantic_domain_model_sparql_query'] = array(
 				'eval' => 'trim,required'
 			)
 		),
-		'query' => array(
+		'body' => array(
 			'exclude'	=> 0,
-			'label'		=> 'LLL:EXT:semantic/Resources/Private/Language/locallang_db.xml:tx_semantic_domain_model_sparql_query.query',
+			'label'		=> 'LLL:EXT:semantic/Resources/Private/Language/locallang_db.xml:tx_semantic_domain_model_sparql_query.body',
 			'config'	=> array(
 				'type' => 'text',
 				'cols' => 60,
@@ -171,8 +171,8 @@ $TCA['tx_semantic_domain_model_sparql_query'] = array(
 );
 
 if (version_compare(t3lib_extMgm::getExtensionVersion('t3editor'), '1.5.1', '>=')) {
-	$TCA['tx_semantic_domain_model_sparql_query']['types']['1']['showitem'] = 'name,endpoint,namespaces,query;;;nowrap:wizards[t3editor],tx_semantic_limit,offset';
-	$TCA['tx_semantic_domain_model_sparql_query']['columns']['query']['config']['wizards']['t3editor'] = array(
+	$TCA['tx_semantic_domain_model_sparql_query']['types']['1']['showitem'] = 'name,endpoint,namespaces,body;;;nowrap:wizards[t3editor],tx_semantic_limit,offset';
+	$TCA['tx_semantic_domain_model_sparql_query']['columns']['body']['config']['wizards']['t3editor'] = array(
 		'enableByTypeConfig' => 1,
 		'type' => 'userFunc',
 		'userFunc' => 'EXT:t3editor/classes/class.tx_t3editor_tceforms_wizard.php:tx_t3editor_tceforms_wizard->main',

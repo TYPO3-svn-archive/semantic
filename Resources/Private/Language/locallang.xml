@@ -16,7 +16,7 @@
 			<label index="tx_semantic_domain_model_rdf_namespace.iri">The uri string representation.</label>
 			<label index="tx_semantic_domain_model_sparql_query">SPARQL Query</label>
 			<label index="tx_semantic_domain_model_sparql_query.name">Name</label>
-			<label index="tx_semantic_domain_model_sparql_query.query">Query Body</label>
+			<label index="tx_semantic_domain_model_sparql_query.body">Query Body</label>
 			<label index="tx_semantic_domain_model_sparql_query.limit">Limit</label>
 			<label index="tx_semantic_domain_model_sparql_query.query">Offset</label>
 			<label index="tx_semantic_domain_model_sparql_query.endpoint">SPARQL Endpoint</label>

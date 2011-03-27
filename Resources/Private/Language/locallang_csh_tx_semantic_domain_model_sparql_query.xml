@@ -7,12 +7,12 @@
     </meta>
     <data type="array">
         <languageKey index="default" type="array">
-			<label index="name.description">Name</label>
-	        <label index="query.description">Query</label>
-	        <label index="limit.description">Limits the elements in the Query Result</label>
-	        <label index="offset.description">Defines an Offset</label>
-			<label index="endpoint.description">Endpoint</label>
-			<label index="namespaces.description">Namespaces</label>
+			<label index="name.description">A speaking name for the query. It will be displayed in list views and single views.</label>
+	        <label index="body.description">The query body usually starts with "SELECT ?foo WHERE ...".</label>
+	        <label index="limit.description">Limits the elements in the Query Result.</label>
+	        <label index="offset.description">Defines an Offset.</label>
+			<label index="endpoint.description">The endpoint the query request should be sent to.</label>
+			<label index="namespaces.description">Additional namespaces.</label>
 		</languageKey>
     </data>
 </T3locallang>

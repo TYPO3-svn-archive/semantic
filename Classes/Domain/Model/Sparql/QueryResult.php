@@ -99,7 +99,7 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult implements Tx_Extbase_Persiste
 			foreach ($this->query->getNamespaces() as $namespace) {
 				$statement .= 'PREFIX ' . $namespace->getPrefix() . ': <' . $namespace->getIri() . '>' . PHP_EOL;
 			}
-			$statement .= $this->query->getQuery() . PHP_EOL;
+			$statement .= $this->query->getBody() . PHP_EOL;
 			if($this->query->getLimit() > 0) {
 				$statement .= 'LIMIT ' . $this->query->getLimit() . PHP_EOL;
 			}
