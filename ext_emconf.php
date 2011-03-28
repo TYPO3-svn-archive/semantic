@@ -3,7 +3,7 @@
 ########################################################################
 # Extension Manager/Repository config file for ext "semantic".
 #
-# Auto generated 27-03-2011 21:51
+# Auto generated 28-03-2011 04:06
 #
 # Manual updates:
 # Only the data in the array - everything else is removed by next
