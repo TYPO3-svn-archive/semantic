@@ -97,14 +97,14 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResult implements Tx_Extbase_Persiste
 			$this->results = array();
 			$statement = '';
 			foreach ($this->query->getNamespaces() as $namespace) {
-				$statement .= 'PREFIX ' . $namespace->getPrefix() . ': <' . $namespace->getIri() . '>' . CRLF;
+				$statement .= "PREFIX " . $namespace->getPrefix() . ": <" . $namespace->getIri() . ">\r\n";
 			}
-			$statement .= $this->query->getBody() . CRLF;
+			$statement .= $this->query->getBody() . "\r\n";
 			if($this->query->getLimit() > 0) {
-				$statement .= 'LIMIT ' . $this->query->getLimit() . CRLF;
+				$statement .= 'LIMIT ' . $this->query->getLimit() . "\r\n";
 			}
 			if($this->query->getOffset() > 0) {
-				$statement .= 'OFFSET ' . $this->query->getOffset() . CRLF;
+				$statement .= 'OFFSET ' . $this->query->getOffset() . "\r\n";
 			}
 			if ($this->queryResultCache->hasResultsFor($this->query) === TRUE) {
 				$parsedResponse = $this->queryResultCache->getResultsFor($this->query);
