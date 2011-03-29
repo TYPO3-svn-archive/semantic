@@ -33,8 +33,8 @@ For a list of planned features visit the [product backlog](http://forge.typo3.or
 	- Save and close.
 	- Add the Namespaces _xsd_, _foaf_, _dbr_, and _dbo_.
 	- Copy and paste the following query body:
-          SELECT ?resource ?name ?birthDate ?deathDate
-          WHERE {
+        SELECT ?resource ?name ?birthDate ?deathDate
+        WHERE {
           ?resource a foaf:Person .
           ?resource dbo:birthPlace dbr:Boston .
           ?resource foaf:name ?name .
@@ -44,8 +44,8 @@ For a list of planned features visit the [product backlog](http://forge.typo3.or
         }
         ORDER BY ?deathDate
 
-4.  Insert a new Content Element of type "Semantic Content" (e.g. by using the Content Wizard) on any page.
-5.  Type in a header, select the query you just entered as subtype and save.
+4.  Insert a new Content Element of type "Semantic Web Content" on a page of your choice (e.g. by using the Content Wizard/Special Elements).
+5.  Type in a header, select the query you just entered as subtype, select the desired layout and save.
 5.  Load the page.
 
 ## What's next?

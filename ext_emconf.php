@@ -12,7 +12,7 @@
 
 $EM_CONF[$_EXTKEY] = array(
 	'title' => 'Semantic Web Integration',
-	'description' => 'This extension provides components to consume and expose data of/to the Linked Data cloud.',
+	'description' => 'This extension provides components to consume and expose data of/to the Linked Data cloud. See EXT:semantic/Documentation/en/Manual.txt or http://forge.typo3.org/projects/extension-semantic for more information.',
 	'category' => 'plugin',
 	'author' => 'Jochen Rau',
 	'author_email' => 'jochen.rau@typoplanet.de',
@@ -22,7 +22,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'conflicts' => '',
 	'priority' => '',
 	'module' => '',
-	'state' => 'beta',
+	'state' => 'stable',
 	'internal' => '',
 	'uploadfolder' => 0,
 	'createDirs' => '',
