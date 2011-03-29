@@ -1,0 +1,1 @@
+See EXT:semantic/Documentation/en/Manual.txt.
