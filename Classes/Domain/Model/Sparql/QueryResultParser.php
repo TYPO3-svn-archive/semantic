@@ -197,7 +197,7 @@ class Tx_Semantic_Domain_Model_Sparql_QueryResultParser implements Tx_Semantic_D
 	}
 
 	/**
-	 * Handes character data.
+	 * Handles character data.
 	 *
 	 * @return void
 	 **/

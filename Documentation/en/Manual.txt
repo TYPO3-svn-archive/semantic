@@ -1,12 +1,12 @@
 Title:  Users Manual EXT:semantic
 Author: Jochen Rau
-Date:   March, 18 2011
+Date:   March, 29 2011
 
 # EXT:semantic Users Manual
 
 ## What does it do?
 
-This extension enables you to consume and expose data of/to the Linked Data cloud within yout TYPO3 installation. If you are not familiar with the conceptional ideas behind the Semantic Web you might want to read the [Wikipedia article](http://en.wikipedia.org/wiki/Semantic_Web) first.
+This extension enables you to consume and expose data of/to the Linked Data cloud within your TYPO3 installation. If you are not familiar with the concepts behind the Semantic Web you might want to read the [Wikipedia article](http://en.wikipedia.org/wiki/Semantic_Web) first.
 
 By now the extension provides the following features:
 
@@ -21,19 +21,32 @@ For a list of planned features visit the [product backlog](http://forge.typo3.or
 ## Installation
 
 1.  Install the extension in the extension manager. The default profile namespaces are automatically imported (recommended). if you don't want to overwrite existing namespaces, uncheck the checkbox.
-2.  Include the static template(s) of the extension to your TypoScript template. There are two static templates:
+2.  Include the static template(s) of the extension into your TypoScript Template. There are three static templates available:
+	- Basic Settings (empty by now)
 	- the SPARQL Client template
-	- the RDFa template
+	- the RDFa template (this is just an experimental template; skip it for now)
 3.  Add a new Query to a SysFolder. Example:
-	- Name it "Literature about PHP".
+	- Name it "People born in Boston before 1900".
 	- Save it.
 	- Add a new SPARQL Endpoint by clicking on the "+".
-	- Name the Endpoint "Bibliographica"
-	- Fill in the following IRI: http://bnb.bibliographica.org/sparql.
+	- Name the Endpoint "Wikipedia" and add the IRI: http://dbpedia.org/sparql.
 	- Save and close.
+	- Add the Namespaces _xsd_, _foaf_, _dbr_, and _dbo_.
+	- Copy and paste the following query body:
+          SELECT ?resource ?name ?birthDate ?deathDate
+          WHERE {
+          ?resource a foaf:Person .
+          ?resource dbo:birthPlace dbr:Boston .
+          ?resource foaf:name ?name .
+          ?resource dbo:birthDate ?birthDate .
+          ?resource dbo:deathDate ?deathDate .
+          FILTER (?birthDate < "1900-01-01"^^xsd:date)
+        }
+        ORDER BY ?deathDate
 
-4.  Insert a new content element called "Linked Data" (e.g. by using the Content Wizard)
-5.  Load the page
+4.  Insert a new Content Element of type "Semantic Content" (e.g. by using the Content Wizard) on any page.
+5.  Type in a header, select the query you just entered as subtype and save.
+5.  Load the page.
 
 ## What's next?
 
