@@ -185,7 +185,7 @@ class Erfurt_Store
         while (list($optionName, $optionValue) = each($storeOptions)) {
             $this->setOption($optionName, $optionValue);
         }
-        
+
         if (isset($storeOptions['adapterInstance'])) {
             $this->_backendAdapter = $storeOptions['adapterInstance'];
             $this->_backendName = $backend;
@@ -257,7 +257,7 @@ class Erfurt_Store
             }
         }
     }
-    
+
     public function setBackendAdapter(Erfurt_Store_Adapter_Interface $adapter)
     {
         $this->_backendAdapter = $adapter;
@@ -1145,7 +1145,7 @@ class Erfurt_Store
             return $retVal;
         }
     }
-    
+
     /**
      * @param string $modelIri The Iri, which identifies the model to look for.
      * @param boolean $useAc Whether to use access control or not.

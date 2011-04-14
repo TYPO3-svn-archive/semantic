@@ -21,6 +21,17 @@
 			<label index="tx_semantic_domain_model_sparql_query.query">Offset</label>
 			<label index="tx_semantic_domain_model_sparql_query.endpoint">SPARQL Endpoint</label>
 			<label index="tx_semantic_domain_model_sparql_query.namespaces">Namespaces</label>
+			<label index="extmgm.store.backend">Store Backend:</label>
+			<label index="extmgm.store.zenddb">Zenddb Store</label>
+			<label index="extmgm.store.zenddb.dbname">Database Name:</label>
+			<label index="extmgm.store.zenddb.username">User Name:</label>
+			<label index="extmgm.store.zenddb.password">Password:</label>
+			<label index="extmgm.store.zenddb.dbtype">Database Type:</label>
+			<label index="extmgm.store.zenddb.host">Host Name:</label>
+			<label index="extmgm.store.virtuoso">Virtuoso Store</label>
+			<label index="extmgm.store.virtuoso.dsn">Data Source Name:</label>
+			<label index="extmgm.store.virtuoso.username">User Name:</label>
+			<label index="extmgm.store.virtuoso.password">Password:</label>
 		</languageKey>
 	</data>
 </T3locallang>

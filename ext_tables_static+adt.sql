@@ -47,6 +47,25 @@ INSERT INTO `tx_semantic_domain_model_rdf_namespace` VALUES (28,0,'cal','http://
 INSERT INTO `tx_semantic_domain_model_rdf_namespace` VALUES (29,0,'og','http://ogp.me/ns#',0,0);
 INSERT INTO `tx_semantic_domain_model_rdf_namespace` VALUES (30,0,'v','http://rdf.data-vocabulary.org/#',0,0);
 INSERT INTO `tx_semantic_domain_model_rdf_namespace` VALUES (31,0,'bibo','http://purl.org/ontology/bibo/',0,0);
+INSERT INTO `tx_semantic_domain_model_rdf_namespace` VALUES (32,0,'xmlns','http://www.w3.org/2000/xmlns/',0,0);
+INSERT INTO `tx_semantic_domain_model_rdf_namespace` VALUES (33,0,'sysont','http://ns.typo3.org/SysOnt/4.6/',0,0);
+INSERT INTO `tx_semantic_domain_model_rdf_namespace` VALUES (34,0,'sysconf','http://localhost/TYPO3/Config/',0,0);
+INSERT INTO `tx_semantic_domain_model_rdf_namespace` VALUES (35,0,'bio','http://purl.org/vocab/bio/0.1/',0,0);
+INSERT INTO `tx_semantic_domain_model_rdf_namespace` VALUES (36,0,'cc','http://web.resource.org/cc/',0,0);
+INSERT INTO `tx_semantic_domain_model_rdf_namespace` VALUES (37,0,'doap','http://usefulinc.com/ns/doap#',0,0);
+INSERT INTO `tx_semantic_domain_model_rdf_namespace` VALUES (38,0,'geonames','http://www.geonames.org/ontology#',0,0);
+INSERT INTO `tx_semantic_domain_model_rdf_namespace` VALUES (39,0,'review','http://purl.org/stuff/rev#',0,0);
+INSERT INTO `tx_semantic_domain_model_rdf_namespace` VALUES (40,0,'sioct','http://rdfs.org/sioc/types#',0,0);
+INSERT INTO `tx_semantic_domain_model_rdf_namespace` VALUES (41,0,'status','http://www.w3.org/2003/06/sw-vocab-status/ns#',0,0);
+INSERT INTO `tx_semantic_domain_model_rdf_namespace` VALUES (42,0,'swivt','http://semantic-mediawiki.org/swivt/1.0#',0,0);
+INSERT INTO `tx_semantic_domain_model_rdf_namespace` VALUES (43,0,'tags','http://www.holygoat.co.uk/owl/redwood/0.1/tags/',0,0);
+INSERT INTO `tx_semantic_domain_model_rdf_namespace` VALUES (44,0,'vann','http://purl.org/vocab/vann/',0,0);
+INSERT INTO `tx_semantic_domain_model_rdf_namespace` VALUES (45,0,'vcard3','http://www.w3.org/2001/vcard-rdf/3.0#',0,0);
+INSERT INTO `tx_semantic_domain_model_rdf_namespace` VALUES (46,0,'vs','http://www.w3.org/2003/06/sw-vocab-status/ns#',0,0);
+INSERT INTO `tx_semantic_domain_model_rdf_namespace` VALUES (47,0,'wot','http://xmlns.com/wot/0.1/',0,0);
+INSERT INTO `tx_semantic_domain_model_rdf_namespace` VALUES (48,0,'wordnet','http://xmlns.com/wordnet/1.6/',0,0);
+INSERT INTO `tx_semantic_domain_model_rdf_namespace` VALUES (49,0,'swrc','http://swrc.ontoware.org/ontology#',0,0);
+INSERT INTO `tx_semantic_domain_model_rdf_namespace` VALUES (50,0,'lcl','http://ns.aksw.org/e-learning/lcl/',0,0);
 
 /*!40000 ALTER TABLE `tx_semantic_domain_model_rdf_namespace` ENABLE KEYS */;
 UNLOCK TABLES;

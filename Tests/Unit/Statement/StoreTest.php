@@ -23,23 +23,26 @@
 ***************************************************************/
 /*
 class Tx_Semantic_Tests_Unit_Statement_StoreTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
-
-
 }
 */
-if (!class_exists('Tx_Extbase_Utility_ClassLoader', FALSE)) {
-	require(t3lib_extmgm::extPath('extbase') . 'Classes/Utility/ClassLoader.php');
-}
 
-$classLoader = new Tx_Extbase_Utility_ClassLoader();
-spl_autoload_register(array($classLoader, 'loadClass'));
+require_once(t3lib_extmgm::extPath('semantic') . 'Resources/Private/PHP/Erfurt/App.php');
+if (!class_exists('Tx_Extbase_Utility_ClassLoader', FALSE)) require(t3lib_extmgm::extPath('extbase') . 'Classes/Utility/ClassLoader.php');
+if (!class_exists('T3\Semantic\Resource\ClassLoader', FALSE)) require(t3lib_extmgm::extPath('semantic') . 'Classes/Resource/ClassLoader.php');
+spl_autoload_register(array(new Tx_Extbase_Utility_ClassLoader(), 'loadClass'));
+spl_autoload_register(array(new T3\Semantic\Resource\ClassLoader(), 'loadClass'));
 
 set_include_path(get_include_path() . ':' . t3lib_extmgm::extPath('semantic') . 'Resources/Private/PHP/');
 
-require_once(t3lib_extmgm::extPath('semantic') . 'Resources/Private/PHP/Erfurt/App.php');
+$namespacesconfig = new \T3\Semantic\Configuration\NamespacesConfiguration();
+$storeconfig = new \T3\Semantic\Configuration\StoreConfiguration();
 
-$erfurtApp = Erfurt_App::getInstance();
-$erfurtStore = $erfurtApp->getStore();
-var_dump($erfurtStore->getAvailableModels(true));
+$knowledgeBase = new \T3\Semantic\KnowledgeBase;
+$knowledgeBase->injectNamespacesConfiguration($namespacesconfig);
+$knowledgeBase->injectStoreConfiguration($storeconfig);
+$knowledgeBase->authenticate('Admin');
+
+$store = $knowledgeBase->getStore();
+var_dump($store->getAvailableModels(true));
 echo 'test';
 ?>
