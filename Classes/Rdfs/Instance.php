@@ -1,11 +1,15 @@
 <?php
-declare(ENCODING = 'utf-8');
-namespace T3\Semantic\Exception;
+declare(ENCODING = 'utf-8') ;
+namespace T3\Semantic\Rdfs;
 /***************************************************************
  *  Copyright notice
  *
  *  (c) 2011 Thomas Maroschik <tmaroschik@dfau.de>
  *  All rights reserved
+ *
+ *  This class is a port of the corresponding class of the
+ * {@link http://aksw.org/Projects/Erfurt Erfurt} project.
+ *  All credits go to the Erfurt team.
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
  *  free software; you can redistribute it and/or modify
@@ -25,13 +29,14 @@ namespace T3\Semantic\Exception;
  ***************************************************************/
 
 /**
- * Enter descriptions here
+ * RDFS Instance class
  *
- * @package Semantic
- * @scope singleton
- * @api
+ * @package $PACKAGE$
+ * @subpackage $SUBPACKAGE$
+ * @scope prototype
  */
-class BackendMustBeSetException extends \Tx_Semantic_Exception {
+class Instance extends Resource {
 
 }
+
 ?>

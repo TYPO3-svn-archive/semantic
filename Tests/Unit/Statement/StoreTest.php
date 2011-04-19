@@ -34,13 +34,35 @@ spl_autoload_register(array(new T3\Semantic\Resource\ClassLoader(), 'loadClass')
 
 set_include_path(get_include_path() . ':' . t3lib_extmgm::extPath('semantic') . 'Resources/Private/PHP/');
 
-$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');
+$objectManager = new \T3\Semantic\Object\ObjectManager();
 
+$start = microtime(true);
 
-$knowledgeBase = $objectManager->get('\T3\Semantic\KnowledgeBase');
+$knowledgeBase = $objectManager->get('\T3\Semantic\KnowledgeBase'); // @var \T3\Semantic\KnowledgeBase
 $knowledgeBase->authenticate('Admin');
 
+$beerModel = 'http://www.purl.org/net/ontology/beer#';
 $store = $knowledgeBase->getStore();
 var_dump($store->getAvailableModels(true));
-echo 'test';
+die();
+if (!isset($availableModels[$beerModel])) {
+	var_dump($store->getNewModel($beerModel));
+//	$store->importRdf($beerModel, 'http://www.purl.org/net/ontology/beer.owl', 'xml');
+}
+//$query = \Erfurt_Sparql_SimpleQuery::initWithString('
+//PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+//PREFIX beer: <http://www.purl.org/net/ontology/beer#>
+//
+//SELECT ?s ?p ?o
+//FROM beer
+//WHERE {
+//	?s ?p ?o .
+//	?s rdf:type beer:Lager
+//}
+//');
+////usleep(1000);
+//var_dump($store->sparqlQuery($query));
+echo '<pre>';
+echo 'Zeit: ' . (microtime(true) - $start)*1000 . ' ms';
+echo '</pre>';
 ?>

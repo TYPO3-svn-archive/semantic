@@ -1,9 +1,15 @@
- <?php
+<?php
+declare(ENCODING = 'utf-8') ;
+namespace T3\Semantic\Owl;
 /***************************************************************
  *  Copyright notice
  *
  *  (c) 2011 Thomas Maroschik <tmaroschik@dfau.de>
  *  All rights reserved
+ *
+ *  This class is a port of the corresponding class of the
+ * {@link http://aksw.org/Projects/Erfurt Erfurt} project.
+ *  All credits go to the Erfurt team.
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
  *  free software; you can redistribute it and/or modify
@@ -23,12 +29,14 @@
  ***************************************************************/
 
 /**
- * Enter descriptions here
+ * Owl Class class
  *
  * @package $PACKAGE$
  * @subpackage $SUBPACKAGE$
- * @scope singleton
+ * @scope prototype
  */
-class Tx_Semantic_Store implements Tx_Semantic_StoreInterface {
+class OwlClass extends \T3\Semantic\Rdfs\RdfsClass {
 
 }
+
+?>

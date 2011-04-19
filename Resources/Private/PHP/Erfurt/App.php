@@ -176,6 +176,7 @@ class Erfurt_App
      */
     public static function getInstance($autoStart = true)
     {
+throw new Exception('Erfurt may not be called directly.');
         if (null === self::$_instance) {
             self::$_instance = new Erfurt_App();
 
