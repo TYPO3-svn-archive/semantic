@@ -31,11 +31,10 @@ namespace T3\Semantic\Configuration;
  * @scope singleton
  * @api
  */
-class CacheConfiguration extends AbstractConfiguration implements \t3lib_Singleton {
+class SystemOntologyConfiguration extends AbstractConfiguration implements \t3lib_Singleton {
 
 	/**
 	 * This is the key for this configuration inside the extension configuration
 	 */
-	protected $extensionConfigurationKey = 'cache';
-
+	protected $extensionConfigurationKey = 'sysont';
 }

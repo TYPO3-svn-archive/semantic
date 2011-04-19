@@ -84,14 +84,39 @@ class KnowledgeBase implements \t3lib_Singleton {
 	protected $configuration = null;
 
 	/**
+	 * @var \T3\Semantic\Configuration\AccessControlConfiguration
+	 */
+	protected $accessControlConfiguration;
+
+	/**
+	 * @var \T3\Semantic\Configuration\AuthenticationConfiguration
+	 */
+	protected $authenticationConfiguration;
+
+	/**
+	 * @var \T3\Semantic\Configuration\CacheConfiguration
+	 */
+	protected $cacheConfiguration;
+
+	/**
 	 * @var \T3\Semantic\Configuration\NamespacesConfiguration
 	 */
 	protected $namespacesConfiguration;
 
 	/**
+	 * @var \T3\Semantic\Configuration\SessionConfiguration
+	 */
+	protected $sessionConfiguration;
+
+	/**
 	 * @var \T3\Semantic\Configuration\StoreConfiguration
 	 */
 	protected $storeConfiguration;
+
+	/**
+	 * @var \T3\Semantic\Configuration\SystemOntologyConfiguration
+	 */
+	protected $systemOntologyConfiguration;
 
 	/**
 	 * Namespace management module
@@ -125,6 +150,7 @@ class KnowledgeBase implements \t3lib_Singleton {
 
 	/**
 	 * Contains an instance of the Erfurt versioning class.
+	 *
 	 * @var Erfurt_Versioning
 	 */
 	protected $versioning = null;
@@ -135,17 +161,66 @@ class KnowledgeBase implements \t3lib_Singleton {
 	public function __construct() {}
 
 	/**
+	 * Injector method for a AccessControlConfiguration
+	 *
+	 * @var \T3\Semantic\Configuration\AccessControlConfiguration
+	 */
+	public function injectAccessControlConfiguration(Configuration\AccessControlConfiguration $accessControlConfiguration) {
+		$this->accessControlConfiguration = $accessControlConfiguration;
+	}
+
+	/**
+	 * Injector method for a AuthenticationConfiguration
+	 *
+	 * @var \T3\Semantic\Configuration\AuthenticationConfiguration
+	 */
+	public function injectAuthenticationConfiguration(Configuration\AuthenticationConfiguration $authenticationConfiguration) {
+		$this->authenticationConfiguration = $authenticationConfiguration;
+	}
+
+	/**
+	 * Injector method for a CacheConfiguration
+	 *
+	 * @var \T3\Semantic\Configuration\CacheConfiguration
+	 */
+	public function injectCacheConfiguration(Configuration\CacheConfiguration $cacheConfiguration) {
+		$this->cacheConfiguration = $cacheConfiguration;
+	}
+
+	/**
+	 * Injector method for a NamespacesConfiguration
+	 *
 	 * @var \T3\Semantic\Configuration\NamespacesConfiguration
 	 */
-	public function injectNamespacesConfiguration(\T3\Semantic\Configuration\NamespacesConfiguration $namespacesConfiguration) {
+	public function injectNamespacesConfiguration(Configuration\NamespacesConfiguration $namespacesConfiguration) {
 		$this->namespacesConfiguration = $namespacesConfiguration;
 	}
 
 	/**
+	 * Injector method for a SessionConfiguration
+	 *
+	 * @var \T3\Semantic\Configuration\SessionConfiguration
+	 */
+	public function injectSessionConfiguration(Configuration\SessionConfiguration $sessionConfiguration) {
+		$this->sessionConfiguration = $sessionConfiguration;
+	}
+
+	/**
+	 * Injector method for a StoreConfiguration
+	 *
 	 * @var \T3\Semantic\Configuration\StoreConfiguration
 	 */
-	public function injectStoreConfiguration(\T3\Semantic\Configuration\StoreConfiguration $storeConfiguration) {
+	public function injectStoreConfiguration(Configuration\StoreConfiguration $storeConfiguration) {
 		$this->storeConfiguration = $storeConfiguration;
+	}
+
+	/**
+	 * Injector method for a SystemOntologyConfiguration
+
+	 * @var \T3\Semantic\Configuration\SystemOntologyConfiguration
+	 */
+	public function inject(Configuration\SystemOntologyConfiguration $systemOntologyConfiguration) {
+		$this->systemOntologyConfiguration = $systemOntologyConfiguration;
 	}
 
 	/**
@@ -427,8 +502,7 @@ class KnowledgeBase implements \t3lib_Singleton {
 	 */
 	public function getAcModel() {
 		if (null === $this->accessControlModel) {
-			$config = $this->getConfig();
-			$this->accessControlModel = $this->getStore()->getModel($config->ac->modelUri, false);
+			$this->accessControlModel = $this->getStore()->getModel($this->getAccessControlConfiguration()->modelUri, false);
 		}
 
 		return $this->accessControlModel;
@@ -454,9 +528,8 @@ class KnowledgeBase implements \t3lib_Singleton {
 
 			$auth = \Erfurt_Auth::getInstance();
 
-			$config = $this->getConfiguration();
-			if (isset($config->session->identifier)) {
-				$sessionNamespace = 'Erfurt_Auth' . $config->session->identifier;
+			if (isset($this->getSessionConfiguration()->identifier)) {
+				$sessionNamespace = 'Erfurt_Auth' . $this->getSessionConfiguration()->identifier;
 
 				$auth->setStorage(new \Zend_Auth_Storage_Session($sessionNamespace));
 			}
@@ -474,11 +547,10 @@ class KnowledgeBase implements \t3lib_Singleton {
 	 */
 	public function getCache() {
 		if (null === $this->cache) {
-			$config = $this->getConfig();
-			if (!isset($config->cache->lifetime) || ($config->cache->lifetime == -1)) {
+			if (!isset($this->getCacheConfiguration()->lifetime) || ($this->getCacheConfiguration()->lifetime == -1)) {
 				$lifetime = null;
 			} else {
-				$lifetime = $config->cache->lifetime;
+				$lifetime = $this->getCacheConfiguration()->lifetime;
 			}
 			$frontendOptions = array(
 				'lifetime' => $lifetime,
@@ -498,16 +570,14 @@ class KnowledgeBase implements \t3lib_Singleton {
 	 * @return string|false
 	 */
 	public function getCacheDir() {
-		$config = $this->getConfig();
-
-		if (isset($config->cache->path)) {
+		if (isset($this->getCacheConfiguration()->path)) {
 			$matches = array();
-			if (!(preg_match('/^(\w:[\/|\\\\]|\/)/', $config->cache->path, $matches) === 1)) {
-				$config->cache->path = EF_BASE . $config->cache->path;
+			if (!(preg_match('/^(\w:[\/|\\\\]|\/)/', $this->getCacheConfiguration()->path, $matches) === 1)) {
+				$this->getCacheConfiguration()->path = EF_BASE . $this->getCacheConfiguration()->path;
 			}
 
-			if (is_writable($config->cache->path)) {
-				return $config->cache->path;
+			if (is_writable($this->getCacheConfiguration()->path)) {
+				return $this->getCacheConfiguration()->path;
 			} else {
 				// Should throw an exception.
 				return false;
@@ -536,6 +606,48 @@ class KnowledgeBase implements \t3lib_Singleton {
 	/**
 	 * Returns the configuration object.
 	 *
+	 * @return \T3\Semantic\Configuration\AccessControlConfiguration
+	 * @throws \T3\Semantic\Exception\ConfigurationNotLoadedException Throws an exception if no config is loaded.
+	 */
+	public function getAccessControlConfiguration() {
+		if (NULL === $this->accessControlConfiguration) {
+			throw new Exception\ConfigurationNotLoadedException('Access Control Configuration was not loaded.', 1303200116);
+		} else {
+			return $this->accessControlConfiguration;
+		}
+	}
+
+	/**
+	 * Returns the configuration object.
+	 *
+	 * @return \T3\Semantic\Configuration\AuthenticationConfiguration
+	 * @throws \T3\Semantic\Exception\ConfigurationNotLoadedException Throws an exception if no config is loaded.
+	 */
+	public function getAuthenticationConfiguration() {
+		if (NULL === $this->authenticationConfiguration) {
+			throw new Exception\ConfigurationNotLoadedException('Authentication Configuration was not loaded.', 1303200166);
+		} else {
+			return $this->authenticationConfiguration;
+		}
+	}
+
+	/**
+	 * Returns the configuration object.
+	 *
+	 * @return \T3\Semantic\Configuration\CacheConfiguration
+	 * @throws \T3\Semantic\Exception\ConfigurationNotLoadedException Throws an exception if no config is loaded.
+	 */
+	public function getCacheConfiguration() {
+		if (NULL === $this->cacheConfiguration) {
+			throw new Exception\ConfigurationNotLoadedException('Cache Configuration was not loaded.', 1303200192);
+		} else {
+			return $this->cacheConfiguration;
+		}
+	}
+
+	/**
+	 * Returns the configuration object.
+	 *
 	 * @return \T3\Semantic\Configuration\NamespacesConfguration
 	 * @throws \T3\Semantic\Exception\ConfigurationNotLoadedException Throws an exception if no config is loaded.
 	 */
@@ -550,6 +662,20 @@ class KnowledgeBase implements \t3lib_Singleton {
 	/**
 	 * Returns the configuration object.
 	 *
+	 * @return \T3\Semantic\Configuration\SessionConfiguration
+	 * @throws \T3\Semantic\Exception\ConfigurationNotLoadedException Throws an exception if no config is loaded.
+	 */
+	public function getSessionConfiguration() {
+		if (NULL === $this->sessionConfiguration) {
+			throw new Exception\ConfigurationNotLoadedException('Session Configuration was not loaded.', 1303200235);
+		} else {
+			return $this->sessionConfiguration;
+		}
+	}
+
+	/**
+	 * Returns the configuration object.
+	 *
 	 * @return \T3\Semantic\Configuration\StoreConfguration
 	 * @throws \T3\Semantic\Exception\ConfigurationNotLoadedException Throws an exception if no config is loaded.
 	 */
@@ -558,6 +684,20 @@ class KnowledgeBase implements \t3lib_Singleton {
 			throw new Exception\ConfigurationNotLoadedException('Store Configuration was not loaded.', 1302772396);
 		} else {
 			return $this->storeConfiguration;
+		}
+	}
+
+	/**
+	 * Returns the configuration object.
+	 *
+	 * @return \T3\Semantic\Configuration\SystemOntologyConfiguration
+	 * @throws \T3\Semantic\Exception\ConfigurationNotLoadedException Throws an exception if no config is loaded.
+	 */
+	public function getSystemOntologyConfiguration() {
+		if (NULL === $this->systemOntologyConfiguration) {
+			throw new Exception\ConfigurationNotLoadedException('System Ontology Configuration was not loaded.', 1303200655);
+		} else {
+			return $this->systemOntologyConfiguration;
 		}
 	}
 
@@ -635,8 +775,6 @@ class KnowledgeBase implements \t3lib_Singleton {
 	 */
 	public function getQueryCache() {
 		if (null === $this->queryCache) {
-			$config = $this->getConfig();
-
 			$this->queryCache = new \Erfurt_Cache_Frontend_QueryCache();
 
 			$backend = $this->getQueryCacheBackend();
@@ -702,10 +840,8 @@ class KnowledgeBase implements \t3lib_Singleton {
 	 */
 	public function getSysOntModel() {
 		if (null === $this->systemOntologyModel) {
-			$config = $this->getConfig();
-			$this->systemOntologyModel = $this->getStore()->getModel($config->sysont->modelUri, false);
+			$this->systemOntologyModel = $this->getStore()->getModel($this->getSystemOntologyConfiguration()->modelUri, false);
 		}
-
 		return $this->systemOntologyModel;
 	}
 
@@ -790,30 +926,28 @@ class KnowledgeBase implements \t3lib_Singleton {
 	 */
 	protected function getCacheBackend() {
 		if (null === $this->cacheBackend) {
-			$config = $this->getConfig();
-
 			// TODO: fix cache, temporarily disabled
-			 if (!isset($config->cache->enable) || !(boolean)$config->cache->enable) {
+			 if (!isset($this->getCacheConfiguration()->enable) || !(boolean)$this->getCacheConfiguration()->enable) {
 
 				$this->cacheBackend = new \Erfurt_Cache_Backend_Null();
 			 }
 			// cache is enabled
 			else {
 				 // check for the cache type and throw an exception if cache type is not set
-				 if (!isset($config->cache->type)) {
+				 if (!isset($this->getCacheConfiguration()->type)) {
 
 					 throw new \Erfurt_Exception('Cache type is not set in config.');
 				 } else {
 					 // check the type an whether type is supported
-					 switch (strtolower($config->cache->type)) {
+					 switch (strtolower($this->getCacheConfiguration()->type)) {
 						 case 'database':
 
 							 $this->cacheBackend = new \Erfurt_Cache_Backend_Database();
 							 break;
 						 case 'sqlite':
-							 if (isset($config->cache->sqlite->dbname)) {
+							 if (isset($this->getCacheConfiguration()->sqlite->dbname)) {
 								 $backendOptions = array(
-									 'cache_db_complete_path' => $this->getCacheDir() . $config->cache->sqlite->dbname
+									 'cache_db_complete_path' => $this->getCacheDir() . $this->getCacheConfiguration()->sqlite->dbname
 								 );
 							 } else {
 
@@ -845,21 +979,20 @@ class KnowledgeBase implements \t3lib_Singleton {
 	 */
 	protected function getQueryCacheBackend() {
 		if (null === $this->queryCacheBackend) {
-			$config = $this->getConfig();
 			$backendOptions = array();
-			if (!isset($config->cache->query->enable) || ((boolean)$config->cache->query->enable === false)) {
+			if (!isset($this->getCacheConfiguration()->query->enable) || ((boolean)$this->getCacheConfiguration()->query->enable === false)) {
 
 				$this->queryCacheBackend = new \Erfurt_Cache_Backend_QueryCache_Null();
 			} else {
 				// cache is enabled
 				// check for the cache type and throw an exception if cache type is not set
-				if (!isset($config->cache->query->type)) {
+				if (!isset($this->getCacheConfiguration()->query->type)) {
 
 					throw new \Erfurt_Exception('Cache type is not set in config.');
 				} else {
 					// check the type an whether type is supported
 
-					switch (strtolower($config->cache->query->type)) {
+					switch (strtolower($this->getCacheConfiguration()->query->type)) {
 						case 'database':
 
 							$this->queryCacheBackend = new \Erfurt_Cache_Backend_QueryCache_Database();

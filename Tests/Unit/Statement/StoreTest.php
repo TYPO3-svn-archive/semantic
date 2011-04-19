@@ -34,12 +34,10 @@ spl_autoload_register(array(new T3\Semantic\Resource\ClassLoader(), 'loadClass')
 
 set_include_path(get_include_path() . ':' . t3lib_extmgm::extPath('semantic') . 'Resources/Private/PHP/');
 
-$namespacesconfig = new \T3\Semantic\Configuration\NamespacesConfiguration();
-$storeconfig = new \T3\Semantic\Configuration\StoreConfiguration();
+$objectManager = t3lib_div::makeInstance('Tx_Extbase_Object_ObjectManager');
 
-$knowledgeBase = new \T3\Semantic\KnowledgeBase;
-$knowledgeBase->injectNamespacesConfiguration($namespacesconfig);
-$knowledgeBase->injectStoreConfiguration($storeconfig);
+
+$knowledgeBase = $objectManager->get('\T3\Semantic\KnowledgeBase');
 $knowledgeBase->authenticate('Admin');
 
 $store = $knowledgeBase->getStore();

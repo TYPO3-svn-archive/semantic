@@ -28,18 +28,13 @@ namespace T3\Semantic\Configuration;
  * Enter descriptions here
  *
  * @package Semantic
- * @scope prototype
+ * @scope singleton
  * @api
  */
-class StoreConfiguration extends AbstractConfiguration {
+class StoreConfiguration extends AbstractConfiguration implements \t3lib_Singleton {
 
 	/**
-	 * Constructor method for a store configuration
+	 * This is the key for this configuration inside the extension configuration
 	 */
-	public function __construct() {
-		$extConfig = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['semantic']);
-		$configuration = \Tx_Extbase_Utility_TypoScript::convertTypoScriptArrayToPlainArray($extConfig['store.']);
-		return parent::__construct($configuration, true);
-	}
-
+	protected $extensionConfigurationKey = 'store';
 }

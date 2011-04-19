@@ -28,23 +28,36 @@ namespace T3\Semantic\Configuration;
  * Enter descriptions here
  *
  * @package Semantic
- * @scope prototype
+ * @scope singleton
  * @api
  */
-class NamespacesConfiguration extends AbstractConfiguration {
+class NamespacesConfiguration extends AbstractConfiguration implements \t3lib_Singleton {
 
 	/**
-	 * Constructor method for a store configuration
+	 * Abstract_Configuration provides a property based interface to
+	 * an array. The data are read-only unless $allowModifications
+	 * is set to true on construction.
+	 *
+	 * Abstract_Configuration also implements Countable and Iterator to
+	 * facilitate easy access to the data.
+	 *
+	 * @param array $configuration
+	 * @param boolean $allowModifications
+	 * @return void
 	 */
-	public function __construct() {
-		$namespaces = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('prefix,iri', 'tx_semantic_domain_model_rdf_namespace');
-		if (is_array($namespaces)) {
-			$namespacesConfiguration = array();
-			foreach ($namespaces as $namespaceDefinition) {
-				$namespacesConfiguration[$namespaceDefinition['prefix']] = $namespaceDefinition['iri'];
+	public function __construct(array $namespacesConfiguration = array(), $allowModifications = false) {
+		if (empty($namespacesConfiguration)) {
+			$namespaces = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('prefix,iri', 'tx_semantic_domain_model_rdf_namespace');
+			if (is_array($namespaces)) {
+				$namespacesConfiguration = array();
+				foreach ($namespaces as $namespaceDefinition) {
+					$namespacesConfiguration[$namespaceDefinition['prefix']] = $namespaceDefinition['iri'];
+				}
+			} else {
+				throw new Exception\NoNamespacesException('No namespaces defined, although they are required. Neither in datebase nor in configuaration. Please import at least the static namespaces.', 1303199037);
 			}
-			return parent::__construct($namespacesConfiguration, true);
 		}
+		return parent::__construct($namespacesConfiguration, $allowModifications);
 	}
 
 }

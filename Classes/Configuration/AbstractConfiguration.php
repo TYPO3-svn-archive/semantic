@@ -37,6 +37,11 @@ namespace T3\Semantic\Configuration;
 class AbstractConfiguration implements \Countable, \Iterator {
 
 	/**
+	 * This is the key for this configuration inside the extension configuration
+	 */
+	protected $extensionConfigurationKey = 'general';
+
+	/**
 	 * Whether in-memory modifications to configuration data are allowed
 	 *
 	 * @var boolean
@@ -106,16 +111,23 @@ class AbstractConfiguration implements \Countable, \Iterator {
 	 * Abstract_Configuration also implements Countable and Iterator to
 	 * facilitate easy access to the data.
 	 *
-	 * @param  array   $array
-	 * @param  boolean $allowModifications
+	 * @param array $configuration
+	 * @param boolean $allowModifications
 	 * @return void
 	 */
-	public function __construct(array $array, $allowModifications = false) {
+	public function __construct(array $configuration = array(), $allowModifications = false) {
+		if (empty($configuration)) {
+			$extConfig = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['semantic']);
+			if (isset($extConfig[$this->extensionConfigurationKey . '.']) && is_array($extConfig[$this->extensionConfigurationKey . '.'])) {
+				$configurationArray = $extConfig[$this->extensionConfigurationKey . '.'];
+				$configuration = \Tx_Extbase_Utility_TypoScript::convertTypoScriptArrayToPlainArray($configurationArray);
+			}
+		}
 		$this->allowedModifications = (boolean) $allowModifications;
 		$this->loadedSection = null;
 		$this->index = 0;
 		$this->data = array();
-		foreach ($array as $key => $value) {
+		foreach ($configuration as $key => $value) {
 			if (is_array($value)) {
 				$this->data[$key] = new self($value, $this->allowedModifications);
 			} else {
