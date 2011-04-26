@@ -1185,10 +1185,10 @@ class Store implements \t3lib_Singleton {
 		$noBindings = false;
 		//typechecking
 		if (is_string($queryObject)) {
-			$queryObject = \Erfurt_Sparql_SimpleQuery::initWithString($queryObject);
+			$queryObject = \T3\Semantic\Sparql\SimpleQuery::initWithString($queryObject);
 		}
-		if (!($queryObject instanceof \Erfurt_Sparql_Query2 || $queryObject instanceof \Erfurt_Sparql_SimpleQuery)) {
-			throw new Exception("Argument 1 passed to \Erfurt_Store::sparqlQuery must be instance of \Erfurt_Sparql_Query2, \Erfurt_Sparql_SimpleQuery or string", 1);
+		if (!($queryObject instanceof \T3\Semantic\Sparql\Query2 || $queryObject instanceof \T3\Semantic\Sparql\SimpleQuery)) {
+			throw new Exception("Argument 1 passed to " . get_class($this) . "::sparqlQuery must be instance of \T3\Semantic\Sparql\Query2, \T3\Semantic\Sparql\SimpleQuery or string", 1303224590);
 		}
 		/*
 				 * clone the Query2 Object to not modify the original one
