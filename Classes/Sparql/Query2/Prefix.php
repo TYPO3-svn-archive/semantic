@@ -48,16 +48,13 @@ class Prefix extends ElementHelper //TODO must be unique in Query - factory?
 			throw new \RuntimeException('Argument 1 passed to Prefix::__construct must be an instance of string, instance of ' . typeHelper($iri) . ' given');
 		}
 		$this->name = $nname;
-
 		if (is_string($iri)) {
 			$iri = new IriRef($iri);
 		}
 		if (!($iri instanceof IriRef)) {
 			throw new \RuntimeException("Argument 2 passed to Prefix::__construct must be instance of IriRef or string", E_USER_ERROR);
 		}
-
 		$this->iri = $iri;
-
 		parent::__construct();
 	}
 

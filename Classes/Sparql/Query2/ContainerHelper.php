@@ -46,17 +46,14 @@ abstract class ContainerHelper extends ElementHelper {
 
 	public function getParentContainer($needle) {
 		$parents = array();
-
 		if (in_array($needle, $this->elements)) {
 			$parents[] = $this;
 		}
-
 		foreach ($this->elements as $element) {
 			if ($element instanceof ElementHelper) {
 				$parents = array_merge($parents, $element->getParentContainer($needle));
 			}
 		}
-
 		return $parents;
 	}
 
@@ -139,7 +136,6 @@ abstract class ContainerHelper extends ElementHelper {
 		}
 		//$toDelete->removeParent($this);
 		$this->elements = $new;
-
 		return $this; //for chaining
 	}
 
@@ -163,49 +159,38 @@ abstract class ContainerHelper extends ElementHelper {
 		if ($this === $obj) {
 			return true;
 		}
-
 		if (get_class($this) !== get_class($obj)) {
 			return false;
 		}
-
-
 		if (!method_exists($obj, "getID")) {
 			return false;
 		}
-
 		if ($this->getID() == $obj->getID()) {
 			return true;
 		}
-
 		//check for mutual inclusion
 		foreach ($obj->getElements() as $his) {
 			$found = false;
-
 			foreach ($this->elements as $mine) {
 				if ($mine->equals($his)) {
 					$found = true;
 				}
 			}
-
 			if (!$found) {
 				return false;
 			}
 		}
-
 		foreach ($this->elements as $mine) {
 			$found = false;
-
 			foreach ($obj->getElements() as $his) {
 				if ($his->equals($mine)) {
 					$found = true;
 				}
 			}
-
 			if (!$found) {
 				return false;
 			}
 		}
-
 		return true;
 	}
 
@@ -221,7 +206,6 @@ abstract class ContainerHelper extends ElementHelper {
 				return true;
 			}
 		}
-
 		return false;
 	}
 

@@ -26,6 +26,8 @@ class Tx_Semantic_Tests_Unit_Statement_StoreTest extends Tx_Extbase_Tests_Unit_B
 }
 */
 
+$GLOBALS["TSFE"]->fe_user = tslib_eidtools::initFeUser();
+
 require_once(t3lib_extmgm::extPath('semantic') . 'Resources/Private/PHP/Erfurt/App.php');
 if (!class_exists('Tx_Extbase_Utility_ClassLoader', FALSE)) require(t3lib_extmgm::extPath('extbase') . 'Classes/Utility/ClassLoader.php');
 if (!class_exists('T3\Semantic\Resource\ClassLoader', FALSE)) require(t3lib_extmgm::extPath('semantic') . 'Classes/Resource/ClassLoader.php');
@@ -39,29 +41,30 @@ $objectManager = new \T3\Semantic\Object\ObjectManager();
 $start = microtime(true);
 
 $knowledgeBase = $objectManager->get('\T3\Semantic\KnowledgeBase'); // @var \T3\Semantic\KnowledgeBase
-$knowledgeBase->authenticate('Admin');
+$knowledgeBase->authenticate();
 
 $beerModel = 'http://www.purl.org/net/ontology/beer#';
 $store = $knowledgeBase->getStore();
-var_dump($store->getAvailableModels(true));
-die();
+
+$availableModels = $store->getAvailableModels(true);
+
 if (!isset($availableModels[$beerModel])) {
 	var_dump($store->getNewModel($beerModel));
-//	$store->importRdf($beerModel, 'http://www.purl.org/net/ontology/beer.owl', 'xml');
+	$store->importRdf($beerModel, 'http://www.purl.org/net/ontology/beer.owl', 'xml');
+} else {
+	$query = \T3\Semantic\Sparql\SimpleQuery::initWithString('
+	PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+	PREFIX beer: <http://www.purl.org/net/ontology/beer#>
+
+	SELECT ?s ?p ?o
+	FROM <http://www.purl.org/net/ontology/beer#>
+	WHERE {
+		?s ?p ?o .
+		?s rdf:type beer:Lager
+	}
+	');
+	var_dump($store->sparqlQuery($query));
 }
-//$query = \Erfurt_Sparql_SimpleQuery::initWithString('
-//PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-//PREFIX beer: <http://www.purl.org/net/ontology/beer#>
-//
-//SELECT ?s ?p ?o
-//FROM beer
-//WHERE {
-//	?s ?p ?o .
-//	?s rdf:type beer:Lager
-//}
-//');
-////usleep(1000);
-//var_dump($store->sparqlQuery($query));
 echo '<pre>';
 echo 'Zeit: ' . (microtime(true) - $start)*1000 . ' ms';
 echo '</pre>';

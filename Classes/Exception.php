@@ -1,8 +1,10 @@
 <?php
+declare(ENCODING = 'utf-8') ;
+namespace T3\Semantic;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 201 Jochen Rau <jochen.rau@typoplanet.de>
+ *  (c) 2011 Thomas Maroschik <tmaroschik@dfau.de>
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -21,11 +23,10 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * A generic Semantic exception
  */
-class Tx_Semantic_Exception extends Tx_Extbase_Exception {
+class Exception extends \Tx_Extbase_Exception {
 
 }
 ?>

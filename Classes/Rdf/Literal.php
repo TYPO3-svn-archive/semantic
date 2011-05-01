@@ -79,19 +79,19 @@ class Literal extends Node {
 
 	public static function initWithLabel($label) {
 
-		return new Erfurt_Rdf_Literal($label);
+		return new Literal($label);
 	}
 
 	public static function initWithLabelAndLanguage($label, $lang) {
 
-		$l = new Erfurt_Rdf_Literal($label);
+		$l = new Literal($label);
 		$l->setLanguage($lang);
 		return $l;
 	}
 
 	public static function initWithLabelAndDatatype($label, $datatype) {
 
-		$l = new Erfurt_Rdf_Literal($label);
+		$l = new Literal($label);
 		$l->setDatatype($datatype);
 		return $l;
 	}

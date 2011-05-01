@@ -43,18 +43,14 @@ class UserFunction extends ElementHelper implements Interfaces\IriRefOrFunction 
 		if (is_string($iri)) {
 			$iri = new IriRef($iri);
 		}
-
 		if (!($iri instanceof IriRef)) {
 			throw new \RuntimeException('Argument 1 passed to Function::__construct must be an instance of IriRef or string (will be converted to IriRef), instance of '.typeHelper($iri).' given');
 		}
-
 		$this->iri = $iri;
 		if ($args instanceof Interfaces\Expression) {
 			//only one given - pack into array
 			$args = array($args);
 		}
-
-
 		if (!is_array($args)) {
 			throw new \RuntimeException('Argument 2 passed to Function::__construct must be an array of Expression\'s, instance of '.typeHelper($args).' given');
 		} else {

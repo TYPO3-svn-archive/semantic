@@ -31,7 +31,7 @@ namespace T3\Semantic\Configuration\Exception;
  * @scope singleton
  * @api
  */
-class NoNamespacesException extends \Tx_Semantic_Exception {
+class NoNamespacesException extends \T3\Semantic\Exception {
 
 }
 ?>

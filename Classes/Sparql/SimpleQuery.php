@@ -62,29 +62,22 @@ class SimpleQuery {
 
 	public function __toString() {
 		$queryString = $this->_prologuePart . PHP_EOL;
-
 		foreach (array_unique($this->_from) as $from) {
 			$queryString .= 'FROM <' . $from . '>' . PHP_EOL;
 		}
-
 		foreach (array_unique($this->_fromNamed) as $fromNamed) {
 			$queryString .= 'FROM NAMED <' . $fromNamed . '>' . PHP_EOL;
 		}
-
 		$queryString .= $this->_wherePart . ' ';
-
 		if ($this->_orderClause !== null) {
 			$queryString .= 'ORDER BY ' . $this->_orderClause . PHP_EOL;
 		}
-
 		if ($this->_limit !== null) {
 			$queryString .= 'LIMIT ' . $this->_limit . PHP_EOL;
 		}
-
 		if ($this->_offset !== null) {
 			$queryString .= 'OFFSET ' . $this->_offset . PHP_EOL;
 		}
-
 		return $queryString;
 	}
 
@@ -107,7 +100,6 @@ class SimpleQuery {
 			'limit' => array(),
 			'offset' => array()
 		);
-
 		$tokens = array(
 			'prologue' => '/(BASE.*\s)?(PREFIX.*\s)*(\s*ASK|\s*COUNT|(\s*SELECT\s+(DISTINCT\s+)?)(\?\w+\s+|\*)+)/si',
 			'from' => '/FROM\s+<(.+?)>/i',
@@ -117,40 +109,31 @@ class SimpleQuery {
 			'limit' => '/LIMIT\s+(\d+)/i',
 			'offset' => '/OFFSET\s+(\d+)/i'
 		);
-
 		foreach ($tokens as $key => $pattern) {
 			preg_match_all($pattern, $queryString, $parts[$key]);
 		}
-
 		$queryObject = new self();
 		if (isset($parts['prologue'][0][0])) {
 			$queryObject->setProloguePart($parts['prologue'][0][0]); // whole match
 		}
-
 		if (isset($parts['from'][1][0])) {
 			$queryObject->setFrom($parts['from'][1]);
 		}
-
 		if (isset($parts['from_named'][1][0])) {
 			$queryObject->setFromNamed($parts['from_named'][1]);
 		}
-
 		if (isset($parts['where'][0][0])) {
 			$queryObject->setWherePart($parts['where'][0][0]);
 		}
-
 		if (isset($parts['order'][1][0])) {
 			$queryObject->setOrderClause($parts['order'][1][0]);
 		}
-
 		if (isset($parts['limit'][1][0])) {
 			$queryObject->setLimit($parts['limit'][1][0]);
 		}
-
 		if (isset($parts['offset'][1][0])) {
 			$queryObject->setOffset($parts['offset'][1][0]);
 		}
-
 		return $queryObject;
 	}
 
@@ -160,13 +143,11 @@ class SimpleQuery {
 
 	public function addFrom($iri) {
 		$this->_from[] = $iri;
-
 		return $this;
 	}
 
 	public function addFromNamed($iri) {
 		$this->_fromNamed[] = $iri;
-
 		return $this;
 	}
 
@@ -198,25 +179,21 @@ class SimpleQuery {
 		$this->_orderClause = null;
 		$this->_limit = null;
 		$this->_offset = null;
-
 		return $this;
 	}
 
 	public function setFrom(array $newFromArray) {
 		$this->_from = $newFromArray;
-
 		return $this;
 	}
 
 	public function setFromNamed(array $newFromNamedArray) {
 		$this->_fromNamed = $newFromNamedArray;
-
 		return $this;
 	}
 
 	public function setLimit($limit) {
 		$this->_limit = $limit;
-
 		return $this;
 	}
 
@@ -227,13 +204,11 @@ class SimpleQuery {
 
 	public function setOrderClause($orderString) {
 		$this->_orderClause = $orderString;
-
 		return $this;
 	}
 
 	public function setProloguePart($prologueString) {
 		$this->_prologuePart = $prologueString;
-
 		return $this;
 	}
 
@@ -243,7 +218,6 @@ class SimpleQuery {
 		} else {
 			$this->_wherePart = 'WHERE' . $whereString;
 		}
-
 		return $this;
 	}
 

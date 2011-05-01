@@ -124,19 +124,15 @@ class Variable extends ElementHelper implements Interfaces\VarOrIriRef, Interfac
 	 */
 	public static function extractName($name) {
 		$parts = preg_split('/[\/#]/', $name);
-
 		$ret = '';
 		for ($i = count($parts) - 1; $ret == ''; $i--) {
 			$ret = $parts[$i];
 		}
-
 		if ($ret == '') {
 			$ret = $name;
 		}
-
 		return strtolower($ret);
 	}
-
 
 	public function __toString() {
 		return $this->getSparql();

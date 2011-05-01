@@ -31,7 +31,7 @@ namespace T3\Semantic\Store\Exception;
  * @scope singleton
  * @api
  */
-class StoreException extends \Tx_Semantic_Exception {
+class StoreException extends \T3\Semantic\Exception {
 
 }
 ?>

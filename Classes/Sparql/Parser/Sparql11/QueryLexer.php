@@ -169,9 +169,7 @@ class QueryLexer extends \AntlrLexer {
 			// /Users/roll/Documents/workspace/SparqlGrammar/src/Erfurt_Sparql_Parser_Sparql11_Query.g:16:3: 'a'
 			{
 				$this->matchChar(97);
-
 			}
-
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
 		}
@@ -186,10 +184,8 @@ class QueryLexer extends \AntlrLexer {
 		// /Users/roll/Documents/workspace/SparqlGrammar/src/Erfurt_Sparql_Parser_Sparql11_Query.g:1:8: ( A | Tokenizer11. Tokens )
 		$alt1 = 2;
 		$LA1_0 = $this->input->LA(1);
-
 		if (($LA1_0 == $this->getToken('97'))) {
 			$LA1_1 = $this->input->LA(2);
-
 			if ((($LA1_1 >= $this->getToken('45') && $LA1_1 <= $this->getToken('46')) || ($LA1_1 >= $this->getToken('48') && $LA1_1 <= $this->getToken('58')) || $LA1_1 == $this->getToken('95') || ($LA1_1 >= $this->getToken('97') && $LA1_1 <= $this->getToken('122')) || $LA1_1 == $this->getToken('183') || ($LA1_1 >= $this->getToken('192') && $LA1_1 <= $this->getToken('214')) || ($LA1_1 >= $this->getToken('216') && $LA1_1 <= $this->getToken('246')) || ($LA1_1 >= $this->getToken('248') && $LA1_1 <= $this->getToken('893')) || ($LA1_1 >= $this->getToken('895') && $LA1_1 <= $this->getToken('8191')) || ($LA1_1 >= $this->getToken('8204') && $LA1_1 <= $this->getToken('8205')) || ($LA1_1 >= $this->getToken('8255') && $LA1_1 <= $this->getToken('8256')) || ($LA1_1 >= $this->getToken('8304') && $LA1_1 <= $this->getToken('8591')) || ($LA1_1 >= $this->getToken('11264') && $LA1_1 <= $this->getToken('12271')) || ($LA1_1 >= $this->getToken('12289') && $LA1_1 <= $this->getToken('55295')) || ($LA1_1 >= $this->getToken('63744') && $LA1_1 <= $this->getToken('64975')) || ($LA1_1 >= $this->getToken('65008') && $LA1_1 <= $this->getToken('65533')))) {
 				$alt1 = 2;
 			}
@@ -203,7 +199,6 @@ class QueryLexer extends \AntlrLexer {
 			}
 			else {
 				$nvae = new \NoViableAltException("", 1, 0, $this->input);
-
 				throw $nvae;
 			}
 		}
@@ -212,17 +207,14 @@ class QueryLexer extends \AntlrLexer {
 				// /Users/roll/Documents/workspace/SparqlGrammar/src/Erfurt_Sparql_Parser_Sparql11_Query.g:1:10: A
 				{
 				$this->mA();
-
 				}
 				break;
 			case 2 :
 				// /Users/roll/Documents/workspace/SparqlGrammar/src/Erfurt_Sparql_Parser_Sparql11_Query.g:1:12: Tokenizer11. Tokens
 				{
 				$this->gTokenizer11->mTokens();
-
 				}
 				break;
-
 		}
 
 	}

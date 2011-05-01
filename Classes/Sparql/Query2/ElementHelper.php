@@ -51,7 +51,6 @@ abstract class ElementHelper {
 	public function addParent(ContainerHelper $parent) {
 		//        if (!in_array($parent, $this->parents))
 		//                $this->parents[] = $parent;
-
 		return $this;
 	}
 
@@ -66,11 +65,9 @@ abstract class ElementHelper {
 		foreach ($query->getParentContainer($this) as $parent) {
 			$parent->removeElement($this);
 		}
-
 		//        foreach ($this->parents as $parent) {
 		//                $parent->removeElement($this);
 		//        }
-
 		return $this;
 	}
 
@@ -89,7 +86,6 @@ abstract class ElementHelper {
 		//        }
 		//
 		//        $this->parents = $new;
-
 		return $this;
 	}
 
@@ -119,19 +115,15 @@ abstract class ElementHelper {
 		if ($this === $obj) {
 			return true;
 		}
-
 		if (!method_exists($obj, 'getID')) {
 			return false;
 		}
-
 		if ($this->getID() == $obj->getID()) {
 			return true;
 		}
-
 		if (get_class($this) !== get_class($obj)) {
 			return false;
 		}
-
 		return $this->getSparql() === $obj->getSparql();
 	}
 

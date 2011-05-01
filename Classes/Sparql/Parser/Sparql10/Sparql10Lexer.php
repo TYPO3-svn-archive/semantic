@@ -154,9 +154,7 @@ class Sparql10Lexer extends \AntlrLexer {
 			// src/Erfurt_Sparql_Parser_Sparql10_Sparql10.g:61:3: 'a'
 			{
 				$this->matchChar(97);
-
 			}
-
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
 		}
@@ -171,10 +169,8 @@ class Sparql10Lexer extends \AntlrLexer {
 		// src/Erfurt_Sparql_Parser_Sparql10_Sparql10.g:1:8: ( A | Tokenizer. Tokens )
 		$alt1 = 2;
 		$LA1_0 = $this->input->LA(1);
-
 		if (($LA1_0 == $this->getToken('97'))) {
 			$LA1_1 = $this->input->LA(2);
-
 			if ((($LA1_1 >= $this->getToken('45') && $LA1_1 <= $this->getToken('46')) || ($LA1_1 >= $this->getToken('48') && $LA1_1 <= $this->getToken('58')) || $LA1_1 == $this->getToken('95') || ($LA1_1 >= $this->getToken('97') && $LA1_1 <= $this->getToken('122')))) {
 				$alt1 = 2;
 			}
@@ -188,7 +184,6 @@ class Sparql10Lexer extends \AntlrLexer {
 			}
 			else {
 				$nvae = new \NoViableAltException("", 1, 0, $this->input);
-
 				throw $nvae;
 			}
 		}
@@ -197,17 +192,14 @@ class Sparql10Lexer extends \AntlrLexer {
 				// src/Erfurt_Sparql_Parser_Sparql10_Sparql10.g:1:10: A
 				{
 				$this->mA();
-
 				}
 				break;
 			case 2 :
 				// src/Erfurt_Sparql_Parser_Sparql10_Sparql10.g:1:12: Tokenizer. Tokens
 				{
 				$this->gTokenizer->mTokens();
-
 				}
 				break;
-
 		}
 
 	}

@@ -46,9 +46,7 @@ class GroupOrUnionGraphPattern extends GroupGraphPattern {
 	 */
 	public function getSparql() {
 		$sparql = '';
-
 		$countElements = count($this->elements);
-
 		for ($i = 0; $i < $countElements; ++$i) {
 			if ($this->elements[$i] instanceof OptionalGraphPattern) {
 				$sparql .= ' { ';
@@ -61,7 +59,6 @@ class GroupOrUnionGraphPattern extends GroupGraphPattern {
 				$sparql .= ' UNION ';
 			}
 		}
-
 		return $sparql;
 	}
 
@@ -104,7 +101,6 @@ class GroupOrUnionGraphPattern extends GroupGraphPattern {
 		if (!is_array($elements)) {
 			throw new \RuntimeException('Argument 1 passed to GroupGraphPattern::setElements : must be an array');
 		}
-
 		foreach ($elements as $element) {
 			if (!($element instanceof GroupGraphPattern)) {
 				throw new \RuntimeException('Argument 1 passed to GroupOrUnionGraphPattern::setElements : must be an array of instances of GroupGraphPattern');

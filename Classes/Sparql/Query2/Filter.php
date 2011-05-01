@@ -84,7 +84,6 @@ class Filter extends ElementHelper {
 	 */
 	public function getSparql() {
 		$constraint_str = trim($this->element->getSparql());
-
 		//grammar says: brackets are not needed , sparql engines say: error...
 		if (substr($constraint_str, 0, 1) != '(') {
 			$constraint_str = '(' . $constraint_str . ')';

@@ -42,7 +42,6 @@ class RDFSClass {
 
 	public function __construct(Query2\IriRef $iri, $withChilds = false) {
 		$this->iri = $iri;
-
 		if ($withChilds) {
 			// TODO elaborate relevance
 			$owApp = OntoWiki_Application::getInstance();

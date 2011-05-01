@@ -48,7 +48,6 @@ class Utils {
 					?property <http://ns.ontowiki.net/SysOnt/order> ?order
 				}
 				FILTER(sameTerm(?type, <" . $class->iri . ">))";
-
 		//TODO ...
 		;
 	}

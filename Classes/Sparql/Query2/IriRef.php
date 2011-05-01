@@ -49,15 +49,12 @@ class IriRef extends ElementHelper implements Interfaces\VarOrIriRef, Interfaces
 			throw new \RuntimeException('wrong argument 1 passed to IriRef::__construct. string expected. ' . typeHelper($nresource) . ' found.');
 		}
 		$this->iri = $nresource;
-
 		if ($prefix != null) {
 			$this->prefix = $prefix;
 		}
-
 		if ($unexpandablePrefix !== null && is_string($unexpandablePrefix)) {
 			$this->unexpandablePrefix = $unexpandablePrefix;
 		}
-
 		parent::__construct();
 	}
 

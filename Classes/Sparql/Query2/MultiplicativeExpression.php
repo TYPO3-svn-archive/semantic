@@ -60,9 +60,7 @@ class MultiplicativeExpression extends AddMultHelper implements Interfaces\Multi
 	 */
 	public function getSparql() {
 		$sparql = '';
-
 		$countElements = count($this->elements);
-
 		for ($i = 0; $i < $countElements; ++$i) {
 			if ($i == 0) {
 				if ($this->elements[$i]['op'] == self::invOperator) {

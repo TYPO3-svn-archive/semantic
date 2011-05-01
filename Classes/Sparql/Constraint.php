@@ -101,7 +101,6 @@ class Constraint {
 		if (null === $this->_usedVars) {
 			$this->_usedVars = array_unique($this->_resolveUsedVarsRecursive($this->tree));
 		}
-
 		return $this->_usedVars;
 	}
 
@@ -127,17 +126,14 @@ class Constraint {
 
 	public function setTree($tree) {
 		$this->tree = $tree;
-
 		// If the tree is set or reset, the used variables need to be resolved again.
 		$this->_usedVars = null;
 	}
 
 	public function parse() {
 		$this->_tokens = Erfurt_Sparql_Parser::tokenize($this->expression);
-
 		$this->setOuterFilter(true);
 		$this->setTree($this->_parseConstraintTree());
-
 		$this->_tokens = null;
 	}
 
@@ -147,13 +143,11 @@ class Constraint {
 
 	protected function _resolveUsedVarsRecursive($tree) {
 		$usedVars = array();
-
 		if ($tree['type'] === 'function') {
 			foreach ($tree['parameter'] as $paramArray) {
 				if ($paramArray['type'] === 'value') {
 					if (is_string($paramArray['value']) &&
 						($paramArray['value'][0] === '?' || $paramArray['value'][0] === '$')) {
-
 						$usedVars[] = $paramArray['value'];
 					}
 				} else {
@@ -161,7 +155,6 @@ class Constraint {
 						foreach ($paramArray['parameter'] as $p) {
 							if (is_string($p['value']) &&
 								($p['value'][0] === '?' || $p['value'][0] === '$')) {
-
 								$usedVars[] = $p['value'];
 							}
 						}
@@ -178,7 +171,6 @@ class Constraint {
 				$usedVars = array_merge($usedVars, $this->_resolveUsedVarsRecursive($tree['operand2']));
 			}
 		}
-
 		return $usedVars;
 	}
 
@@ -189,7 +181,6 @@ class Constraint {
 		$litQuotes = null;
 		$strQuoted = '';
 		$parens = false;
-
 		while ($tok = next($this->_tokens)) {
 			if ($chQuotes !== null && $tok != $chQuotes) {
 				$strQuoted .= $tok;
@@ -212,7 +203,6 @@ class Constraint {
 					}
 				}
 			}
-
 			switch ($tok) {
 				case '"':
 				case '\'':
@@ -247,7 +237,6 @@ class Constraint {
 						$nLevel + 1,
 						$bFunc1 || $bFunc2
 					);
-
 					if ($bFunc1) {
 						$tree['type'] = 'function';
 						$tree['name'] = $part[0]['value'];
@@ -268,7 +257,6 @@ class Constraint {
 							$part = array();
 						}
 					}
-
 					if (current($this->_tokens) === ')') {
 						if (substr(next($this->_tokens), 0, 2) === '_:') {
 							// filter ends here
@@ -278,7 +266,6 @@ class Constraint {
 							prev($this->_tokens);
 						}
 					}
-
 					continue 2;
 					break;
 				case ' ':
@@ -301,7 +288,6 @@ class Constraint {
 							$tree = array();
 						}
 					}
-
 					$tree['type'] = 'equation';
 					$tree['level'] = $nLevel;
 					$tree['operator'] = $tok;
@@ -312,7 +298,6 @@ class Constraint {
 					break;
 				case '!':
 					if ($tree != array()) {
-						require_once 'Erfurt/Sparql/ParserException.php';
 						throw new Erfurt_Sparql_ParserException(
 							'Unexpected "!" negation in constraint.', -1, current($this->_tokens));
 					}
@@ -334,14 +319,11 @@ class Constraint {
 				default:
 					break;
 			}
-
 			if ($this->_varCheck($tok)) {
 				if (!$parens && $nLevel === 0) {
 					// Variables need parenthesizes first
-					require_once 'Erfurt/Sparql/ParserException.php';
 					throw new Erfurt_Sparql_ParserException('FILTER expressions that start with a variable need parenthesizes.', -1, current($this->_tokens));
 				}
-
 				$part[] = array(
 					'type' => 'value',
 					'value' => $tok,
@@ -350,7 +332,6 @@ class Constraint {
 			} else {
 				if (substr($tok, 0, 2) === '_:') {
 					// syntactic blank nodes not allowed in filter
-					require_once 'Erfurt/Sparql/ParserException.php';
 					throw new Erfurt_Sparql_ParserException('Syntactic Blanknodes not allowed in FILTER.', -1,
 						current($this->_tokens));
 				} else {
@@ -393,14 +374,12 @@ class Constraint {
 					}
 				}
 			}
-
 			if (isset($tree['type']) && $tree['type'] === 'equation' && isset($part[0])) {
 				$tree['operand2'] = $part[0];
 				Erfurt_Sparql_Parser::balanceTree($tree);
 				$part = array();
 			}
 		}
-
 		if (!isset($tree['type']) && $bParameter) {
 			return $part;
 		} else {
@@ -411,19 +390,15 @@ class Constraint {
 				Erfurt_Sparql_Parser::balanceTree($tree);
 			}
 		}
-
 		if ((count($tree) === 0) && (count($part) > 1)) {
-			require_once 'Erfurt/Sparql/ParserException.php';
 			throw new Erfurt_Sparql_ParserException('Failed to parse constraint.', -1, current($this->_tokens));
 		}
-
 		if (!isset($tree['type']) && isset($part[0])) {
 			if (isset($tree['negated'])) {
 				$part[0]['negated'] = true;
 			}
 			return $part[0];
 		}
-
 		return $tree;
 	}
 
@@ -431,7 +406,6 @@ class Constraint {
 		if (isset($token[0]) && ($token{0} == '$' || $token{0} == '?')) {
 			return true;
 		}
-
 		return false;
 	}
 

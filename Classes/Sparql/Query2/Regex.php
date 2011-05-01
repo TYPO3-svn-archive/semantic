@@ -44,7 +44,6 @@ class Regex extends ElementHelper implements Interfaces\BuiltInCall {
 	public function __construct(Interfaces\Expression $element1, Interfaces\Expression $element2, $element3 = null) {
 		$this->element1 = $element1;
 		$this->element2 = $element2;
-
 		if ($element3 != null) {
 			if ($element3 instanceof Interfaces\Expression) {
 				$this->element3 = $element3;

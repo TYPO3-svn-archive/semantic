@@ -140,10 +140,8 @@ class Sparql10Parser extends \AntlrParser {
 	public $gSparql10;
 	// delegators
 
-
 	static $FOLLOW_query10_in_parse71;
 	static $FOLLOW_EOF_in_parse73;
-
 
 	public function __construct($input, $state = null) {
 		if ($state == null) {
@@ -152,9 +150,7 @@ class Sparql10Parser extends \AntlrParser {
 		parent::__construct($input, $state);
 		$this->gSparql10 = new Sparql10\Sparql10($input, $state, $this);
 
-
 	}
-
 
 	public function getTokenNames() {
 		return self::$tokenNames;
@@ -163,7 +159,6 @@ class Sparql10Parser extends \AntlrParser {
 	public function getGrammarFileName() {
 		return "src/Erfurt_Sparql_Parser_Sparql10_Sparql10.g";
 	}
-
 
 	private $_errors = array();
 
@@ -175,29 +170,21 @@ class Sparql10Parser extends \AntlrParser {
 		return $this->_errors;
 	}
 
-
 	// $ANTLR start "parse"
 	// src/Erfurt_Sparql_Parser_Sparql10_Sparql10.g:54:1: parse returns [$value] : query10 EOF ;
 	public function parse() {
 		$value = null;
-
 		$query101 = null;
-
-
 		try {
 			// src/Erfurt_Sparql_Parser_Sparql10_Sparql10.g:55:3: ( query10 EOF )
 			// src/Erfurt_Sparql_Parser_Sparql10_Sparql10.g:56:3: query10 EOF
 			{
 				$this->pushFollow(self::$FOLLOW_query10_in_parse71);
 				$query101 = $this->query10();
-
 				$this->state->_fsp--;
-
 				$this->match($this->input, $this->getToken('EOF'), self::$FOLLOW_EOF_in_parse73);
 				$value = ($query101 != null ? $query101->value : null);
-
 			}
-
 		}
 		catch (\RecognitionException $re) {
 			$this->reportError($re);
@@ -206,7 +193,6 @@ class Sparql10Parser extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
@@ -489,9 +475,7 @@ class Sparql10Parser extends \AntlrParser {
 		return $this->gSparql10->defaultGraphClause();
 	}
 
-
 }
-
 
 Sparql10Parser::$FOLLOW_query10_in_parse71 = new \Set(array());
 Sparql10Parser::$FOLLOW_EOF_in_parse73 = new \Set(array(1));

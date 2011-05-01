@@ -29,7 +29,8 @@ namespace T3\Semantic\Store\Adapter;
  * @package Semantic
  * @scope prototype
  */
-class Typo3 implements \Erfurt_Store_Adapter_Interface, \Erfurt_Store_Sql_Interface {
+use \T3\Semantic\Sparql;
+class Typo3 implements AdapterInterface, \T3\Semantic\Store\Sql\SqlInterface {
 	/**
 	 * @array
 	 */
@@ -72,11 +73,11 @@ class Typo3 implements \Erfurt_Store_Adapter_Interface, \Erfurt_Store_Sql_Interf
 	 */
 	public function __construct() {
 		if (!isset($GLOBALS['TYPO3_DB'])) {
-			throw new Exception('TYPO3_DB is not available. Are you running inside TYPO3 context?', 1303213706);
+			throw new \Exception('TYPO3_DB is not available. Are you running inside TYPO3 context?', 1303213706);
 		}
 		$this->databaseConnection = $GLOBALS['TYPO3_DB'];
 		if (!$this->databaseConnection->isConnected()) {
-			throw new Exception('TYPO3_DB is not connected. Something went wrong inside TYPO3', 1303213794);
+			throw new \Exception('TYPO3_DB is not connected. Something went wrong inside TYPO3', 1303213794);
 		}
 	}
 
@@ -102,7 +103,7 @@ class Typo3 implements \Erfurt_Store_Adapter_Interface, \Erfurt_Store_Sql_Interf
 		$this->objectManager = $objectManager;
 	}
 
-	/** @see \Erfurt_Store_Adapter_Interface */
+	/** @see \\T3\Semantic\Store\Adapter\AdapterInterface */
 	public function addMultipleStatements($graphUri, array $statementsArray, array $options = array()) {
 		$modelInfoCache = $this->getModelInfos();
 		$graphId = $modelInfoCache[$graphUri]['modelId'];
@@ -208,12 +209,12 @@ class Typo3 implements \Erfurt_Store_Adapter_Interface, \Erfurt_Store_Sql_Interf
 					#try {
 					#    $this->_dbConn->insert('tx_semantic_statement', $data);
 					#    $counter++;
-					#} catch (Exception $e) {
+					#} catch (\Exception $e) {
 					#    if ($this->_getNormalizedErrorCode() === 1000) {
 					#        continue;
 					#    } else {
 					#        $this->_dbConn->rollback();
-					#        throw new \Erfurt_Store_Adapter_Exception('Bulk insertion of statements failed: ' .
+					#        throw new \Exception('Bulk insertion of statements failed: ' .
 					#                        $this->_dbConn->getConnection()->error);
 					#    }
 					#}
@@ -245,7 +246,7 @@ class Typo3 implements \Erfurt_Store_Adapter_Interface, \Erfurt_Store_Sql_Interf
 		}
 	}
 
-	/** @see \Erfurt_Store_Adapter_Interface */
+	/** @see \\T3\Semantic\Store\Adapter\AdapterInterface */
 	public function addStatement($graphUri, $subject, $predicate, $object, array $options = array()) {
 		$statementArray = array();
 		$statementArray["$subject"] = array();
@@ -254,15 +255,15 @@ class Typo3 implements \Erfurt_Store_Adapter_Interface, \Erfurt_Store_Sql_Interf
 		try {
 			$this->addMultipleStatements($graphUri, $statementArray);
 		}
-		catch (\Erfurt_Store_Adapter_Exception $e) {
-			throw new \Erfurt_Store_Adapter_Exception('Insertion of statement failed:' .
+		catch (\Exception $e) {
+			throw new \Exception('Insertion of statement failed:' .
 													 $e->getMessage());
 		}
 	}
 
-	/** @see \Erfurt_Store_Adapter_Interface */
+	/** @see \\T3\Semantic\Store\Adapter\AdapterInterface */
 	public function countWhereMatches($graphIris, $whereSpec, $countSpec, $distinct = false) {
-		$query = new \Erfurt_Sparql_SimpleQuery();
+		$query = $this->objectManager->create('\T3\Semantic\Sparql\SimpleQuery');;
 		if (!$distinct) {
 			$query->setProloguePart("COUNT DISTINCT $countSpec"); // old way: distinct has no effect !!!
 		} else {
@@ -279,10 +280,10 @@ class Typo3 implements \Erfurt_Store_Adapter_Interface, \Erfurt_Store_Sql_Interf
 
 	/** @see \Erfurt_Store_Sql_Interface */
 	public function createTable($tableName, array $columns) {
-		throw new Exception('TYPO3 Backend does not support create table actions. Do it via the exension manager.', 1303219098);
+		throw new \Exception('TYPO3 Backend does not support create table actions. Do it via the exension manager.', 1303219098);
 	}
 
-	/** @see \Erfurt_Store_Adapter_Interface */
+	/** @see \\T3\Semantic\Store\Adapter\AdapterInterface */
 	public function createModel($graphUri, $type = \Erfurt_Store::MODEL_TYPE_OWL) {
 		$data = array(
 			'uri' => &$graphUri
@@ -330,7 +331,7 @@ class Typo3 implements \Erfurt_Store_Adapter_Interface, \Erfurt_Store_Sql_Interf
 		}
 	}
 
-	/** @see \Erfurt_Store_Adapter_Interface */
+	/** @see \\T3\Semantic\Store\Adapter\AdapterInterface */
 	public function deleteMatchingStatements($graphUri, $subject, $predicate, $object, array $options = array()) {
 		$modelInfoCache = $this->getModelInfos();
 		$modelId = $modelInfoCache[$graphUri]['modelId'];
@@ -395,7 +396,7 @@ class Typo3 implements \Erfurt_Store_Adapter_Interface, \Erfurt_Store_Sql_Interf
 		return $ret;
 	}
 
-	/** @see \Erfurt_Store_Adapter_Interface */
+	/** @see \\T3\Semantic\Store\Adapter\AdapterInterface */
 	public function deleteMultipleStatements($graphUri, array $statementsArray) {
 		$modelInfoCache = $this->getModelInfos();
 		$modelId = $modelInfoCache[$graphUri]['modelId'];
@@ -450,20 +451,20 @@ class Typo3 implements \Erfurt_Store_Adapter_Interface, \Erfurt_Store_Sql_Interf
 			$this->databaseConnection->commit();
 			$this->_cleanUpValueTables($graphUri);
 		}
-		catch (Exception $e) {
+		catch (\Exception $e) {
 			// something went wrong... rollback
 			$this->databaseConnection->rollback();
-			throw new \Erfurt_Store_Adapter_Exception('Bulk deletion of statements failed.' . $e->getMessage());
+			throw new \Exception('Bulk deletion of statements failed.' . $e->getMessage());
 		}
 	}
 
-	/** @see \Erfurt_Store_Adapter_Interface */
+	/** @see \\T3\Semantic\Store\Adapter\AdapterInterface */
 	public function deleteModel($graphUri) {
 		$modelInfoCache = $this->getModelInfos();
 		if (isset($modelInfoCache[$graphUri]['modelId'])) {
 			$graphId = $modelInfoCache[$graphUri]['modelId'];
 		} else {
-			throw new \Erfurt_Store_Adapter_Exception('Model deletion failed: No db id found for model URL.');
+			throw new \Exception('Model deletion failed: No db id found for model URL.');
 		}
 		// remove all rows with the specified modelID from the models, statements and namespaces tables
 		$this->databaseConnection->delete('tx_semantic_graph', "id = $graphId");
@@ -478,12 +479,12 @@ class Typo3 implements \Erfurt_Store_Adapter_Interface, \Erfurt_Store_Sql_Interf
 		$this->modelInfoCache = null;
 	}
 
-	/** @see \Erfurt_Store_Adapter_Interface */
+	/** @see \\T3\Semantic\Store\Adapter\AdapterInterface */
 	public function exportRdf($modelIri, $serializationType = 'xml', $filename = false) {
-		throw new \Erfurt_Store_Adapter_Exception('Not implemented yet.');
+		throw new \Exception('Not implemented yet.');
 	}
 
-	/** @see \Erfurt_Store_Adapter_Interface */
+	/** @see \\T3\Semantic\Store\Adapter\AdapterInterface */
 	public function getAvailableModels() {
 		$modelInfoCache = $this->getModelInfos();
 		$models = array();
@@ -497,7 +498,7 @@ class Typo3 implements \Erfurt_Store_Adapter_Interface, \Erfurt_Store_Sql_Interf
 		return 'ZendDb';
 	}
 
-	/** @see \Erfurt_Store_Adapter_Interface */
+	/** @see \\T3\Semantic\Store\Adapter\AdapterInterface */
 	public function getBlankNodePrefix() {
 		return 'bNode';
 	}
@@ -535,7 +536,7 @@ class Typo3 implements \Erfurt_Store_Adapter_Interface, \Erfurt_Store_Sql_Interf
 		}
 	}
 
-	/** @see \Erfurt_Store_Adapter_Interface */
+	/** @see \\T3\Semantic\Store\Adapter\AdapterInterface */
 	public function getModel($modelIri) {
 		// if model is already in cache return the cached value
 		if (isset($this->modelCache[$modelIri])) {
@@ -548,19 +549,19 @@ class Typo3 implements \Erfurt_Store_Adapter_Interface, \Erfurt_Store_Sql_Interf
 		}
 		// choose the right type for the model instance and instanciate it
 		if ($modelInfoCache[$modelIri]['type'] === 'owl') {
-			$m = new \Erfurt_Owl_Model($modelIri, $baseUri);
+			$m = $this->objectManager->create('\T3\Semantic\Owl\Model', $modelIri, $baseUri);
 		} else {
 			if ($this->modelInfoCache[$modelIri]['type'] === 'rdfs') {
-				$m = new \Erfurt_Rdfs_Model($modelIri, $baseUri);
+				$m = $this->objectManager->create('\T3\Semantic\Rdfs\Model', $modelIri, $baseUri);
 			} else {
-				$m = new \Erfurt_Rdf_Model($modelIri, $baseUri);
+				$m = $this->objectManager->create('\T3\Semantic\Rdf\Model', $modelIri, $baseUri);
 			}
 		}
 		$this->modelCache[$modelIri] = $m;
 		return $m;
 	}
 
-	/** @see \Erfurt_Store_Adapter_Interface */
+	/** @see \\T3\Semantic\Store\Adapter\AdapterInterface */
 	public function getNewModel($graphUri, $baseUri = '', $type = 'owl') {
 		$data = array(
 			'uri' => &$graphUri
@@ -610,17 +611,17 @@ class Typo3 implements \Erfurt_Store_Adapter_Interface, \Erfurt_Store_Sql_Interf
 		return $m;
 	}
 
-	/** @see \Erfurt_Store_Adapter_Interface */
+	/** @see \\T3\Semantic\Store\Adapter\AdapterInterface */
 	public function getSupportedExportFormats() {
 		return array();
 	}
 
-	/** @see \Erfurt_Store_Adapter_Interface */
+	/** @see \\T3\Semantic\Store\Adapter\AdapterInterface */
 	public function getSupportedImportFormats() {
 		return array();
 	}
 
-	/** @see \Erfurt_Store_Adapter_Interface */
+	/** @see \\T3\Semantic\Store\Adapter\AdapterInterface */
 	public function importRdf($modelUri, $data, $type, $locator) {
 		// TODO fix or remove
 		if ($this->databaseConnection instanceof \Zend_Db_Adapter_Mysqli) {
@@ -786,7 +787,7 @@ class Typo3 implements \Erfurt_Store_Adapter_Interface, \Erfurt_Store_Sql_Interf
 			}
 			$this->optimizeTables();
 		} else {
-			throw new \Erfurt_Store_Adapter_Exception('CSV import not supported for this database server.');
+			throw new \Exception('CSV import not supported for this database server.');
 		}
 	}
 
@@ -794,7 +795,7 @@ class Typo3 implements \Erfurt_Store_Adapter_Interface, \Erfurt_Store_Sql_Interf
 		$this->modelInfoCache = null;
 	}
 
-	/** @see \Erfurt_Store_Adapter_Interface */
+	/** @see \\T3\Semantic\Store\Adapter\AdapterInterface */
 	public function isModelAvailable($modelIri) {
 		$modelInfoCache = $this->getModelInfos();
 		if (isset($modelInfoCache[$modelIri])) {
@@ -814,13 +815,13 @@ class Typo3 implements \Erfurt_Store_Adapter_Interface, \Erfurt_Store_Sql_Interf
 		return $this->databaseConnection->admin_get_tables();
 	}
 
-	/** @see \Erfurt_Store_Adapter_Interface */
+	/** @see \\T3\Semantic\Store\Adapter\AdapterInterface */
 	public function sparqlAsk($query) {
 		//TODO works for me...., why hasnt this be enabled earlier? is the same as sparqlQuery... looks like the engine supports it. but there is probably a reason for this not to be supported
 		$start = microtime(true);
-		$engine = new \Erfurt_Sparql_EngineDb_Adapter_EfZendDb($this->databaseConnection, $this->getModelInfos());
-		$parser = new \Erfurt_Sparql_Parser();
-		if (!($query instanceof \Erfurt_Sparql_Query)) {
+		$engine = $this->objectManager->create('\T3\Semantic\Sparql\EngineDb\Adapter\Typo3', $this->databaseConnection, $this->getModelInfos());
+		$parser = $this->objectManager->create('\T3\Semantic\Sparql\Parser');
+		if (!($query instanceof Sparql\Query)) {
 			$query = $parser->parse((string)$query);
 		}
 		$result = $engine->queryModel($query);
@@ -832,13 +833,13 @@ class Typo3 implements \Erfurt_Store_Adapter_Interface, \Erfurt_Store_Sql_Interf
 		return $result;
 	}
 
-	/** @see \Erfurt_Store_Adapter_Interface */
+	/** @see \\T3\Semantic\Store\Adapter\AdapterInterface */
 	public function sparqlQuery($query, $options = array()) {
 		$resultform = (isset($options[STORE_RESULTFORMAT])) ? $options[STORE_RESULTFORMAT] : STORE_RESULTFORMAT_PLAIN;
 		$start = microtime(true);
-		$engine = new \Erfurt_Sparql_EngineDb_Adapter_EfZendDb($this->databaseConnection, $this->getModelInfos());
-		$parser = new \Erfurt_Sparql_Parser();
-		if (!($query instanceof \Erfurt_Sparql_Query)) {
+		$engine = $this->objectManager->create('\T3\Semantic\Sparql\EngineDb\Adapter\Typo3', $this->databaseConnection, $this->getModelInfos());
+		$parser = $this->objectManager->create('\T3\Semantic\Sparql\Parser');
+		if (!($query instanceof Sparql\Query)) {
 			$query = $parser->parse((string)$query);
 		}
 		$result = $engine->queryModel($query, $resultform);
@@ -846,7 +847,7 @@ class Typo3 implements \Erfurt_Store_Adapter_Interface, \Erfurt_Store_Sql_Interf
 		$logger = $this->knowledgeBase->getLog();
 		$time = (microtime(true) - $start) * 1000;
 		$debugText = 'SPARQL Query (' . $time . ' ms)';
-		$logger->debug($debugText);
+//		$logger->debug($debugText);
 		return $result;
 	}
 
@@ -910,7 +911,7 @@ class Typo3 implements \Erfurt_Store_Adapter_Interface, \Erfurt_Store_Sql_Interf
 		if (isset($this->modelInfoCache[$graphUri]['modelId'])) {
 			$graphId = $this->modelInfoCache[$graphUri]['modelId'];
 		} else {
-			throw new \Erfurt_Store_Adapter_Exception('Failed to clean up value tables: No db id for <' . $graphUri .
+			throw new \Exception('Failed to clean up value tables: No db id for <' . $graphUri .
 													 '> was found.');
 		}
 		$sql = "SELECT l.id as id, count(l.id)
@@ -954,16 +955,16 @@ class Typo3 implements \Erfurt_Store_Adapter_Interface, \Erfurt_Store_Sql_Interf
 		try {
 			$this->databaseConnection->exec_INSERTquery($tableName, $data);
 		}
-		catch (Exception $e) {
+		catch (\Exception $e) {
 			if ($this->getNormalizedErrorCode() !== 1000) {
-				throw new \Erfurt_Store_Adapter_Exception("Insertion of value into $tableName failed: " .
+				throw new \Exception("Insertion of value into $tableName failed: " .
 														 $e->getMessage());
 			}
 		}
 //		$sql = "SELECT id FROM $tableName WHERE vh = '$valueHash'";
 		$result = $this->databaseConnection->exec_SELECTgetSingleRow('id', $tableName, 'vh = "' . $valueHash .'"');
 		if (!$result) {
-			throw new \Erfurt_Store_Adapter_Exception('Fetching of uri id failed: ' .
+			throw new \Exception('Fetching of uri id failed: ' .
 													 $this->databaseConnection->getConnection()->error);
 		}
 		$id = $result['id'];
@@ -998,7 +999,7 @@ class Typo3 implements \Erfurt_Store_Adapter_Interface, \Erfurt_Store_Sql_Interf
                     LEFT JOIN tx_semantic_uri u ON (u.id = g.uri_r OR u.id = g.base_r OR u.id = s.o_r)';
 			$result = $this->sqlQuery($sql);
 			if ($result === false) {
-				throw new Exception('Error while fetching model and namespace informations. Possibly the tables required for TYPO3 Store Adapter are not set up correctly. Check in Extension Manager.', 1303219180);
+				throw new \Exception('Error while fetching model and namespace informations. Possibly the tables required for TYPO3 Store Adapter are not set up correctly. Check in Extension Manager.', 1303219180);
 			} else {
 				$this->modelInfoCache = array();
 				#$rowSet = $result->fetchAll();
@@ -1078,7 +1079,7 @@ class Typo3 implements \Erfurt_Store_Adapter_Interface, \Erfurt_Store_Sql_Interf
 				return true;
 			}
 		} else {
-			throw new \Erfurt_Store_Adapter_Exception('Determining of database tables failed.');
+			throw new \Exception('Determining of database tables failed.');
 		}
 	}
 

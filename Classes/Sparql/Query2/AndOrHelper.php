@@ -64,9 +64,7 @@ class AndOrHelper extends ContainerHelper implements Interfaces\ConditionalOrExp
 	 */
 	public function getSparql() {
 		$sparql = '';
-
 		$countElements = count($this->elements);
-
 		for ($i = 0; $i < $countElements; ++$i) {
 			$sparql .= $this->elements[$i]->getSparql();
 			if (isset($this->elements[$i + 1])) {
@@ -88,7 +86,6 @@ class AndOrHelper extends ContainerHelper implements Interfaces\ConditionalOrExp
 		if (!is_array($elements)) {
 			throw new \RuntimeException('Argument 1 passed to ' . __CLASS__ . '::setElements : must be an array');
 		}
-
 		foreach ($elements as $element) {
 			if (!($element instanceof Interfaces\Expression)) {
 				throw new \RuntimeException('Argument 1 passed to ' . __CLASS__ . '::setElements : must be an array of Expression');

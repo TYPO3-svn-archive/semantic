@@ -86,7 +86,6 @@ class GraphPattern {
 	 */
 	public $patternId = null;
 
-
 	/**
 	 * Constructor
 	 */
@@ -260,11 +259,9 @@ class GraphPattern {
 	 */
 	public function getVariables() {
 		$arVars = array();
-
 		foreach ($this->triplePatterns as $pattern) {
 			$arVars = array_merge($arVars, $pattern->getVariables());
 		}
-
 		return array_unique($arVars);
 	}
 
@@ -286,7 +283,6 @@ class GraphPattern {
 				($this->getGraphname() === null)
 		);
 	}
-
 
 	/**
 	 *   When cloning, we need to clone some subobjects, too

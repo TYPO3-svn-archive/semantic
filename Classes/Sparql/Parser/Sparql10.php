@@ -30,7 +30,6 @@ namespace T3\Semantic\Sparql\Parser;
  * @copyright Copyright (c) 2010 {@link http://aksw.org aksw}
  * @license http://opensource.org/licenses/gpl-license.php GNU General Public License (GPL)
  */
-require_once 'antlr/Php/antlr.php';
 class Sparql10 implements SparqlInterface {
 
 	public static function initFromString($queryString, $parsePartial = null) {

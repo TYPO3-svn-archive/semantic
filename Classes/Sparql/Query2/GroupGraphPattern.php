@@ -75,13 +75,10 @@ class GroupGraphPattern extends ContainerHelper {
 	 * @return string
 	 */
 	public function getSparql() {
-
 		//sort filters to the end - usefull?
 		$filters = array();
 		$new = array();
-
 		$countElements = count($this->elements);
-
 		for ($i = 0; $i < $countElements; ++$i) {
 			if ($this->elements[$i] instanceof Filter) {
 				$filters[] = $this->elements[$i];
@@ -89,20 +86,15 @@ class GroupGraphPattern extends ContainerHelper {
 				$new[] = $this->elements[$i];
 			}
 		}
-
 		$countFilters = count($filters);
-
 		for ($i = 0; $i < $countFilters; ++$i) {
 			$new[] = $filters[$i];
 		}
 		$this->elements = $new;
-
-
 		//build sparql-string
 		$sparql = "{ \n";
 		for ($i = 0; $i < $countElements; ++$i) {
 			$sparql .= $this->elements[$i]->getSparql();
-
 			//realisation of TriplesBlock
 			if ($this->elements[$i] instanceof Interfaces\TriplesSameSubject
 				&& isset($this->elements[$i + 1])
@@ -111,15 +103,12 @@ class GroupGraphPattern extends ContainerHelper {
 			}
 			$sparql .= " \n";
 		}
-
-
 		return $sparql . "} \n";
 	}
 
 	public function __toString() {
 		return $this->getSparql();
 	}
-
 
 	/**
 	 * getVars
@@ -128,12 +117,10 @@ class GroupGraphPattern extends ContainerHelper {
 	 */
 	public function getVars() {
 		$vars = array();
-
 		foreach ($this->elements as $element) {
 			$new = $element->getVars();
 			$vars = array_merge($vars, $new);
 		}
-
 		return $vars;
 	}
 
@@ -178,7 +165,6 @@ class GroupGraphPattern extends ContainerHelper {
 									   'GroupGraphPattern::setElements : ' .
 									   'must be an array');
 		}
-
 		foreach ($elements as $element) {
 			if (!($element instanceof GroupGraphPattern)
 				&& !($element instanceof Interfaces\TriplesSameSubject)
@@ -210,7 +196,6 @@ class GroupGraphPattern extends ContainerHelper {
 									   'GroupGraphPattern::setElements : ' .
 									   'must be an array');
 		}
-
 		foreach ($elements as $element) {
 			if (!($element instanceof GroupGraphPattern)
 				&& !($element instanceof Interfaces\TriplesSameSubject)
@@ -230,7 +215,6 @@ class GroupGraphPattern extends ContainerHelper {
 		return $this; //for chaining
 	}
 
-
 	/**
 	 * optimize
 	 * little demo of optimization:
@@ -241,9 +225,7 @@ class GroupGraphPattern extends ContainerHelper {
 	public function optimize() {
 		//delete duplicates
 		$to_remove = array();
-
 		$countElements = count($this->elements);
-
 		for ($i = 0; $i < $countElements; ++$i) {
 			for ($j = 0; $j < $countElements; ++$j) {
 				if ($i != $j) {
@@ -251,7 +233,6 @@ class GroupGraphPattern extends ContainerHelper {
 					if ($this->elements[$i] === $this->elements[$j]) {
 						//identical same object
 						$to_remove[] = $this->elements[$i];
-
 						//cant delete one without deleting both - need to copy first
 						if ($this->elements[$j] instanceof ContainerHelper) {
 							$copy = $this->elements[$j];
@@ -283,7 +264,6 @@ class GroupGraphPattern extends ContainerHelper {
 					} else {
 						if ($this->elements[$i]->equals($this->elements[$j])
 							&& $this->elements[$i] != $this->elements[$j]) {
-
 							//if the j of this i-j-pair is already
 							//marked for deletion: skip i
 							if (!in_array($this->elements[$j], $to_remove)) {
@@ -297,17 +277,14 @@ class GroupGraphPattern extends ContainerHelper {
 		foreach ($to_remove as $obj) {
 			$this->removeElement($obj);
 		}
-
 		//sort triples by weight
 		usort($this->elements, array("TriplesSameSubject", "compareWeight"));
-
 		//optimization is done on this level - proceed on deeper level
 		foreach ($this->elements as $element) {
 			if ($element instanceof GroupGraphPattern) {
 				$element->optimize();
 			}
 		}
-
 		return $this;
 	}
 
@@ -335,7 +312,6 @@ class GroupGraphPattern extends ContainerHelper {
 		if (is_string($p)) {
 			$p = new IriRef($p);
 		}
-
 		$triple = new Triple($s, $p, $o);
 		$this->addElement($triple);
 		return $triple;

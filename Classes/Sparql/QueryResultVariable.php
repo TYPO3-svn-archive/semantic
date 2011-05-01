@@ -47,7 +47,7 @@ class QueryResultVariable {
 
 	public function __construct($variable) {
 		$this->_variable = $variable;
-		$this->_language = Erfurt_Sparql_Query::getLanguageTag($variable);
+		$this->_language = Query::getLanguageTag($variable);
 	}
 
 	public function __toString() {
@@ -78,7 +78,6 @@ class QueryResultVariable {
 		if (null !== $this->_alias) {
 			return $this->_alias;
 		}
-
 		return $this->_variable;
 	}
 

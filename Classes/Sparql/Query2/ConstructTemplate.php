@@ -83,7 +83,6 @@ class ConstructTemplate extends GroupGraphPattern {
 		if (!is_array($elements)) {
 			throw new \RuntimeException('Argument 1 passed to Erfurt_Sparql_Query2_GroupGraphPattern::setElements : must be an array');
 		}
-
 		foreach ($elements as $element) {
 			if (!($element instanceof Interfaces\TriplesSameSubject)) {
 				throw new \RuntimeException('Argument 1 passed to Erfurt_Sparql_Query2_GroupOrUnionGraphPattern::setElements : must be an array of instances of Erfurt_Sparql_Query2_IF_TriplesSameSubject');

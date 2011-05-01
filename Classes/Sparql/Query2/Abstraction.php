@@ -55,15 +55,12 @@ class Abstraction {
 				throw new \RuntimeException("Argument 3 passed to Abstraction::addNode must be an instance of IriRef or string, instance of " . typeHelper($class) . " given");
 			}
 		}
-
 		//add startnode
 		$this->startNode = new Abstraction\ClassNode($class, $member_predicate, $this->query, $varName, $withChilds);
 	}
 
-
 	public function __clone() {
 	}
-
 
 	/**
 	 * redirect method calls to the query object
@@ -79,7 +76,6 @@ class Abstraction {
 			} else {
 				throw new \RuntimeException("Query2_Abstraction: method $name does not exists");
 			}
-
 			if ($this->query->equals($ret) || $this->startNode->equals($ret)) {
 				return $this;
 			}
@@ -87,7 +83,6 @@ class Abstraction {
 			{
 				return $ret;
 			}
-
 		} else {
 			throw new \RuntimeException("Query2_Abstraction: method $name not allowed");
 		}
@@ -115,7 +110,6 @@ class Abstraction {
 				throw new \RuntimeException("Argument 2 passed to Abstraction::addNode must be an instance of IriRef or string, instance of " . typeHelper($LinkPredicate) . " given");
 			}
 		}
-
 		if ($targetClass == null) {
 			//TODO: find type of referenced objects
 		}

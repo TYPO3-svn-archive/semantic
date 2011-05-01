@@ -47,9 +47,7 @@ abstract class AddMultHelper extends \T3\Semantic\Sparql\Query2\ContainerHelper 
 	 */
 	public function getSparql() {
 		$sparql = '';
-
 		$countElements = count($this->elements);
-
 		for ($i = 0; $i < $countElements; ++$i) {
 			if ($i != 0 || $this->elements[$i]['op'] == self::invOperator) {
 				$sparql .= ' ' . $this->elements[$i]['op'] . ' ';
@@ -71,7 +69,6 @@ abstract class AddMultHelper extends \T3\Semantic\Sparql\Query2\ContainerHelper 
 		if (!is_array($elements)) {
 			throw new \RuntimeException('Argument 1 passed to ' . __CLASS__ . '::setElements : must be an array');
 		}
-
 		foreach ($elements as $element) {
 			if (!($element['exp'] instanceof Interfaces\Expression) || !isset($element['op'])) {
 				throw new \RuntimeException('Argument 1 passed to ' . __CLASS__ . '::setElements : must be an array of arrays consisting of a field "exp" with type Expression and a field "op" containing the operator (+,-,*,/) as string');
@@ -79,7 +76,6 @@ abstract class AddMultHelper extends \T3\Semantic\Sparql\Query2\ContainerHelper 
 				$this->addElement($element['op'], $element['exp']);
 			}
 		}
-
 		return $this; //for chaining
 	}
 }

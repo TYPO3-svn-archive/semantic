@@ -48,7 +48,6 @@ class TriplesSameSubject extends ElementHelper implements Interfaces\TriplesSame
 		}
 		$this->subject = $subject;
 		$this->propertyList = $propList;
-
 		parent::__construct();
 	}
 
@@ -59,7 +58,6 @@ class TriplesSameSubject extends ElementHelper implements Interfaces\TriplesSame
 	 */
 	public function getSparql() {
 		$propList = '';
-
 		return $this->subject->getSparql() . ' ' . $this->propertyList->getSparql();
 	}
 
@@ -70,13 +68,10 @@ class TriplesSameSubject extends ElementHelper implements Interfaces\TriplesSame
 	 */
 	public function getVars() {
 		$ret = array();
-
 		if ($this->subject instanceof Variable) {
 			$ret[] = $this->subject;
 		}
-
 		$ret = array_merge($ret, $this->propertyList->getVars());
-
 		return $ret;
 	}
 
@@ -99,7 +94,6 @@ class TriplesSameSubject extends ElementHelper implements Interfaces\TriplesSame
 	public function setSubject($subject) {
 		$this->subject = $subject;
 	}
-
 
 	public function getWeight($part = null) {
 		if ($part == null) {
@@ -140,13 +134,10 @@ class TriplesSameSubject extends ElementHelper implements Interfaces\TriplesSame
 		if (!($c1 instanceof Interfaces\TriplesSameSubject && $c2 instanceof Interfaces\TriplesSameSubject)) {
 			return 0;
 		}
-
 		$res = $c1->getWeight() - $c2->getWeight();
 		switch ($res) {
 			case $res == 0:
 				// go deeper
-
-
 				break;
 			case $res < 0:
 				$ret = -1;
@@ -155,7 +146,6 @@ class TriplesSameSubject extends ElementHelper implements Interfaces\TriplesSame
 				$ret = 1;
 				break;
 		}
-
 		return $ret;
 	}
 

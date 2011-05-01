@@ -214,7 +214,6 @@ class Query {
 			if ($nAt === false) {
 				return null;
 			}
-
 			//in case @ and ^^ are combined
 			$nHatHat = strpos($var, '^^', $nAt + 1);
 			if ($nHatHat === false) {
@@ -289,11 +288,9 @@ class Query {
 	 */
 	public function addResultVar($var) {
 		$this->resultVars[] = $var;
-
 		$datatype = $this->getDatatype($var);
 		$id = $var->getId();
 		$var->setDatatype($datatype);
-
 		$this->varLanguages[$id] = self::getLanguageTag($var);
 		$this->varDatatypes[$id] = $datatype;
 	}
@@ -360,7 +357,6 @@ class Query {
 		if ($this->constructPattern) {
 			$arVars = $this->constructPattern->getVariables();
 		}
-
 		return array_unique($arVars);
 	}
 
@@ -376,14 +372,12 @@ class Query {
 			if ($nHatHat === false) {
 				return null;
 			}
-
 			$nAt = strpos($var, '@', $nHatHat + 2);
 			if ($nAt === false) {
 				$type = substr($var, $nHatHat + 2);
 			} else {
 				$type = substr($var, $nHatHat + 2, $nAt - $nHatHat - 2);
 			}
-
 			$fullUri = $this->getFullUri($type);
 			if ($fullUri === false) {
 				$fullUri = $type;
@@ -391,7 +385,6 @@ class Query {
 					$fullUri = substr($fullUri, 1, -1);
 				}
 			}
-
 			return $fullUri;
 		} else {
 			return null;
@@ -426,7 +419,6 @@ class Query {
 	 */
 	public function getFullUri($token) {
 		$pattern = "/^([^:]*):([^:]*)$/";
-
 		if (preg_match($pattern, $token, $hits) > 0) {
 			if (isset($this->prefixes{$hits{1}})) {
 				return substr($this->base, 1, -1) . $this->prefixes{$hits{1}} . $hits{2};
@@ -435,7 +427,6 @@ class Query {
 				return '_' . $hits{2};
 			}
 		}
-
 		return false;
 	}
 
@@ -448,13 +439,11 @@ class Query {
 	 */
 	public function getNewPattern($constr = false) {
 		$pattern = new GraphPattern();
-
 		if ($constr === true) {
 			$this->addConstructGraphPattern($pattern);
 		} else {
 			$this->addGraphPattern($pattern);
 		}
-
 		return $pattern;
 	}
 
@@ -509,7 +498,6 @@ class Query {
 				return $var;
 			}
 		}
-
 		return false;
 	}
 
@@ -544,7 +532,6 @@ class Query {
 		if ($this->resultForm === null) {
 			return false;
 		}
-
 		return true;
 	}
 

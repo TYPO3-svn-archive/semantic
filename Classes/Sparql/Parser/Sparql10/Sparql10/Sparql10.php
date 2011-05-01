@@ -141,7 +141,6 @@ class Sparql10 extends \AntlrParser {
 	public $gSparql10;
 	public $gParent;
 
-
 	static $FOLLOW_prologue_in_query1034;
 	static $FOLLOW_selectQuery_in_query1047;
 	static $FOLLOW_constructQuery_in_query1059;
@@ -419,7 +418,6 @@ class Sparql10 extends \AntlrParser {
 	static $FOLLOW_WS_in_blankNode3285;
 	static $FOLLOW_CLOSE_SQUARE_BRACE_in_blankNode3289;
 
-
 	protected $dfa9;
 	protected $dfa21;
 	protected $dfa24;
@@ -451,16 +449,13 @@ class Sparql10 extends \AntlrParser {
 	protected $dfa67;
 	protected $dfa68;
 
-
 	public function __construct($input, $state, $g_Sparql10 = null) {
 		if ($state == null) {
 			$state = new \RecognizerSharedState();
 		}
 		parent::__construct($input, $state, $g_Sparql10);
 		$this->gSparql10 = $g_Sparql10;
-
 		$this->gParent = $this->gSparql10;
-
 		$this->dfa9 = new Sparql10_DFA9($this);
 		$this->dfa21 = new Sparql10_DFA21($this);
 		$this->dfa24 = new Sparql10_DFA24($this);
@@ -494,7 +489,6 @@ class Sparql10 extends \AntlrParser {
 
 	}
 
-
 	public function getTokenNames() {
 		return Sparql10\Sparql10Parser::$tokenNames;
 	}
@@ -503,14 +497,12 @@ class Sparql10 extends \AntlrParser {
 		return "Sparql10.g";
 	}
 
-
 	private $_q = null;
 	private $_errors = array();
 
 	public function emitErrorMessage($msg) {
 		$this->_errors [] = $msg;
 	}
-
 
 	public static function query10_return() {
 		$retval = new \ParserRuleReturnScope();
@@ -524,10 +516,8 @@ class Sparql10 extends \AntlrParser {
 	public function query10() {
 		$retval = $this->query10_return();
 		$retval->start = $this->input->LT(1);
-
 		$retval->value = &$value;
 		$retval->errors = &$errors;
-
 		$this->_q = new Sparql\Query2();
 		try {
 			// Sparql10.g:19:5: ( prologue ( selectQuery | constructQuery | describeQuery | askQuery ) )
@@ -535,9 +525,7 @@ class Sparql10 extends \AntlrParser {
 			{
 				$this->pushFollow(self::$FOLLOW_prologue_in_query1034);
 				$this->prologue();
-
 				$this->state->_fsp--;
-
 				// Sparql10.g:19:16: ( selectQuery | constructQuery | describeQuery | askQuery )
 				$alt1 = 4;
 				$LA1 = $this->input->LA(1);
@@ -559,23 +547,18 @@ class Sparql10 extends \AntlrParser {
 							else {
 								$nvae =
 										new \NoViableAltException("", 1, 0, $this->input);
-
 								throw $nvae;
 							}
 						}
 					}
 				}
-
 				switch ($alt1) {
 					case 1 :
 						// Sparql10.g:20:9: selectQuery
 						{
 						$this->pushFollow(self::$FOLLOW_selectQuery_in_query1047);
 						$this->selectQuery();
-
 						$this->state->_fsp--;
-
-
 						}
 						break;
 					case 2 :
@@ -583,10 +566,7 @@ class Sparql10 extends \AntlrParser {
 						{
 						$this->pushFollow(self::$FOLLOW_constructQuery_in_query1059);
 						$this->constructQuery();
-
 						$this->state->_fsp--;
-
-
 						}
 						break;
 					case 3 :
@@ -594,10 +574,7 @@ class Sparql10 extends \AntlrParser {
 						{
 						$this->pushFollow(self::$FOLLOW_describeQuery_in_query1072);
 						$this->describeQuery();
-
 						$this->state->_fsp--;
-
-
 						}
 						break;
 					case 4 :
@@ -605,22 +582,14 @@ class Sparql10 extends \AntlrParser {
 						{
 						$this->pushFollow(self::$FOLLOW_askQuery_in_query1085);
 						$this->askQuery();
-
 						$this->state->_fsp--;
-
-
 						}
 						break;
-
 				}
-
 				$value = $this->_q;
 				$errors = $this->_errors;
-
 			}
-
 			$retval->stop = $this->input->LT(-1);
-
 		}
 		catch (\RecognitionException $re) {
 			$this->reportError($re);
@@ -629,12 +598,10 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $retval;
 	}
 
 	// $ANTLR end "query10"
-
 
 	// $ANTLR start "prologue"
 	// Sparql10.g:28:1: prologue : ( baseDecl )? ( prefixDecl )* ;
@@ -646,7 +613,6 @@ class Sparql10 extends \AntlrParser {
 				// Sparql10.g:29:7: ( baseDecl )?
 				$alt2 = 2;
 				$LA2_0 = $this->input->LA(1);
-
 				if (($LA2_0 == $this->getToken('BASE'))) {
 					$alt2 = 1;
 				}
@@ -656,48 +622,33 @@ class Sparql10 extends \AntlrParser {
 						{
 						$this->pushFollow(self::$FOLLOW_baseDecl_in_prologue117);
 						$this->baseDecl();
-
 						$this->state->_fsp--;
-
-
 						}
 						break;
-
 				}
-
 				// Sparql10.g:29:17: ( prefixDecl )*
 				//loop3:
 				do {
 					$alt3 = 2;
 					$LA3_0 = $this->input->LA(1);
-
 					if (($LA3_0 == $this->getToken('PREFIX'))) {
 						$alt3 = 1;
 					}
-
-
 					switch ($alt3) {
 						case 1 :
 							// Sparql10.g:29:17: prefixDecl
 							{
 							$this->pushFollow(self::$FOLLOW_prefixDecl_in_prologue120);
 							$this->prefixDecl();
-
 							$this->state->_fsp--;
-
-
 							}
 							break;
-
 						default :
 							break 2;
 						//loop3;
 					}
 				} while (true);
-
-
 			}
-
 		}
 		catch (\RecognitionException $re) {
 			$this->reportError($re);
@@ -706,19 +657,15 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return;
 	}
 
 	// $ANTLR end "prologue"
 
-
 	// $ANTLR start "baseDecl"
 	// Sparql10.g:33:1: baseDecl : BASE iriRef ;
 	public function baseDecl() {
 		$iriRef1 = null;
-
-
 		try {
 			// Sparql10.g:34:5: ( BASE iriRef )
 			// Sparql10.g:34:7: BASE iriRef
@@ -726,13 +673,9 @@ class Sparql10 extends \AntlrParser {
 				$this->match($this->input, $this->getToken('BASE'), self::$FOLLOW_BASE_in_baseDecl140);
 				$this->pushFollow(self::$FOLLOW_iriRef_in_baseDecl142);
 				$iriRef1 = $this->iriRef();
-
 				$this->state->_fsp--;
-
 				$this->_q->setBase($iriRef1);
-
 			}
-
 		}
 		catch (\RecognitionException $re) {
 			$this->reportError($re);
@@ -741,20 +684,16 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return;
 	}
 
 	// $ANTLR end "baseDecl"
-
 
 	// $ANTLR start "prefixDecl"
 	// Sparql10.g:38:1: prefixDecl : PREFIX PNAME_NS iriRef ;
 	public function prefixDecl() {
 		$PNAME_NS2 = null;
 		$iriRef3 = null;
-
-
 		try {
 			// Sparql10.g:39:5: ( PREFIX PNAME_NS iriRef )
 			// Sparql10.g:39:7: PREFIX PNAME_NS iriRef
@@ -763,13 +702,9 @@ class Sparql10 extends \AntlrParser {
 				$PNAME_NS2 = $this->match($this->input, $this->getToken('PNAME_NS'), self::$FOLLOW_PNAME_NS_in_prefixDecl165);
 				$this->pushFollow(self::$FOLLOW_iriRef_in_prefixDecl167);
 				$iriRef3 = $this->iriRef();
-
 				$this->state->_fsp--;
-
 				$this->_q->addPrefix(new Query2\Prefix(($PNAME_NS2 != null ? $PNAME_NS2->getText() : null), $iriRef3));
-
 			}
-
 		}
 		catch (\RecognitionException $re) {
 			$this->reportError($re);
@@ -778,12 +713,10 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return;
 	}
 
 	// $ANTLR end "prefixDecl"
-
 
 	// $ANTLR start "selectQuery"
 	// Sparql10.g:43:1: selectQuery : SELECT ( DISTINCT | REDUCED )? ( ( variable )+ | ASTERISK ) ( datasetClause )* whereClause solutionModifier ;
@@ -796,7 +729,6 @@ class Sparql10 extends \AntlrParser {
 				// Sparql10.g:44:14: ( DISTINCT | REDUCED )?
 				$alt4 = 3;
 				$LA4_0 = $this->input->LA(1);
-
 				if (($LA4_0 == $this->getToken('DISTINCT'))) {
 					$alt4 = 1;
 				}
@@ -811,7 +743,6 @@ class Sparql10 extends \AntlrParser {
 						{
 						$this->match($this->input, $this->getToken('DISTINCT'), self::$FOLLOW_DISTINCT_in_selectQuery192);
 						$this->_q->setDistinct(true);
-
 						}
 						break;
 					case 2 :
@@ -819,16 +750,12 @@ class Sparql10 extends \AntlrParser {
 						{
 						$this->match($this->input, $this->getToken('REDUCED'), self::$FOLLOW_REDUCED_in_selectQuery206);
 						$this->_q->setReduced(true);
-
 						}
 						break;
-
 				}
-
 				// Sparql10.g:46:12: ( ( variable )+ | ASTERISK )
 				$alt6 = 2;
 				$LA6_0 = $this->input->LA(1);
-
 				if ((($LA6_0 >= $this->getToken('VAR1') && $LA6_0 <= $this->getToken('VAR2')))) {
 					$alt6 = 1;
 				}
@@ -838,7 +765,6 @@ class Sparql10 extends \AntlrParser {
 					}
 					else {
 						$nvae = new \NoViableAltException("", 6, 0, $this->input);
-
 						throw $nvae;
 					}
 				}
@@ -852,25 +778,18 @@ class Sparql10 extends \AntlrParser {
 						do {
 							$alt5 = 2;
 							$LA5_0 = $this->input->LA(1);
-
 							if ((($LA5_0 >= $this->getToken('VAR1') && $LA5_0 <= $this->getToken('VAR2')))) {
 								$alt5 = 1;
 							}
-
-
 							switch ($alt5) {
 								case 1 :
 									// Sparql10.g:46:14: variable
 									{
 									$this->pushFollow(self::$FOLLOW_variable_in_selectQuery223);
 									$this->variable();
-
 									$this->state->_fsp--;
-
-
 									}
 									break;
-
 								default :
 									if ($cnt5 >= 1) {
 										break 2;
@@ -879,63 +798,44 @@ class Sparql10 extends \AntlrParser {
 							}
 							$cnt5++;
 						} while (true);
-
-
 						}
 						break;
 					case 2 :
 						// Sparql10.g:46:26: ASTERISK
 						{
 						$this->match($this->input, $this->getToken('ASTERISK'), self::$FOLLOW_ASTERISK_in_selectQuery228);
-
 						}
 						break;
-
 				}
-
 				// Sparql10.g:46:37: ( datasetClause )*
 				//loop7:
 				do {
 					$alt7 = 2;
 					$LA7_0 = $this->input->LA(1);
-
 					if (($LA7_0 == $this->getToken('FROM'))) {
 						$alt7 = 1;
 					}
-
-
 					switch ($alt7) {
 						case 1 :
 							// Sparql10.g:46:37: datasetClause
 							{
 							$this->pushFollow(self::$FOLLOW_datasetClause_in_selectQuery232);
 							$this->datasetClause();
-
 							$this->state->_fsp--;
-
-
 							}
 							break;
-
 						default :
 							break 2;
 						//loop7;
 					}
 				} while (true);
-
 				$this->pushFollow(self::$FOLLOW_whereClause_in_selectQuery235);
 				$this->whereClause();
-
 				$this->state->_fsp--;
-
 				$this->pushFollow(self::$FOLLOW_solutionModifier_in_selectQuery237);
 				$this->solutionModifier();
-
 				$this->state->_fsp--;
-
-
 			}
-
 		}
 		catch (\RecognitionException $re) {
 			$this->reportError($re);
@@ -944,12 +844,10 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return;
 	}
 
 	// $ANTLR end "selectQuery"
-
 
 	// $ANTLR start "constructQuery"
 	// Sparql10.g:50:1: constructQuery : CONSTRUCT constructTemplate ( datasetClause )* whereClause solutionModifier ;
@@ -961,52 +859,36 @@ class Sparql10 extends \AntlrParser {
 				$this->match($this->input, $this->getToken('CONSTRUCT'), self::$FOLLOW_CONSTRUCT_in_constructQuery257);
 				$this->pushFollow(self::$FOLLOW_constructTemplate_in_constructQuery259);
 				$this->constructTemplate();
-
 				$this->state->_fsp--;
-
 				// Sparql10.g:51:35: ( datasetClause )*
 				//loop8:
 				do {
 					$alt8 = 2;
 					$LA8_0 = $this->input->LA(1);
-
 					if (($LA8_0 == $this->getToken('FROM'))) {
 						$alt8 = 1;
 					}
-
-
 					switch ($alt8) {
 						case 1 :
 							// Sparql10.g:51:35: datasetClause
 							{
 							$this->pushFollow(self::$FOLLOW_datasetClause_in_constructQuery261);
 							$this->datasetClause();
-
 							$this->state->_fsp--;
-
-
 							}
 							break;
-
 						default :
 							break 2;
 						//loop8;
 					}
 				} while (true);
-
 				$this->pushFollow(self::$FOLLOW_whereClause_in_constructQuery264);
 				$this->whereClause();
-
 				$this->state->_fsp--;
-
 				$this->pushFollow(self::$FOLLOW_solutionModifier_in_constructQuery266);
 				$this->solutionModifier();
-
 				$this->state->_fsp--;
-
-
 			}
-
 		}
 		catch (\RecognitionException $re) {
 			$this->reportError($re);
@@ -1015,12 +897,10 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return;
 	}
 
 	// $ANTLR end "constructQuery"
-
 
 	// $ANTLR start "describeQuery"
 	// Sparql10.g:55:1: describeQuery : DESCRIBE ( ( varOrIRIref )+ | ASTERISK ) ( datasetClause )* ( whereClause )? solutionModifier ;
@@ -1033,7 +913,6 @@ class Sparql10 extends \AntlrParser {
 				// Sparql10.g:56:16: ( ( varOrIRIref )+ | ASTERISK )
 				$alt10 = 2;
 				$LA10_0 = $this->input->LA(1);
-
 				if (($LA10_0 == $this->getToken('IRI_REF') || $LA10_0 == $this->getToken('PNAME_NS') || $LA10_0 == $this->getToken('PNAME_LN') || ($LA10_0 >= $this->getToken('VAR1') && $LA10_0 <= $this->getToken('VAR2')))) {
 					$alt10 = 1;
 				}
@@ -1043,7 +922,6 @@ class Sparql10 extends \AntlrParser {
 					}
 					else {
 						$nvae = new \NoViableAltException("", 10, 0, $this->input);
-
 						throw $nvae;
 					}
 				}
@@ -1063,13 +941,9 @@ class Sparql10 extends \AntlrParser {
 									{
 									$this->pushFollow(self::$FOLLOW_varOrIRIref_in_describeQuery289);
 									$this->varOrIRIref();
-
 									$this->state->_fsp--;
-
-
 									}
 									break;
-
 								default :
 									if ($cnt9 >= 1) {
 										break 2;
@@ -1078,54 +952,40 @@ class Sparql10 extends \AntlrParser {
 							}
 							$cnt9++;
 						} while (true);
-
-
 						}
 						break;
 					case 2 :
 						// Sparql10.g:56:33: ASTERISK
 						{
 						$this->match($this->input, $this->getToken('ASTERISK'), self::$FOLLOW_ASTERISK_in_describeQuery294);
-
 						}
 						break;
-
 				}
-
 				// Sparql10.g:56:44: ( datasetClause )*
 				//loop11:
 				do {
 					$alt11 = 2;
 					$LA11_0 = $this->input->LA(1);
-
 					if (($LA11_0 == $this->getToken('FROM'))) {
 						$alt11 = 1;
 					}
-
-
 					switch ($alt11) {
 						case 1 :
 							// Sparql10.g:56:44: datasetClause
 							{
 							$this->pushFollow(self::$FOLLOW_datasetClause_in_describeQuery298);
 							$this->datasetClause();
-
 							$this->state->_fsp--;
-
-
 							}
 							break;
-
 						default :
 							break 2;
 						//loop11;
 					}
 				} while (true);
-
 				// Sparql10.g:56:59: ( whereClause )?
 				$alt12 = 2;
 				$LA12_0 = $this->input->LA(1);
-
 				if (($LA12_0 == $this->getToken('WHERE') || $LA12_0 == $this->getToken('OPEN_CURLY_BRACE'))) {
 					$alt12 = 1;
 				}
@@ -1135,23 +995,14 @@ class Sparql10 extends \AntlrParser {
 						{
 						$this->pushFollow(self::$FOLLOW_whereClause_in_describeQuery301);
 						$this->whereClause();
-
 						$this->state->_fsp--;
-
-
 						}
 						break;
-
 				}
-
 				$this->pushFollow(self::$FOLLOW_solutionModifier_in_describeQuery304);
 				$this->solutionModifier();
-
 				$this->state->_fsp--;
-
-
 			}
-
 		}
 		catch (\RecognitionException $re) {
 			$this->reportError($re);
@@ -1160,18 +1011,15 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return;
 	}
 
 	// $ANTLR end "describeQuery"
 
-
 	// $ANTLR start "askQuery"
 	// Sparql10.g:60:1: askQuery : ASK ( datasetClause )* whereClause ;
 	public function askQuery() {
 		$ASK4 = null;
-
 		try {
 			// Sparql10.g:61:5: ( ASK ( datasetClause )* whereClause )
 			// Sparql10.g:61:7: ASK ( datasetClause )* whereClause
@@ -1182,40 +1030,28 @@ class Sparql10 extends \AntlrParser {
 				do {
 					$alt13 = 2;
 					$LA13_0 = $this->input->LA(1);
-
 					if (($LA13_0 == $this->getToken('FROM'))) {
 						$alt13 = 1;
 					}
-
-
 					switch ($alt13) {
 						case 1 :
 							// Sparql10.g:61:11: datasetClause
 							{
 							$this->pushFollow(self::$FOLLOW_datasetClause_in_askQuery325);
 							$this->datasetClause();
-
 							$this->state->_fsp--;
-
-
 							}
 							break;
-
 						default :
 							break 2;
 						//loop13;
 					}
 				} while (true);
-
 				$this->pushFollow(self::$FOLLOW_whereClause_in_askQuery328);
 				$this->whereClause();
-
 				$this->state->_fsp--;
-
 				$this->_q->setQueryType(($ASK4 != null ? $ASK4->getText() : null));
-
 			}
-
 		}
 		catch (\RecognitionException $re) {
 			$this->reportError($re);
@@ -1224,21 +1060,16 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return;
 	}
 
 	// $ANTLR end "askQuery"
 
-
 	// $ANTLR start "datasetClause"
 	// Sparql10.g:65:1: datasetClause : FROM ( defaultGraphClause | namedGraphClause ) ;
 	public function datasetClause() {
 		$defaultGraphClause5 = null;
-
 		$namedGraphClause6 = null;
-
-
 		try {
 			// Sparql10.g:66:5: ( FROM ( defaultGraphClause | namedGraphClause ) )
 			// Sparql10.g:66:7: FROM ( defaultGraphClause | namedGraphClause )
@@ -1247,7 +1078,6 @@ class Sparql10 extends \AntlrParser {
 				// Sparql10.g:66:12: ( defaultGraphClause | namedGraphClause )
 				$alt14 = 2;
 				$LA14_0 = $this->input->LA(1);
-
 				if (($LA14_0 == $this->getToken('IRI_REF') || $LA14_0 == $this->getToken('PNAME_NS') || $LA14_0 == $this->getToken('PNAME_LN'))) {
 					$alt14 = 1;
 				}
@@ -1265,11 +1095,8 @@ class Sparql10 extends \AntlrParser {
 						{
 						$this->pushFollow(self::$FOLLOW_defaultGraphClause_in_datasetClause353);
 						$defaultGraphClause5 = $this->defaultGraphClause();
-
 						$this->state->_fsp--;
-
 						$this->_q->addFrom($defaultGraphClause5);
-
 						}
 						break;
 					case 2 :
@@ -1277,19 +1104,12 @@ class Sparql10 extends \AntlrParser {
 						{
 						$this->pushFollow(self::$FOLLOW_namedGraphClause_in_datasetClause367);
 						$namedGraphClause6 = $this->namedGraphClause();
-
 						$this->state->_fsp--;
-
 						$this->_q->addFrom($namedGraphClause6, true);
-
 						}
 						break;
-
 				}
-
-
 			}
-
 		}
 		catch (\RecognitionException $re) {
 			$this->reportError($re);
@@ -1298,34 +1118,25 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return;
 	}
 
 	// $ANTLR end "datasetClause"
 
-
 	// $ANTLR start "defaultGraphClause"
 	// Sparql10.g:72:1: defaultGraphClause returns [$value] : sourceSelector ;
 	public function defaultGraphClause() {
 		$value = null;
-
 		$sourceSelector7 = null;
-
-
 		try {
 			// Sparql10.g:73:5: ( sourceSelector )
 			// Sparql10.g:73:7: sourceSelector
 			{
 				$this->pushFollow(self::$FOLLOW_sourceSelector_in_defaultGraphClause402);
 				$sourceSelector7 = $this->sourceSelector();
-
 				$this->state->_fsp--;
-
 				$value = $sourceSelector7;
-
 			}
-
 		}
 		catch (\RecognitionException $re) {
 			$this->reportError($re);
@@ -1334,21 +1145,16 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "defaultGraphClause"
 
-
 	// $ANTLR start "namedGraphClause"
 	// Sparql10.g:77:1: namedGraphClause returns [$value] : NAMED sourceSelector ;
 	public function namedGraphClause() {
 		$value = null;
-
 		$sourceSelector8 = null;
-
-
 		try {
 			// Sparql10.g:78:5: ( NAMED sourceSelector )
 			// Sparql10.g:78:7: NAMED sourceSelector
@@ -1356,13 +1162,9 @@ class Sparql10 extends \AntlrParser {
 				$this->match($this->input, $this->getToken('NAMED'), self::$FOLLOW_NAMED_in_namedGraphClause427);
 				$this->pushFollow(self::$FOLLOW_sourceSelector_in_namedGraphClause429);
 				$sourceSelector8 = $this->sourceSelector();
-
 				$this->state->_fsp--;
-
 				$value = $sourceSelector8;
-
 			}
-
 		}
 		catch (\RecognitionException $re) {
 			$this->reportError($re);
@@ -1371,34 +1173,25 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "namedGraphClause"
 
-
 	// $ANTLR start "sourceSelector"
 	// Sparql10.g:82:1: sourceSelector returns [$value] : iriRef ;
 	public function sourceSelector() {
 		$value = null;
-
 		$iriRef9 = null;
-
-
 		try {
 			// Sparql10.g:83:5: ( iriRef )
 			// Sparql10.g:83:7: iriRef
 			{
 				$this->pushFollow(self::$FOLLOW_iriRef_in_sourceSelector454);
 				$iriRef9 = $this->iriRef();
-
 				$this->state->_fsp--;
-
 				$value = $iriRef9;
-
 			}
-
 		}
 		catch (\RecognitionException $re) {
 			$this->reportError($re);
@@ -1407,19 +1200,15 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "sourceSelector"
 
-
 	// $ANTLR start "whereClause"
 	// Sparql10.g:87:1: whereClause : ( WHERE )? groupGraphPattern ;
 	public function whereClause() {
 		$groupGraphPattern10 = null;
-
-
 		try {
 			// Sparql10.g:88:5: ( ( WHERE )? groupGraphPattern )
 			// Sparql10.g:88:7: ( WHERE )? groupGraphPattern
@@ -1427,7 +1216,6 @@ class Sparql10 extends \AntlrParser {
 				// Sparql10.g:88:7: ( WHERE )?
 				$alt15 = 2;
 				$LA15_0 = $this->input->LA(1);
-
 				if (($LA15_0 == $this->getToken('WHERE'))) {
 					$alt15 = 1;
 				}
@@ -1436,21 +1224,14 @@ class Sparql10 extends \AntlrParser {
 						// Sparql10.g:88:7: WHERE
 						{
 						$this->match($this->input, $this->getToken('WHERE'), self::$FOLLOW_WHERE_in_whereClause475);
-
 						}
 						break;
-
 				}
-
 				$this->pushFollow(self::$FOLLOW_groupGraphPattern_in_whereClause478);
 				$groupGraphPattern10 = $this->groupGraphPattern();
-
 				$this->state->_fsp--;
-
 				$this->_q->setWhere($groupGraphPattern10);
-
 			}
-
 		}
 		catch (\RecognitionException $re) {
 			$this->reportError($re);
@@ -1459,12 +1240,10 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return;
 	}
 
 	// $ANTLR end "whereClause"
-
 
 	// $ANTLR start "solutionModifier"
 	// Sparql10.g:92:1: solutionModifier : ( orderClause )? ( limitOffsetClauses )? ;
@@ -1476,7 +1255,6 @@ class Sparql10 extends \AntlrParser {
 				// Sparql10.g:93:7: ( orderClause )?
 				$alt16 = 2;
 				$LA16_0 = $this->input->LA(1);
-
 				if (($LA16_0 == $this->getToken('ORDER'))) {
 					$alt16 = 1;
 				}
@@ -1486,19 +1264,13 @@ class Sparql10 extends \AntlrParser {
 						{
 						$this->pushFollow(self::$FOLLOW_orderClause_in_solutionModifier499);
 						$this->orderClause();
-
 						$this->state->_fsp--;
-
-
 						}
 						break;
-
 				}
-
 				// Sparql10.g:93:20: ( limitOffsetClauses )?
 				$alt17 = 2;
 				$LA17_0 = $this->input->LA(1);
-
 				if ((($LA17_0 >= $this->getToken('LIMIT') && $LA17_0 <= $this->getToken('OFFSET')))) {
 					$alt17 = 1;
 				}
@@ -1508,18 +1280,11 @@ class Sparql10 extends \AntlrParser {
 						{
 						$this->pushFollow(self::$FOLLOW_limitOffsetClauses_in_solutionModifier502);
 						$this->limitOffsetClauses();
-
 						$this->state->_fsp--;
-
-
 						}
 						break;
-
 				}
-
-
 			}
-
 		}
 		catch (\RecognitionException $re) {
 			$this->reportError($re);
@@ -1528,12 +1293,10 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return;
 	}
 
 	// $ANTLR end "solutionModifier"
-
 
 	// $ANTLR start "limitOffsetClauses"
 	// Sparql10.g:96:1: limitOffsetClauses : ( limitClause ( offsetClause )? | offsetClause ( limitClause )? );
@@ -1542,7 +1305,6 @@ class Sparql10 extends \AntlrParser {
 			// Sparql10.g:97:5: ( limitClause ( offsetClause )? | offsetClause ( limitClause )? )
 			$alt20 = 2;
 			$LA20_0 = $this->input->LA(1);
-
 			if (($LA20_0 == $this->getToken('LIMIT'))) {
 				$alt20 = 1;
 			}
@@ -1552,7 +1314,6 @@ class Sparql10 extends \AntlrParser {
 				}
 				else {
 					$nvae = new \NoViableAltException("", 20, 0, $this->input);
-
 					throw $nvae;
 				}
 			}
@@ -1562,13 +1323,10 @@ class Sparql10 extends \AntlrParser {
 					{
 					$this->pushFollow(self::$FOLLOW_limitClause_in_limitOffsetClauses521);
 					$this->limitClause();
-
 					$this->state->_fsp--;
-
 					// Sparql10.g:97:19: ( offsetClause )?
 					$alt18 = 2;
 					$LA18_0 = $this->input->LA(1);
-
 					if (($LA18_0 == $this->getToken('OFFSET'))) {
 						$alt18 = 1;
 					}
@@ -1578,16 +1336,10 @@ class Sparql10 extends \AntlrParser {
 							{
 							$this->pushFollow(self::$FOLLOW_offsetClause_in_limitOffsetClauses523);
 							$this->offsetClause();
-
 							$this->state->_fsp--;
-
-
 							}
 							break;
-
 					}
-
-
 					}
 					break;
 				case 2 :
@@ -1595,13 +1347,10 @@ class Sparql10 extends \AntlrParser {
 					{
 					$this->pushFollow(self::$FOLLOW_offsetClause_in_limitOffsetClauses533);
 					$this->offsetClause();
-
 					$this->state->_fsp--;
-
 					// Sparql10.g:98:20: ( limitClause )?
 					$alt19 = 2;
 					$LA19_0 = $this->input->LA(1);
-
 					if (($LA19_0 == $this->getToken('LIMIT'))) {
 						$alt19 = 1;
 					}
@@ -1611,19 +1360,12 @@ class Sparql10 extends \AntlrParser {
 							{
 							$this->pushFollow(self::$FOLLOW_limitClause_in_limitOffsetClauses535);
 							$this->limitClause();
-
 							$this->state->_fsp--;
-
-
 							}
 							break;
-
 					}
-
-
 					}
 					break;
-
 			}
 		}
 		catch (\RecognitionException $re) {
@@ -1633,12 +1375,10 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return;
 	}
 
 	// $ANTLR end "limitOffsetClauses"
-
 
 	// $ANTLR start "orderClause"
 	// Sparql10.g:102:1: orderClause : ORDER BY ( orderCondition )+ ;
@@ -1661,13 +1401,9 @@ class Sparql10 extends \AntlrParser {
 							{
 							$this->pushFollow(self::$FOLLOW_orderCondition_in_orderClause559);
 							$this->orderCondition();
-
 							$this->state->_fsp--;
-
-
 							}
 							break;
-
 						default :
 							if ($cnt21 >= 1) {
 								break 2;
@@ -1676,10 +1412,7 @@ class Sparql10 extends \AntlrParser {
 					}
 					$cnt21++;
 				} while (true);
-
-
 			}
-
 		}
 		catch (\RecognitionException $re) {
 			$this->reportError($re);
@@ -1688,22 +1421,17 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return;
 	}
 
 	// $ANTLR end "orderClause"
-
 
 	// $ANTLR start "orderCondition"
 	// Sparql10.g:107:1: orderCondition : ( ( (o= ASC | o= DESC ) brackettedExpression ) | (v= constraint | v= variable ) );
 	public function orderCondition() {
 		$o = null;
 		$v = null;
-
 		$brackettedExpression11 = null;
-
-
 		try {
 			// Sparql10.g:108:5: ( ( (o= ASC | o= DESC ) brackettedExpression ) | (v= constraint | v= variable ) )
 			$alt24 = 2;
@@ -1718,7 +1446,6 @@ class Sparql10 extends \AntlrParser {
 							// Sparql10.g:108:9: (o= ASC | o= DESC )
 							$alt22 = 2;
 							$LA22_0 = $this->input->LA(1);
-
 							if (($LA22_0 == $this->getToken('ASC'))) {
 								$alt22 = 1;
 							}
@@ -1728,7 +1455,6 @@ class Sparql10 extends \AntlrParser {
 								}
 								else {
 									$nvae = new \NoViableAltException("", 22, 0, $this->input);
-
 									throw $nvae;
 								}
 							}
@@ -1737,29 +1463,20 @@ class Sparql10 extends \AntlrParser {
 									// Sparql10.g:108:11: o= ASC
 									{
 									$o = $this->match($this->input, $this->getToken('ASC'), self::$FOLLOW_ASC_in_orderCondition585);
-
 									}
 									break;
 								case 2 :
 									// Sparql10.g:108:19: o= DESC
 									{
 									$o = $this->match($this->input, $this->getToken('DESC'), self::$FOLLOW_DESC_in_orderCondition591);
-
 									}
 									break;
-
 							}
-
 							$this->pushFollow(self::$FOLLOW_brackettedExpression_in_orderCondition595);
 							$brackettedExpression11 = $this->brackettedExpression();
-
 							$this->state->_fsp--;
-
-
 						}
-
 						$this->_q->getOrder()->add($brackettedExpression11, ($o != null ? $o->getText() : null));
-
 					}
 						break;
 				case 2 :
@@ -1774,10 +1491,7 @@ class Sparql10 extends \AntlrParser {
 							{
 							$this->pushFollow(self::$FOLLOW_constraint_in_orderCondition611);
 							$v = $this->constraint();
-
 							$this->state->_fsp--;
-
-
 							}
 							break;
 						case 2 :
@@ -1785,20 +1499,13 @@ class Sparql10 extends \AntlrParser {
 							{
 							$this->pushFollow(self::$FOLLOW_variable_in_orderCondition617);
 							$v = $this->variable();
-
 							$this->state->_fsp--;
-
-
 							}
 							break;
-
 					}
-
 					$this->_q->getOrder()->add($v);
-
 					}
 					break;
-
 			}
 		}
 		catch (\RecognitionException $re) {
@@ -1808,18 +1515,15 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return;
 	}
 
 	// $ANTLR end "orderCondition"
 
-
 	// $ANTLR start "limitClause"
 	// Sparql10.g:113:1: limitClause : LIMIT INTEGER ;
 	public function limitClause() {
 		$INTEGER12 = null;
-
 		try {
 			// Sparql10.g:114:5: ( LIMIT INTEGER )
 			// Sparql10.g:114:7: LIMIT INTEGER
@@ -1827,9 +1531,7 @@ class Sparql10 extends \AntlrParser {
 				$this->match($this->input, $this->getToken('LIMIT'), self::$FOLLOW_LIMIT_in_limitClause639);
 				$INTEGER12 = $this->match($this->input, $this->getToken('INTEGER'), self::$FOLLOW_INTEGER_in_limitClause641);
 				$this->_q->setLimit(($INTEGER12 != null ? $INTEGER12->getText() : null));
-
 			}
-
 		}
 		catch (\RecognitionException $re) {
 			$this->reportError($re);
@@ -1838,18 +1540,15 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return;
 	}
 
 	// $ANTLR end "limitClause"
 
-
 	// $ANTLR start "offsetClause"
 	// Sparql10.g:118:1: offsetClause : OFFSET INTEGER ;
 	public function offsetClause() {
 		$INTEGER13 = null;
-
 		try {
 			// Sparql10.g:119:5: ( OFFSET INTEGER )
 			// Sparql10.g:119:7: OFFSET INTEGER
@@ -1857,9 +1556,7 @@ class Sparql10 extends \AntlrParser {
 				$this->match($this->input, $this->getToken('OFFSET'), self::$FOLLOW_OFFSET_in_offsetClause662);
 				$INTEGER13 = $this->match($this->input, $this->getToken('INTEGER'), self::$FOLLOW_INTEGER_in_offsetClause664);
 				$this->_q->setOffset(($INTEGER13 != null ? $INTEGER13->getText() : null));
-
 			}
-
 		}
 		catch (\RecognitionException $re) {
 			$this->reportError($re);
@@ -1868,27 +1565,19 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return;
 	}
 
 	// $ANTLR end "offsetClause"
 
-
 	// $ANTLR start "groupGraphPattern"
 	// Sparql10.g:123:1: groupGraphPattern returns [$value] : OPEN_CURLY_BRACE (t1= triplesBlock )? ( (v= graphPatternNotTriples | v= filter ) ( DOT )? (t2= triplesBlock )? )* CLOSE_CURLY_BRACE ;
 	public function groupGraphPattern() {
 		$value = null;
-
 		$t1 = null;
-
 		$v = null;
-
 		$t2 = null;
-
-
 		$value = new Query2\GroupGraphPattern();
-
 		try {
 			// Sparql10.g:127:3: ( OPEN_CURLY_BRACE (t1= triplesBlock )? ( (v= graphPatternNotTriples | v= filter ) ( DOT )? (t2= triplesBlock )? )* CLOSE_CURLY_BRACE )
 			// Sparql10.g:127:5: OPEN_CURLY_BRACE (t1= triplesBlock )? ( (v= graphPatternNotTriples | v= filter ) ( DOT )? (t2= triplesBlock )? )* CLOSE_CURLY_BRACE
@@ -1903,27 +1592,19 @@ class Sparql10 extends \AntlrParser {
 						{
 						$this->pushFollow(self::$FOLLOW_triplesBlock_in_groupGraphPattern696);
 						$t1 = $this->triplesBlock();
-
 						$this->state->_fsp--;
-
 						$value->addElements($t1);
-
 						}
 						break;
-
 				}
-
 				// Sparql10.g:128:3: ( (v= graphPatternNotTriples | v= filter ) ( DOT )? (t2= triplesBlock )? )*
 				//loop29:
 				do {
 					$alt29 = 2;
 					$LA29_0 = $this->input->LA(1);
-
 					if ((($LA29_0 >= $this->getToken('OPTIONAL') && $LA29_0 <= $this->getToken('GRAPH')) || $LA29_0 == $this->getToken('FILTER') || $LA29_0 == $this->getToken('OPEN_CURLY_BRACE'))) {
 						$alt29 = 1;
 					}
-
-
 					switch ($alt29) {
 						case 1 :
 							// Sparql10.g:128:5: (v= graphPatternNotTriples | v= filter ) ( DOT )? (t2= triplesBlock )?
@@ -1931,7 +1612,6 @@ class Sparql10 extends \AntlrParser {
 							// Sparql10.g:128:5: (v= graphPatternNotTriples | v= filter )
 							$alt26 = 2;
 							$LA26_0 = $this->input->LA(1);
-
 							if ((($LA26_0 >= $this->getToken('OPTIONAL') && $LA26_0 <= $this->getToken('GRAPH')) || $LA26_0 == $this->getToken('OPEN_CURLY_BRACE'))) {
 								$alt26 = 1;
 							}
@@ -1941,7 +1621,6 @@ class Sparql10 extends \AntlrParser {
 								}
 								else {
 									$nvae = new \NoViableAltException("", 26, 0, $this->input);
-
 									throw $nvae;
 								}
 							}
@@ -1951,10 +1630,7 @@ class Sparql10 extends \AntlrParser {
 									{
 									$this->pushFollow(self::$FOLLOW_graphPatternNotTriples_in_groupGraphPattern710);
 									$v = $this->graphPatternNotTriples();
-
 									$this->state->_fsp--;
-
-
 									}
 									break;
 								case 2 :
@@ -1962,15 +1638,10 @@ class Sparql10 extends \AntlrParser {
 									{
 									$this->pushFollow(self::$FOLLOW_filter_in_groupGraphPattern716);
 									$v = $this->filter();
-
 									$this->state->_fsp--;
-
-
 									}
 									break;
-
 							}
-
 							$value->addElement($v);
 							// Sparql10.g:129:13: ( DOT )?
 							$alt27 = 2;
@@ -1980,12 +1651,9 @@ class Sparql10 extends \AntlrParser {
 									// Sparql10.g:129:13: DOT
 									{
 									$this->match($this->input, $this->getToken('DOT'), self::$FOLLOW_DOT_in_groupGraphPattern734);
-
 									}
 									break;
-
 							}
-
 							// Sparql10.g:129:18: (t2= triplesBlock )?
 							$alt28 = 2;
 							$alt28 = $this->dfa28->predict($this->input);
@@ -1995,30 +1663,20 @@ class Sparql10 extends \AntlrParser {
 									{
 									$this->pushFollow(self::$FOLLOW_triplesBlock_in_groupGraphPattern740);
 									$t2 = $this->triplesBlock();
-
 									$this->state->_fsp--;
-
 									$value->addElements($t2);
-
 									}
 									break;
-
 							}
-
-
 							}
 							break;
-
 						default :
 							break 2;
 						//loop29;
 					}
 				} while (true);
-
 				$this->match($this->input, $this->getToken('CLOSE_CURLY_BRACE'), self::$FOLLOW_CLOSE_CURLY_BRACE_in_groupGraphPattern749);
-
 			}
-
 		}
 		catch (\RecognitionException $re) {
 			$this->reportError($re);
@@ -2027,39 +1685,29 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "groupGraphPattern"
 
-
 	// $ANTLR start "triplesBlock"
 	// Sparql10.g:133:1: triplesBlock returns [$value] : triplesSameSubject ( DOT (t= triplesBlock )? )? ;
 	public function triplesBlock() {
 		$value = null;
-
 		$t = null;
-
 		$triplesSameSubject14 = null;
-
-
 		$value = array();
-
 		try {
 			// Sparql10.g:137:5: ( triplesSameSubject ( DOT (t= triplesBlock )? )? )
 			// Sparql10.g:137:7: triplesSameSubject ( DOT (t= triplesBlock )? )?
 			{
 				$this->pushFollow(self::$FOLLOW_triplesSameSubject_in_triplesBlock776);
 				$triplesSameSubject14 = $this->triplesSameSubject();
-
 				$this->state->_fsp--;
-
 				$value[] = $triplesSameSubject14;
 				// Sparql10.g:137:65: ( DOT (t= triplesBlock )? )?
 				$alt31 = 2;
 				$LA31_0 = $this->input->LA(1);
-
 				if (($LA31_0 == $this->getToken('DOT'))) {
 					$alt31 = 1;
 				}
@@ -2077,25 +1725,15 @@ class Sparql10 extends \AntlrParser {
 								{
 								$this->pushFollow(self::$FOLLOW_triplesBlock_in_triplesBlock787);
 								$t = $this->triplesBlock();
-
 								$this->state->_fsp--;
-
 								$value = array_merge($value, $t);
-
 								}
 								break;
-
 						}
-
-
 						}
 						break;
-
 				}
-
-
 			}
-
 		}
 		catch (\RecognitionException $re) {
 			$this->reportError($re);
@@ -2104,21 +1742,16 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "triplesBlock"
 
-
 	// $ANTLR start "graphPatternNotTriples"
 	// Sparql10.g:141:1: graphPatternNotTriples returns [$value] : (v= optionalGraphPattern | v= groupOrUnionGraphPattern | v= graphGraphPattern );
 	public function graphPatternNotTriples() {
 		$value = null;
-
 		$v = null;
-
-
 		try {
 			// Sparql10.g:143:5: (v= optionalGraphPattern | v= groupOrUnionGraphPattern | v= graphGraphPattern )
 			$alt32 = 3;
@@ -2137,23 +1770,18 @@ class Sparql10 extends \AntlrParser {
 					else {
 						$nvae =
 								new \NoViableAltException("", 32, 0, $this->input);
-
 						throw $nvae;
 					}
 				}
 			}
-
 			switch ($alt32) {
 				case 1 :
 					// Sparql10.g:143:7: v= optionalGraphPattern
 					{
 					$this->pushFollow(self::$FOLLOW_optionalGraphPattern_in_graphPatternNotTriples824);
 					$v = $this->optionalGraphPattern();
-
 					$this->state->_fsp--;
-
 					$v = $v;
-
 					}
 					break;
 				case 2 :
@@ -2161,11 +1789,8 @@ class Sparql10 extends \AntlrParser {
 					{
 					$this->pushFollow(self::$FOLLOW_groupOrUnionGraphPattern_in_graphPatternNotTriples836);
 					$v = $this->groupOrUnionGraphPattern();
-
 					$this->state->_fsp--;
-
 					$v = $v;
-
 					}
 					break;
 				case 3 :
@@ -2173,14 +1798,10 @@ class Sparql10 extends \AntlrParser {
 					{
 					$this->pushFollow(self::$FOLLOW_graphGraphPattern_in_graphPatternNotTriples848);
 					$v = $this->graphGraphPattern();
-
 					$this->state->_fsp--;
-
 					$v = $v;
-
 					}
 					break;
-
 			}
 			$value = $v;
 		}
@@ -2191,21 +1812,16 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "graphPatternNotTriples"
 
-
 	// $ANTLR start "optionalGraphPattern"
 	// Sparql10.g:149:1: optionalGraphPattern returns [$value] : OPTIONAL groupGraphPattern ;
 	public function optionalGraphPattern() {
 		$value = null;
-
 		$groupGraphPattern15 = null;
-
-
 		try {
 			// Sparql10.g:150:5: ( OPTIONAL groupGraphPattern )
 			// Sparql10.g:150:7: OPTIONAL groupGraphPattern
@@ -2213,14 +1829,10 @@ class Sparql10 extends \AntlrParser {
 				$this->match($this->input, $this->getToken('OPTIONAL'), self::$FOLLOW_OPTIONAL_in_optionalGraphPattern873);
 				$this->pushFollow(self::$FOLLOW_groupGraphPattern_in_optionalGraphPattern875);
 				$groupGraphPattern15 = $this->groupGraphPattern();
-
 				$this->state->_fsp--;
-
 				$value = new Query2\OptionalGraphPattern();
 				$value->addElement($groupGraphPattern15);
-
 			}
-
 		}
 		catch (\RecognitionException $re) {
 			$this->reportError($re);
@@ -2229,23 +1841,17 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "optionalGraphPattern"
 
-
 	// $ANTLR start "graphGraphPattern"
 	// Sparql10.g:154:1: graphGraphPattern returns [$value] : GRAPH varOrIRIref groupGraphPattern ;
 	public function graphGraphPattern() {
 		$value = null;
-
 		$varOrIRIref16 = null;
-
 		$groupGraphPattern17 = null;
-
-
 		try {
 			// Sparql10.g:155:5: ( GRAPH varOrIRIref groupGraphPattern )
 			// Sparql10.g:155:7: GRAPH varOrIRIref groupGraphPattern
@@ -2253,19 +1859,13 @@ class Sparql10 extends \AntlrParser {
 				$this->match($this->input, $this->getToken('GRAPH'), self::$FOLLOW_GRAPH_in_graphGraphPattern900);
 				$this->pushFollow(self::$FOLLOW_varOrIRIref_in_graphGraphPattern902);
 				$varOrIRIref16 = $this->varOrIRIref();
-
 				$this->state->_fsp--;
-
 				$this->pushFollow(self::$FOLLOW_groupGraphPattern_in_graphGraphPattern904);
 				$groupGraphPattern17 = $this->groupGraphPattern();
-
 				$this->state->_fsp--;
-
 				$value = new Query2\GraphGraphPattern($varOrIRIref16);
 				$value->addElement($groupGraphPattern17);
-
 			}
-
 		}
 		catch (\RecognitionException $re) {
 			$this->reportError($re);
@@ -2274,23 +1874,17 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "graphGraphPattern"
 
-
 	// $ANTLR start "groupOrUnionGraphPattern"
 	// Sparql10.g:159:1: groupOrUnionGraphPattern returns [$value] : v1= groupGraphPattern ( UNION v2= groupGraphPattern )* ;
 	public function groupOrUnionGraphPattern() {
 		$value = null;
-
 		$v1 = null;
-
 		$v2 = null;
-
-
 		$value = new Query2\GroupOrUnionGraphPattern();
 		try {
 			// Sparql10.g:161:5: (v1= groupGraphPattern ( UNION v2= groupGraphPattern )* )
@@ -2298,9 +1892,7 @@ class Sparql10 extends \AntlrParser {
 			{
 				$this->pushFollow(self::$FOLLOW_groupGraphPattern_in_groupOrUnionGraphPattern935);
 				$v1 = $this->groupGraphPattern();
-
 				$this->state->_fsp--;
-
 				$value->addElement($v1);
 				// Sparql10.g:161:62: ( UNION v2= groupGraphPattern )*
 				//loop33:
@@ -2314,23 +1906,16 @@ class Sparql10 extends \AntlrParser {
 							$this->match($this->input, $this->getToken('UNION'), self::$FOLLOW_UNION_in_groupOrUnionGraphPattern941);
 							$this->pushFollow(self::$FOLLOW_groupGraphPattern_in_groupOrUnionGraphPattern945);
 							$v2 = $this->groupGraphPattern();
-
 							$this->state->_fsp--;
-
 							$value->addElement($v2);
-
 							}
 							break;
-
 						default :
 							break 2;
 						//loop33;
 					}
 				} while (true);
-
-
 			}
-
 		}
 		catch (\RecognitionException $re) {
 			$this->reportError($re);
@@ -2339,21 +1924,16 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "groupOrUnionGraphPattern"
 
-
 	// $ANTLR start "filter"
 	// Sparql10.g:165:1: filter returns [$value] : FILTER constraint ;
 	public function filter() {
 		$value = null;
-
 		$constraint18 = null;
-
-
 		try {
 			// Sparql10.g:166:5: ( FILTER constraint )
 			// Sparql10.g:166:7: FILTER constraint
@@ -2361,13 +1941,9 @@ class Sparql10 extends \AntlrParser {
 				$this->match($this->input, $this->getToken('FILTER'), self::$FOLLOW_FILTER_in_filter973);
 				$this->pushFollow(self::$FOLLOW_constraint_in_filter975);
 				$constraint18 = $this->constraint();
-
 				$this->state->_fsp--;
-
 				$value = new Query2\Filter($constraint18);
-
 			}
-
 		}
 		catch (\RecognitionException $re) {
 			$this->reportError($re);
@@ -2376,21 +1952,16 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "filter"
 
-
 	// $ANTLR start "constraint"
 	// Sparql10.g:170:1: constraint returns [$value] : (v= brackettedExpression | v= builtInCall | v= functionCall );
 	public function constraint() {
 		$value = null;
-
 		$v = null;
-
-
 		try {
 			// Sparql10.g:172:5: (v= brackettedExpression | v= builtInCall | v= functionCall )
 			$alt34 = 3;
@@ -2401,10 +1972,7 @@ class Sparql10 extends \AntlrParser {
 					{
 					$this->pushFollow(self::$FOLLOW_brackettedExpression_in_constraint1006);
 					$v = $this->brackettedExpression();
-
 					$this->state->_fsp--;
-
-
 					}
 					break;
 				case 2 :
@@ -2412,10 +1980,7 @@ class Sparql10 extends \AntlrParser {
 					{
 					$this->pushFollow(self::$FOLLOW_builtInCall_in_constraint1016);
 					$v = $this->builtInCall();
-
 					$this->state->_fsp--;
-
-
 					}
 					break;
 				case 3 :
@@ -2423,13 +1988,9 @@ class Sparql10 extends \AntlrParser {
 					{
 					$this->pushFollow(self::$FOLLOW_functionCall_in_constraint1026);
 					$v = $this->functionCall();
-
 					$this->state->_fsp--;
-
-
 					}
 					break;
-
 			}
 			$value = $v;
 		}
@@ -2440,41 +2001,29 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "constraint"
 
-
 	// $ANTLR start "functionCall"
 	// Sparql10.g:177:1: functionCall returns [$value] : iriRef argList ;
 	public function functionCall() {
 		$value = null;
-
 		$iriRef19 = null;
-
 		$argList20 = null;
-
-
 		try {
 			// Sparql10.g:178:5: ( iriRef argList )
 			// Sparql10.g:178:7: iriRef argList
 			{
 				$this->pushFollow(self::$FOLLOW_iriRef_in_functionCall1048);
 				$iriRef19 = $this->iriRef();
-
 				$this->state->_fsp--;
-
 				$this->pushFollow(self::$FOLLOW_argList_in_functionCall1050);
 				$argList20 = $this->argList();
-
 				$this->state->_fsp--;
-
 				$value = new Query2\UserFunction($iriRef19, $argList20);
-
 			}
-
 		}
 		catch (\RecognitionException $re) {
 			$this->reportError($re);
@@ -2483,23 +2032,17 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "functionCall"
 
-
 	// $ANTLR start "argList"
 	// Sparql10.g:182:1: argList returns [$value] : ( OPEN_BRACE ( WS )* CLOSE_BRACE | OPEN_BRACE e1= expression ( COMMA e2= expression )* CLOSE_BRACE );
 	public function argList() {
 		$value = null;
-
 		$e1 = null;
-
 		$e2 = null;
-
-
 		$value = array();
 		try {
 			// Sparql10.g:184:5: ( OPEN_BRACE ( WS )* CLOSE_BRACE | OPEN_BRACE e1= expression ( COMMA e2= expression )* CLOSE_BRACE )
@@ -2515,29 +2058,22 @@ class Sparql10 extends \AntlrParser {
 					do {
 						$alt35 = 2;
 						$LA35_0 = $this->input->LA(1);
-
 						if (($LA35_0 == $this->getToken('WS'))) {
 							$alt35 = 1;
 						}
-
-
 						switch ($alt35) {
 							case 1 :
 								// Sparql10.g:184:18: WS
 								{
 								$this->match($this->input, $this->getToken('WS'), self::$FOLLOW_WS_in_argList1081);
-
 								}
 								break;
-
 							default :
 								break 2;
 							//loop35;
 						}
 					} while (true);
-
 					$this->match($this->input, $this->getToken('CLOSE_BRACE'), self::$FOLLOW_CLOSE_BRACE_in_argList1084);
-
 					}
 					break;
 				case 2 :
@@ -2546,21 +2082,16 @@ class Sparql10 extends \AntlrParser {
 					$this->match($this->input, $this->getToken('OPEN_BRACE'), self::$FOLLOW_OPEN_BRACE_in_argList1092);
 					$this->pushFollow(self::$FOLLOW_expression_in_argList1096);
 					$e1 = $this->expression();
-
 					$this->state->_fsp--;
-
 					$value [] = $e1;
 					// Sparql10.g:186:9: ( COMMA e2= expression )*
 					//loop36:
 					do {
 						$alt36 = 2;
 						$LA36_0 = $this->input->LA(1);
-
 						if (($LA36_0 == $this->getToken('COMMA'))) {
 							$alt36 = 1;
 						}
-
-
 						switch ($alt36) {
 							case 1 :
 								// Sparql10.g:186:11: COMMA e2= expression
@@ -2568,25 +2099,18 @@ class Sparql10 extends \AntlrParser {
 								$this->match($this->input, $this->getToken('COMMA'), self::$FOLLOW_COMMA_in_argList1110);
 								$this->pushFollow(self::$FOLLOW_expression_in_argList1114);
 								$e2 = $this->expression();
-
 								$this->state->_fsp--;
-
 								$value [] = $e2;
-
 								}
 								break;
-
 							default :
 								break 2;
 							//loop36;
 						}
 					} while (true);
-
 					$this->match($this->input, $this->getToken('CLOSE_BRACE'), self::$FOLLOW_CLOSE_BRACE_in_argList1120);
-
 					}
 					break;
-
 			}
 		}
 		catch (\RecognitionException $re) {
@@ -2596,21 +2120,16 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "argList"
 
-
 	// $ANTLR start "constructTemplate"
 	// Sparql10.g:190:1: constructTemplate returns [$value] : OPEN_CURLY_BRACE ( constructTriples )? CLOSE_CURLY_BRACE ;
 	public function constructTemplate() {
 		$value = null;
-
 		$constructTriples21 = null;
-
-
 		$value = new Query2\ConstructTemplate();
 		try {
 			// Sparql10.g:192:5: ( OPEN_CURLY_BRACE ( constructTriples )? CLOSE_CURLY_BRACE )
@@ -2626,20 +2145,13 @@ class Sparql10 extends \AntlrParser {
 						{
 						$this->pushFollow(self::$FOLLOW_constructTriples_in_constructTemplate1150);
 						$constructTriples21 = $this->constructTriples();
-
 						$this->state->_fsp--;
-
 						$value->setElements($constructTriples21);
-
 						}
 						break;
-
 				}
-
 				$this->match($this->input, $this->getToken('CLOSE_CURLY_BRACE'), self::$FOLLOW_CLOSE_CURLY_BRACE_in_constructTemplate1156);
-
 			}
-
 		}
 		catch (\RecognitionException $re) {
 			$this->reportError($re);
@@ -2648,23 +2160,17 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "constructTemplate"
 
-
 	// $ANTLR start "constructTriples"
 	// Sparql10.g:196:1: constructTriples returns [$value] : triplesSameSubject ( DOT (c= constructTriples )? )? ;
 	public function constructTriples() {
 		$value = null;
-
 		$c = null;
-
 		$triplesSameSubject22 = null;
-
-
 		$value = array();
 		try {
 			// Sparql10.g:198:5: ( triplesSameSubject ( DOT (c= constructTriples )? )? )
@@ -2672,14 +2178,11 @@ class Sparql10 extends \AntlrParser {
 			{
 				$this->pushFollow(self::$FOLLOW_triplesSameSubject_in_constructTriples1183);
 				$triplesSameSubject22 = $this->triplesSameSubject();
-
 				$this->state->_fsp--;
-
 				$value [] = $triplesSameSubject22;
 				// Sparql10.g:198:67: ( DOT (c= constructTriples )? )?
 				$alt40 = 2;
 				$LA40_0 = $this->input->LA(1);
-
 				if (($LA40_0 == $this->getToken('DOT'))) {
 					$alt40 = 1;
 				}
@@ -2697,25 +2200,15 @@ class Sparql10 extends \AntlrParser {
 								{
 								$this->pushFollow(self::$FOLLOW_constructTriples_in_constructTriples1194);
 								$c = $this->constructTriples();
-
 								$this->state->_fsp--;
-
 								$value = array_merge($value, $c);
-
 								}
 								break;
-
 						}
-
-
 						}
 						break;
-
 				}
-
-
 			}
-
 		}
 		catch (\RecognitionException $re) {
 			$this->reportError($re);
@@ -2724,27 +2217,19 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "constructTriples"
 
-
 	// $ANTLR start "triplesSameSubject"
 	// Sparql10.g:202:1: triplesSameSubject returns [$value] : ( varOrTerm propertyListNotEmpty | triplesNode propertyList );
 	public function triplesSameSubject() {
 		$value = null;
-
 		$varOrTerm23 = null;
-
 		$propertyListNotEmpty24 = null;
-
 		$triplesNode25 = null;
-
 		$propertyList26 = null;
-
-
 		try {
 			// Sparql10.g:203:5: ( varOrTerm propertyListNotEmpty | triplesNode propertyList )
 			$alt41 = 2;
@@ -2755,16 +2240,11 @@ class Sparql10 extends \AntlrParser {
 					{
 					$this->pushFollow(self::$FOLLOW_varOrTerm_in_triplesSameSubject1224);
 					$varOrTerm23 = $this->varOrTerm();
-
 					$this->state->_fsp--;
-
 					$this->pushFollow(self::$FOLLOW_propertyListNotEmpty_in_triplesSameSubject1226);
 					$propertyListNotEmpty24 = $this->propertyListNotEmpty();
-
 					$this->state->_fsp--;
-
 					$value = new Query2\TriplesSameSubject($varOrTerm23, $propertyListNotEmpty24);
-
 					}
 					break;
 				case 2 :
@@ -2772,19 +2252,13 @@ class Sparql10 extends \AntlrParser {
 					{
 					$this->pushFollow(self::$FOLLOW_triplesNode_in_triplesSameSubject1236);
 					$triplesNode25 = $this->triplesNode();
-
 					$this->state->_fsp--;
-
 					$this->pushFollow(self::$FOLLOW_propertyList_in_triplesSameSubject1238);
 					$propertyList26 = $this->propertyList();
-
 					$this->state->_fsp--;
-
 					$value = new Query2\TriplesSameSubject($triplesNode25, $propertyList26);
-
 					}
 					break;
-
 			}
 		}
 		catch (\RecognitionException $re) {
@@ -2794,27 +2268,19 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "triplesSameSubject"
 
-
 	// $ANTLR start "propertyListNotEmpty"
 	// Sparql10.g:208:1: propertyListNotEmpty returns [$value] : v1= verb ol1= objectList ( SEMICOLON (v2= verb ol2= objectList )? )* ;
 	public function propertyListNotEmpty() {
 		$value = null;
-
 		$v1 = null;
-
 		$ol1 = null;
-
 		$v2 = null;
-
 		$ol2 = null;
-
-
 		$value = new Query2\PropertyList();
 		try {
 			// Sparql10.g:210:5: (v1= verb ol1= objectList ( SEMICOLON (v2= verb ol2= objectList )? )* )
@@ -2822,26 +2288,19 @@ class Sparql10 extends \AntlrParser {
 			{
 				$this->pushFollow(self::$FOLLOW_verb_in_propertyListNotEmpty1269);
 				$v1 = $this->verb();
-
 				$this->state->_fsp--;
-
 				$this->pushFollow(self::$FOLLOW_objectList_in_propertyListNotEmpty1273);
 				$ol1 = $this->objectList();
-
 				$this->state->_fsp--;
-
 				$value->addProperty($v1, $ol1);
 				// Sparql10.g:211:9: ( SEMICOLON (v2= verb ol2= objectList )? )*
 				//loop43:
 				do {
 					$alt43 = 2;
 					$LA43_0 = $this->input->LA(1);
-
 					if (($LA43_0 == $this->getToken('SEMICOLON'))) {
 						$alt43 = 1;
 					}
-
-
 					switch ($alt43) {
 						case 1 :
 							// Sparql10.g:211:11: SEMICOLON (v2= verb ol2= objectList )?
@@ -2856,34 +2315,22 @@ class Sparql10 extends \AntlrParser {
 									{
 									$this->pushFollow(self::$FOLLOW_verb_in_propertyListNotEmpty1293);
 									$v2 = $this->verb();
-
 									$this->state->_fsp--;
-
 									$this->pushFollow(self::$FOLLOW_objectList_in_propertyListNotEmpty1297);
 									$ol2 = $this->objectList();
-
 									$this->state->_fsp--;
-
 									$value->addProperty($v2, $ol2);
-
 									}
 									break;
-
 							}
-
-
 							}
 							break;
-
 						default :
 							break 2;
 						//loop43;
 					}
 				} while (true);
-
-
 			}
-
 		}
 		catch (\RecognitionException $re) {
 			$this->reportError($re);
@@ -2892,21 +2339,16 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "propertyListNotEmpty"
 
-
 	// $ANTLR start "propertyList"
 	// Sparql10.g:215:1: propertyList returns [$value] : ( propertyListNotEmpty )? ;
 	public function propertyList() {
 		$value = null;
-
 		$propertyListNotEmpty27 = null;
-
-
 		$v = null;
 		try {
 			// Sparql10.g:218:5: ( ( propertyListNotEmpty )? )
@@ -2921,19 +2363,12 @@ class Sparql10 extends \AntlrParser {
 						{
 						$this->pushFollow(self::$FOLLOW_propertyListNotEmpty_in_propertyList1336);
 						$propertyListNotEmpty27 = $this->propertyListNotEmpty();
-
 						$this->state->_fsp--;
-
 						$v = $propertyListNotEmpty27;
-
 						}
 						break;
-
 				}
-
-
 			}
-
 			$value = $v ? $v : new Query2\PropertyList();
 		}
 		catch (\RecognitionException $re) {
@@ -2943,32 +2378,24 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "propertyList"
 
-
 	// $ANTLR start "objectList"
 	// Sparql10.g:222:1: objectList returns [$value] : o1= object ( COMMA o2= object )* ;
 	public function objectList() {
 		$value = null;
-
 		$o1 = null;
-
 		$o2 = null;
-
-
 		try {
 			// Sparql10.g:223:5: (o1= object ( COMMA o2= object )* )
 			// Sparql10.g:223:7: o1= object ( COMMA o2= object )*
 			{
 				$this->pushFollow(self::$FOLLOW_object_in_objectList1365);
 				$o1 = $this->object();
-
 				$this->state->_fsp--;
-
 				$value = new Query2\ObjectList(array($o1));
 				// Sparql10.g:224:9: ( COMMA o2= object )*
 				//loop45:
@@ -2982,23 +2409,16 @@ class Sparql10 extends \AntlrParser {
 							$this->match($this->input, $this->getToken('COMMA'), self::$FOLLOW_COMMA_in_objectList1379);
 							$this->pushFollow(self::$FOLLOW_object_in_objectList1383);
 							$o2 = $this->object();
-
 							$this->state->_fsp--;
-
 							$value->addElement($o2);
-
 							}
 							break;
-
 						default :
 							break 2;
 						//loop45;
 					}
 				} while (true);
-
-
 			}
-
 		}
 		catch (\RecognitionException $re) {
 			$this->reportError($re);
@@ -3007,34 +2427,25 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "objectList"
 
-
 	// $ANTLR start "object"
 	// Sparql10.g:228:1: object returns [$value] : graphNode ;
 	public function object() {
 		$value = null;
-
 		$graphNode28 = null;
-
-
 		try {
 			// Sparql10.g:229:5: ( graphNode )
 			// Sparql10.g:229:7: graphNode
 			{
 				$this->pushFollow(self::$FOLLOW_graphNode_in_object1411);
 				$graphNode28 = $this->graphNode();
-
 				$this->state->_fsp--;
-
 				$value = $graphNode28;
-
 			}
-
 		}
 		catch (\RecognitionException $re) {
 			$this->reportError($re);
@@ -3043,26 +2454,20 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "object"
 
-
 	// $ANTLR start "verb"
 	// Sparql10.g:233:1: verb returns [$value] : ( varOrIRIref | A );
 	public function verb() {
 		$value = null;
-
 		$varOrIRIref29 = null;
-
-
 		try {
 			// Sparql10.g:234:5: ( varOrIRIref | A )
 			$alt46 = 2;
 			$LA46_0 = $this->input->LA(1);
-
 			if (($LA46_0 == $this->getToken('IRI_REF') || $LA46_0 == $this->getToken('PNAME_NS') || $LA46_0 == $this->getToken('PNAME_LN') || ($LA46_0 >= $this->getToken('VAR1') && $LA46_0 <= $this->getToken('VAR2')))) {
 				$alt46 = 1;
 			}
@@ -3072,7 +2477,6 @@ class Sparql10 extends \AntlrParser {
 				}
 				else {
 					$nvae = new \NoViableAltException("", 46, 0, $this->input);
-
 					throw $nvae;
 				}
 			}
@@ -3082,11 +2486,8 @@ class Sparql10 extends \AntlrParser {
 					{
 					$this->pushFollow(self::$FOLLOW_varOrIRIref_in_verb1436);
 					$varOrIRIref29 = $this->varOrIRIref();
-
 					$this->state->_fsp--;
-
 					$value = $varOrIRIref29;
-
 					}
 					break;
 				case 2 :
@@ -3094,10 +2495,8 @@ class Sparql10 extends \AntlrParser {
 					{
 					$this->match($this->input, $this->getToken('A'), self::$FOLLOW_A_in_verb1446);
 					$value = new Query2\A();
-
 					}
 					break;
-
 			}
 		}
 		catch (\RecognitionException $re) {
@@ -3107,28 +2506,21 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "verb"
 
-
 	// $ANTLR start "triplesNode"
 	// Sparql10.g:239:1: triplesNode returns [$value] : ( collection | blankNodePropertyList );
 	public function triplesNode() {
 		$value = null;
-
 		$collection30 = null;
-
 		$blankNodePropertyList31 = null;
-
-
 		try {
 			// Sparql10.g:240:5: ( collection | blankNodePropertyList )
 			$alt47 = 2;
 			$LA47_0 = $this->input->LA(1);
-
 			if (($LA47_0 == $this->getToken('OPEN_BRACE'))) {
 				$alt47 = 1;
 			}
@@ -3138,7 +2530,6 @@ class Sparql10 extends \AntlrParser {
 				}
 				else {
 					$nvae = new \NoViableAltException("", 47, 0, $this->input);
-
 					throw $nvae;
 				}
 			}
@@ -3148,11 +2539,8 @@ class Sparql10 extends \AntlrParser {
 					{
 					$this->pushFollow(self::$FOLLOW_collection_in_triplesNode1471);
 					$collection30 = $this->collection();
-
 					$this->state->_fsp--;
-
 					$value = $collection30;
-
 					}
 					break;
 				case 2 :
@@ -3160,14 +2548,10 @@ class Sparql10 extends \AntlrParser {
 					{
 					$this->pushFollow(self::$FOLLOW_blankNodePropertyList_in_triplesNode1481);
 					$blankNodePropertyList31 = $this->blankNodePropertyList();
-
 					$this->state->_fsp--;
-
 					$value = $blankNodePropertyList31;
-
 					}
 					break;
-
 			}
 		}
 		catch (\RecognitionException $re) {
@@ -3177,21 +2561,16 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "triplesNode"
 
-
 	// $ANTLR start "blankNodePropertyList"
 	// Sparql10.g:245:1: blankNodePropertyList returns [$value] : OPEN_SQUARE_BRACE propertyListNotEmpty CLOSE_SQUARE_BRACE ;
 	public function blankNodePropertyList() {
 		$value = null;
-
 		$propertyListNotEmpty32 = null;
-
-
 		try {
 			// Sparql10.g:246:5: ( OPEN_SQUARE_BRACE propertyListNotEmpty CLOSE_SQUARE_BRACE )
 			// Sparql10.g:246:7: OPEN_SQUARE_BRACE propertyListNotEmpty CLOSE_SQUARE_BRACE
@@ -3199,14 +2578,10 @@ class Sparql10 extends \AntlrParser {
 				$this->match($this->input, $this->getToken('OPEN_SQUARE_BRACE'), self::$FOLLOW_OPEN_SQUARE_BRACE_in_blankNodePropertyList1506);
 				$this->pushFollow(self::$FOLLOW_propertyListNotEmpty_in_blankNodePropertyList1508);
 				$propertyListNotEmpty32 = $this->propertyListNotEmpty();
-
 				$this->state->_fsp--;
-
 				$this->match($this->input, $this->getToken('CLOSE_SQUARE_BRACE'), self::$FOLLOW_CLOSE_SQUARE_BRACE_in_blankNodePropertyList1510);
 				$value = new Query2\BlankNodePropertyList($propertyListNotEmpty32);
-
 			}
-
 		}
 		catch (\RecognitionException $re) {
 			$this->reportError($re);
@@ -3215,21 +2590,16 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "blankNodePropertyList"
 
-
 	// $ANTLR start "collection"
 	// Sparql10.g:250:1: collection returns [$value] : OPEN_BRACE ( graphNode )+ CLOSE_BRACE ;
 	public function collection() {
 		$value = null;
-
 		$graphNode33 = null;
-
-
 		$list = array();
 		try {
 			// Sparql10.g:253:5: ( OPEN_BRACE ( graphNode )+ CLOSE_BRACE )
@@ -3248,14 +2618,10 @@ class Sparql10 extends \AntlrParser {
 							{
 							$this->pushFollow(self::$FOLLOW_graphNode_in_collection1546);
 							$graphNode33 = $this->graphNode();
-
 							$this->state->_fsp--;
-
 							$list [] = $graphNode33;
-
 							}
 							break;
-
 						default :
 							if ($cnt48 >= 1) {
 								break 2;
@@ -3264,11 +2630,8 @@ class Sparql10 extends \AntlrParser {
 					}
 					$cnt48++;
 				} while (true);
-
 				$this->match($this->input, $this->getToken('CLOSE_BRACE'), self::$FOLLOW_CLOSE_BRACE_in_collection1552);
-
 			}
-
 			$value = new Query2\Collection($list);
 		}
 		catch (\RecognitionException $re) {
@@ -3278,23 +2641,17 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "collection"
 
-
 	// $ANTLR start "graphNode"
 	// Sparql10.g:257:1: graphNode returns [$value] : ( varOrTerm | triplesNode );
 	public function graphNode() {
 		$value = null;
-
 		$varOrTerm34 = null;
-
 		$triplesNode35 = null;
-
-
 		try {
 			// Sparql10.g:258:5: ( varOrTerm | triplesNode )
 			$alt49 = 2;
@@ -3305,11 +2662,8 @@ class Sparql10 extends \AntlrParser {
 					{
 					$this->pushFollow(self::$FOLLOW_varOrTerm_in_graphNode1575);
 					$varOrTerm34 = $this->varOrTerm();
-
 					$this->state->_fsp--;
-
 					$value = $varOrTerm34;
-
 					}
 					break;
 				case 2 :
@@ -3317,14 +2671,10 @@ class Sparql10 extends \AntlrParser {
 					{
 					$this->pushFollow(self::$FOLLOW_triplesNode_in_graphNode1585);
 					$triplesNode35 = $this->triplesNode();
-
 					$this->state->_fsp--;
-
 					$value = $triplesNode35;
-
 					}
 					break;
-
 			}
 		}
 		catch (\RecognitionException $re) {
@@ -3334,23 +2684,17 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "graphNode"
 
-
 	// $ANTLR start "varOrTerm"
 	// Sparql10.g:263:1: varOrTerm returns [$value] : ( variable | graphTerm );
 	public function varOrTerm() {
 		$value = null;
-
 		$variable36 = null;
-
 		$graphTerm37 = null;
-
-
 		try {
 			// Sparql10.g:264:5: ( variable | graphTerm )
 			$alt50 = 2;
@@ -3361,11 +2705,8 @@ class Sparql10 extends \AntlrParser {
 					{
 					$this->pushFollow(self::$FOLLOW_variable_in_varOrTerm1610);
 					$variable36 = $this->variable();
-
 					$this->state->_fsp--;
-
 					$value = $variable36;
-
 					}
 					break;
 				case 2 :
@@ -3373,14 +2714,10 @@ class Sparql10 extends \AntlrParser {
 					{
 					$this->pushFollow(self::$FOLLOW_graphTerm_in_varOrTerm1620);
 					$graphTerm37 = $this->graphTerm();
-
 					$this->state->_fsp--;
-
 					$value = $graphTerm37;
-
 					}
 					break;
-
 			}
 		}
 		catch (\RecognitionException $re) {
@@ -3390,28 +2727,21 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "varOrTerm"
 
-
 	// $ANTLR start "varOrIRIref"
 	// Sparql10.g:269:1: varOrIRIref returns [$value] : ( variable | iriRef );
 	public function varOrIRIref() {
 		$value = null;
-
 		$variable38 = null;
-
 		$iriRef39 = null;
-
-
 		try {
 			// Sparql10.g:270:5: ( variable | iriRef )
 			$alt51 = 2;
 			$LA51_0 = $this->input->LA(1);
-
 			if ((($LA51_0 >= $this->getToken('VAR1') && $LA51_0 <= $this->getToken('VAR2')))) {
 				$alt51 = 1;
 			}
@@ -3421,7 +2751,6 @@ class Sparql10 extends \AntlrParser {
 				}
 				else {
 					$nvae = new \NoViableAltException("", 51, 0, $this->input);
-
 					throw $nvae;
 				}
 			}
@@ -3431,11 +2760,8 @@ class Sparql10 extends \AntlrParser {
 					{
 					$this->pushFollow(self::$FOLLOW_variable_in_varOrIRIref1645);
 					$variable38 = $this->variable();
-
 					$this->state->_fsp--;
-
 					$value = $variable38;
-
 					}
 					break;
 				case 2 :
@@ -3443,14 +2769,10 @@ class Sparql10 extends \AntlrParser {
 					{
 					$this->pushFollow(self::$FOLLOW_iriRef_in_varOrIRIref1655);
 					$iriRef39 = $this->iriRef();
-
 					$this->state->_fsp--;
-
 					$value = $iriRef39;
-
 					}
 					break;
-
 			}
 		}
 		catch (\RecognitionException $re) {
@@ -3460,25 +2782,20 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "varOrIRIref"
 
-
 	// $ANTLR start "variable"
 	// Sparql10.g:275:1: variable returns [$value] : (v= VAR1 | v= VAR2 );
 	public function variable() {
 		$value = null;
-
 		$v = null;
-
 		try {
 			// Sparql10.g:277:5: (v= VAR1 | v= VAR2 )
 			$alt52 = 2;
 			$LA52_0 = $this->input->LA(1);
-
 			if (($LA52_0 == $this->getToken('VAR1'))) {
 				$alt52 = 1;
 			}
@@ -3488,7 +2805,6 @@ class Sparql10 extends \AntlrParser {
 				}
 				else {
 					$nvae = new \NoViableAltException("", 52, 0, $this->input);
-
 					throw $nvae;
 				}
 			}
@@ -3498,7 +2814,6 @@ class Sparql10 extends \AntlrParser {
 					{
 					$v = $this->match($this->input, $this->getToken('VAR1'), self::$FOLLOW_VAR1_in_variable1686);
 					$vartype = "?";
-
 					}
 					break;
 				case 2 :
@@ -3506,10 +2821,8 @@ class Sparql10 extends \AntlrParser {
 					{
 					$v = $this->match($this->input, $this->getToken('VAR2'), self::$FOLLOW_VAR2_in_variable1698);
 					$vartype = "$";
-
 					}
 					break;
-
 			}
 			$value = new Query2\Variable(($v != null ? $v->getText() : null));
 			$value->setVarLabelType($vartype);
@@ -3521,21 +2834,16 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "variable"
 
-
 	// $ANTLR start "graphTerm"
 	// Sparql10.g:282:1: graphTerm returns [$value] : (v= iriRef | v= rdfLiteral | v= numericLiteral | v= booleanLiteral | v= blankNode | OPEN_BRACE ( WS )* CLOSE_BRACE );
 	public function graphTerm() {
 		$value = null;
-
 		$v = null;
-
-
 		try {
 			// Sparql10.g:283:5: (v= iriRef | v= rdfLiteral | v= numericLiteral | v= booleanLiteral | v= blankNode | OPEN_BRACE ( WS )* CLOSE_BRACE )
 			$alt54 = 6;
@@ -3546,11 +2854,8 @@ class Sparql10 extends \AntlrParser {
 					{
 					$this->pushFollow(self::$FOLLOW_iriRef_in_graphTerm1725);
 					$v = $this->iriRef();
-
 					$this->state->_fsp--;
-
 					$value = $v;
-
 					}
 					break;
 				case 2 :
@@ -3558,11 +2863,8 @@ class Sparql10 extends \AntlrParser {
 					{
 					$this->pushFollow(self::$FOLLOW_rdfLiteral_in_graphTerm1737);
 					$v = $this->rdfLiteral();
-
 					$this->state->_fsp--;
-
 					$value = $v;
-
 					}
 					break;
 				case 3 :
@@ -3570,11 +2872,8 @@ class Sparql10 extends \AntlrParser {
 					{
 					$this->pushFollow(self::$FOLLOW_numericLiteral_in_graphTerm1749);
 					$v = $this->numericLiteral();
-
 					$this->state->_fsp--;
-
 					$value = $v;
-
 					}
 					break;
 				case 4 :
@@ -3582,11 +2881,8 @@ class Sparql10 extends \AntlrParser {
 					{
 					$this->pushFollow(self::$FOLLOW_booleanLiteral_in_graphTerm1761);
 					$v = $this->booleanLiteral();
-
 					$this->state->_fsp--;
-
 					$value = $v;
-
 					}
 					break;
 				case 5 :
@@ -3594,11 +2890,8 @@ class Sparql10 extends \AntlrParser {
 					{
 					$this->pushFollow(self::$FOLLOW_blankNode_in_graphTerm1773);
 					$v = $this->blankNode();
-
 					$this->state->_fsp--;
-
 					$value = $v;
-
 					}
 					break;
 				case 6 :
@@ -3610,33 +2903,25 @@ class Sparql10 extends \AntlrParser {
 					do {
 						$alt53 = 2;
 						$LA53_0 = $this->input->LA(1);
-
 						if (($LA53_0 == $this->getToken('WS'))) {
 							$alt53 = 1;
 						}
-
-
 						switch ($alt53) {
 							case 1 :
 								// Sparql10.g:288:18: WS
 								{
 								$this->match($this->input, $this->getToken('WS'), self::$FOLLOW_WS_in_graphTerm1785);
-
 								}
 								break;
-
 							default :
 								break 2;
 							//loop53;
 						}
 					} while (true);
-
 					$this->match($this->input, $this->getToken('CLOSE_BRACE'), self::$FOLLOW_CLOSE_BRACE_in_graphTerm1788);
 					$value = new Query2\Nil();
-
 					}
 					break;
-
 			}
 		}
 		catch (\RecognitionException $re) {
@@ -3646,34 +2931,25 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "graphTerm"
 
-
 	// $ANTLR start "expression"
 	// Sparql10.g:292:1: expression returns [$value] : conditionalOrExpression ;
 	public function expression() {
 		$value = null;
-
 		$conditionalOrExpression40 = null;
-
-
 		try {
 			// Sparql10.g:293:5: ( conditionalOrExpression )
 			// Sparql10.g:293:7: conditionalOrExpression
 			{
 				$this->pushFollow(self::$FOLLOW_conditionalOrExpression_in_expression1813);
 				$conditionalOrExpression40 = $this->conditionalOrExpression();
-
 				$this->state->_fsp--;
-
 				$value = $conditionalOrExpression40;
-
 			}
-
 		}
 		catch (\RecognitionException $re) {
 			$this->reportError($re);
@@ -3682,23 +2958,17 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "expression"
 
-
 	// $ANTLR start "conditionalOrExpression"
 	// Sparql10.g:297:1: conditionalOrExpression returns [$value] : c1= conditionalAndExpression ( OR c2= conditionalAndExpression )* ;
 	public function conditionalOrExpression() {
 		$value = null;
-
 		$c1 = null;
-
 		$c2 = null;
-
-
 		$v = array();
 		try {
 			// Sparql10.g:300:5: (c1= conditionalAndExpression ( OR c2= conditionalAndExpression )* )
@@ -3706,21 +2976,16 @@ class Sparql10 extends \AntlrParser {
 			{
 				$this->pushFollow(self::$FOLLOW_conditionalAndExpression_in_conditionalOrExpression1848);
 				$c1 = $this->conditionalAndExpression();
-
 				$this->state->_fsp--;
-
 				$v[] = $c1;
 				// Sparql10.g:301:5: ( OR c2= conditionalAndExpression )*
 				//loop55:
 				do {
 					$alt55 = 2;
 					$LA55_0 = $this->input->LA(1);
-
 					if (($LA55_0 == $this->getToken('OR'))) {
 						$alt55 = 1;
 					}
-
-
 					switch ($alt55) {
 						case 1 :
 							// Sparql10.g:301:7: OR c2= conditionalAndExpression
@@ -3728,23 +2993,16 @@ class Sparql10 extends \AntlrParser {
 							$this->match($this->input, $this->getToken('OR'), self::$FOLLOW_OR_in_conditionalOrExpression1858);
 							$this->pushFollow(self::$FOLLOW_conditionalAndExpression_in_conditionalOrExpression1862);
 							$c2 = $this->conditionalAndExpression();
-
 							$this->state->_fsp--;
-
 							$v[] = $c2;
-
 							}
 							break;
-
 						default :
 							break 2;
 						//loop55;
 					}
 				} while (true);
-
-
 			}
-
 			$value = new Query2\ConditionalOrExpression($v);
 		}
 		catch (\RecognitionException $re) {
@@ -3754,23 +3012,17 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "conditionalOrExpression"
 
-
 	// $ANTLR start "conditionalAndExpression"
 	// Sparql10.g:305:1: conditionalAndExpression returns [$value] : v1= valueLogical ( AND v2= valueLogical )* ;
 	public function conditionalAndExpression() {
 		$value = null;
-
 		$v1 = null;
-
 		$v2 = null;
-
-
 		$v = array();
 		try {
 			// Sparql10.g:308:5: (v1= valueLogical ( AND v2= valueLogical )* )
@@ -3778,21 +3030,16 @@ class Sparql10 extends \AntlrParser {
 			{
 				$this->pushFollow(self::$FOLLOW_valueLogical_in_conditionalAndExpression1899);
 				$v1 = $this->valueLogical();
-
 				$this->state->_fsp--;
-
 				$v[] = $v1;
 				// Sparql10.g:308:44: ( AND v2= valueLogical )*
 				//loop56:
 				do {
 					$alt56 = 2;
 					$LA56_0 = $this->input->LA(1);
-
 					if (($LA56_0 == $this->getToken('AND'))) {
 						$alt56 = 1;
 					}
-
-
 					switch ($alt56) {
 						case 1 :
 							// Sparql10.g:308:46: AND v2= valueLogical
@@ -3800,23 +3047,16 @@ class Sparql10 extends \AntlrParser {
 							$this->match($this->input, $this->getToken('AND'), self::$FOLLOW_AND_in_conditionalAndExpression1905);
 							$this->pushFollow(self::$FOLLOW_valueLogical_in_conditionalAndExpression1909);
 							$v2 = $this->valueLogical();
-
 							$this->state->_fsp--;
-
 							$v[] = $v2;
-
 							}
 							break;
-
 						default :
 							break 2;
 						//loop56;
 					}
 				} while (true);
-
-
 			}
-
 			$value = new Query2\ConditionalAndExpression($v);
 		}
 		catch (\RecognitionException $re) {
@@ -3826,34 +3066,25 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "conditionalAndExpression"
 
-
 	// $ANTLR start "valueLogical"
 	// Sparql10.g:312:1: valueLogical returns [$value] : relationalExpression ;
 	public function valueLogical() {
 		$value = null;
-
 		$relationalExpression41 = null;
-
-
 		try {
 			// Sparql10.g:313:5: ( relationalExpression )
 			// Sparql10.g:313:7: relationalExpression
 			{
 				$this->pushFollow(self::$FOLLOW_relationalExpression_in_valueLogical1937);
 				$relationalExpression41 = $this->relationalExpression();
-
 				$this->state->_fsp--;
-
 				$value = $relationalExpression41;
-
 			}
-
 		}
 		catch (\RecognitionException $re) {
 			$this->reportError($re);
@@ -3862,32 +3093,24 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "valueLogical"
 
-
 	// $ANTLR start "relationalExpression"
 	// Sparql10.g:317:1: relationalExpression returns [$value] : n1= numericExpression ( EQUAL n2= numericExpression | NOT_EQUAL n2= numericExpression | LESS n2= numericExpression | GREATER n2= numericExpression | LESS_EQUAL n2= numericExpression | GREATER_EQUAL n2= numericExpression )? ;
 	public function relationalExpression() {
 		$value = null;
-
 		$n1 = null;
-
 		$n2 = null;
-
-
 		try {
 			// Sparql10.g:318:5: (n1= numericExpression ( EQUAL n2= numericExpression | NOT_EQUAL n2= numericExpression | LESS n2= numericExpression | GREATER n2= numericExpression | LESS_EQUAL n2= numericExpression | GREATER_EQUAL n2= numericExpression )? )
 			// Sparql10.g:318:7: n1= numericExpression ( EQUAL n2= numericExpression | NOT_EQUAL n2= numericExpression | LESS n2= numericExpression | GREATER n2= numericExpression | LESS_EQUAL n2= numericExpression | GREATER_EQUAL n2= numericExpression )?
 			{
 				$this->pushFollow(self::$FOLLOW_numericExpression_in_relationalExpression1964);
 				$n1 = $this->numericExpression();
-
 				$this->state->_fsp--;
-
 				$value = $n1;
 				// Sparql10.g:319:9: ( EQUAL n2= numericExpression | NOT_EQUAL n2= numericExpression | LESS n2= numericExpression | GREATER n2= numericExpression | LESS_EQUAL n2= numericExpression | GREATER_EQUAL n2= numericExpression )?
 				$alt57 = 7;
@@ -3899,11 +3122,8 @@ class Sparql10 extends \AntlrParser {
 						$this->match($this->input, $this->getToken('EQUAL'), self::$FOLLOW_EQUAL_in_relationalExpression1978);
 						$this->pushFollow(self::$FOLLOW_numericExpression_in_relationalExpression1982);
 						$n2 = $this->numericExpression();
-
 						$this->state->_fsp--;
-
 						$value = new Query2\Equals($n1, $n2);
-
 						}
 						break;
 					case 2 :
@@ -3912,11 +3132,8 @@ class Sparql10 extends \AntlrParser {
 						$this->match($this->input, $this->getToken('NOT_EQUAL'), self::$FOLLOW_NOT_EQUAL_in_relationalExpression1996);
 						$this->pushFollow(self::$FOLLOW_numericExpression_in_relationalExpression2000);
 						$n2 = $this->numericExpression();
-
 						$this->state->_fsp--;
-
 						$value = new Query2\NotEquals($n1, $n2);
-
 						}
 						break;
 					case 3 :
@@ -3925,11 +3142,8 @@ class Sparql10 extends \AntlrParser {
 						$this->match($this->input, $this->getToken('LESS'), self::$FOLLOW_LESS_in_relationalExpression2014);
 						$this->pushFollow(self::$FOLLOW_numericExpression_in_relationalExpression2018);
 						$n2 = $this->numericExpression();
-
 						$this->state->_fsp--;
-
 						$value = new Query2\Smaller($n1, $n2);
-
 						}
 						break;
 					case 4 :
@@ -3938,11 +3152,8 @@ class Sparql10 extends \AntlrParser {
 						$this->match($this->input, $this->getToken('GREATER'), self::$FOLLOW_GREATER_in_relationalExpression2032);
 						$this->pushFollow(self::$FOLLOW_numericExpression_in_relationalExpression2036);
 						$n2 = $this->numericExpression();
-
 						$this->state->_fsp--;
-
 						$value = new Query2\Larger($n1, $n2);
-
 						}
 						break;
 					case 5 :
@@ -3951,11 +3162,8 @@ class Sparql10 extends \AntlrParser {
 						$this->match($this->input, $this->getToken('LESS_EQUAL'), self::$FOLLOW_LESS_EQUAL_in_relationalExpression2050);
 						$this->pushFollow(self::$FOLLOW_numericExpression_in_relationalExpression2054);
 						$n2 = $this->numericExpression();
-
 						$this->state->_fsp--;
-
 						$value = new Query2\SmallerEqual($n1, $n2);
-
 						}
 						break;
 					case 6 :
@@ -3964,19 +3172,12 @@ class Sparql10 extends \AntlrParser {
 						$this->match($this->input, $this->getToken('GREATER_EQUAL'), self::$FOLLOW_GREATER_EQUAL_in_relationalExpression2068);
 						$this->pushFollow(self::$FOLLOW_numericExpression_in_relationalExpression2072);
 						$n2 = $this->numericExpression();
-
 						$this->state->_fsp--;
-
 						$value = new Query2\LargerEqual($n1, $n2);
-
 						}
 						break;
-
 				}
-
-
 			}
-
 		}
 		catch (\RecognitionException $re) {
 			$this->reportError($re);
@@ -3985,34 +3186,25 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "relationalExpression"
 
-
 	// $ANTLR start "numericExpression"
 	// Sparql10.g:329:1: numericExpression returns [$value] : additiveExpression ;
 	public function numericExpression() {
 		$value = null;
-
 		$additiveExpression42 = null;
-
-
 		try {
 			// Sparql10.g:330:5: ( additiveExpression )
 			// Sparql10.g:330:7: additiveExpression
 			{
 				$this->pushFollow(self::$FOLLOW_additiveExpression_in_numericExpression2107);
 				$additiveExpression42 = $this->additiveExpression();
-
 				$this->state->_fsp--;
-
 				$value = $additiveExpression42;
-
 			}
-
 		}
 		catch (\RecognitionException $re) {
 			$this->reportError($re);
@@ -4021,26 +3213,19 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "numericExpression"
 
-
 	// $ANTLR start "additiveExpression"
 	// Sparql10.g:334:1: additiveExpression returns [$value] : m1= multiplicativeExpression ( (op= PLUS m2= multiplicativeExpression | op= MINUS m2= multiplicativeExpression | n= numericLiteralPositive | n= numericLiteralNegative ) )* ;
 	public function additiveExpression() {
 		$value = null;
-
 		$op = null;
 		$m1 = null;
-
 		$m2 = null;
-
 		$n = null;
-
-
 		$value = new Query2\AdditiveExpression();
 		$op = null;
 		$v2 = null;
@@ -4050,9 +3235,7 @@ class Sparql10 extends \AntlrParser {
 			{
 				$this->pushFollow(self::$FOLLOW_multiplicativeExpression_in_additiveExpression2138);
 				$m1 = $this->multiplicativeExpression();
-
 				$this->state->_fsp--;
-
 				$value->addElement('+', $m1);
 				// Sparql10.g:337:9: ( (op= PLUS m2= multiplicativeExpression | op= MINUS m2= multiplicativeExpression | n= numericLiteralPositive | n= numericLiteralNegative ) )*
 				//loop59:
@@ -4084,13 +3267,11 @@ class Sparql10 extends \AntlrParser {
 										else {
 											$nvae =
 													new \NoViableAltException("", 58, 0, $this->input);
-
 											throw $nvae;
 										}
 									}
 								}
 							}
-
 							switch ($alt58) {
 								case 1 :
 									// Sparql10.g:337:12: op= PLUS m2= multiplicativeExpression
@@ -4098,12 +3279,9 @@ class Sparql10 extends \AntlrParser {
 									$op = $this->match($this->input, $this->getToken('PLUS'), self::$FOLLOW_PLUS_in_additiveExpression2155);
 									$this->pushFollow(self::$FOLLOW_multiplicativeExpression_in_additiveExpression2159);
 									$m2 = $this->multiplicativeExpression();
-
 									$this->state->_fsp--;
-
 									$op = ($op != null ? $op->getText() : null);
 									$v2 = $m2;
-
 									}
 									break;
 								case 2 :
@@ -4112,12 +3290,9 @@ class Sparql10 extends \AntlrParser {
 									$op = $this->match($this->input, $this->getToken('MINUS'), self::$FOLLOW_MINUS_in_additiveExpression2175);
 									$this->pushFollow(self::$FOLLOW_multiplicativeExpression_in_additiveExpression2179);
 									$m2 = $this->multiplicativeExpression();
-
 									$this->state->_fsp--;
-
 									$op = ($op != null ? $op->getText() : null);
 									$v2 = $m2;
-
 									}
 									break;
 								case 3 :
@@ -4125,12 +3300,9 @@ class Sparql10 extends \AntlrParser {
 									{
 									$this->pushFollow(self::$FOLLOW_numericLiteralPositive_in_additiveExpression2195);
 									$n = $this->numericLiteralPositive();
-
 									$this->state->_fsp--;
-
 									$op = '+';
 									$v2 = $n;
-
 									}
 									break;
 								case 4 :
@@ -4138,31 +3310,21 @@ class Sparql10 extends \AntlrParser {
 									{
 									$this->pushFollow(self::$FOLLOW_numericLiteralNegative_in_additiveExpression2211);
 									$n = $this->numericLiteralNegative();
-
 									$this->state->_fsp--;
-
 									$op = '-';
 									$v2 = $n;
-
 									}
 									break;
-
 							}
-
 							$value->addElement($op, $v2);
-
 							}
 							break;
-
 						default :
 							break 2;
 						//loop59;
 					}
 				} while (true);
-
-
 			}
-
 		}
 		catch (\RecognitionException $re) {
 			$this->reportError($re);
@@ -4171,24 +3333,18 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "additiveExpression"
 
-
 	// $ANTLR start "multiplicativeExpression"
 	// Sparql10.g:345:1: multiplicativeExpression returns [$value] : u1= unaryExpression ( (op= ASTERISK u2= unaryExpression | op= DIVIDE u2= unaryExpression ) )* ;
 	public function multiplicativeExpression() {
 		$value = null;
-
 		$op = null;
 		$u1 = null;
-
 		$u2 = null;
-
-
 		$value = new Query2\MultiplicativeExpression();
 		try {
 			// Sparql10.g:347:5: (u1= unaryExpression ( (op= ASTERISK u2= unaryExpression | op= DIVIDE u2= unaryExpression ) )* )
@@ -4196,9 +3352,7 @@ class Sparql10 extends \AntlrParser {
 			{
 				$this->pushFollow(self::$FOLLOW_unaryExpression_in_multiplicativeExpression2259);
 				$u1 = $this->unaryExpression();
-
 				$this->state->_fsp--;
-
 				$value->addElement('*', $u1);
 				// Sparql10.g:348:9: ( (op= ASTERISK u2= unaryExpression | op= DIVIDE u2= unaryExpression ) )*
 				//loop61:
@@ -4212,7 +3366,6 @@ class Sparql10 extends \AntlrParser {
 							// Sparql10.g:348:10: (op= ASTERISK u2= unaryExpression | op= DIVIDE u2= unaryExpression )
 							$alt60 = 2;
 							$LA60_0 = $this->input->LA(1);
-
 							if (($LA60_0 == $this->getToken('ASTERISK'))) {
 								$alt60 = 1;
 							}
@@ -4222,7 +3375,6 @@ class Sparql10 extends \AntlrParser {
 								}
 								else {
 									$nvae = new \NoViableAltException("", 60, 0, $this->input);
-
 									throw $nvae;
 								}
 							}
@@ -4233,10 +3385,7 @@ class Sparql10 extends \AntlrParser {
 									$op = $this->match($this->input, $this->getToken('ASTERISK'), self::$FOLLOW_ASTERISK_in_multiplicativeExpression2276);
 									$this->pushFollow(self::$FOLLOW_unaryExpression_in_multiplicativeExpression2280);
 									$u2 = $this->unaryExpression();
-
 									$this->state->_fsp--;
-
-
 									}
 									break;
 								case 2 :
@@ -4245,29 +3394,19 @@ class Sparql10 extends \AntlrParser {
 									$op = $this->match($this->input, $this->getToken('DIVIDE'), self::$FOLLOW_DIVIDE_in_multiplicativeExpression2286);
 									$this->pushFollow(self::$FOLLOW_unaryExpression_in_multiplicativeExpression2290);
 									$u2 = $this->unaryExpression();
-
 									$this->state->_fsp--;
-
-
 									}
 									break;
-
 							}
-
 							$value->addElement(($op != null ? $op->getText() : null), $u2);
-
 							}
 							break;
-
 						default :
 							break 2;
 						//loop61;
 					}
 				} while (true);
-
-
 			}
-
 		}
 		catch (\RecognitionException $re) {
 			$this->reportError($re);
@@ -4276,21 +3415,16 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "multiplicativeExpression"
 
-
 	// $ANTLR start "unaryExpression"
 	// Sparql10.g:352:1: unaryExpression returns [$value] : ( NOT_SIGN e= primaryExpression | PLUS e= primaryExpression | MINUS e= primaryExpression | e= primaryExpression );
 	public function unaryExpression() {
 		$value = null;
-
 		$e = null;
-
-
 		try {
 			// Sparql10.g:353:5: ( NOT_SIGN e= primaryExpression | PLUS e= primaryExpression | MINUS e= primaryExpression | e= primaryExpression )
 			$alt62 = 4;
@@ -4302,11 +3436,8 @@ class Sparql10 extends \AntlrParser {
 					$this->match($this->input, $this->getToken('NOT_SIGN'), self::$FOLLOW_NOT_SIGN_in_unaryExpression2318);
 					$this->pushFollow(self::$FOLLOW_primaryExpression_in_unaryExpression2322);
 					$e = $this->primaryExpression();
-
 					$this->state->_fsp--;
-
 					$value = new Query2\UnaryExpressionNot($e);
-
 					}
 					break;
 				case 2 :
@@ -4315,11 +3446,8 @@ class Sparql10 extends \AntlrParser {
 					$this->match($this->input, $this->getToken('PLUS'), self::$FOLLOW_PLUS_in_unaryExpression2332);
 					$this->pushFollow(self::$FOLLOW_primaryExpression_in_unaryExpression2336);
 					$e = $this->primaryExpression();
-
 					$this->state->_fsp--;
-
 					$value = new Query2\UnaryExpressionPlus($e);
-
 					}
 					break;
 				case 3 :
@@ -4328,11 +3456,8 @@ class Sparql10 extends \AntlrParser {
 					$this->match($this->input, $this->getToken('MINUS'), self::$FOLLOW_MINUS_in_unaryExpression2346);
 					$this->pushFollow(self::$FOLLOW_primaryExpression_in_unaryExpression2350);
 					$e = $this->primaryExpression();
-
 					$this->state->_fsp--;
-
 					$value = new Query2\UnaryExpressionMinus($e);
-
 					}
 					break;
 				case 4 :
@@ -4340,14 +3465,10 @@ class Sparql10 extends \AntlrParser {
 					{
 					$this->pushFollow(self::$FOLLOW_primaryExpression_in_unaryExpression2362);
 					$e = $this->primaryExpression();
-
 					$this->state->_fsp--;
-
 					$value = $e;
-
 					}
 					break;
-
 			}
 		}
 		catch (\RecognitionException $re) {
@@ -4357,21 +3478,16 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "unaryExpression"
 
-
 	// $ANTLR start "primaryExpression"
 	// Sparql10.g:360:1: primaryExpression returns [$value] : (v= brackettedExpression | v= builtInCall | v= iriRefOrFunction | v= rdfLiteral | v= numericLiteral | v= booleanLiteral | v= variable );
 	public function primaryExpression() {
 		$value = null;
-
 		$v = null;
-
-
 		try {
 			// Sparql10.g:362:5: (v= brackettedExpression | v= builtInCall | v= iriRefOrFunction | v= rdfLiteral | v= numericLiteral | v= booleanLiteral | v= variable )
 			$alt63 = 7;
@@ -4382,11 +3498,8 @@ class Sparql10 extends \AntlrParser {
 					{
 					$this->pushFollow(self::$FOLLOW_brackettedExpression_in_primaryExpression2393);
 					$v = $this->brackettedExpression();
-
 					$this->state->_fsp--;
-
 					$v = $v;
-
 					}
 					break;
 				case 2 :
@@ -4394,11 +3507,8 @@ class Sparql10 extends \AntlrParser {
 					{
 					$this->pushFollow(self::$FOLLOW_builtInCall_in_primaryExpression2405);
 					$v = $this->builtInCall();
-
 					$this->state->_fsp--;
-
 					$v = $v;
-
 					}
 					break;
 				case 3 :
@@ -4406,11 +3516,8 @@ class Sparql10 extends \AntlrParser {
 					{
 					$this->pushFollow(self::$FOLLOW_iriRefOrFunction_in_primaryExpression2417);
 					$v = $this->iriRefOrFunction();
-
 					$this->state->_fsp--;
-
 					$v = $v;
-
 					}
 					break;
 				case 4 :
@@ -4418,11 +3525,8 @@ class Sparql10 extends \AntlrParser {
 					{
 					$this->pushFollow(self::$FOLLOW_rdfLiteral_in_primaryExpression2429);
 					$v = $this->rdfLiteral();
-
 					$this->state->_fsp--;
-
 					$v = $v;
-
 					}
 					break;
 				case 5 :
@@ -4430,11 +3534,8 @@ class Sparql10 extends \AntlrParser {
 					{
 					$this->pushFollow(self::$FOLLOW_numericLiteral_in_primaryExpression2441);
 					$v = $this->numericLiteral();
-
 					$this->state->_fsp--;
-
 					$v = $v;
-
 					}
 					break;
 				case 6 :
@@ -4442,11 +3543,8 @@ class Sparql10 extends \AntlrParser {
 					{
 					$this->pushFollow(self::$FOLLOW_booleanLiteral_in_primaryExpression2453);
 					$v = $this->booleanLiteral();
-
 					$this->state->_fsp--;
-
 					$v = $v;
-
 					}
 					break;
 				case 7 :
@@ -4454,14 +3552,10 @@ class Sparql10 extends \AntlrParser {
 					{
 					$this->pushFollow(self::$FOLLOW_variable_in_primaryExpression2465);
 					$v = $this->variable();
-
 					$this->state->_fsp--;
-
 					$v = $v;
-
 					}
 					break;
-
 			}
 			$value = $v;
 		}
@@ -4472,21 +3566,16 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "primaryExpression"
 
-
 	// $ANTLR start "brackettedExpression"
 	// Sparql10.g:372:1: brackettedExpression returns [$value] : OPEN_BRACE e= expression CLOSE_BRACE ;
 	public function brackettedExpression() {
 		$value = null;
-
 		$e = null;
-
-
 		try {
 			// Sparql10.g:373:5: ( OPEN_BRACE e= expression CLOSE_BRACE )
 			// Sparql10.g:373:7: OPEN_BRACE e= expression CLOSE_BRACE
@@ -4494,14 +3583,10 @@ class Sparql10 extends \AntlrParser {
 				$this->match($this->input, $this->getToken('OPEN_BRACE'), self::$FOLLOW_OPEN_BRACE_in_brackettedExpression2490);
 				$this->pushFollow(self::$FOLLOW_expression_in_brackettedExpression2494);
 				$e = $this->expression();
-
 				$this->state->_fsp--;
-
 				$this->match($this->input, $this->getToken('CLOSE_BRACE'), self::$FOLLOW_CLOSE_BRACE_in_brackettedExpression2496);
 				$value = new Query2\BrackettedExpression($e);
-
 			}
-
 		}
 		catch (\RecognitionException $re) {
 			$this->reportError($re);
@@ -4510,29 +3595,20 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "brackettedExpression"
 
-
 	// $ANTLR start "builtInCall"
 	// Sparql10.g:377:1: builtInCall returns [$value] : ( STR OPEN_BRACE e= expression CLOSE_BRACE | LANG OPEN_BRACE e= expression CLOSE_BRACE | LANGMATCHES OPEN_BRACE e1= expression COMMA e2= expression CLOSE_BRACE | DATATYPE OPEN_BRACE e= expression CLOSE_BRACE | BOUND OPEN_BRACE variable CLOSE_BRACE | SAMETERM OPEN_BRACE e1= expression COMMA e2= expression CLOSE_BRACE | ISIRI OPEN_BRACE e= expression CLOSE_BRACE | ISURI OPEN_BRACE e= expression CLOSE_BRACE | ISBLANK OPEN_BRACE e= expression CLOSE_BRACE | ISLITERAL OPEN_BRACE e= expression CLOSE_BRACE | regexExpression );
 	public function builtInCall() {
 		$value = null;
-
 		$e = null;
-
 		$e1 = null;
-
 		$e2 = null;
-
 		$variable43 = null;
-
 		$regexExpression44 = null;
-
-
 		try {
 			// Sparql10.g:378:5: ( STR OPEN_BRACE e= expression CLOSE_BRACE | LANG OPEN_BRACE e= expression CLOSE_BRACE | LANGMATCHES OPEN_BRACE e1= expression COMMA e2= expression CLOSE_BRACE | DATATYPE OPEN_BRACE e= expression CLOSE_BRACE | BOUND OPEN_BRACE variable CLOSE_BRACE | SAMETERM OPEN_BRACE e1= expression COMMA e2= expression CLOSE_BRACE | ISIRI OPEN_BRACE e= expression CLOSE_BRACE | ISURI OPEN_BRACE e= expression CLOSE_BRACE | ISBLANK OPEN_BRACE e= expression CLOSE_BRACE | ISLITERAL OPEN_BRACE e= expression CLOSE_BRACE | regexExpression )
 			$alt64 = 11;
@@ -4545,12 +3621,9 @@ class Sparql10 extends \AntlrParser {
 					$this->match($this->input, $this->getToken('OPEN_BRACE'), self::$FOLLOW_OPEN_BRACE_in_builtInCall2523);
 					$this->pushFollow(self::$FOLLOW_expression_in_builtInCall2527);
 					$e = $this->expression();
-
 					$this->state->_fsp--;
-
 					$this->match($this->input, $this->getToken('CLOSE_BRACE'), self::$FOLLOW_CLOSE_BRACE_in_builtInCall2529);
 					$value = new Query2\Str($e);
-
 					}
 					break;
 				case 2 :
@@ -4560,12 +3633,9 @@ class Sparql10 extends \AntlrParser {
 					$this->match($this->input, $this->getToken('OPEN_BRACE'), self::$FOLLOW_OPEN_BRACE_in_builtInCall2541);
 					$this->pushFollow(self::$FOLLOW_expression_in_builtInCall2545);
 					$e = $this->expression();
-
 					$this->state->_fsp--;
-
 					$this->match($this->input, $this->getToken('CLOSE_BRACE'), self::$FOLLOW_CLOSE_BRACE_in_builtInCall2547);
 					$value = new Query2\Lang($e);
-
 					}
 					break;
 				case 3 :
@@ -4575,18 +3645,13 @@ class Sparql10 extends \AntlrParser {
 					$this->match($this->input, $this->getToken('OPEN_BRACE'), self::$FOLLOW_OPEN_BRACE_in_builtInCall2559);
 					$this->pushFollow(self::$FOLLOW_expression_in_builtInCall2563);
 					$e1 = $this->expression();
-
 					$this->state->_fsp--;
-
 					$this->match($this->input, $this->getToken('COMMA'), self::$FOLLOW_COMMA_in_builtInCall2565);
 					$this->pushFollow(self::$FOLLOW_expression_in_builtInCall2569);
 					$e2 = $this->expression();
-
 					$this->state->_fsp--;
-
 					$this->match($this->input, $this->getToken('CLOSE_BRACE'), self::$FOLLOW_CLOSE_BRACE_in_builtInCall2571);
 					$value = new Query2\LangMatches($e1, $e2);
-
 					}
 					break;
 				case 4 :
@@ -4596,12 +3661,9 @@ class Sparql10 extends \AntlrParser {
 					$this->match($this->input, $this->getToken('OPEN_BRACE'), self::$FOLLOW_OPEN_BRACE_in_builtInCall2583);
 					$this->pushFollow(self::$FOLLOW_expression_in_builtInCall2587);
 					$e = $this->expression();
-
 					$this->state->_fsp--;
-
 					$this->match($this->input, $this->getToken('CLOSE_BRACE'), self::$FOLLOW_CLOSE_BRACE_in_builtInCall2589);
 					$value = new Query2\Datatype($e);
-
 					}
 					break;
 				case 5 :
@@ -4611,12 +3673,9 @@ class Sparql10 extends \AntlrParser {
 					$this->match($this->input, $this->getToken('OPEN_BRACE'), self::$FOLLOW_OPEN_BRACE_in_builtInCall2601);
 					$this->pushFollow(self::$FOLLOW_variable_in_builtInCall2603);
 					$variable43 = $this->variable();
-
 					$this->state->_fsp--;
-
 					$this->match($this->input, $this->getToken('CLOSE_BRACE'), self::$FOLLOW_CLOSE_BRACE_in_builtInCall2605);
 					$value = new Query2\bound($variable43);
-
 					}
 					break;
 				case 6 :
@@ -4626,18 +3685,13 @@ class Sparql10 extends \AntlrParser {
 					$this->match($this->input, $this->getToken('OPEN_BRACE'), self::$FOLLOW_OPEN_BRACE_in_builtInCall2617);
 					$this->pushFollow(self::$FOLLOW_expression_in_builtInCall2621);
 					$e1 = $this->expression();
-
 					$this->state->_fsp--;
-
 					$this->match($this->input, $this->getToken('COMMA'), self::$FOLLOW_COMMA_in_builtInCall2623);
 					$this->pushFollow(self::$FOLLOW_expression_in_builtInCall2627);
 					$e2 = $this->expression();
-
 					$this->state->_fsp--;
-
 					$this->match($this->input, $this->getToken('CLOSE_BRACE'), self::$FOLLOW_CLOSE_BRACE_in_builtInCall2629);
 					$value = new Query2\sameTerm($e1, $e2);
-
 					}
 					break;
 				case 7 :
@@ -4647,12 +3701,9 @@ class Sparql10 extends \AntlrParser {
 					$this->match($this->input, $this->getToken('OPEN_BRACE'), self::$FOLLOW_OPEN_BRACE_in_builtInCall2641);
 					$this->pushFollow(self::$FOLLOW_expression_in_builtInCall2645);
 					$e = $this->expression();
-
 					$this->state->_fsp--;
-
 					$this->match($this->input, $this->getToken('CLOSE_BRACE'), self::$FOLLOW_CLOSE_BRACE_in_builtInCall2647);
 					$value = new Query2\isIri($e);
-
 					}
 					break;
 				case 8 :
@@ -4662,12 +3713,9 @@ class Sparql10 extends \AntlrParser {
 					$this->match($this->input, $this->getToken('OPEN_BRACE'), self::$FOLLOW_OPEN_BRACE_in_builtInCall2659);
 					$this->pushFollow(self::$FOLLOW_expression_in_builtInCall2663);
 					$e = $this->expression();
-
 					$this->state->_fsp--;
-
 					$this->match($this->input, $this->getToken('CLOSE_BRACE'), self::$FOLLOW_CLOSE_BRACE_in_builtInCall2665);
 					$value = new Query2\isUri($e);
-
 					}
 					break;
 				case 9 :
@@ -4677,12 +3725,9 @@ class Sparql10 extends \AntlrParser {
 					$this->match($this->input, $this->getToken('OPEN_BRACE'), self::$FOLLOW_OPEN_BRACE_in_builtInCall2677);
 					$this->pushFollow(self::$FOLLOW_expression_in_builtInCall2681);
 					$e = $this->expression();
-
 					$this->state->_fsp--;
-
 					$this->match($this->input, $this->getToken('CLOSE_BRACE'), self::$FOLLOW_CLOSE_BRACE_in_builtInCall2683);
 					$value = new Query2\isBlank($e);
-
 					}
 					break;
 				case 10 :
@@ -4692,12 +3737,9 @@ class Sparql10 extends \AntlrParser {
 					$this->match($this->input, $this->getToken('OPEN_BRACE'), self::$FOLLOW_OPEN_BRACE_in_builtInCall2695);
 					$this->pushFollow(self::$FOLLOW_expression_in_builtInCall2699);
 					$e = $this->expression();
-
 					$this->state->_fsp--;
-
 					$this->match($this->input, $this->getToken('CLOSE_BRACE'), self::$FOLLOW_CLOSE_BRACE_in_builtInCall2701);
 					$value = new Query2\isLiteral($e);
-
 					}
 					break;
 				case 11 :
@@ -4705,14 +3747,10 @@ class Sparql10 extends \AntlrParser {
 					{
 					$this->pushFollow(self::$FOLLOW_regexExpression_in_builtInCall2711);
 					$regexExpression44 = $this->regexExpression();
-
 					$this->state->_fsp--;
-
 					$value = $regexExpression44;
-
 					}
 					break;
-
 			}
 		}
 		catch (\RecognitionException $re) {
@@ -4722,25 +3760,18 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "builtInCall"
 
-
 	// $ANTLR start "regexExpression"
 	// Sparql10.g:392:1: regexExpression returns [$value] : REGEX OPEN_BRACE e1= expression COMMA e2= expression ( COMMA e3= expression )? CLOSE_BRACE ;
 	public function regexExpression() {
 		$value = null;
-
 		$e1 = null;
-
 		$e2 = null;
-
 		$e3 = null;
-
-
 		try {
 			// Sparql10.g:393:5: ( REGEX OPEN_BRACE e1= expression COMMA e2= expression ( COMMA e3= expression )? CLOSE_BRACE )
 			// Sparql10.g:393:7: REGEX OPEN_BRACE e1= expression COMMA e2= expression ( COMMA e3= expression )? CLOSE_BRACE
@@ -4749,19 +3780,14 @@ class Sparql10 extends \AntlrParser {
 				$this->match($this->input, $this->getToken('OPEN_BRACE'), self::$FOLLOW_OPEN_BRACE_in_regexExpression2738);
 				$this->pushFollow(self::$FOLLOW_expression_in_regexExpression2742);
 				$e1 = $this->expression();
-
 				$this->state->_fsp--;
-
 				$this->match($this->input, $this->getToken('COMMA'), self::$FOLLOW_COMMA_in_regexExpression2744);
 				$this->pushFollow(self::$FOLLOW_expression_in_regexExpression2748);
 				$e2 = $this->expression();
-
 				$this->state->_fsp--;
-
 				// Sparql10.g:393:58: ( COMMA e3= expression )?
 				$alt65 = 2;
 				$LA65_0 = $this->input->LA(1);
-
 				if (($LA65_0 == $this->getToken('COMMA'))) {
 					$alt65 = 1;
 				}
@@ -4772,20 +3798,13 @@ class Sparql10 extends \AntlrParser {
 						$this->match($this->input, $this->getToken('COMMA'), self::$FOLLOW_COMMA_in_regexExpression2752);
 						$this->pushFollow(self::$FOLLOW_expression_in_regexExpression2756);
 						$e3 = $this->expression();
-
 						$this->state->_fsp--;
-
-
 						}
 						break;
-
 				}
-
 				$this->match($this->input, $this->getToken('CLOSE_BRACE'), self::$FOLLOW_CLOSE_BRACE_in_regexExpression2761);
 				$value = new Query2\Regex($e1, $e2, $e3);
-
 			}
-
 		}
 		catch (\RecognitionException $re) {
 			$this->reportError($re);
@@ -4794,23 +3813,17 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "regexExpression"
 
-
 	// $ANTLR start "iriRefOrFunction"
 	// Sparql10.g:398:1: iriRefOrFunction returns [$value] : iriRef ( argList )? ;
 	public function iriRefOrFunction() {
 		$value = null;
-
 		$iriRef45 = null;
-
 		$argList46 = null;
-
-
 		$al = null;
 		$i = null;
 		try {
@@ -4819,9 +3832,7 @@ class Sparql10 extends \AntlrParser {
 			{
 				$this->pushFollow(self::$FOLLOW_iriRef_in_iriRefOrFunction2798);
 				$iriRef45 = $this->iriRef();
-
 				$this->state->_fsp--;
-
 				$i = $iriRef45;
 				// Sparql10.g:406:9: ( argList )?
 				$alt66 = 2;
@@ -4832,26 +3843,17 @@ class Sparql10 extends \AntlrParser {
 						{
 						$this->pushFollow(self::$FOLLOW_argList_in_iriRefOrFunction2811);
 						$argList46 = $this->argList();
-
 						$this->state->_fsp--;
-
 						$al = $argList46;
-
 						}
 						break;
-
 				}
-
-
 			}
-
-
 			if (isset($al)) {
 				$value = new Query2\UserFunction($i, $al);
 			} else {
 				$value = $i;
 			}
-
 		}
 		catch (\RecognitionException $re) {
 			$this->reportError($re);
@@ -4860,33 +3862,25 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "iriRefOrFunction"
 
-
 	// $ANTLR start "rdfLiteral"
 	// Sparql10.g:410:1: rdfLiteral returns [$value] : string ( LANGTAG | ( REFERENCE iriRef ) )? ;
 	public function rdfLiteral() {
 		$value = null;
-
 		$LANGTAG48 = null;
 		$string47 = null;
-
 		$iriRef49 = null;
-
-
 		try {
 			// Sparql10.g:411:5: ( string ( LANGTAG | ( REFERENCE iriRef ) )? )
 			// Sparql10.g:411:7: string ( LANGTAG | ( REFERENCE iriRef ) )?
 			{
 				$this->pushFollow(self::$FOLLOW_string_in_rdfLiteral2838);
 				$string47 = $this->string();
-
 				$this->state->_fsp--;
-
 				$value = new Query2\RDFLiteral(($string47 != null ? $this->input->toStringBetweenTokens($string47->start, $string47->stop) : null), null, "");
 				// Sparql10.g:412:9: ( LANGTAG | ( REFERENCE iriRef ) )?
 				$alt67 = 3;
@@ -4897,7 +3891,6 @@ class Sparql10 extends \AntlrParser {
 						{
 						$LANGTAG48 = $this->match($this->input, $this->getToken('LANGTAG'), self::$FOLLOW_LANGTAG_in_rdfLiteral2852);
 						$value->setLanguageTag(($LANGTAG48 != null ? $LANGTAG48->getText() : null));
-
 						}
 						break;
 					case 2 :
@@ -4909,22 +3902,13 @@ class Sparql10 extends \AntlrParser {
 								$this->match($this->input, $this->getToken('REFERENCE'), self::$FOLLOW_REFERENCE_in_rdfLiteral2869);
 								$this->pushFollow(self::$FOLLOW_iriRef_in_rdfLiteral2871);
 								$iriRef49 = $this->iriRef();
-
 								$this->state->_fsp--;
-
 								$value->setDatatype($iriRef49);
-
 							}
-
-
 						}
 							break;
-
 				}
-
-
 			}
-
 		}
 		catch (\RecognitionException $re) {
 			$this->reportError($re);
@@ -4933,21 +3917,16 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "rdfLiteral"
 
-
 	// $ANTLR start "numericLiteral"
 	// Sparql10.g:417:1: numericLiteral returns [$value] : (n= numericLiteralUnsigned | n= numericLiteralPositive | n= numericLiteralNegative ) ;
 	public function numericLiteral() {
 		$value = null;
-
 		$n = null;
-
-
 		try {
 			// Sparql10.g:418:5: ( (n= numericLiteralUnsigned | n= numericLiteralPositive | n= numericLiteralNegative ) )
 			// Sparql10.g:418:7: (n= numericLiteralUnsigned | n= numericLiteralPositive | n= numericLiteralNegative )
@@ -4961,10 +3940,7 @@ class Sparql10 extends \AntlrParser {
 						{
 						$this->pushFollow(self::$FOLLOW_numericLiteralUnsigned_in_numericLiteral2904);
 						$n = $this->numericLiteralUnsigned();
-
 						$this->state->_fsp--;
-
-
 						}
 						break;
 					case 2 :
@@ -4972,10 +3948,7 @@ class Sparql10 extends \AntlrParser {
 						{
 						$this->pushFollow(self::$FOLLOW_numericLiteralPositive_in_numericLiteral2912);
 						$n = $this->numericLiteralPositive();
-
 						$this->state->_fsp--;
-
-
 						}
 						break;
 					case 3 :
@@ -4983,19 +3956,12 @@ class Sparql10 extends \AntlrParser {
 						{
 						$this->pushFollow(self::$FOLLOW_numericLiteralNegative_in_numericLiteral2920);
 						$n = $this->numericLiteralNegative();
-
 						$this->state->_fsp--;
-
-
 						}
 						break;
-
 				}
-
 				$value = $n;
-
 			}
-
 		}
 		catch (\RecognitionException $re) {
 			$this->reportError($re);
@@ -5004,20 +3970,16 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "numericLiteral"
 
-
 	// $ANTLR start "numericLiteralUnsigned"
 	// Sparql10.g:424:1: numericLiteralUnsigned returns [$value] : (v= INTEGER | v= DECIMAL | v= DOUBLE );
 	public function numericLiteralUnsigned() {
 		$value = null;
-
 		$v = null;
-
 		try {
 			// Sparql10.g:425:5: (v= INTEGER | v= DECIMAL | v= DOUBLE )
 			$alt69 = 3;
@@ -5036,19 +3998,16 @@ class Sparql10 extends \AntlrParser {
 					else {
 						$nvae =
 								new \NoViableAltException("", 69, 0, $this->input);
-
 						throw $nvae;
 					}
 				}
 			}
-
 			switch ($alt69) {
 				case 1 :
 					// Sparql10.g:425:7: v= INTEGER
 					{
 					$v = $this->match($this->input, $this->getToken('INTEGER'), self::$FOLLOW_INTEGER_in_numericLiteralUnsigned2949);
 					$value = new Query2\NumericLiteral((int)($v != null ? $v->getText() : null));
-
 					}
 					break;
 				case 2 :
@@ -5056,7 +4015,6 @@ class Sparql10 extends \AntlrParser {
 					{
 					$v = $this->match($this->input, $this->getToken('DECIMAL'), self::$FOLLOW_DECIMAL_in_numericLiteralUnsigned2961);
 					$value = new Query2\NumericLiteral((float)($v != null ? $v->getText() : null));
-
 					}
 					break;
 				case 3 :
@@ -5064,10 +4022,8 @@ class Sparql10 extends \AntlrParser {
 					{
 					$v = $this->match($this->input, $this->getToken('DOUBLE'), self::$FOLLOW_DOUBLE_in_numericLiteralUnsigned2973);
 					$value = new Query2\NumericLiteral((double)($v != null ? $v->getText() : null));
-
 					}
 					break;
-
 			}
 		}
 		catch (\RecognitionException $re) {
@@ -5077,20 +4033,16 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "numericLiteralUnsigned"
 
-
 	// $ANTLR start "numericLiteralPositive"
 	// Sparql10.g:431:1: numericLiteralPositive returns [$value] : (v= INTEGER_POSITIVE | v= DECIMAL_POSITIVE | v= DOUBLE_POSITIVE );
 	public function numericLiteralPositive() {
 		$value = null;
-
 		$v = null;
-
 		try {
 			// Sparql10.g:432:5: (v= INTEGER_POSITIVE | v= DECIMAL_POSITIVE | v= DOUBLE_POSITIVE )
 			$alt70 = 3;
@@ -5109,19 +4061,16 @@ class Sparql10 extends \AntlrParser {
 					else {
 						$nvae =
 								new \NoViableAltException("", 70, 0, $this->input);
-
 						throw $nvae;
 					}
 				}
 			}
-
 			switch ($alt70) {
 				case 1 :
 					// Sparql10.g:432:7: v= INTEGER_POSITIVE
 					{
 					$v = $this->match($this->input, $this->getToken('INTEGER_POSITIVE'), self::$FOLLOW_INTEGER_POSITIVE_in_numericLiteralPositive3000);
 					$value = new Query2\NumericLiteral((int)($v != null ? $v->getText() : null));
-
 					}
 					break;
 				case 2 :
@@ -5129,7 +4078,6 @@ class Sparql10 extends \AntlrParser {
 					{
 					$v = $this->match($this->input, $this->getToken('DECIMAL_POSITIVE'), self::$FOLLOW_DECIMAL_POSITIVE_in_numericLiteralPositive3012);
 					$value = new Query2\NumericLiteral((float)($v != null ? $v->getText() : null));
-
 					}
 					break;
 				case 3 :
@@ -5137,10 +4085,8 @@ class Sparql10 extends \AntlrParser {
 					{
 					$v = $this->match($this->input, $this->getToken('DOUBLE_POSITIVE'), self::$FOLLOW_DOUBLE_POSITIVE_in_numericLiteralPositive3024);
 					$value = new Query2\NumericLiteral((double)($v != null ? $v->getText() : null));
-
 					}
 					break;
-
 			}
 		}
 		catch (\RecognitionException $re) {
@@ -5150,20 +4096,16 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "numericLiteralPositive"
 
-
 	// $ANTLR start "numericLiteralNegative"
 	// Sparql10.g:438:1: numericLiteralNegative returns [$value] : (v= INTEGER_NEGATIVE | v= DECIMAL_NEGATIVE | v= DOUBLE_NEGATIVE );
 	public function numericLiteralNegative() {
 		$value = null;
-
 		$v = null;
-
 		try {
 			// Sparql10.g:439:5: (v= INTEGER_NEGATIVE | v= DECIMAL_NEGATIVE | v= DOUBLE_NEGATIVE )
 			$alt71 = 3;
@@ -5182,19 +4124,16 @@ class Sparql10 extends \AntlrParser {
 					else {
 						$nvae =
 								new \NoViableAltException("", 71, 0, $this->input);
-
 						throw $nvae;
 					}
 				}
 			}
-
 			switch ($alt71) {
 				case 1 :
 					// Sparql10.g:439:7: v= INTEGER_NEGATIVE
 					{
 					$v = $this->match($this->input, $this->getToken('INTEGER_NEGATIVE'), self::$FOLLOW_INTEGER_NEGATIVE_in_numericLiteralNegative3051);
 					$value = new Query2\NumericLiteral((int)($v != null ? $v->getText() : null));
-
 					}
 					break;
 				case 2 :
@@ -5202,7 +4141,6 @@ class Sparql10 extends \AntlrParser {
 					{
 					$v = $this->match($this->input, $this->getToken('DECIMAL_NEGATIVE'), self::$FOLLOW_DECIMAL_NEGATIVE_in_numericLiteralNegative3063);
 					$value = new Query2\NumericLiteral((float)($v != null ? $v->getText() : null));
-
 					}
 					break;
 				case 3 :
@@ -5210,10 +4148,8 @@ class Sparql10 extends \AntlrParser {
 					{
 					$v = $this->match($this->input, $this->getToken('DOUBLE_NEGATIVE'), self::$FOLLOW_DOUBLE_NEGATIVE_in_numericLiteralNegative3075);
 					$value = new Query2\NumericLiteral((double)($v != null ? $v->getText() : null));
-
 					}
 					break;
-
 			}
 		}
 		catch (\RecognitionException $re) {
@@ -5223,24 +4159,20 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "numericLiteralNegative"
 
-
 	// $ANTLR start "booleanLiteral"
 	// Sparql10.g:445:1: booleanLiteral returns [$value] : ( TRUE | FALSE );
 	public function booleanLiteral() {
 		$value = null;
-
 		$v = null;
 		try {
 			// Sparql10.g:448:5: ( TRUE | FALSE )
 			$alt72 = 2;
 			$LA72_0 = $this->input->LA(1);
-
 			if (($LA72_0 == $this->getToken('TRUE'))) {
 				$alt72 = 1;
 			}
@@ -5250,7 +4182,6 @@ class Sparql10 extends \AntlrParser {
 				}
 				else {
 					$nvae = new \NoViableAltException("", 72, 0, $this->input);
-
 					throw $nvae;
 				}
 			}
@@ -5260,7 +4191,6 @@ class Sparql10 extends \AntlrParser {
 					{
 					$this->match($this->input, $this->getToken('TRUE'), self::$FOLLOW_TRUE_in_booleanLiteral3108);
 					$v = 1;
-
 					}
 					break;
 				case 2 :
@@ -5268,10 +4198,8 @@ class Sparql10 extends \AntlrParser {
 					{
 					$this->match($this->input, $this->getToken('FALSE'), self::$FOLLOW_FALSE_in_booleanLiteral3118);
 					$v = 0;
-
 					}
 					break;
-
 			}
 			$value = new Query2\BooleanLiteral((bool)$v);
 		}
@@ -5282,7 +4210,6 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
@@ -5298,8 +4225,6 @@ class Sparql10 extends \AntlrParser {
 	public function string() {
 		$retval = $this->string_return();
 		$retval->start = $this->input->LT(1);
-
-
 		try {
 			// Sparql10.g:454:5: ( STRING_LITERAL1 | STRING_LITERAL2 | STRING_LITERAL_LONG1 | STRING_LITERAL_LONG2 )
 			// Sparql10.g:
@@ -5312,12 +4237,8 @@ class Sparql10 extends \AntlrParser {
 					$mse = new \MismatchedSetException(null, $this->input);
 					throw $mse;
 				}
-
-
 			}
-
 			$retval->stop = $this->input->LT(-1);
-
 		}
 		catch (\RecognitionException $re) {
 			$this->reportError($re);
@@ -5326,27 +4247,21 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $retval;
 	}
 
 	// $ANTLR end "string"
 
-
 	// $ANTLR start "iriRef"
 	// Sparql10.g:461:1: iriRef returns [$value] : ( IRI_REF | prefixedName );
 	public function iriRef() {
 		$value = null;
-
 		$IRI_REF50 = null;
 		$prefixedName51 = null;
-
-
 		try {
 			// Sparql10.g:462:5: ( IRI_REF | prefixedName )
 			$alt73 = 2;
 			$LA73_0 = $this->input->LA(1);
-
 			if (($LA73_0 == $this->getToken('IRI_REF'))) {
 				$alt73 = 1;
 			}
@@ -5356,7 +4271,6 @@ class Sparql10 extends \AntlrParser {
 				}
 				else {
 					$nvae = new \NoViableAltException("", 73, 0, $this->input);
-
 					throw $nvae;
 				}
 			}
@@ -5366,7 +4280,6 @@ class Sparql10 extends \AntlrParser {
 					{
 					$IRI_REF50 = $this->match($this->input, $this->getToken('IRI_REF'), self::$FOLLOW_IRI_REF_in_iriRef3186);
 					$value = new Query2\IriRef(($IRI_REF50 != null ? $IRI_REF50->getText() : null));
-
 					}
 					break;
 				case 2 :
@@ -5374,14 +4287,10 @@ class Sparql10 extends \AntlrParser {
 					{
 					$this->pushFollow(self::$FOLLOW_prefixedName_in_iriRef3196);
 					$prefixedName51 = $this->prefixedName();
-
 					$this->state->_fsp--;
-
 					$value = $prefixedName51;
-
 					}
 					break;
-
 			}
 		}
 		catch (\RecognitionException $re) {
@@ -5391,28 +4300,23 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "iriRef"
 
-
 	// $ANTLR start "prefixedName"
 	// Sparql10.g:467:1: prefixedName returns [$value] : ( PNAME_LN | PNAME_NS );
 	public function prefixedName() {
 		$value = null;
-
 		$PNAME_LN52 = null;
 		$PNAME_NS53 = null;
-
 		$ns = "";
 		$local = "";
 		try {
 			// Sparql10.g:471:5: ( PNAME_LN | PNAME_NS )
 			$alt74 = 2;
 			$LA74_0 = $this->input->LA(1);
-
 			if (($LA74_0 == $this->getToken('PNAME_LN'))) {
 				$alt74 = 1;
 			}
@@ -5422,7 +4326,6 @@ class Sparql10 extends \AntlrParser {
 				}
 				else {
 					$nvae = new \NoViableAltException("", 74, 0, $this->input);
-
 					throw $nvae;
 				}
 			}
@@ -5434,7 +4337,6 @@ class Sparql10 extends \AntlrParser {
 					$pos = strpos(($PNAME_LN52 != null ? $PNAME_LN52->getText() : null), ":");
 					$local = substr(($PNAME_LN52 != null ? $PNAME_LN52->getText() : null), $pos + 2);
 					$ns = substr(($PNAME_LN52 != null ? $PNAME_LN52->getText() : null), 0, $pos);
-
 					}
 					break;
 				case 2 :
@@ -5442,12 +4344,9 @@ class Sparql10 extends \AntlrParser {
 					{
 					$PNAME_NS53 = $this->match($this->input, $this->getToken('PNAME_NS'), self::$FOLLOW_PNAME_NS_in_prefixedName3237);
 					$ns = rtrim(($PNAME_NS53 != null ? $PNAME_NS53->getText() : null));
-
 					}
 					break;
-
 			}
-
 			$value = new Query2\IriRef($local, null, $ns);
 		}
 		catch (\RecognitionException $re) {
@@ -5457,26 +4356,21 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 
 	// $ANTLR end "prefixedName"
 
-
 	// $ANTLR start "blankNode"
 	// Sparql10.g:479:1: blankNode returns [$value] : (v= BLANK_NODE_LABEL | OPEN_SQUARE_BRACE ( WS )* CLOSE_SQUARE_BRACE );
 	public function blankNode() {
 		$value = null;
-
 		$v = null;
-
 		$v = null;
 		try {
 			// Sparql10.g:482:5: (v= BLANK_NODE_LABEL | OPEN_SQUARE_BRACE ( WS )* CLOSE_SQUARE_BRACE )
 			$alt76 = 2;
 			$LA76_0 = $this->input->LA(1);
-
 			if (($LA76_0 == $this->getToken('BLANK_NODE_LABEL'))) {
 				$alt76 = 1;
 			}
@@ -5486,7 +4380,6 @@ class Sparql10 extends \AntlrParser {
 				}
 				else {
 					$nvae = new \NoViableAltException("", 76, 0, $this->input);
-
 					throw $nvae;
 				}
 			}
@@ -5496,7 +4389,6 @@ class Sparql10 extends \AntlrParser {
 					{
 					$v = $this->match($this->input, $this->getToken('BLANK_NODE_LABEL'), self::$FOLLOW_BLANK_NODE_LABEL_in_blankNode3272);
 					$v = ($v != null ? $v->getText() : null);
-
 					}
 					break;
 				case 2 :
@@ -5508,33 +4400,25 @@ class Sparql10 extends \AntlrParser {
 					do {
 						$alt75 = 2;
 						$LA75_0 = $this->input->LA(1);
-
 						if (($LA75_0 == $this->getToken('WS'))) {
 							$alt75 = 1;
 						}
-
-
 						switch ($alt75) {
 							case 1 :
 								// Sparql10.g:483:26: WS
 								{
 								$this->match($this->input, $this->getToken('WS'), self::$FOLLOW_WS_in_blankNode3285);
-
 								}
 								break;
-
 							default :
 								break 2;
 							//loop75;
 						}
 					} while (true);
-
 					$this->match($this->input, $this->getToken('CLOSE_SQUARE_BRACE'), self::$FOLLOW_CLOSE_SQUARE_BRACE_in_blankNode3289);
 					$v = '';
-
 					}
 					break;
-
 			}
 			$value = new Query2\BlankNode($v);
 		}
@@ -5545,13 +4429,11 @@ class Sparql10 extends \AntlrParser {
 		catch (\Exception $e) {
 			throw $e;
 		}
-
 		return $value;
 	}
 	// $ANTLR end "blankNode"
 
 	// Delegated rules
-
 
 }
 
@@ -5568,7 +4450,6 @@ class Sparql10_DFA9_static {
 								   1, 1, 1, 65535, 1, 8, 1, 65535, 1, 8, 1, 65535, 1, 8, 1, 65535, 2, 8),
 							 array(), array(), array(), array(), array(), array(), array(), array(
 			), array(), array(), array(), array());
-
 		$arr = array();
 		$arr['eot'] = \DFA::unpackRLE($eot);
 		$arr['eof'] = \DFA::unpackRLE($eof);
@@ -5576,8 +4457,6 @@ class Sparql10_DFA9_static {
 		$arr['max'] = \DFA::unpackRLE($max, true);
 		$arr['accept'] = \DFA::unpackRLE($accept);
 		$arr['special'] = \DFA::unpackRLE($special);
-
-
 		$numStates = sizeof($transitionS);
 		$arr['transition'] = array();
 		for ($i = 0; $i < $numStates; $i++) {
@@ -5625,7 +4504,6 @@ class Sparql10_DFA21_static {
 		), array(), array(), array(), array(), array(), array(), array(), array(
 		), array(), array(), array(), array(), array(), array(), array(), array(
 		), array(), array(), array(), array(), array());
-
 		$arr = array();
 		$arr['eot'] = \DFA::unpackRLE($eot);
 		$arr['eof'] = \DFA::unpackRLE($eof);
@@ -5633,8 +4511,6 @@ class Sparql10_DFA21_static {
 		$arr['max'] = \DFA::unpackRLE($max, true);
 		$arr['accept'] = \DFA::unpackRLE($accept);
 		$arr['special'] = \DFA::unpackRLE($special);
-
-
 		$numStates = sizeof($transitionS);
 		$arr['transition'] = array();
 		for ($i = 0; $i < $numStates; $i++) {
@@ -5682,7 +4558,6 @@ class Sparql10_DFA24_static {
 		), array(), array(), array(), array(), array(), array(), array(), array(
 		), array(), array(), array(), array(), array(), array(), array(), array(
 		), array());
-
 		$arr = array();
 		$arr['eot'] = \DFA::unpackRLE($eot);
 		$arr['eof'] = \DFA::unpackRLE($eof);
@@ -5690,8 +4565,6 @@ class Sparql10_DFA24_static {
 		$arr['max'] = \DFA::unpackRLE($max, true);
 		$arr['accept'] = \DFA::unpackRLE($accept);
 		$arr['special'] = \DFA::unpackRLE($special);
-
-
 		$numStates = sizeof($transitionS);
 		$arr['transition'] = array();
 		for ($i = 0; $i < $numStates; $i++) {
@@ -5738,7 +4611,6 @@ class Sparql10_DFA23_static {
 								   1, 1, 1, 65535, 2, 16, 39, 65535, 1, 1), array(), array(), array(),
 							 array(), array(), array(), array(), array(), array(), array(), array(
 			), array(), array(), array(), array(), array(), array());
-
 		$arr = array();
 		$arr['eot'] = \DFA::unpackRLE($eot);
 		$arr['eof'] = \DFA::unpackRLE($eof);
@@ -5746,8 +4618,6 @@ class Sparql10_DFA23_static {
 		$arr['max'] = \DFA::unpackRLE($max, true);
 		$arr['accept'] = \DFA::unpackRLE($accept);
 		$arr['special'] = \DFA::unpackRLE($special);
-
-
 		$numStates = sizeof($transitionS);
 		$arr['transition'] = array();
 		for ($i = 0; $i < $numStates; $i++) {
@@ -5797,7 +4667,6 @@ class Sparql10_DFA25_static {
 		), array(), array(), array(), array(), array(), array(), array(), array(
 		), array(), array(), array(), array(), array(), array(), array(), array(
 		), array(), array(), array(), array(), array(), array(), array());
-
 		$arr = array();
 		$arr['eot'] = \DFA::unpackRLE($eot);
 		$arr['eof'] = \DFA::unpackRLE($eof);
@@ -5805,8 +4674,6 @@ class Sparql10_DFA25_static {
 		$arr['max'] = \DFA::unpackRLE($max, true);
 		$arr['accept'] = \DFA::unpackRLE($accept);
 		$arr['special'] = \DFA::unpackRLE($special);
-
-
 		$numStates = sizeof($transitionS);
 		$arr['transition'] = array();
 		for ($i = 0; $i < $numStates; $i++) {
@@ -5856,7 +4723,6 @@ class Sparql10_DFA27_static {
 		), array(), array(), array(), array(), array(), array(), array(), array(
 		), array(), array(), array(), array(), array(), array(), array(), array(
 		), array(), array(), array(), array(), array(), array());
-
 		$arr = array();
 		$arr['eot'] = \DFA::unpackRLE($eot);
 		$arr['eof'] = \DFA::unpackRLE($eof);
@@ -5864,8 +4730,6 @@ class Sparql10_DFA27_static {
 		$arr['max'] = \DFA::unpackRLE($max, true);
 		$arr['accept'] = \DFA::unpackRLE($accept);
 		$arr['special'] = \DFA::unpackRLE($special);
-
-
 		$numStates = sizeof($transitionS);
 		$arr['transition'] = array();
 		for ($i = 0; $i < $numStates; $i++) {
@@ -5915,7 +4779,6 @@ class Sparql10_DFA28_static {
 		), array(), array(), array(), array(), array(), array(), array(), array(
 		), array(), array(), array(), array(), array(), array(), array(), array(
 		), array(), array(), array(), array(), array(), array(), array());
-
 		$arr = array();
 		$arr['eot'] = \DFA::unpackRLE($eot);
 		$arr['eof'] = \DFA::unpackRLE($eof);
@@ -5923,8 +4786,6 @@ class Sparql10_DFA28_static {
 		$arr['max'] = \DFA::unpackRLE($max, true);
 		$arr['accept'] = \DFA::unpackRLE($accept);
 		$arr['special'] = \DFA::unpackRLE($special);
-
-
 		$numStates = sizeof($transitionS);
 		$arr['transition'] = array();
 		for ($i = 0; $i < $numStates; $i++) {
@@ -5974,7 +4835,6 @@ class Sparql10_DFA30_static {
 		), array(), array(), array(), array(), array(), array(), array(), array(
 		), array(), array(), array(), array(), array(), array(), array(), array(
 		), array(), array(), array(), array(), array(), array(), array());
-
 		$arr = array();
 		$arr['eot'] = \DFA::unpackRLE($eot);
 		$arr['eof'] = \DFA::unpackRLE($eof);
@@ -5982,8 +4842,6 @@ class Sparql10_DFA30_static {
 		$arr['max'] = \DFA::unpackRLE($max, true);
 		$arr['accept'] = \DFA::unpackRLE($accept);
 		$arr['special'] = \DFA::unpackRLE($special);
-
-
 		$numStates = sizeof($transitionS);
 		$arr['transition'] = array();
 		for ($i = 0; $i < $numStates; $i++) {
@@ -6033,7 +4891,6 @@ class Sparql10_DFA33_static {
 		), array(), array(), array(), array(), array(), array(), array(), array(
 		), array(), array(), array(), array(), array(), array(), array(), array(
 		), array(), array(), array(), array(), array(), array());
-
 		$arr = array();
 		$arr['eot'] = \DFA::unpackRLE($eot);
 		$arr['eof'] = \DFA::unpackRLE($eof);
@@ -6041,8 +4898,6 @@ class Sparql10_DFA33_static {
 		$arr['max'] = \DFA::unpackRLE($max, true);
 		$arr['accept'] = \DFA::unpackRLE($accept);
 		$arr['special'] = \DFA::unpackRLE($special);
-
-
 		$numStates = sizeof($transitionS);
 		$arr['transition'] = array();
 		for ($i = 0; $i < $numStates; $i++) {
@@ -6089,7 +4944,6 @@ class Sparql10_DFA34_static {
 								   65535, 1, 13, 42, 65535, 1, 1), array(), array(), array(), array(),
 							 array(), array(), array(), array(), array(), array(), array(), array(
 			), array(), array(), array());
-
 		$arr = array();
 		$arr['eot'] = \DFA::unpackRLE($eot);
 		$arr['eof'] = \DFA::unpackRLE($eof);
@@ -6097,8 +4951,6 @@ class Sparql10_DFA34_static {
 		$arr['max'] = \DFA::unpackRLE($max, true);
 		$arr['accept'] = \DFA::unpackRLE($accept);
 		$arr['special'] = \DFA::unpackRLE($special);
-
-
 		$numStates = sizeof($transitionS);
 		$arr['transition'] = array();
 		for ($i = 0; $i < $numStates; $i++) {
@@ -6149,7 +5001,6 @@ class Sparql10_DFA37_static {
 		), array(), array(), array(), array(), array(), array(), array(), array(
 		), array(), array(), array(), array(), array(), array(), array(), array(
 		), array(), array(), array(), array());
-
 		$arr = array();
 		$arr['eot'] = \DFA::unpackRLE($eot);
 		$arr['eof'] = \DFA::unpackRLE($eof);
@@ -6157,8 +5008,6 @@ class Sparql10_DFA37_static {
 		$arr['max'] = \DFA::unpackRLE($max, true);
 		$arr['accept'] = \DFA::unpackRLE($accept);
 		$arr['special'] = \DFA::unpackRLE($special);
-
-
 		$numStates = sizeof($transitionS);
 		$arr['transition'] = array();
 		for ($i = 0; $i < $numStates; $i++) {
@@ -6207,7 +5056,6 @@ class Sparql10_DFA38_static {
 								   1, 4, 65535, 1, 1), array(), array(), array(), array(), array(), array(
 		), array(), array(), array(), array(), array(), array(), array(), array(
 		), array(), array(), array(), array(), array(), array(), array());
-
 		$arr = array();
 		$arr['eot'] = \DFA::unpackRLE($eot);
 		$arr['eof'] = \DFA::unpackRLE($eof);
@@ -6215,8 +5063,6 @@ class Sparql10_DFA38_static {
 		$arr['max'] = \DFA::unpackRLE($max, true);
 		$arr['accept'] = \DFA::unpackRLE($accept);
 		$arr['special'] = \DFA::unpackRLE($special);
-
-
 		$numStates = sizeof($transitionS);
 		$arr['transition'] = array();
 		for ($i = 0; $i < $numStates; $i++) {
@@ -6265,7 +5111,6 @@ class Sparql10_DFA39_static {
 								   1, 4, 65535, 1, 1), array(), array(), array(), array(), array(), array(
 		), array(), array(), array(), array(), array(), array(), array(), array(
 		), array(), array(), array(), array(), array(), array(), array());
-
 		$arr = array();
 		$arr['eot'] = \DFA::unpackRLE($eot);
 		$arr['eof'] = \DFA::unpackRLE($eof);
@@ -6273,8 +5118,6 @@ class Sparql10_DFA39_static {
 		$arr['max'] = \DFA::unpackRLE($max, true);
 		$arr['accept'] = \DFA::unpackRLE($accept);
 		$arr['special'] = \DFA::unpackRLE($special);
-
-
 		$numStates = sizeof($transitionS);
 		$arr['transition'] = array();
 		for ($i = 0; $i < $numStates; $i++) {
@@ -6332,7 +5175,6 @@ class Sparql10_DFA41_static {
 			), array(), array(), array(), array(), array(), array(), array(), array(
 			), array(), array(), array(), array(), array(), array(), array(), array(
 			), array(), array(), array());
-
 		$arr = array();
 		$arr['eot'] = \DFA::unpackRLE($eot);
 		$arr['eof'] = \DFA::unpackRLE($eof);
@@ -6340,8 +5182,6 @@ class Sparql10_DFA41_static {
 		$arr['max'] = \DFA::unpackRLE($max, true);
 		$arr['accept'] = \DFA::unpackRLE($accept);
 		$arr['special'] = \DFA::unpackRLE($special);
-
-
 		$numStates = sizeof($transitionS);
 		$arr['transition'] = array();
 		for ($i = 0; $i < $numStates; $i++) {
@@ -6389,7 +5229,6 @@ class Sparql10_DFA42_static {
 								   29, 65535, 1, 7, 11, 65535, 1, 7), array(), array(), array(), array(
 		), array(), array(), array(), array(), array(), array(), array(), array(
 		), array(), array());
-
 		$arr = array();
 		$arr['eot'] = \DFA::unpackRLE($eot);
 		$arr['eof'] = \DFA::unpackRLE($eof);
@@ -6397,8 +5236,6 @@ class Sparql10_DFA42_static {
 		$arr['max'] = \DFA::unpackRLE($max, true);
 		$arr['accept'] = \DFA::unpackRLE($accept);
 		$arr['special'] = \DFA::unpackRLE($special);
-
-
 		$numStates = sizeof($transitionS);
 		$arr['transition'] = array();
 		for ($i = 0; $i < $numStates; $i++) {
@@ -6445,7 +5282,6 @@ class Sparql10_DFA44_static {
 								   1, 1, 1, 65535, 1, 1, 1, 65535, 1, 1, 1, 65535, 2, 1, 3, 65535, 1, 7),
 							 array(), array(), array(), array(), array(), array(), array(), array(
 			), array(), array(), array(), array());
-
 		$arr = array();
 		$arr['eot'] = \DFA::unpackRLE($eot);
 		$arr['eof'] = \DFA::unpackRLE($eof);
@@ -6453,8 +5289,6 @@ class Sparql10_DFA44_static {
 		$arr['max'] = \DFA::unpackRLE($max, true);
 		$arr['accept'] = \DFA::unpackRLE($accept);
 		$arr['special'] = \DFA::unpackRLE($special);
-
-
 		$numStates = sizeof($transitionS);
 		$arr['transition'] = array();
 		for ($i = 0; $i < $numStates; $i++) {
@@ -6501,7 +5335,6 @@ class Sparql10_DFA45_static {
 								   65535, 1, 1, 29, 65535, 1, 1, 1, 65535, 1, 9, 9, 65535, 1, 1), array(
 		), array(), array(), array(), array(), array(), array(), array(), array(
 		));
-
 		$arr = array();
 		$arr['eot'] = \DFA::unpackRLE($eot);
 		$arr['eof'] = \DFA::unpackRLE($eof);
@@ -6509,8 +5342,6 @@ class Sparql10_DFA45_static {
 		$arr['max'] = \DFA::unpackRLE($max, true);
 		$arr['accept'] = \DFA::unpackRLE($accept);
 		$arr['special'] = \DFA::unpackRLE($special);
-
-
 		$numStates = sizeof($transitionS);
 		$arr['transition'] = array();
 		for ($i = 0; $i < $numStates; $i++) {
@@ -6559,7 +5390,6 @@ class Sparql10_DFA48_static {
 								   1, 3, 65535, 1, 2), array(), array(), array(), array(), array(), array(
 		), array(), array(), array(), array(), array(), array(), array(), array(
 		), array(), array(), array(), array(), array(), array(), array());
-
 		$arr = array();
 		$arr['eot'] = \DFA::unpackRLE($eot);
 		$arr['eof'] = \DFA::unpackRLE($eof);
@@ -6567,8 +5397,6 @@ class Sparql10_DFA48_static {
 		$arr['max'] = \DFA::unpackRLE($max, true);
 		$arr['accept'] = \DFA::unpackRLE($accept);
 		$arr['special'] = \DFA::unpackRLE($special);
-
-
 		$numStates = sizeof($transitionS);
 		$arr['transition'] = array();
 		for ($i = 0; $i < $numStates; $i++) {
@@ -6626,7 +5454,6 @@ class Sparql10_DFA49_static {
 			), array(), array(), array(), array(), array(), array(), array(), array(
 			), array(), array(), array(), array(), array(), array(), array(), array(
 			), array(), array(), array());
-
 		$arr = array();
 		$arr['eot'] = \DFA::unpackRLE($eot);
 		$arr['eof'] = \DFA::unpackRLE($eof);
@@ -6634,8 +5461,6 @@ class Sparql10_DFA49_static {
 		$arr['max'] = \DFA::unpackRLE($max, true);
 		$arr['accept'] = \DFA::unpackRLE($accept);
 		$arr['special'] = \DFA::unpackRLE($special);
-
-
 		$numStates = sizeof($transitionS);
 		$arr['transition'] = array();
 		for ($i = 0; $i < $numStates; $i++) {
@@ -6684,7 +5509,6 @@ class Sparql10_DFA50_static {
 								   65535, 1, 3), array(), array(), array(), array(), array(), array(),
 							 array(), array(), array(), array(), array(), array(), array(), array(
 			), array(), array(), array(), array(), array(), array());
-
 		$arr = array();
 		$arr['eot'] = \DFA::unpackRLE($eot);
 		$arr['eof'] = \DFA::unpackRLE($eof);
@@ -6692,8 +5516,6 @@ class Sparql10_DFA50_static {
 		$arr['max'] = \DFA::unpackRLE($max, true);
 		$arr['accept'] = \DFA::unpackRLE($accept);
 		$arr['special'] = \DFA::unpackRLE($special);
-
-
 		$numStates = sizeof($transitionS);
 		$arr['transition'] = array();
 		for ($i = 0; $i < $numStates; $i++) {
@@ -6743,7 +5565,6 @@ class Sparql10_DFA54_static {
 							 array(), array(), array(), array(), array(), array(), array(), array(
 			), array(), array(), array(), array(), array(), array(), array(), array(
 			), array(), array());
-
 		$arr = array();
 		$arr['eot'] = \DFA::unpackRLE($eot);
 		$arr['eof'] = \DFA::unpackRLE($eof);
@@ -6751,8 +5572,6 @@ class Sparql10_DFA54_static {
 		$arr['max'] = \DFA::unpackRLE($max, true);
 		$arr['accept'] = \DFA::unpackRLE($accept);
 		$arr['special'] = \DFA::unpackRLE($special);
-
-
 		$numStates = sizeof($transitionS);
 		$arr['transition'] = array();
 		for ($i = 0; $i < $numStates; $i++) {
@@ -6800,7 +5619,6 @@ class Sparql10_DFA57_static {
 								   2, 65535, 1, 1, 1, 65535, 1, 7, 1, 5, 1, 6, 1, 2), array(), array(),
 							 array(), array(), array(), array(), array(), array(), array(), array(
 			));
-
 		$arr = array();
 		$arr['eot'] = \DFA::unpackRLE($eot);
 		$arr['eof'] = \DFA::unpackRLE($eof);
@@ -6808,8 +5626,6 @@ class Sparql10_DFA57_static {
 		$arr['max'] = \DFA::unpackRLE($max, true);
 		$arr['accept'] = \DFA::unpackRLE($accept);
 		$arr['special'] = \DFA::unpackRLE($special);
-
-
 		$numStates = sizeof($transitionS);
 		$arr['transition'] = array();
 		for ($i = 0; $i < $numStates; $i++) {
@@ -6857,7 +5673,6 @@ class Sparql10_DFA59_static {
 		), array(), array(), array(), array(), array(), array(), array(), array(
 		), array(), array(), array(), array(), array(), array(), array(), array(
 		), array());
-
 		$arr = array();
 		$arr['eot'] = \DFA::unpackRLE($eot);
 		$arr['eof'] = \DFA::unpackRLE($eof);
@@ -6865,8 +5680,6 @@ class Sparql10_DFA59_static {
 		$arr['max'] = \DFA::unpackRLE($max, true);
 		$arr['accept'] = \DFA::unpackRLE($accept);
 		$arr['special'] = \DFA::unpackRLE($special);
-
-
 		$numStates = sizeof($transitionS);
 		$arr['transition'] = array();
 		for ($i = 0; $i < $numStates; $i++) {
@@ -6914,7 +5727,6 @@ class Sparql10_DFA61_static {
 								   4, 1), array(), array(), array(), array(), array(), array(), array(),
 							 array(), array(), array(), array(), array(), array(), array(), array(
 			), array(), array(), array(), array(), array());
-
 		$arr = array();
 		$arr['eot'] = \DFA::unpackRLE($eot);
 		$arr['eof'] = \DFA::unpackRLE($eof);
@@ -6922,8 +5734,6 @@ class Sparql10_DFA61_static {
 		$arr['max'] = \DFA::unpackRLE($max, true);
 		$arr['accept'] = \DFA::unpackRLE($accept);
 		$arr['special'] = \DFA::unpackRLE($special);
-
-
 		$numStates = sizeof($transitionS);
 		$arr['transition'] = array();
 		for ($i = 0; $i < $numStates; $i++) {
@@ -6974,7 +5784,6 @@ class Sparql10_DFA62_static {
 			), array(), array(), array(), array(), array(), array(), array(), array(
 			), array(), array(), array(), array(), array(), array(), array(), array(
 			));
-
 		$arr = array();
 		$arr['eot'] = \DFA::unpackRLE($eot);
 		$arr['eof'] = \DFA::unpackRLE($eof);
@@ -6982,8 +5791,6 @@ class Sparql10_DFA62_static {
 		$arr['max'] = \DFA::unpackRLE($max, true);
 		$arr['accept'] = \DFA::unpackRLE($accept);
 		$arr['special'] = \DFA::unpackRLE($special);
-
-
 		$numStates = sizeof($transitionS);
 		$arr['transition'] = array();
 		for ($i = 0; $i < $numStates; $i++) {
@@ -7034,7 +5841,6 @@ class Sparql10_DFA63_static {
 		), array(), array(), array(), array(), array(), array(), array(), array(
 		), array(), array(), array(), array(), array(), array(), array(), array(
 		), array(), array(), array(), array(), array());
-
 		$arr = array();
 		$arr['eot'] = \DFA::unpackRLE($eot);
 		$arr['eof'] = \DFA::unpackRLE($eof);
@@ -7042,8 +5848,6 @@ class Sparql10_DFA63_static {
 		$arr['max'] = \DFA::unpackRLE($max, true);
 		$arr['accept'] = \DFA::unpackRLE($accept);
 		$arr['special'] = \DFA::unpackRLE($special);
-
-
 		$numStates = sizeof($transitionS);
 		$arr['transition'] = array();
 		for ($i = 0; $i < $numStates; $i++) {
@@ -7090,7 +5894,6 @@ class Sparql10_DFA64_static {
 		$transitionS = array(array(1, 1, 1, 2, 1, 3, 1, 4, 1, 5, 1, 6, 1, 7, 1,
 								   8, 1, 9, 1, 10, 1, 11), array(), array(), array(), array(), array(),
 							 array(), array(), array(), array(), array(), array());
-
 		$arr = array();
 		$arr['eot'] = \DFA::unpackRLE($eot);
 		$arr['eof'] = \DFA::unpackRLE($eof);
@@ -7098,8 +5901,6 @@ class Sparql10_DFA64_static {
 		$arr['max'] = \DFA::unpackRLE($max, true);
 		$arr['accept'] = \DFA::unpackRLE($accept);
 		$arr['special'] = \DFA::unpackRLE($special);
-
-
 		$numStates = sizeof($transitionS);
 		$arr['transition'] = array();
 		for ($i = 0; $i < $numStates; $i++) {
@@ -7147,7 +5948,6 @@ class Sparql10_DFA66_static {
 		), array(), array(), array(), array(), array(), array(), array(), array(
 		), array(), array(), array(), array(), array(), array(), array(), array(
 		), array(), array(), array());
-
 		$arr = array();
 		$arr['eot'] = \DFA::unpackRLE($eot);
 		$arr['eof'] = \DFA::unpackRLE($eof);
@@ -7155,8 +5955,6 @@ class Sparql10_DFA66_static {
 		$arr['max'] = \DFA::unpackRLE($max, true);
 		$arr['accept'] = \DFA::unpackRLE($accept);
 		$arr['special'] = \DFA::unpackRLE($special);
-
-
 		$numStates = sizeof($transitionS);
 		$arr['transition'] = array();
 		for ($i = 0; $i < $numStates; $i++) {
@@ -7208,7 +6006,6 @@ class Sparql10_DFA67_static {
 		), array(), array(), array(), array(), array(), array(), array(), array(
 		), array(), array(), array(), array(), array(), array(), array(), array(
 		), array(), array(), array(), array(), array());
-
 		$arr = array();
 		$arr['eot'] = \DFA::unpackRLE($eot);
 		$arr['eof'] = \DFA::unpackRLE($eof);
@@ -7216,8 +6013,6 @@ class Sparql10_DFA67_static {
 		$arr['max'] = \DFA::unpackRLE($max, true);
 		$arr['accept'] = \DFA::unpackRLE($accept);
 		$arr['special'] = \DFA::unpackRLE($special);
-
-
 		$numStates = sizeof($transitionS);
 		$arr['transition'] = array();
 		for ($i = 0; $i < $numStates; $i++) {
@@ -7263,7 +6058,6 @@ class Sparql10_DFA68_static {
 		$transitionS = array(array(1, 1, 1, 65535, 1, 1, 2, 65535, 1, 1, 1, 65535,
 								   3, 4, 3, 7), array(), array(), array(), array(), array(), array(), array(
 		), array(), array());
-
 		$arr = array();
 		$arr['eot'] = \DFA::unpackRLE($eot);
 		$arr['eof'] = \DFA::unpackRLE($eof);
@@ -7271,8 +6065,6 @@ class Sparql10_DFA68_static {
 		$arr['max'] = \DFA::unpackRLE($max, true);
 		$arr['accept'] = \DFA::unpackRLE($accept);
 		$arr['special'] = \DFA::unpackRLE($special);
-
-
 		$numStates = sizeof($transitionS);
 		$arr['transition'] = array();
 		for ($i = 0; $i < $numStates; $i++) {
@@ -7305,7 +6097,6 @@ class Sparql10_DFA68 extends \DFA {
 		return "418:7: (n= numericLiteralUnsigned | n= numericLiteralPositive | n= numericLiteralNegative )";
 	}
 }
-
 
 Sparql10::$FOLLOW_prologue_in_query1034 = new \Set(array(7, 10, 11, 12));
 Sparql10::$FOLLOW_selectQuery_in_query1047 = new \Set(array(1));

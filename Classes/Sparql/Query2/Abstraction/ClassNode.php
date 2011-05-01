@@ -39,7 +39,6 @@ class ClassNode {
 
 	public function __construct(Query2\IriRef $type, $member_predicate = EF_RDF_TYPE, Query2 $query, $varName = null, $withChilds = true) {
 		$this->query = $query;
-
 		if ($member_predicate == EF_RDF_TYPE) {
 			$type = new RDFSClass($type, $withChilds);
 			$member_predicate = new Query2\A();
@@ -47,13 +46,10 @@ class ClassNode {
 		{
 			$type = new NoClass($type, $member_predicate);
 		}
-
 		if (is_string($member_predicate)) {
 			$member_predicate = new Query2\IriRef($member_predicate);
 		}
-
 		$this->type = $type;
-
 		if ($varName == null) {
 			$this->classVar = new Query2\Variable($type->getIri());
 		}
@@ -61,11 +57,9 @@ class ClassNode {
 		{
 			$this->classVar = new Query2\Variable($varName);
 		}
-
 		if (!($member_predicate instanceof Interfaces\Verb)) {
 			throw new \RuntimeException('Argument 2 passed to ClassNode::__construct must be an instance of Query2\IriRef or string instance of ' . typeHelper($member_predicate) . ' given');
 		}
-
 		$subclasses = $type->getSubclasses();
 		if (count($subclasses) > 1) { //the class itself is somehow included in the subclasses...
 			$typeVar = new Query2\Variable($type->getIri());
@@ -125,17 +119,13 @@ class ClassNode {
 		if (!($predicate instanceof Query2\IriRef)) {
 			throw new \RuntimeException('Argument 3 passed to ClassNode::addShownPropertyHelper must be an instance of Query2\IriRef, instance of ' . typeHelper($predicate) . ' given');
 		}
-
 		if (!is_string($name)) {
 			throw new \RuntimeException('Argument 4 passed to ClassNode::addShownPropertyHelper must be an instance of string, instance of ' . typeHelper($name) . ' given');
 		}
-
 		if (!is_bool($inverse)) {
 			throw new \RuntimeException('Argument 5 passed to ClassNode::addShownPropertyHelper must be an instance of bool, instance of ' . typeHelper($inverse) . ' given (' . $inverse . ')');
 		}
-
 		$optionalpart = new Query2\OptionalGraphPattern();
-
 		if ($name == null) {
 			$var = new Query2\Variable($predicate);
 		}
@@ -143,7 +133,6 @@ class ClassNode {
 		{
 			$var = new Query2\Variable($name);
 		}
-
 		if (!$inverse) {
 			$triple = new Query2\Triple($resVar, $predicate, $var);
 		}
@@ -151,21 +140,16 @@ class ClassNode {
 		{
 			$triple = new Query2\Triple($var, $predicate, $resVar);
 		}
-
 		$optionalpart->addElement($triple);
 		$query->getWhere()->addElement($optionalpart);
-
 		/* filtered now in php
 				  $filter = new Query2\Filter(
 					new Query2\UnaryExpressionNot(
 						new Query2\isBlank($var)
 					)
 				);*/
-
 		//$optionalpart->addElement($filter);
-
 		$query->addProjectionVar($var);
-
 		return array('optional' => $optionalpart, 'var' => $var, 'filter' => null);
 	}
 
@@ -176,7 +160,6 @@ class ClassNode {
 		if (!($predicate instanceof Query2\IriRef)) {
 			throw new \RuntimeException('Argument 1 passed to ClassNode::addFilter must be an instance of Query2\IriRef instance of ' . typeHelper($predicate) . ' given');
 		}
-
 		$this->outgoinglinks[] = new Link($predicate, $target);
 		$this->query->getWhere()
 				->addElement(new Query2\Triple($this->classVar, $predicate, new Query2\Variable($target
@@ -185,9 +168,7 @@ class ClassNode {
 	}
 
 	public function addFilter($predicate, $type, $value) {
-
 		$this->filters[] = self::addFilterHelper($this->_query, $this->classVar, $predicate, $type, $value);
-
 		return $this;
 	}
 
@@ -216,7 +197,6 @@ class ClassNode {
 				throw new \RuntimeException('Argument 4 passed to ClassNode::addFilterHelper must be "equals" or "contains", ' . $type . ' given');
 				break;
 		}
-
 		return null;
 	}
 
@@ -244,7 +224,6 @@ class ClassNode {
 	public function clearAll() {
 		$this->clearShownProperties();
 		$this->clearFilter();
-
 		return $this;
 	}
 

@@ -31,7 +31,7 @@ namespace T3\Semantic\Exception;
  * @scope singleton
  * @api
  */
-class ConfigurationNotLoadedException extends \Tx_Semantic_Exception {
+class ConfigurationNotLoadedException extends \T3\Semantic\Exception {
 
 }
 ?>

@@ -47,7 +47,6 @@ class OrderClause {
 		if ($order != 'ASC' && $order != 'DESC') {
 			throw new \RuntimeException('Argument 2 passed to OrderClause::add must be \'ASC\' or \'DESC\', ' . $order . ' (instance of ' . typeHelper($order) . ') given');
 		}
-
 		$this->exps[] = array('exp' => $exp, 'dir' => $order);
 		return count($this->exps) - 1; //last index = index of added element
 	}
@@ -59,9 +58,7 @@ class OrderClause {
 	 */
 	public function getSparql() {
 		$sparql = 'ORDER BY';
-
 		$countExps = count($this->exps);
-
 		for ($i = 0; $i < $countExps; ++$i) {
 			$sparql .= ' ' . $this->exps[$i]['dir'] . '(' . $this->exps[$i]['exp']->getSparql() . ')';
 			if ($i < (count($this->exps) - 1)) {

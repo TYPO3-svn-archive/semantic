@@ -39,7 +39,6 @@ class CaseInsensitiveStream extends \ANTLRStringStream {
 				return \CharStreamConst::$EOF; // invalid; no char before first char
 			}
 		}
-
 		if (($this->p + $i - 1) >= $this->n) {
 			//System.out.println("char LA("+i+")=EOF; p="+p);
 			return \CharStreamConst::$EOF;

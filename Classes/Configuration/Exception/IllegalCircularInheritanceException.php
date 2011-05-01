@@ -31,7 +31,7 @@ namespace T3\Semantic\Configuration\Exception;
  * @scope singleton
  * @api
  */
-class IllegalCircularInheritanceException extends \Tx_Semantic_Exception {
+class IllegalCircularInheritanceException extends \T3\Semantic\Exception {
 
 }
 ?>

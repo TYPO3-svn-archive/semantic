@@ -51,11 +51,9 @@ class GraphClause extends ElementHelper {
 			throw new \RuntimeException("Argument 1 passed to GraphClause::__construct must be instance of IriRef or string", E_USER_ERROR);
 		}
 		$this->graphIri = $iri;
-
 		if (is_bool($named)) {
 			$this->named = $named;
 		}
-
 		parent::__construct();
 	}
 

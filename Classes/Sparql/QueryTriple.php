@@ -126,7 +126,6 @@ class QueryTriple {
 	 */
 	public function getVariables() {
 		$arVars = array();
-
 		if (Variable::isVariable($this->_subject)) {
 			$arVars[] = $this->_subject;
 		}
@@ -136,7 +135,6 @@ class QueryTriple {
 		if (Variable::isVariable($this->_object)) {
 			$arVars[] = $this->_object;
 		}
-
 		return $arVars;
 	}
 }

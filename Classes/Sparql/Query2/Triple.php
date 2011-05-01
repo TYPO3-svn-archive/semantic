@@ -127,7 +127,6 @@ class Triple extends ElementHelper implements Interfaces\TriplesSameSubject {
 	 */
 	public function getVars() {
 		$vars = array();
-
 		if ($this->s instanceof Variable) {
 			$vars[] = $this->s;
 		}
@@ -137,7 +136,6 @@ class Triple extends ElementHelper implements Interfaces\TriplesSameSubject {
 		if ($this->o instanceof Variable) {
 			$vars[] = $this->o;
 		}
-
 		return $vars;
 	}
 

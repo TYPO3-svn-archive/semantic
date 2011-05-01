@@ -86,13 +86,11 @@ class Query2 extends Query2\ContainerHelper {
 		parent::__construct();
 		$this->order = new Query2\OrderClause();
 		$this->where = new Query2\GroupGraphPattern;
-
 		if ($type !== null) {
 			$this->setQueryType($type);
 		} else {
 			$this->setQueryType(self::typeSelect);
 		}
-		// require_once 'Erfurt/Sparql/Parser/Sparql10.php';
 	}
 
 	public function __clone() {
@@ -119,7 +117,6 @@ class Query2 extends Query2\ContainerHelper {
 		} else {
 			throw new \RuntimeException("Query2: method $name does not exists");
 		}
-
 		if ($this->where->equals($ret)) {
 			return $this;
 		}
@@ -128,7 +125,6 @@ class Query2 extends Query2\ContainerHelper {
 			return $ret;
 		}
 	}
-
 
 	public function  __sleep() {
 		$this->idCounterSerialized = isset(self::$idCounter) ? self::$idCounter : rand(10000, getrandmax());
@@ -146,16 +142,12 @@ class Query2 extends Query2\ContainerHelper {
 	 */
 	public function getSparql() {
 		$sparql = '';
-
 		if ($this->hasBase()) {
 			$sparql .= 'BASE ' . $this->base->getSparql() . " \n";
 		}
-
 		foreach ($this->prefixes as $prefix)
 			$sparql .= $prefix->getSparql() . " \n";
-
 		$sparql .= $this->type . ' ';
-
 		if ($this->type == self::typeSelect) {
 			switch ($this->distinctReducedMode) {
 				case 0:
@@ -168,7 +160,6 @@ class Query2 extends Query2\ContainerHelper {
 					break;
 			}
 		}
-
 		if ($this->type == self::typeSelect || $this->type == self::typeDescribe) {
 			if (!$this->countStar) {
 				if (count($this->projectionVars) != 0 && !$this->star) {
@@ -182,21 +173,16 @@ class Query2 extends Query2\ContainerHelper {
 				$sparql .= 'COUNT(*)';
 			}
 		}
-
 		$sparql .= " \n";
-
 		if ($this->type == self::typeConstruct) {
 			$sparql .= $this->constructTemplate->getSparql();
 		}
-
 		foreach ($this->froms as $from) {
 			$sparql .= 'FROM ' . $from->getSparql() . " \n";
 		}
-
 		if ($this->type != self::typeDescribe) {
 			$sparql .= 'WHERE ' . $this->where->getSparql();
 		}
-
 		if ($this->type != self::typeAsk) {
 			if ($this->hasOrderBy()) {
 				$sparql .= $this->order->getSparql() . " \n";
@@ -204,12 +190,10 @@ class Query2 extends Query2\ContainerHelper {
 			if ($this->hasLimit()) {
 				$sparql .= 'LIMIT ' . $this->limit . " \n";
 			}
-
 			if ($this->hasOffset()) {
 				$sparql .= 'OFFSET ' . $this->offset . " \n";
 			}
 		}
-
 		return $sparql;
 	}
 
@@ -362,7 +346,6 @@ class Query2 extends Query2\ContainerHelper {
 		//if ($this->type == self::typeAsk)
 		//    throw new \RuntimeException("Trying to set solution modifier \"Offset\"".
 		//      " in an ASK-Query - not possible");
-
 		$this->offset = $noffset;
 		return $this; //for chaining
 	}
@@ -542,9 +525,7 @@ class Query2 extends Query2\ContainerHelper {
 									   'Query2\GraphClause or Query2\IriRef' .
 									   ' or string, instance of ' . typeHelper($from) . ' given');
 		}
-
 		$named = false;
-
 		if ($from instanceof Query2\IriRef) {
 			$from = new Query2\GraphClause($from);
 		}
@@ -553,7 +534,6 @@ class Query2 extends Query2\ContainerHelper {
 				new Query2\IriRef($from)
 			);
 		}
-
 		if (!is_bool($named)) {
 			throw new \RuntimeException('Argument 2 passed to ' .
 									   'Erfurt_Sparql_Query2::addFrom must be an instance of bool, ' .
@@ -561,8 +541,6 @@ class Query2 extends Query2\ContainerHelper {
 		} else {
 			$from->setNamed($named);
 		}
-
-
 		//search for equal froms
 		foreach ($this->froms as $compare) {
 			if ($compare->getGraphIri()->getIri() == $from->getGraphIri()->getIri()
@@ -570,7 +548,6 @@ class Query2 extends Query2\ContainerHelper {
 				return $this; //for chaining
 			}
 		}
-
 		$this->froms[] = $from;
 		return $this; //for chaining
 	}
@@ -619,7 +596,6 @@ class Query2 extends Query2\ContainerHelper {
 				$new[] = $from;
 			}
 		}
-
 		$this->froms = $new;
 		return $this; //for chaining
 	}
@@ -635,8 +611,6 @@ class Query2 extends Query2\ContainerHelper {
 			$froms = array();
 			$froms[0] = $tmp;
 		}
-
-
 		foreach ($froms as $key => $from) {
 			if ($froms[$key] instanceof Query2\IriRef) {
 				$froms[$key] = new Query2\GraphClause($froms[$key]);
@@ -647,7 +621,6 @@ class Query2 extends Query2\ContainerHelper {
 				);
 			}
 		}
-
 		$this->froms = $froms;
 		return $this; //for chaining
 	}
@@ -693,8 +666,6 @@ class Query2 extends Query2\ContainerHelper {
 									   'Query2\GraphClause or Query2\IriRef ' .
 									   'or string, instance of ' . typeHelper($from) . ' given');
 		}
-
-
 		if ($from instanceof Query2\IriRef) {
 			$from = new Query2\GraphClause($from);
 		}
@@ -719,13 +690,11 @@ class Query2 extends Query2\ContainerHelper {
 				return $this;
 			}
 		}
-
 		/*if (!in_array($var, $this->where->getVars())) {
 					trigger_error('Trying to add projection-var ('.$var->getSparql().') '.
 				 * 'that is not used in pattern', E_USER_NOTICE);
 					return $this; //for chaining
 				}*/
-
 		if (count($this->projectionVars) == 0) {
 			//if the first var is added: deactivate the star.
 			//maybe always?
@@ -742,7 +711,6 @@ class Query2 extends Query2\ContainerHelper {
 	 */
 	public function removeProjectionVar(Query2\Variable $var) {
 		$new = array();
-
 		//hack to detect multiple var objects with the same "name" -
 		//should be prevented by the factory method for vars
 		foreach ($this->projectionVars as $compare) {
@@ -780,7 +748,6 @@ class Query2 extends Query2\ContainerHelper {
 	 */
 	public function removePrefix($needle) {
 		$new = array();
-
 		foreach ($this->prefixes as $key => $compare) {
 			if (!$compare->equals($needle) && $key !== $needle) {
 				$new[] = $compare;
@@ -862,9 +829,7 @@ class Query2 extends Query2\ContainerHelper {
 	 */
 	public function getVar($name) {
 		$used = $this->where->getVars();
-
 		$countUsed = count($used);
-
 		for ($i = 0; $i < $countUsed; ++$i) {
 			if ($name == $used[$i]->getName()) {
 				return $used[$i];
@@ -890,13 +855,10 @@ class Query2 extends Query2\ContainerHelper {
 
 	public function getParentContainer($needle) {
 		$parents = array();
-
 		if (in_array($needle, array_merge($this->prefixes, $this->froms, $this->projectionVars))) {
 			$parents[] = $this;
 		}
-
 		$parents = array_merge($parents, $this->where->getParentContainer($needle));
-
 		return $parents;
 	}
 
@@ -919,7 +881,6 @@ class Query2 extends Query2\ContainerHelper {
 				}
 			}
 		}
-
 		$element->removeParent($this);
 		return $this;
 	}
@@ -937,8 +898,6 @@ class Query2 extends Query2\ContainerHelper {
 		//     throw new Exception("Error in parser: ". print_r($fromParser['errors'], true));
 		//     return null;
 		// }
-		// require_once 'Erfurt/Sparql/Parser/Sparql10.php';
-
 		$q;
 		$parser = new Parser\Sparql10();
 		try {
@@ -946,7 +905,6 @@ class Query2 extends Query2\ContainerHelper {
 			if ($q['errors']) {
 				$e = new Exception('Parse Error: ' . implode(',', $q['errors']));
 				throw $e;
-
 			}
 			// var_dump($q);
 			return $q['retval'];

@@ -46,7 +46,6 @@ define('STORE_USE_AC','use_ac');
 define('STORE_USE_OWL_IMPORTS','use_owl_imports');
 define('STORE_USE_ADDITIONAL_IMPORTS','use_additional_imports');
 define('STORE_TIMEOUT','timeout');
-
 class Store implements \t3lib_Singleton {
 	const COUNT_NOT_SUPPORTED = -1;
 
@@ -299,8 +298,8 @@ class Store implements \t3lib_Singleton {
 		// check interface conformance
 		// but do not check the comparer adapter since we use __call there
 		if ($backend != 'comparer') {
-			if (!($this->backendAdapter instanceof \Erfurt_Store_Adapter_Interface)) {
-				throw new Exception\StoreException('Adapter class must implement \Erfurt_Store_Adapter_Interface.');
+			if (!($this->backendAdapter instanceof Adapter\AdapterInterface)) {
+				throw new Exception\StoreException('Adapter class must implement Adapter\AdapterInterface.');
 			}
 		}
 	}
@@ -308,9 +307,9 @@ class Store implements \t3lib_Singleton {
 	/**
 	 * Sets the backend adapter
 	 *
-	 * @param \Erfurt_Store_Adapter_Interface $adapter
+	 * @param Adapter\AdapterInterface $adapter
 	 */
-	public function setBackendAdapter(\Erfurt_Store_Adapter_Interface $adapter) {
+	public function setBackendAdapter(Adapter\AdapterInterface $adapter) {
 		$this->backendAdapter = $adapter;
 		$this->backendName = $adapter->getBackendName();
 	}
@@ -345,7 +344,7 @@ class Store implements \t3lib_Singleton {
 		//invalidate deprecated Cache Objects
 		$queryCache = $this->knowledgeBase->getQueryCache();
 		$queryCache->invalidateWithStatements($graphUri, $statementsArray);
-		$event = new \Erfurt_Event('onAddMultipleStatements');
+		$event = $this->objectManager->create('\T3\Semantic\Event\Event', 'onAddMultipleStatements');
 		$event->graphUri = $graphUri;
 		$event->statements = $statementsArray;
 		$event->trigger();
@@ -378,7 +377,7 @@ class Store implements \t3lib_Singleton {
 		//invalidate deprecateded Cache Objects
 		$queryCache = $this->knowledgeBase->getQueryCache();
 		$queryCache->invalidate($graphUri, $subject, $predicate, $object);
-		$event = new \Erfurt_Event('onAddStatement');
+		$event = $this->objectManager->create('\T3\Semantic\Event\Event', 'onAddStatement');
 		$event->graphUri = $graphUri;
 		$event->statement = array(
 			'subject' => $subject,
@@ -463,7 +462,7 @@ class Store implements \t3lib_Singleton {
 				throw new Exception\StoreException('Unable to load System Ontology schema.');
 			}
 			$this->knowledgeBase->getVersioning()->enableVersioning(true);
-			$logger->info('System schema successfully loaded.');
+//			$logger->info('System schema successfully loaded.');
 			$returnValue = false;
 		}
 		if ($returnValue === false) {
@@ -509,7 +508,7 @@ class Store implements \t3lib_Singleton {
 					$graphUri, $subject, $predicate, $object, $options);
 				$queryCache = $this->knowledgeBase->getQueryCache();
 				$queryCache->invalidate($graphUri, $subject, $predicate, $object);
-				$event = new \Erfurt_Event('onDeleteMatchingStatements');
+				$event = $this->objectManager->create('\T3\Semantic\Event\Event', 'onDeleteMatchingStatements');
 				$event->graphUri = $graphUri;
 				$event->resource = $subject;
 				// just trigger if really data operations were performed
@@ -521,7 +520,7 @@ class Store implements \t3lib_Singleton {
 			catch (\Erfurt_Store_Adapter_Exception $e) {
 				// TODO: Create a exception for too many matching values
 				// In this case we log without storing the payload. No rollback supported for such actions.
-				$event = new \Erfurt_Event('onDeleteMatchingStatements');
+				$event = $this->objectManager->create('\T3\Semantic\Event\Event', 'onDeleteMatchingStatements');
 				$event->graphUri = $graphUri;
 				$event->resource = $subject;
 				\Erfurt_Event_Dispatcher::getInstance()->trigger($event);
@@ -549,7 +548,7 @@ class Store implements \t3lib_Singleton {
 		$this->backendAdapter->deleteMultipleStatements($graphUri, $statementsArray);
 		$queryCache = $this->knowledgeBase->getQueryCache();
 		$queryCache->invalidateWithStatements($graphUri, $statementsArray);
-		$event = new \Erfurt_Event('onDeleteMultipleStatements');
+		$event = $this->objectManager->create('\T3\Semantic\Event\Event', 'onDeleteMultipleStatements');
 		$event->graphUri = $graphUri;
 		$event->statements = $statementsArray;
 		$event->trigger();
@@ -647,38 +646,38 @@ class Store implements \t3lib_Singleton {
 			// else execute Sparql Regex Fallback
 		else {
 			$ret = array();
-			$s_var = new \Erfurt_Sparql_Query2_Var('resourceUri');
-			$p_var = new \Erfurt_Sparql_Query2_Var('p');
-			$o_var = new \Erfurt_Sparql_Query2_Var('o');
-			$default_tpattern = new \Erfurt_Sparql_Query2_Triple($s_var, $p_var, $o_var);
+			$s_var = $this->objectManager->create('\T3\Semantic\Sparql\Query2\Variable', 'resourceUri');
+			$p_var = $this->objectManager->create('\T3\Semantic\Sparql\Query2\Variable', 'p');
+			$o_var = $this->objectManager->create('\T3\Semantic\Sparql\Query2\Variable', 'o');
+			$default_tpattern = $this->objectManager->create('\T3\Semantic\Sparql\Query2\Triple', $s_var, $p_var, $o_var);
 			$ret[] = $default_tpattern;
-			$filter = new \Erfurt_Sparql_Query2_Filter(
-				new \Erfurt_Sparql_Query2_ConditionalOrExpression(
+			$filter = $this->objectManager->create('\T3\Semantic\Sparql\Query2\Filter',
+				$this->objectManager->create('\T3\Semantic\Sparql\Query2\ConditionalOrExpression',
 					array(
-						 /*new \Erfurt_Sparql_Query2_Regex(
+						 /*new \T3\Semantic\Sparql\Query2\Regex(
 													 $s_var,
-													 new \Erfurt_Sparql_Query2_RDFLiteral($stringSpec),
-													 $options['case_sensitive'] ? null : new \Erfurt_Sparql_Query2_RDFLiteral('i')
+													 new \T3\Semantic\Sparql\Query2\RDFLiteral($stringSpec),
+													 $options['case_sensitive'] ? null : new \T3\Semantic\Sparql\Query2\RDFLiteral('i')
 												 ),*/
-						 new \Erfurt_Sparql_Query2_Regex(
+						 $this->objectManager->create('\T3\Semantic\Sparql\Query2\Regex',
 							 $o_var,
-							 new \Erfurt_Sparql_Query2_RDFLiteral($stringSpec),
-							 $options['case_sensitive'] ? null : new \Erfurt_Sparql_Query2_RDFLiteral('i')
+							 $this->objectManager->create('\T3\Semantic\Sparql\Query2\RDFLiteral', $stringSpec),
+							 $options['case_sensitive'] ? null : $this->objectManager->create('\T3\Semantic\Sparql\Query2\RDFLiteral', 'i')
 						 )
 					)
 				)
 			);
 			if ($options['filter_properties']) {
-				$ss_var = new \Erfurt_Sparql_Query2_var('ss');
-				$oo_var = new \Erfurt_Sparql_Query2_var('oo');
-				$filterprop_tpattern = new \Erfurt_Sparql_Query2_Triple($ss_var, $s_var, $oo_var);
+				$ss_var = $this->objectManager->create('\T3\Semantic\Sparql\Query2\Variable', 'ss');
+				$oo_var = $this->objectManager->create('\T3\Semantic\Sparql\Query2\Variable', 'oo');
+				$filterprop_tpattern = $this->objectManager->create('\T3\Semantic\Sparql\Query2\Triple', $ss_var, $s_var, $oo_var);
 				$ret[] = $filterprop_tpattern;
 				/*
 								$filter->getConstraint()->addElement(
-									new \Erfurt_Sparql_Query2_Regex(
+									new \T3\Semantic\Sparql\Query2\Regex(
 											$oo_var,
-											new \Erfurt_Sparql_Query2_RDFLiteral($stringSpec),
-											$options['case_sensitive'] ? null : new \Erfurt_Sparql_Query2_RDFLiteral('i')
+											new \T3\Semantic\Sparql\Query2\RDFLiteral($stringSpec),
+											$options['case_sensitive'] ? null : new \T3\Semantic\Sparql\Query2\RDFLiteral('i')
 										)
 								);*/
 			}
@@ -828,7 +827,7 @@ class Store implements \t3lib_Singleton {
 			$modelInstance = $this->backendAdapter->getModel($modelIri);
 		} else {
 			// use generic implementation
-			$owlQuery = new \Erfurt_Sparql_SimpleQuery();
+			$owlQuery = $this->objectManager->create('\T3\Semantic\Sparql\SimpleQuery');
 			$owlQuery->setProloguePart('ASK')
 					->addFrom($modelIri)
 					->setWherePart('{<' . $modelIri . '> <' . EF_RDF_NS . 'type> <' . EF_OWL_ONTOLOGY . '>.}');
@@ -1137,7 +1136,7 @@ class Store implements \t3lib_Singleton {
 			}
 		}
 		if ($useAc) {
-			$modelsFiltered = $this->_filterModels($queryObject->getFrom());
+			$modelsFiltered = $this->filterModels($queryObject->getFrom());
 			// query contained a non-allowed non-existent model
 			if (empty($modelsFiltered)) {
 				return;
@@ -1147,7 +1146,7 @@ class Store implements \t3lib_Singleton {
 			// from named only if it was set
 			$fromNamed = $queryObject->getFromNamed();
 			if (count($fromNamed)) {
-				$queryObject->setFromNamed($this->_filterModels($fromNamed));
+				$queryObject->setFromNamed($this->filterModels($fromNamed));
 			}
 		}
 		$queryCache = $this->knowledgeBase->getQueryCache();
@@ -1173,7 +1172,7 @@ class Store implements \t3lib_Singleton {
 	 * @return mixed Returns a result depending on the query, e.g. an array or a boolean value.
 	 */
 	public function sparqlQuery($queryObject, $options = array()) {
-		// if ($queryObject instanceof \Erfurt_Sparql_Query2)
+		// if ($queryObject instanceof \T3\Semantic\Sparql\Query2)
 		//     $this->knowledgeBase->getLog()->info('Store: evaluating a Query2-object (sparql:'."\n".$queryObject.') ');
 		$defaultOptions = array(
 			STORE_RESULTFORMAT => STORE_RESULTFORMAT_PLAIN,
@@ -1188,13 +1187,13 @@ class Store implements \t3lib_Singleton {
 			$queryObject = \T3\Semantic\Sparql\SimpleQuery::initWithString($queryObject);
 		}
 		if (!($queryObject instanceof \T3\Semantic\Sparql\Query2 || $queryObject instanceof \T3\Semantic\Sparql\SimpleQuery)) {
-			throw new Exception("Argument 1 passed to " . get_class($this) . "::sparqlQuery must be instance of \T3\Semantic\Sparql\Query2, \T3\Semantic\Sparql\SimpleQuery or string", 1303224590);
+			throw new \Exception("Argument 1 passed to " . get_class($this) . '::sparqlQuery must be instance of \T3\Semantic\Sparql\Query2, \T3\Semantic\Sparql\SimpleQuery or string', 1303224590);
 		}
 		/*
 				 * clone the Query2 Object to not modify the original one
 				 * could be used elsewhere, could have side-effects
 				 */
-		if ($queryObject instanceof \Erfurt_Sparql_Query2) { //always clone?
+		if ($queryObject instanceof \T3\Semantic\Sparql\Query2) { //always clone?
 			$queryObject = clone $queryObject;
 		}
 		//get all models
@@ -1216,7 +1215,7 @@ class Store implements \t3lib_Singleton {
 		// examine froms (for access control and imports) in 5 steps
 		// 1. extract froms for easier handling
 		$froms = array();
-		if ($queryObject instanceof \Erfurt_Sparql_Query2) {
+		if ($queryObject instanceof \T3\Semantic\Sparql\Query2) {
 			foreach ($queryObject->getFroms() as $graphClause) {
 				$uri = $graphClause->getGraphIri()->getIri();
 				$froms[] = array('uri' => $uri, 'named' => $graphClause->isNamed());
@@ -1235,7 +1234,7 @@ class Store implements \t3lib_Singleton {
 		}
 		// 3. filter froms by availability and existence - if filtering deletes all -> give empty result back
 		if ($options[STORE_USE_AC] === true) {
-			$froms = $this->_maskModelList($froms, $available);
+			$froms = $this->maskModelList($froms, $available);
 			if (empty($froms)) {
 				$noBindings = true;
 			}
@@ -1253,7 +1252,7 @@ class Store implements \t3lib_Singleton {
 			}
 		}
 		// 5. put froms back
-		if ($queryObject instanceof \Erfurt_Sparql_Query2) {
+		if ($queryObject instanceof \T3\Semantic\Sparql\Query2) {
 			$queryObject->setFroms(array());
 			foreach ($froms as $from) {
 				$queryObject->addFrom($from['uri'], $from['named']);
@@ -1273,11 +1272,11 @@ class Store implements \t3lib_Singleton {
 		// this is achieved by replacing the where-part with an unsatisfiable one
 		// i think this is efficient because otherwise we would have to deal with result formating und variables
 		if ($noBindings) {
-			if ($queryObject instanceof \Erfurt_Sparql_SimpleQuery) {
+			if ($queryObject instanceof \T3\Semantic\Sparql\SimpleQuery) {
 				$queryObject->setWherePart('{FILTER(false)}');
 			} else {
-				if ($queryObject instanceof \Erfurt_Sparql_Query2) {
-					$ggp = new \Erfurt_Sparql_Query2_GroupGraphPattern();
+				if ($queryObject instanceof \T3\Semantic\Sparql\Query2) {
+					$ggp = $this->objectManager->create('\T3\Semantic\Sparql\Query2GroupGraphPattern');
 					$ggp->addFilter(false); //unsatisfiable
 					$queryObject->setWhere($ggp);
 				}
@@ -1295,7 +1294,7 @@ class Store implements \t3lib_Singleton {
 			self::$queryCount++;
 			$duration = microtime(true) - $startTime;
 			if (defined('_EFDEBUG')) {
-				$logger = $this->_getQueryLogger();
+				$logger = $this->getQueryLogger();
 				if ($duration > 1) {
 					$slow = " WARNING SLOW ";
 				} else {
@@ -1316,12 +1315,12 @@ class Store implements \t3lib_Singleton {
 	 * @return array
 	 */
 	public function sqlQuery($sqlQuery, $limit = PHP_INT_MAX, $offset = 0) {
-		if ($this->backendAdapter instanceof \Erfurt_Store_Sql_Interface) {
+		if ($this->backendAdapter instanceof Sql\SqlInterface) {
 			$startTime = microtime(true);
 			$result = $this->backendAdapter->sqlQuery($sqlQuery, $limit, $offset);
 			$duration = microtime(true) - $startTime;
 			if (defined('_EFDEBUG')) {
-				$logger = $this->_getQueryLogger();
+				$logger = $this->getQueryLogger();
 				$logger->debug("SQL ***************** " . round((1000 * $duration), 2) . " msec \n" . $sqlQuery);
 			}
 			return $result;
@@ -1339,7 +1338,7 @@ class Store implements \t3lib_Singleton {
 		if (null === $this->graphConfigurations) {
 			$sysOntModelUri = $this->getOption('modelUri');
 			// Fetch the graph configurations
-			$queryObject = new \Erfurt_Sparql_SimpleQuery();
+			$queryObject = $this->objectManager->create('\T3\Semantic\Sparql\SimpleQuery');
 			$queryObject->setProloguePart('SELECT ?s ?p ?o');
 			$queryObject->setFrom(array($sysOntModelUri));
 			$queryObject->setWherePart('WHERE { ?s ?p ?o . ?s a <http://ns.ontowiki.net/SysOnt/Model> }');
@@ -1437,7 +1436,7 @@ class Store implements \t3lib_Singleton {
 				return $backendResult;
 			}
 		}
-		$query = new \Erfurt_Sparql_SimpleQuery();
+		$query = $this->objectManager->create('\T3\Semantic\Sparql\SimpleQuery');
 		$query->setProloguePart('SELECT DISTINCT ?graph')
 				->setWherePart('WHERE {GRAPH ?graph {<' . $resourceUri . '> ?p ?o.}}');
 		$graphResult = array();
@@ -1500,7 +1499,7 @@ class Store implements \t3lib_Singleton {
 	private function checkAccessControl($modelIri, $accessType = 'view', $useAc = true) {
 		// check whether ac should be used (e.g. ac engine itself needs access to store without ac)
 		if ($useAc === false) {
-			$logger = $this->_getErfurtLogger();
+			$logger = $this->getErfurtLogger();
 			$logger->warn("Store.php->_checkAc: Doing something without Access Controll!!!");
 			$logger->debug("Store.php->_checkAc: ModelIri: " . $modelIri . " accessType: " . $accessType);
 			return true;
@@ -1517,7 +1516,7 @@ class Store implements \t3lib_Singleton {
 	 *
 	 * @param array $modelIris
 	 */
-	private function _filterModels(array $modelIris) {
+	private function filterModels(array $modelIris) {
 		$allowedModels = array();
 		foreach ($this->getAvailableModels(true) as $key => $true) {
 			$allowedModels[] = $key;
@@ -1540,7 +1539,7 @@ class Store implements \t3lib_Singleton {
 	 * @param array $maskIn the mask to apply on the list of the same format as the list
 	 * @return array the list witout uri missing in $maskIn
 	 */
-	private function _maskModelList(array $list, array $maskIn = null) {
+	private function maskModelList(array $list, array $maskIn = null) {
 		$mask = array();
 		if ($maskIn === null) {
 			foreach ($this->getAvailableModels(true) as $key => $true) {
@@ -1625,7 +1624,7 @@ class Store implements \t3lib_Singleton {
 	 *
 	 * @return object Zend Logger, which writes to logs/queries.log
 	 */
-	protected function _getQueryLogger() {
+	protected function getQueryLogger() {
 		if (null === $this->queryLogger) {
 			$this->queryLogger = $this->knowledgeBase->getLog('queries');
 		}
@@ -1637,7 +1636,7 @@ class Store implements \t3lib_Singleton {
 	 *
 	 * @return object Zend Logger, which writes to logs/erfurt.log
 	 */
-	protected function _getErfurtLogger() {
+	protected function getErfurtLogger() {
 		if (null === $this->erfurtLogger) {
 			$this->erfurtLogger = $this->knowledgeBase->getLog('erfurt');
 		}

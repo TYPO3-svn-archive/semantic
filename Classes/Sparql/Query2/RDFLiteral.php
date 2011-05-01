@@ -58,7 +58,6 @@ class RDFLiteral extends ElementHelper implements Interfaces\GraphTerm, Interfac
 			throw new \RuntimeException('Argument 1 passed to RDFLiteral::__construct must be a string, instance of ' . typeHelper($str) . ' given');
 		}
 		$this->value = $str;
-
 		if ($meta != null) {
 			if (is_string($meta)) {
 				if (in_array($meta, self::$knownShortcuts)) {
@@ -90,7 +89,6 @@ class RDFLiteral extends ElementHelper implements Interfaces\GraphTerm, Interfac
 	 */
 	public function getSparql() {
 		$sparql = $this->delimiter . $this->value . strrev($this->delimiter);
-
 		switch ($this->mode) {
 			case 0:
 				break;
@@ -101,7 +99,6 @@ class RDFLiteral extends ElementHelper implements Interfaces\GraphTerm, Interfac
 				$sparql .= '^^' . $this->datatype->getSparql();
 				break;
 		}
-
 		return $sparql;
 	}
 

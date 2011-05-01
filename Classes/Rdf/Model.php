@@ -69,6 +69,13 @@ class Model {
 	protected $knowledgeBase;
 
 	/**
+	 * The injected knowledge base
+	 *
+	 * @var \T3\Semantic\Object\ObjectManager
+	 */
+	protected $objectManager;
+
+	/**
 	 * Erfurt namespace management module
 	 * @var Erfurt_Namespaces
 	 */
@@ -110,9 +117,18 @@ class Model {
 	public function injectKnowledgeBase(\T3\Semantic\KnowledgeBase $knowledgeBase) {
 		$this->knowledgeBase = $knowledgeBase;
 		$this->namespaces = $knowledgeBase->getNamespaces();
-		if (isset($this->knowledgeBase->getConfiguration()->properties->title)) {
-			$this->titleProperties = $this->knowledgeBase->getConfiguration()->properties->title->toArray();
+		if (isset($this->knowledgeBase->getSystemOntologyConfiguration()->properties->title)) {
+			$this->titleProperties = $this->knowledgeBase->getSystemOntologyConfiguration()->properties->title->toArray();
 		}
+	}
+
+	/**
+	 * Injector method for a \T3\Semantic\Object\ObjectManager
+	 *
+	 * @var \T3\Semantic\Object\ObjectManager
+	 */
+	public function injectObjectManager(\T3\Semantic\Object\ObjectManager $objectManager) {
+		$this->objectManager = $objectManager;
 	}
 
 	/**
@@ -254,11 +270,10 @@ class Model {
 	/**
 	 * Resource factory method
 	 *
-	 * @return Erfurt_Rdf_Resource
+	 * @return \T3\Semantic\Rdf\Resource
 	 */
 	public function getResource($resourceIri) {
-		require_once 'Erfurt/Rdf/Resource.php';
-		return new Erfurt_Rdf_Resource($resourceIri, $this);
+		return new $this->objectManager->create('\T3\Semantic\Rdf\Resource', $resourceIri, $this);
 	}
 
 	/**
@@ -276,8 +291,7 @@ class Model {
 					$select .= ' ?' . $key;
 					$where[] = '{?s <' . $uri . '> ' . '?' . $key . '.}';
 				}
-				require_once 'Erfurt/Sparql/SimpleQuery.php';
-				$query = Erfurt_Sparql_SimpleQuery::initWithString(
+				$query = \T3\Semantic\Sparql\SimpleQuery::initWithString(
 					'SELECT ' . $select . '
 					 WHERE {
 						' . implode(' UNION ', $where) . '

@@ -35,7 +35,7 @@ namespace T3\Semantic\Owl;
  * @subpackage $SUBPACKAGE$
  * @scope prototype
  */
-class Model extends T3\Semantic\Rdf\Model {
+class Model extends \T3\Semantic\Rdf\Model {
 	/**
 	 * Imported graph IRIs
 	 * @var array

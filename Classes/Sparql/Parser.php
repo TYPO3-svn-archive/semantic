@@ -113,26 +113,20 @@ class Parser {
 	public static function tokenize($queryString) {
 		$inTelUri = false;
 		$inUri = false;
-
 		$queryString = trim($queryString);
-
 		$removeableSpecialChars = array(' ', "\t", "\r", "\n");
 		$specialChars = array(',', '\\', '(', ')', '{', '}', '"', "'", ';', '[', ']');
-
 		$len = strlen($queryString);
 		$tokens = array();
 		$n = 0;
-
 		$inLiteral = false;
 		$longLiteral = false;
-
 		for ($i = 0; $i < $len; ++$i) {
 			if (in_array($queryString[$i], $removeableSpecialChars) && !$inLiteral && !$inTelUri) {
 				if (isset($tokens[$n]) && $tokens[$n] !== '') {
 					if ((strlen($tokens[$n]) >= 2)) {
 						if (($tokens[$n][strlen($tokens[$n]) - 1] === '.') &&
 							!is_numeric(substr($tokens[$n], 0, strlen($tokens[$n]) - 1))) {
-
 							$tokens[$n] = substr($tokens[$n], 0, strlen($tokens[$n]) - 1);
 							$tokens[++$n] = '.';
 						} else {
@@ -143,10 +137,8 @@ class Parser {
 							}
 						}
 					}
-
 					$n++;
 				}
-
 				continue;
 			} else {
 				if (in_array($queryString[$i], $specialChars) && !$inTelUri && !$inUri) {
@@ -157,7 +149,6 @@ class Parser {
 							if (($queryString[($i + 1)] === $foundChar) && ($queryString[($i + 2)] === $foundChar)) {
 								$longLiteral = true;
 							}
-
 							$inLiteral = true;
 						} else {
 							// We are inside a literal... Check whether this is the end of the literal.
@@ -171,13 +162,11 @@ class Parser {
 							}
 						}
 					}
-
 					if (isset($tokens[$n]) && ($tokens[$n] !== '')) {
 						// Check whether trailing char is a dot.
 						if ((strlen($tokens[$n]) >= 2)) {
 							if (($tokens[$n][strlen($tokens[$n]) - 1] === '.') &&
 								!is_numeric(substr($tokens[$n], 0, strlen($tokens[$n]) - 1))) {
-
 								$tokens[$n] = substr($tokens[$n], 0, strlen($tokens[$n]) - 1);
 								$tokens[++$n] = '.';
 							} else {
@@ -188,23 +177,18 @@ class Parser {
 								}
 							}
 						}
-
 						$tokens[++$n] = '';
 					}
-
 					// In case we have a \ in the string we add the following char to the current token.
 					// In that case it doesn't matter what type of char the following one is!
 					if ($queryString[$i] === '\\') {
 						// Escaped chars do not need a new token.
 						$n--;
-
 						$tokens[$n] .= $queryString[$i] . $queryString[++$i];
-
 						// In case we have added \u we will also add the next 4 digits.
 						if ($queryString[$i] === 'u') {
 							$tokens[$n] .= $queryString[++$i] . $queryString[++$i] . $queryString[++$i] . $queryString[++$i];
 						}
-
 						$n++;
 					}
 						// Sparql supports literals that are written as """...""" in order to support quotation inside
@@ -233,12 +217,9 @@ class Parser {
 					if ($inTelUri && $queryString[$i] === '>') {
 						$inTelUri = false;
 					}
-
-
 					if (!isset($tokens[$n])) {
 						$tokens[$n] = '';
 					}
-
 					// Iris written as <><><> can be written without whitespace, so we need to test for this.
 					// If yes, we need to start a new token.
 					if ((substr($tokens[$n], 0, 1) === '<') && ($queryString[$i] === '>')) {
@@ -255,15 +236,12 @@ class Parser {
 								$tokens[++$n] = '<';
 								continue;
 							}
-
 						}
 					}
-
 					$tokens[$n] .= $queryString{$i};
 				}
 			}
 		}
-
 		return $tokens;
 	}
 
@@ -276,7 +254,6 @@ class Parser {
 	 */
 	public static function uncomment($queryString) {
 		$regex = "/((\"[^\"]*\")|(\'[^\']*\')|(\<[^\>]*\>))|(#.*)/";
-
 		return preg_replace($regex, '\1', $queryString);
 	}
 
@@ -292,11 +269,9 @@ class Parser {
 	 * @param array $tree  Tree to be modified
 	 */
 	public static function balanceTree(&$tree) {
-
 		if (isset($tree['type']) && $tree['type'] === 'equation' && isset($tree['operand1']['type']) &&
 			$tree['operand1']['type'] === 'equation' && $tree['level'] === $tree['operand1']['level'] &&
 			self::$_operatorPrecedence[$tree['operator']] > self::$_operatorPrecedence[$tree['operand1']['operator']]) {
-
 			$op2 = array(
 				'type' => 'equation',
 				'level' => $tree['level'],
@@ -313,7 +288,6 @@ class Parser {
 	public static function fixNegationInFuncName(&$tree) {
 		if ($tree['type'] === 'function' && $tree['name'][0] === '!') {
 			$tree['name'] = substr($tree['name'], 1);
-
 			if (!isset($tree['negated'])) {
 				$tree['negated'] = true;
 			} else {
@@ -343,16 +317,12 @@ class Parser {
 		//echo "Parser is called on:\n".$queryString."\n\n";
 		$this->_prepare();
 		$this->_query->setQueryString($queryString);
-
 		$uncommented = self::uncomment($queryString);
 		$this->_tokens = self::tokenize($uncommented);
-
 		$this->_parseQuery();
-
 		if (!$this->_query->isComplete()) {
 			throw new ParserException('Query is incomplete.');
 		}
-
 		return $this->_query;
 	}
 
@@ -370,7 +340,6 @@ class Parser {
 		if (substr($token, 0, 2) === '_:') {
 			return true;
 		}
-
 		return false;
 	}
 
@@ -408,7 +377,6 @@ class Parser {
 		}
 	}
 
-
 	protected function _dissallowBlankNodes() {
 		foreach ($this->_usedBlankNodes as $key => &$value) {
 			$value = false;
@@ -429,7 +397,6 @@ class Parser {
 			$node->setDatatype(EF_XSD_NS . 'integer');
 			return true;
 		}
-
 		$patternBool = "/^(true|false)$/";
 		$match = preg_match($patternBool, $node, $hits);
 		if ($match > 0) {
@@ -437,14 +404,12 @@ class Parser {
 			$node->setDatatype(EF_XSD_NS . 'boolean');
 			return true;
 		}
-
 		$patternType = "/^a$/";
 		$match = preg_match($patternType, $node, $hits);
 		if ($match > 0) {
 			$node = Rdf\Resource::initWithNamespaceAndLocalName(EF_RDF_NS, 'type');
 			return true;
 		}
-
 		$patternDouble = "/^-?[0-9]+.[0-9]+[e|E]?-?[0-9]*/";
 		$match = preg_match($patternDouble, $node, $hits);
 		if ($match > 0) {
@@ -459,7 +424,6 @@ class Parser {
 	protected function _fastForward() {
 		#next($this->_tokens);
 		#return;
-
 		$tok = next($this->_tokens);
 		while ($tok === ' ') {
 			$tok = next($this->_tokens);
@@ -474,11 +438,9 @@ class Parser {
 	 */
 	protected function _iriCheck($token) {
 		$pattern = "/^<[^>]*>\.?$/";
-
 		if (preg_match($pattern, $token) > 0) {
 			return true;
 		}
-
 		return false;
 	}
 
@@ -497,7 +459,6 @@ class Parser {
 				return true;
 			}
 		}
-
 		return false;
 	}
 
@@ -508,9 +469,7 @@ class Parser {
 	 */
 	protected function _parseAsk($form) {
 		$this->_query->setResultForm($form);
-
 		$this->_fastForward();
-
 		if (current($this->_tokens) === '{' || strtolower(current($this->_tokens)) === 'from') {
 			prev($this->_tokens);
 		}
@@ -543,26 +502,21 @@ class Parser {
 			$prevStart = false;
 		}
 		next($this->_tokens);
-
 		$tmpLabel = $this->_query->getBlanknodeLabel();
 		$firstLabel = $this->_parseNode($tmpLabel);
 		$this->_fastForward();
 		$i = 0;
 		$emptyList = true;
-
 		$rdfRest = Rdf\Resource::initWithNamespaceAndLocalName(EF_RDF_NS, 'rest');
 		$rdfFirst = Rdf\Resource::initWithNamespaceAndLocalName(EF_RDF_NS, 'first');
 		$rdfNil = Rdf\Resource::initWithNamespaceAndLocalName(EF_RDF_NS, 'nil');
-
 		while (current($this->_tokens) !== ')') {
 			if ($i > 0) {
 				$trp[] = new QueryTriple($this->_parseNode($tmpLabel), $rdfRest,
 					$this->_parseNode($tmpLabel = $this->_query->getBlanknodeLabel()));
 			}
-
 			if (current($this->_tokens) === '(') {
 				$listNode = $this->_parseCollection($trp);
-
 				$trp[] = new QueryTriple($this->_parseNode($tmpLabel), $rdfFirst, $listNode);
 			} else {
 				if (current($this->_tokens) === '[') {
@@ -572,16 +526,12 @@ class Parser {
 						$trp[] = new QueryTriple($this->_parseNode($tmpLabel), $rdfFirst, $this->_parseNode());
 					} else {
 						$this->_rewind();
-
 						$sNode = $this->_parseNode();
 						$trp[] = new QueryTriple($this->_parseNode($tmpLabel), $rdfFirst, $sNode);
-
 						$this->_fastForward();
 						$p = $this->_parseNode();
-
 						$this->_fastForward();
 						$o = $this->_parseNode();
-
 						$trp[] = new QueryTriple($sNode, $p, $o);
 						$this->_fastForward();
 					}
@@ -589,12 +539,10 @@ class Parser {
 					$trp[] = new QueryTriple($this->_parseNode($tmpLabel), $rdfFirst, $this->_parseNode());
 				}
 			}
-
 			$this->_fastForward();
 			$emptyList = false;
 			$i++;
 		}
-
 		if ($prevStart && $emptyList) {
 			if (next($this->_tokens) === '}') {
 				// list may not occure standalone in a pattern.
@@ -603,7 +551,6 @@ class Parser {
 			}
 			prev($this->_tokens);
 		}
-
 		$trp[] = new QueryTriple($this->_parseNode($tmpLabel), $rdfRest, $rdfNil);
 		return $firstLabel;
 	}
@@ -617,13 +564,10 @@ class Parser {
 	protected function _parseConstraint(&$pattern, $outer) {
 		$constraint = new Constraint();
 		$constraint->setOuterFilter($outer);
-
 		$constraint->setTree($this->_parseConstraintTree());
-
 		if (current($this->_tokens) === '}') {
 			prev($this->_tokens);
 		}
-
 		$pattern->addConstraint($constraint);
 	}
 
@@ -658,7 +602,6 @@ class Parser {
 		$litQuotes = null;
 		$strQuoted = '';
 		$parens = false;
-
 		while ($tok = next($this->_tokens)) {
 			if ($chQuotes !== null && $tok != $chQuotes) {
 				$strQuoted .= $tok;
@@ -715,7 +658,6 @@ class Parser {
 						$nLevel + 1,
 						$bFunc1 || $bFunc2
 					);
-
 					if ($bFunc1) {
 						$tree['type'] = 'function';
 						$tree['name'] = $part[0]['value'];
@@ -736,7 +678,6 @@ class Parser {
 							$part = array();
 						}
 					}
-
 					if (current($this->_tokens) === ')') {
 						if (substr(next($this->_tokens), 0, 2) === '_:') {
 							// filter ends here
@@ -746,7 +687,6 @@ class Parser {
 							prev($this->_tokens);
 						}
 					}
-
 					continue 2;
 					break;
 				case ' ':
@@ -771,7 +711,6 @@ class Parser {
 							$tree = array();
 						}
 					}
-
 					$tree['type'] = 'equation';
 					$tree['level'] = $nLevel;
 					$tree['operator'] = $tok;
@@ -808,13 +747,11 @@ class Parser {
 				default:
 					break;
 			}
-
 			if ($this->_varCheck($tok)) {
 				if (!$parens && $nLevel === 0) {
 					// Variables need parenthesizes first
 					throw new ParserException('FILTER expressions that start with a variable need parenthesizes.', -1, current($this->_tokens));
 				}
-
 				$part[] = array(
 					'type' => 'value',
 					'value' => $tok,
@@ -871,7 +808,6 @@ class Parser {
 				$part = array();
 			}
 		}
-
 		if (!isset($tree['type']) && $bParameter) {
 			return $part;
 		} else {
@@ -882,19 +818,16 @@ class Parser {
 				self::balanceTree($tree);
 			}
 		}
-
 		if ((count($tree) === 0) && (count($part) > 1)) {
 			//TODO: uncomment when issue 601 is fixed
 			//throw new ParserException('Failed to parse constraint.', -1, current($this->_tokens));
 		}
-
 		if (!isset($tree['type']) && isset($part[0])) {
 			if (isset($tree['negated'])) {
 				$part[0]['negated'] = true;
 			}
 			return $part[0];
 		}
-
 		return $tree;
 	}
 
@@ -906,14 +839,12 @@ class Parser {
 	protected function _parseConstruct() {
 		$this->_fastForward();
 		$this->_query->setResultForm('construct');
-
 		if (current($this->_tokens) === '{') {
 			$this->_parseGraphPattern(false, false, false, true);
 		} else {
 			throw new ParserException('Unable to parse CONSTRUCT part. "{" expected.', -1,
 				key($this->_tokens));
 		}
-
 		while (true) {
 			if (strtolower(current($this->_tokens)) === 'from') {
 				$this->_parseFrom();
@@ -921,7 +852,6 @@ class Parser {
 				break;
 			}
 		}
-
 		$this->_parseWhere();
 		$this->_parseModifier();
 	}
@@ -932,13 +862,11 @@ class Parser {
 			$this->_fastForward();
 			if ($this->_varCheck(current($this->_tokens)) || $this->_iriCheck(current($this->_tokens))) {
 				$var = new QueryResultVariable(current($this->_tokens));
-
 				$this->_query->addResultVar($var);
 				if (!$this->_query->getResultForm()) {
 					$this->_query->setResultForm('describe');
 				}
 			}
-
 			if (!current($this->_tokens)) {
 				break;
 			}
@@ -953,7 +881,6 @@ class Parser {
 	 */
 	protected function _parseFrom() {
 		$this->_fastForward();
-
 		if (strtolower(current($this->_tokens)) !== 'named') {
 			if ($this->_iriCheck(current($this->_tokens)) || $this->_qnameCheck(current($this->_tokens))) {
 				$this->_query->addFrom(substr(current($this->_tokens), 1, -1));
@@ -995,7 +922,6 @@ class Parser {
 			throw new ParserException('IRI or Var expected.', -1, key($this->_tokens));
 		}
 		$this->_fastForward();
-
 		if ($this->_iriCheck($name)) {
 			$name = Rdf\Resource::initWithIri(substr($name, 1, -1));
 		} else {
@@ -1022,35 +948,27 @@ class Parser {
 	protected function _parseGraphPattern($optional = false, $union = false, $graph = false, $constr = false,
 		$external = false, $subpattern = false) {
 		$pattern = $this->_query->getNewPattern($constr);
-
 		if (current($this->_tokens) !== '{') {
 			throw new ParserException(
 				'A graph pattern needs to start with "{".', -1, key($this->_tokens));
 		}
-
 		// A new graph pattern invalidates the use of all previous blank nodes.
 		$this->_dissallowBlankNodes();
-
 		if (is_int($optional)) {
 			$pattern->setOptional($optional);
 		} else {
 			$this->_tmp = $pattern->getId();
 		}
-
 		if (is_int($union)) {
 			$pattern->setUnion($union);
 		}
-
 		if (is_int($subpattern)) {
 			$pattern->setSubpatternOf($subpattern);
 		}
-
 		if ($graph != false) {
 			$pattern->setGraphname($graph);
 		}
-
 		$this->_fastForward();
-
 		do {
 			switch (strtolower(current($this->_tokens))) {
 				case 'graph':
@@ -1067,11 +985,9 @@ class Parser {
 					break;
 				case 'filter':
 					$this->_parseConstraint($pattern, true);
-
 					if (current($this->_tokens) === ')') {
 						$this->_fastForward();
 					}
-
 					$needsDot = false;
 					break;
 				case '.':
@@ -1083,7 +999,6 @@ class Parser {
 							key($this->_tokens));
 					}
 					$this->_fastForward();
-
 					$this->_fastForward();
 					break;
 				case '{':
@@ -1098,7 +1013,6 @@ class Parser {
 					break;
 			}
 		} while ($pattern->open);
-
 		if ($external) {
 			return $pattern;
 		}
@@ -1125,7 +1039,6 @@ class Parser {
 			} else {
 				$datatype = EF_XSD_NS . 'decimal';
 			}
-
 			$node = Rdf\Literal::initWithLabel($node);
 			$node->setDatatype($datatype);
 		}
@@ -1177,27 +1090,20 @@ class Parser {
 		} else {
 			$node = current($this->_tokens);
 		}
-
 		if ($node{strlen($node) - 1} === '.') {
 			$node = substr($node, 0, -1);
 		}
-
 		if ($this->_dtypeCheck($node)) {
 			return $node;
 		}
-
-
 		if ($this->_bNodeCheck($node)) {
 			$node = '?' . $node;
-
 			if (isset($this->_usedBlankNodes[$node]) && $this->_usedBlankNodes[$node] === false) {
 				throw new ParserException('Reuse of blank node id not allowed here.' - 1,
 					key($this->_tokens));
 			}
-
 			$this->_query->addUsedVar($node);
 			$this->_usedBlankNodes[$node] = true;
-
 			return $node;
 		}
 		if ($node === '[') {
@@ -1209,7 +1115,6 @@ class Parser {
 			}
 			return $node;
 		}
-
 		if ($this->_iriCheck($node)) {
 			$base = $this->_query->getBase();
 			if ($base != null) {
@@ -1235,7 +1140,6 @@ class Parser {
 					} else {
 						$this->_parseLiteral($node, null);
 					}
-
 				} else {
 					if ($this->_varCheck($node)) {
 						$pos = is_string($node) ? strpos($node, '.') : false;
@@ -1270,7 +1174,6 @@ class Parser {
 				}
 			}
 		}
-
 		return $node;
 	}
 
@@ -1282,76 +1185,60 @@ class Parser {
 	protected function _parseOrderCondition() {
 		$valList = array();
 		$val = array();
-
 		while (strtolower(current($this->_tokens)) !== 'limit' && strtolower(current($this->_tokens)) != false
 			   && strtolower(current($this->_tokens)) !== 'offset') {
-
 			switch (strtolower(current($this->_tokens))) {
 				case 'desc':
 					$this->_fastForward();
 					$this->_fastForward();
-
 					if ($this->_varCheck(current($this->_tokens))) {
 						$val['val'] = current($this->_tokens);
 					} else {
 						if ($this->_iriCheck(current($this->_tokens)) || $this->_qnameCheck(current($this->_tokens)) ||
 							in_array(current($this->_tokens), $this->_sops)) {
-
 							$fName = current($this->_tokens);
-
 							do {
 								$this->_fastForward();
 								$fName .= current($this->_tokens);
 							} while (current($this->_tokens) !== ')');
-
 							$val['val'] = $fName;
 						} else {
 							throw new ParserException('Variable expected in ORDER BY clause.', -1,
 								key($this->_tokens));
 						}
 					}
-
 					$this->_fastForward();
-
 					if (current($this->_tokens) != ')') {
 						throw new ParserException('missing ")" in ORDER BY clause.', -1,
 							key($this->_tokens));
 					}
-
 					$val['type'] = 'desc';
 					$this->_fastForward();
 					break;
 				case 'asc':
 					$this->_fastForward();
 					$this->_fastForward();
-
 					if ($this->_varCheck(current($this->_tokens))) {
 						$val['val'] = current($this->_tokens);
 					} else {
 						if ($this->_iriCheck(current($this->_tokens)) || $this->_qnameCheck(current($this->_tokens)) ||
 							in_array(current($this->_tokens), $this->_sops)) {
-
 							$fName = current($this->_tokens);
-
 							do {
 								$this->_fastForward();
 								$fName .= current($this->_tokens);
 							} while (current($this->_tokens) !== ')');
-
 							$val['val'] = $fName;
 						} else {
 							throw new ParserException('Variable expected in ORDER BY clause. ', -1,
 								key($this->_tokens));
 						}
 					}
-
 					$this->_fastForward();
-
 					if (current($this->_tokens) !== ')') {
 						throw new ParserException('missing ")" in ORDER BY clause.', -1,
 							key($this->_tokens));
 					}
-
 					$val['type'] = 'asc';
 					$this->_fastForward();
 					break;
@@ -1367,14 +1254,11 @@ class Parser {
 					} else {
 						if ($this->_iriCheck(current($this->_tokens)) || $this->_qnameCheck(current($this->_tokens)) ||
 							in_array(current($this->_tokens), self::$_sops)) {
-
 							$fName = current($this->_tokens);
-
 							do {
 								$this->_fastForward();
 								$fName .= current($this->_tokens);
 							} while (current($this->_tokens) !== ')');
-
 							$val['val'] = $fName;
 						} else {
 							//TODO: fix recognition of "ORDER BY ASC(?x)"
@@ -1382,7 +1266,6 @@ class Parser {
 							//              key($this->_tokens));
 						}
 					}
-
 					$this->_fastForward();
 					break;
 			}
@@ -1467,7 +1350,6 @@ class Parser {
 		} else {
 			$this->_query->setResultForm('select');
 		}
-
 		$currentVar = null;
 		$currentFunc = null;
 		$bWaitForRenaming = false;
@@ -1475,7 +1357,6 @@ class Parser {
 			$this->_fastForward();
 			$curTok = current($this->_tokens);
 			$curLow = strtolower($curTok);
-
 			if ($this->_varCheck($curTok) || $curLow == '*') {
 				if ($bWaitForRenaming) {
 					$bWaitForRenaming = false;
@@ -1509,18 +1390,15 @@ class Parser {
 					}
 				}
 			}
-
 			if (!current($this->_tokens)) {
 				throw new ParserException(
 					'Unexpected end of query.', -1, key($this->_tokens));
 			}
 		}
-
 		if ($currentVar != null) {
 			$this->_query->addResultVar($currentVar);
 		}
 		prev($this->_tokens);
-
 		if (count($this->_query->getResultVars()) == 0) {
 			throw new ParserException('Variable or "*" expected.', -1, key($this->_tokens));
 		}
@@ -1543,7 +1421,6 @@ class Parser {
 		$tmp = '';
 		$tmpPred = '';
 		$obj = '';
-
 		do {
 			switch (strtolower(current($this->_tokens))) {
 				case false:
@@ -1552,13 +1429,10 @@ class Parser {
 					break;
 				case 'filter':
 					$this->_parseConstraint($pattern, false);
-
 					if (strtolower(current($this->_tokens)) !== 'filter' &&
 						strtolower(current($this->_tokens)) !== 'optional') {
-
 						$this->_fastForward();
 					}
-
 					$needsDot = false;
 					break;
 				case 'optional':
@@ -1578,7 +1452,6 @@ class Parser {
 							key($this->_tokens));
 					}
 					$this->_fastForward();
-
 					$prev = true;
 					$needsDot = false;
 					$this->_fastForward();
@@ -1587,7 +1460,6 @@ class Parser {
 					if ($dotAllowed === false) {
 						throw new ParserException('A dot is not allowed here.', -1, key($this->_tokens));
 					}
-
 					// Check whether the previous token is a dot too, for this is not allowed.
 					$this->_rewind();
 					if (current($this->_tokens) === '.') {
@@ -1595,7 +1467,6 @@ class Parser {
 							key($this->_tokens));
 					}
 					$this->_fastForward();
-
 					$prev = false;
 					$needsDot = false;
 					$this->_fastForward();
@@ -1606,7 +1477,6 @@ class Parser {
 				case ',':
 					throw new ParserException('A comma is not allowed directly after a triple.', -1,
 						key($this->_tokens));
-
 					$prev = true;
 					$prevPred = true;
 					$this->_fastForward();
@@ -1648,9 +1518,7 @@ class Parser {
 						throw new ParserException('Two triple pattern need to be seperated by a dot. In Query: ' . htmlentities($this->_query), -1,
 							key($this->_tokens));
 					}
-
 					$dotAllowed = false;
-
 					if ($prev) {
 						$sub = $tmp;
 					} else {
@@ -1666,17 +1534,14 @@ class Parser {
 							throw new ParserException('Predicates may not be blank nodes.', -1,
 								key($this->_tokens));
 						}
-
 						$pre = $this->_parseNode();
 						$this->_fastForward();
 						$tmpPred = $pre;
 					}
-
 					if (current($this->_tokens) === '[') {
 						$tmp = $this->_parseNode($this->_query->getBlanknodeLabel());
 						$prev = true;
 						$obj = $tmp;
-
 						$trp[] = new QueryTriple($sub, $pre, $obj);
 						$dotAllowed = true;
 						$this->_fastForward();
@@ -1688,7 +1553,6 @@ class Parser {
 							$obj = $this->_parseNode();
 						}
 					}
-
 					$trp[] = new QueryTriple($sub, $pre, $obj);
 					$dotAllowed = true;
 					$needsDot = true;
@@ -1696,7 +1560,6 @@ class Parser {
 					break;
 			}
 		} while ($cont);
-
 		if (count($trp) > 0) {
 			$pattern->addTriplePatterns($trp);
 		}
@@ -1709,7 +1572,6 @@ class Parser {
 	 */
 	protected function _parseWhere() {
 		$this->_fastForward();
-
 		if (current($this->_tokens) === '{') {
 			$this->_parseGraphPattern();
 		} else {
@@ -1724,7 +1586,6 @@ class Parser {
 	 */
 	protected function _prepare() {
 		$this->_query = new Query();
-
 		$this->_tokens = array();
 		$this->_tmp = null;
 	}
@@ -1738,7 +1599,6 @@ class Parser {
 	 */
 	protected function _qnameCheck($token) {
 		$pattern = "/^([^:^\<]*):([^:]*)$/";
-
 		if (preg_match($pattern, $token, $hits) > 0) {
 			$prefs = $this->_query->getPrefixes();
 			if (isset($prefs[$hits{1}])) {
@@ -1747,7 +1607,6 @@ class Parser {
 			if ($hits{1} === '_') {
 				return true;
 			}
-
 			throw new ParserException('Unbound Prefix: <i>' . $hits{1} . '</i>', -1, key($this->_tokens));
 		} else {
 			return false;
@@ -1770,7 +1629,6 @@ class Parser {
 			$this->_query->addUsedVar($token);
 			return true;
 		}
-
 		return false;
 	}
 

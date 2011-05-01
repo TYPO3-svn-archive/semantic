@@ -38,16 +38,13 @@ class PropertyList {
 		}
 	}
 
-
 	public function addProperty(Interfaces\Verb $verb, ObjectList $objList) {
 		$this->properties[] = array('verb' => $verb, 'objList' => $objList);
 	}
 
 	public function getSparql() {
 		$ret = '';
-
 		$countProperties = count($this->properties);
-
 		for ($i = 0; $i < $countProperties; ++$i) {
 			$ret .= "\t" . $this->properties[$i]['verb'] . " " . $this->properties[$i]['objList'];
 			if (isset($this->properties[$i + 1])) {
@@ -63,9 +60,7 @@ class PropertyList {
 
 	public function getVars() {
 		$ret = array();
-
 		$countProperties = count($this->properties);
-
 		for ($i = 0; $i < $countProperties; ++$i) {
 			if ($this->properties[$i]['verb'] instanceof Variable) {
 				$ret[] = $this->properties[$i]['verb'];

@@ -37,7 +37,8 @@ namespace T3\Semantic\Authentication\Adapter;
  * @subpackage $SUBPACKAGE$
  * @scope singleton
  */
-class Rdf implements \Zend_Auth_Adapter_Interface {
+use \T3\Semantic\Sparql;
+class Rdf implements AdapterInterface {
 
 	/** @var string */
 	protected $username = null;
@@ -53,6 +54,12 @@ class Rdf implements \Zend_Auth_Adapter_Interface {
 
 	/** @var boolean */
 	protected $userDataFetched = false;
+
+	/** @var string */
+	protected $databaseUsername = null;
+
+	/** @var string */
+	protected $databasePassword = null;
 
 	/** @var array */
 	protected $uris = null;
@@ -118,22 +125,26 @@ class Rdf implements \Zend_Auth_Adapter_Interface {
 	/**
 	 * Performs an authentication attempt
 	 *
-	 * @throws \Zend_Auth_Adapter_Exception If authentication cannot be performed
-	 * @return \Zend_Auth_Result
+	 * @throws \
+	 *
+	 *
+	 *  If authentication cannot be performed
+	 * @return \T3\Semantic\Authentication\Result
 	 */
 	public function authenticate() {
 
-		if ($this->_isLoginDisabled() === true || $this->username === 'Anonymous') {
-			$authResult = new \Zend_Auth_Result(\Zend_Auth_Result::SUCCESS, $this->_getAnonymousUser());
+		if ($this->isLoginDisabled() === true || $this->username === 'Anonymous') {
+			$authResult = new \T3\Semantic\Authentication\Result(\T3\Semantic\Authentication\Result::SUCCESS, $this->getAnonymousUser());
 		} else {
-			if ($this->_isDbUserAllowed() && $this->username === $this->databaseUsername() &&
+			if ($this->isDatabaseUserAllowed() && $this->username === $this->getDatabaseUsername() &&
 				// super admin
 				$this->password === $this->getDatabasePassword()) {
 
-				$authResult = new \Zend_Auth_Result(\Zend_Auth_Result::SUCCESS, $this->_getSuperAdmin());
+				$authResult = new \T3\Semantic\Authentication\Result(\T3\Semantic\Authentication\Result::SUCCESS, $this->getSuperAdmin());
 			} else {
 				// normal user from system ontology
 				$identity = array(
+
 					'username' => $this->username,
 					'uri' => '',
 					'dbuser' => false,
@@ -147,24 +158,24 @@ class Rdf implements \Zend_Auth_Adapter_Interface {
 				if ($cachedVal) {
 					$this->users[$this->username] = $cachedVal;
 				} else {
-					$this->users[$this->username] = $this->_fetchDataForUser($this->username);
+					$this->users[$this->username] = $this->fetchDataForUser($this->username);
 					$cache->save($this->users[$this->username]);
 				}
 
 				// if login is denied return failure auth result
 				if ($this->users[$this->username]['denyLogin'] === true) {
-					$authResult = new \Zend_Auth_Result(\Zend_Auth_Result::FAILURE, null, array('Login not allowed!'));
+					$authResult = new \T3\Semantic\Authentication\Result(\T3\Semantic\Authentication\Result::FAILURE, null, array('Login not allowed!'));
 				} else {
 					if ($this->users[$this->username]['userUri'] === false) {
 						// does user not exist?
-						$authResult = new \Zend_Auth_Result(\Zend_Auth_Result::FAILURE, null, array('Unknown user identifier.'));
+						$authResult = new \T3\Semantic\Authentication\Result(\T3\Semantic\Authentication\Result::FAILURE, null, array('Unknown user identifier.'));
 					} else {
 						// verify the password
 						if (!$this->_verifyPassword($this->password, $this->users[$this->username]['userPassword'], 'sha1')
 							&& !$this->_verifyPassword($this->password, $this->users[$this->username]['userPassword'], '')) {
 
-							$authResult = new \Zend_Auth_Result(
-								\Zend_Auth_Result::FAILURE, null, array('Wrong password entered!')
+							$authResult = new \T3\Semantic\Authentication\Result(
+								\T3\Semantic\Authentication\Result::FAILURE, null, array('Wrong password entered!')
 							);
 						} else {
 							$identity['uri'] = $this->users[$this->username]['userUri'];
@@ -172,7 +183,7 @@ class Rdf implements \Zend_Auth_Adapter_Interface {
 
 							$identityObject = $this->objectManager->create('\T3\Semantic\Authentication\Identity', $identity);
 
-							$authResult = new \Zend_Auth_Result(\Zend_Auth_Result::SUCCESS, $identityObject);
+							$authResult = new \T3\Semantic\Authentication\Result(\T3\Semantic\Authentication\Result::SUCCESS, $identityObject);
 						}
 					}
 				}
@@ -192,7 +203,7 @@ class Rdf implements \Zend_Auth_Adapter_Interface {
 	 *
 	 * @return array
 	 */
-	private function _fetchDataForUser($username) {
+	private function fetchDataForUser($username) {
 
 		$returnVal = array(
 			'userUri' => false,
@@ -201,9 +212,9 @@ class Rdf implements \Zend_Auth_Adapter_Interface {
 			'userEmail' => ''
 		);
 
-		$uris = $this->_getUris();
+		$uris = $this->getUris();
 
-		$sparqlQuery = new \Erfurt_Sparql_SimpleQuery();
+		$sparqlQuery = $this->objectManager->create('\T3\Semantic\Sparql\SimpleQuery');
 		$sparqlQuery->setProloguePart('SELECT ?subject ?predicate ?object');
 
 		$wherePart = 'WHERE { ?subject ?predicate ?object . ?subject <' . EF_RDF_TYPE . '> <' .
@@ -249,9 +260,9 @@ class Rdf implements \Zend_Auth_Adapter_Interface {
 	 * @return void
 	 */
 	public function fetchDataForAllUsers() {
-		$uris = $this->_getUris();
+		$uris = $this->getUris();
 
-		$userSparql = new \Erfurt_Sparql_SimpleQuery();
+		$userSparql = new Sparql\SimpleQuery();
 		$userSparql->setProloguePart('SELECT ?subject ?predicate ?object');
 
 		$wherePart = 'WHERE { ?subject ?predicate ?object . ?subject <' . EF_RDF_TYPE . '> <' .
@@ -348,8 +359,9 @@ class Rdf implements \Zend_Auth_Adapter_Interface {
 			$sparqlQuery->addFrom($this->accessModelUri());
 			$result = $this->getStore()->sparqlQuery($sparqlQuery, array('use_ac' => false));
 		}
-		catch (Exception $e) {
+		catch (\Exception $e) {
 			var_dump($e);
+
 			exit;
 			return null;
 		}
@@ -362,8 +374,8 @@ class Rdf implements \Zend_Auth_Adapter_Interface {
 	 *
 	 * @return array
 	 */
-	private function _getAnonymousUser() {
-		$uris = $this->_getUris();
+	private function getAnonymousUser() {
+		$uris = $this->getUris();
 
 		$user = array(
 			'username' => 'Anonymous',
@@ -383,8 +395,8 @@ class Rdf implements \Zend_Auth_Adapter_Interface {
 	 *
 	 * @return array
 	 */
-	private function _getSuperAdmin() {
-		$uris = $this->_getUris();
+	private function getSuperAdmin() {
+		$uris = $this->getUris();
 
 		$user = array(
 			'username' => 'SuperAdmin',
@@ -399,6 +411,22 @@ class Rdf implements \Zend_Auth_Adapter_Interface {
 		return $identityObject;
 	}
 
+	private function getDatabaseUsername() {
+		if (null === $this->databaseUsername) {
+			$this->databaseUsername = $this->getStore()->getDbUser();
+		}
+
+		return $this->databaseUsername;
+	}
+
+	private function getDatabasePassword() {
+		if (null === $this->databasePassword) {
+			$this->databasePassword = $this->getStore()->getDbPassword();
+		}
+
+		return $this->databasePassword;
+	}
+
 	private function getStore() {
 		return $this->store;
 	}
@@ -411,7 +439,7 @@ class Rdf implements \Zend_Auth_Adapter_Interface {
 		return $this->accessModelUri;
 	}
 
-	private function _getUris() {
+	private function getUris() {
 		if (null === $this->uris) {
 			$accessControlConfiguration = $this->knowledgeBase->getAccessControlConfiguration();
 			$this->uris = array(
@@ -429,7 +457,7 @@ class Rdf implements \Zend_Auth_Adapter_Interface {
 		return $this->uris;
 	}
 
-	private function _isLoginDisabled() {
+	private function isLoginDisabled() {
 		if (null === $this->loginDisabled) {
 			if (isset($this->knowledgeBase->getAccessControlConfiguration()->deactivateLogin) && ((boolean)$this->knowledgeBase->getAccessControlConfiguration()->deactivateLogin === true)) {
 				$this->loginDisabled = true;
@@ -439,7 +467,7 @@ class Rdf implements \Zend_Auth_Adapter_Interface {
 		return $this->loginDisabled;
 	}
 
-	private function _isDbUserAllowed() {
+	private function isDatabaseUserAllowed() {
 		if (null === $this->databaseUserAllowed) {
 			if (isset($this->knowledgeBase->getAccessControlConfiguration()->allowDbUser) && ((boolean)$this->knowledgeBase->getAccessControlConfiguration()->allowDbUser === true)) {
 				$this->databaseUserAllowed = true;

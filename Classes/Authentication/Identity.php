@@ -27,7 +27,6 @@ namespace T3\Semantic\Authentication;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * One-sentence description of Auth.
  *
@@ -105,7 +104,6 @@ class Identity {
 	 * @return void
 	 */
 	public function initializeObject() {
-		$config = Erfurt_App::getInstance()->getConfig();
 		$this->propertyUris['username'] = $this->knowledgeBase->getAccessControlConfiguration()->user->name;
 		$this->propertyUris['email'] = $this->knowledgeBase->getAccessControlConfiguration()->user->mail;
 		$this->propertyUris['label'] = EF_RDFS_LABEL;

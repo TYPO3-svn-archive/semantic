@@ -49,7 +49,6 @@ class Tokenizer_DFA15_static {
 		$arr['max'] = \DFA::unpackRLE($max, true);
 		$arr['accept'] = \DFA::unpackRLE($accept);
 		$arr['special'] = \DFA::unpackRLE($special);
-
 		$numStates = sizeof($transitionS);
 		$arr['transition'] = array();
 		for ($i = 0; $i < $numStates; $i++) {
@@ -434,7 +433,6 @@ class Tokenizer_DFA36_static {
 		$arr['max'] = \DFA::unpackRLE($max, true);
 		$arr['accept'] = \DFA::unpackRLE($accept);
 		$arr['special'] = \DFA::unpackRLE($special);
-
 		$numStates = sizeof($transitionS);
 		$arr['transition'] = array();
 		for ($i = 0; $i < $numStates; $i++) {
@@ -505,7 +503,6 @@ class Tokenizer_DFA36 extends \DFA {
 		throw $nvae;
 	}
 }
-
 
 class Tokenizer extends \AntlrLexer {
 	static $PREFIX = 5;
@@ -636,7 +633,6 @@ class Tokenizer extends \AntlrLexer {
 			// Tokenizer.g:27:3: 'base'
 			{
 				$this->matchString("base");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -655,7 +651,6 @@ class Tokenizer extends \AntlrLexer {
 			// Tokenizer.g:32:3: 'prefix'
 			{
 				$this->matchString("prefix");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -674,7 +669,6 @@ class Tokenizer extends \AntlrLexer {
 			// Tokenizer.g:42:3: 'not'
 			{
 				$this->matchString("not");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -693,7 +687,6 @@ class Tokenizer extends \AntlrLexer {
 			// Tokenizer.g:47:3: 'select'
 			{
 				$this->matchString("select");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -712,7 +705,6 @@ class Tokenizer extends \AntlrLexer {
 			// Tokenizer.g:52:3: 'distinct'
 			{
 				$this->matchString("distinct");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -731,7 +723,6 @@ class Tokenizer extends \AntlrLexer {
 			// Tokenizer.g:57:3: 'reduced'
 			{
 				$this->matchString("reduced");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -750,7 +741,6 @@ class Tokenizer extends \AntlrLexer {
 			// Tokenizer.g:62:3: 'construct'
 			{
 				$this->matchString("construct");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -769,7 +759,6 @@ class Tokenizer extends \AntlrLexer {
 			// Tokenizer.g:67:3: 'describe'
 			{
 				$this->matchString("describe");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -788,7 +777,6 @@ class Tokenizer extends \AntlrLexer {
 			// Tokenizer.g:72:3: 'ask'
 			{
 				$this->matchString("ask");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -807,7 +795,6 @@ class Tokenizer extends \AntlrLexer {
 			// Tokenizer.g:77:3: 'from'
 			{
 				$this->matchString("from");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -826,7 +813,6 @@ class Tokenizer extends \AntlrLexer {
 			// Tokenizer.g:82:3: 'named'
 			{
 				$this->matchString("named");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -845,7 +831,6 @@ class Tokenizer extends \AntlrLexer {
 			// Tokenizer.g:87:3: 'where'
 			{
 				$this->matchString("where");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -864,7 +849,6 @@ class Tokenizer extends \AntlrLexer {
 			// Tokenizer.g:92:3: 'order'
 			{
 				$this->matchString("order");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -883,7 +867,6 @@ class Tokenizer extends \AntlrLexer {
 			// Tokenizer.g:97:3: 'group'
 			{
 				$this->matchString("group");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -902,7 +885,6 @@ class Tokenizer extends \AntlrLexer {
 			// Tokenizer.g:102:3: 'by'
 			{
 				$this->matchString("by");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -921,7 +903,6 @@ class Tokenizer extends \AntlrLexer {
 			// Tokenizer.g:107:3: 'asc'
 			{
 				$this->matchString("asc");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -940,7 +921,6 @@ class Tokenizer extends \AntlrLexer {
 			// Tokenizer.g:112:3: 'desc'
 			{
 				$this->matchString("desc");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -959,7 +939,6 @@ class Tokenizer extends \AntlrLexer {
 			// Tokenizer.g:117:3: 'limit'
 			{
 				$this->matchString("limit");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -978,7 +957,6 @@ class Tokenizer extends \AntlrLexer {
 			// Tokenizer.g:122:3: 'offset'
 			{
 				$this->matchString("offset");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -997,7 +975,6 @@ class Tokenizer extends \AntlrLexer {
 			// Tokenizer.g:127:3: 'optional'
 			{
 				$this->matchString("optional");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -1016,7 +993,6 @@ class Tokenizer extends \AntlrLexer {
 			// Tokenizer.g:132:3: 'graph'
 			{
 				$this->matchString("graph");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -1035,7 +1011,6 @@ class Tokenizer extends \AntlrLexer {
 			// Tokenizer.g:137:3: 'union'
 			{
 				$this->matchString("union");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -1054,7 +1029,6 @@ class Tokenizer extends \AntlrLexer {
 			// Tokenizer.g:142:3: 'filter'
 			{
 				$this->matchString("filter");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -1073,7 +1047,6 @@ class Tokenizer extends \AntlrLexer {
 			// Tokenizer.g:152:3: 'as'
 			{
 				$this->matchString("as");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -1092,7 +1065,6 @@ class Tokenizer extends \AntlrLexer {
 			// Tokenizer.g:157:3: 'str'
 			{
 				$this->matchString("str");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -1111,7 +1083,6 @@ class Tokenizer extends \AntlrLexer {
 			// Tokenizer.g:162:3: 'lang'
 			{
 				$this->matchString("lang");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -1130,7 +1101,6 @@ class Tokenizer extends \AntlrLexer {
 			// Tokenizer.g:167:3: 'langmatches'
 			{
 				$this->matchString("langmatches");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -1149,7 +1119,6 @@ class Tokenizer extends \AntlrLexer {
 			// Tokenizer.g:172:3: 'datatype'
 			{
 				$this->matchString("datatype");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -1168,7 +1137,6 @@ class Tokenizer extends \AntlrLexer {
 			// Tokenizer.g:177:3: 'bound'
 			{
 				$this->matchString("bound");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -1187,7 +1155,6 @@ class Tokenizer extends \AntlrLexer {
 			// Tokenizer.g:182:3: 'sameterm'
 			{
 				$this->matchString("sameterm");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -1206,7 +1173,6 @@ class Tokenizer extends \AntlrLexer {
 			// Tokenizer.g:187:3: 'isiri'
 			{
 				$this->matchString("isiri");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -1225,7 +1191,6 @@ class Tokenizer extends \AntlrLexer {
 			// Tokenizer.g:192:3: 'isuri'
 			{
 				$this->matchString("isuri");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -1244,7 +1209,6 @@ class Tokenizer extends \AntlrLexer {
 			// Tokenizer.g:197:3: 'isblank'
 			{
 				$this->matchString("isblank");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -1263,7 +1227,6 @@ class Tokenizer extends \AntlrLexer {
 			// Tokenizer.g:202:3: 'isliteral'
 			{
 				$this->matchString("isliteral");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -1282,7 +1245,6 @@ class Tokenizer extends \AntlrLexer {
 			// Tokenizer.g:207:3: 'regex'
 			{
 				$this->matchString("regex");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -1301,7 +1263,6 @@ class Tokenizer extends \AntlrLexer {
 			// Tokenizer.g:212:3: 'true'
 			{
 				$this->matchString("true");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -1320,7 +1281,6 @@ class Tokenizer extends \AntlrLexer {
 			// Tokenizer.g:217:3: 'false'
 			{
 				$this->matchString("false");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -1352,7 +1312,6 @@ class Tokenizer extends \AntlrLexer {
 							$alt1 = 2;
 						}
 					}
-
 					switch ($alt1) {
 						case 1 :
 							// Tokenizer.g:229:5: ~ ( LESS | GREATER | '\"' | OPEN_CURLY_BRACE | CLOSE_CURLY_BRACE | '|' | '^' | '\\\\' | '`' | ( '\\u0000' .. '\\u0020' ) )
@@ -1365,7 +1324,6 @@ class Tokenizer extends \AntlrLexer {
 								$this->recover($mse);
 								throw $mse;
 							}
-
 							}
 							break;
 						default :
@@ -1514,7 +1472,6 @@ class Tokenizer extends \AntlrLexer {
 					if ((($LA3_0 >= $this->getToken('97') && $LA3_0 <= $this->getToken('122')))) {
 						$alt3 = 1;
 					}
-
 					switch ($alt3) {
 						case 1 :
 							// Tokenizer.g:267:9: ( 'a' .. 'z' )
@@ -1524,7 +1481,6 @@ class Tokenizer extends \AntlrLexer {
 								{
 									$this->matchRange(97, 122);
 								}
-
 							}
 								break;
 						default :
@@ -1545,7 +1501,6 @@ class Tokenizer extends \AntlrLexer {
 					if (($LA5_0 == $this->getToken('45'))) {
 						$alt5 = 1;
 					}
-
 					switch ($alt5) {
 						case 1 :
 							// Tokenizer.g:269:5: MINUS ( ( 'a' .. 'z' ) ( '0' .. '9' ) )+
@@ -1560,7 +1515,6 @@ class Tokenizer extends \AntlrLexer {
 								if ((($LA4_0 >= $this->getToken('97') && $LA4_0 <= $this->getToken('122')))) {
 									$alt4 = 1;
 								}
-
 								switch ($alt4) {
 									case 1 :
 										// Tokenizer.g:271:7: ( 'a' .. 'z' ) ( '0' .. '9' )
@@ -1575,7 +1529,6 @@ class Tokenizer extends \AntlrLexer {
 											{
 												$this->matchRange(48, 57);
 											}
-
 										}
 											break;
 									default :
@@ -1588,7 +1541,6 @@ class Tokenizer extends \AntlrLexer {
 								}
 								$cnt4++;
 							} while (true);
-
 							}
 							break;
 						default :
@@ -1623,7 +1575,6 @@ class Tokenizer extends \AntlrLexer {
 					if ((($LA6_0 >= $this->getToken('48') && $LA6_0 <= $this->getToken('57')))) {
 						$alt6 = 1;
 					}
-
 					switch ($alt6) {
 						case 1 :
 							// Tokenizer.g:278:4: '0' .. '9'
@@ -1641,7 +1592,6 @@ class Tokenizer extends \AntlrLexer {
 					}
 					$cnt6++;
 				} while (true);
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -1684,7 +1634,6 @@ class Tokenizer extends \AntlrLexer {
 						if ((($LA7_0 >= $this->getToken('48') && $LA7_0 <= $this->getToken('57')))) {
 							$alt7 = 1;
 						}
-
 						switch ($alt7) {
 							case 1 :
 								// Tokenizer.g:283:4: '0' .. '9'
@@ -1711,7 +1660,6 @@ class Tokenizer extends \AntlrLexer {
 						if ((($LA8_0 >= $this->getToken('48') && $LA8_0 <= $this->getToken('57')))) {
 							$alt8 = 1;
 						}
-
 						switch ($alt8) {
 							case 1 :
 								// Tokenizer.g:283:20: '0' .. '9'
@@ -1724,7 +1672,6 @@ class Tokenizer extends \AntlrLexer {
 							//loop8;
 						}
 					} while (true);
-
 					}
 					break;
 				case 2 :
@@ -1740,7 +1687,6 @@ class Tokenizer extends \AntlrLexer {
 						if ((($LA9_0 >= $this->getToken('48') && $LA9_0 <= $this->getToken('57')))) {
 							$alt9 = 1;
 						}
-
 						switch ($alt9) {
 							case 1 :
 								// Tokenizer.g:284:10: '0' .. '9'
@@ -1758,7 +1704,6 @@ class Tokenizer extends \AntlrLexer {
 						}
 						$cnt9++;
 					} while (true);
-
 					}
 					break;
 			}
@@ -1791,7 +1736,6 @@ class Tokenizer extends \AntlrLexer {
 						if ((($LA11_0 >= $this->getToken('48') && $LA11_0 <= $this->getToken('57')))) {
 							$alt11 = 1;
 						}
-
 						switch ($alt11) {
 							case 1 :
 								// Tokenizer.g:289:3: DIGIT
@@ -1818,7 +1762,6 @@ class Tokenizer extends \AntlrLexer {
 						if ((($LA12_0 >= $this->getToken('48') && $LA12_0 <= $this->getToken('57')))) {
 							$alt12 = 1;
 						}
-
 						switch ($alt12) {
 							case 1 :
 								// Tokenizer.g:289:14: DIGIT
@@ -1847,7 +1790,6 @@ class Tokenizer extends \AntlrLexer {
 						if ((($LA13_0 >= $this->getToken('48') && $LA13_0 <= $this->getToken('57')))) {
 							$alt13 = 1;
 						}
-
 						switch ($alt13) {
 							case 1 :
 								// Tokenizer.g:290:9: DIGIT
@@ -1880,7 +1822,6 @@ class Tokenizer extends \AntlrLexer {
 						if ((($LA14_0 >= $this->getToken('48') && $LA14_0 <= $this->getToken('57')))) {
 							$alt14 = 1;
 						}
-
 						switch ($alt14) {
 							case 1 :
 								// Tokenizer.g:291:5: DIGIT
@@ -2081,7 +2022,6 @@ class Tokenizer extends \AntlrLexer {
 							$this->recover($mse);
 							throw $mse;
 						}
-
 						}
 						break;
 				}
@@ -2094,7 +2034,6 @@ class Tokenizer extends \AntlrLexer {
 					if ((($LA17_0 >= $this->getToken('48') && $LA17_0 <= $this->getToken('57')))) {
 						$alt17 = 1;
 					}
-
 					switch ($alt17) {
 						case 1 :
 							// Tokenizer.g:338:4: '0' .. '9'
@@ -2112,7 +2051,6 @@ class Tokenizer extends \AntlrLexer {
 					}
 					$cnt17++;
 				} while (true);
-
 			}
 		}
 		catch (\Exception $e) {
@@ -2152,11 +2090,9 @@ class Tokenizer extends \AntlrLexer {
 										$alt18 = 3;
 									}
 								}
-
 							}
 						}
 					}
-
 					switch ($alt18) {
 						case 1 :
 							// Tokenizer.g:345:5: ~ ( '\\'' | '\\\\' | '\\n' | '\\r' )
@@ -2169,7 +2105,6 @@ class Tokenizer extends \AntlrLexer {
 								$this->recover($mse);
 								throw $mse;
 							}
-
 							}
 							break;
 						case 2 :
@@ -2231,11 +2166,9 @@ class Tokenizer extends \AntlrLexer {
 										$alt19 = 3;
 									}
 								}
-
 							}
 						}
 					}
-
 					switch ($alt19) {
 						case 1 :
 							// Tokenizer.g:361:5: ~ ( '\\\"' | '\\\\' | '\\n' | '\\r' )
@@ -2248,7 +2181,6 @@ class Tokenizer extends \AntlrLexer {
 								$this->recover($mse);
 								throw $mse;
 							}
-
 							}
 							break;
 						case 2 :
@@ -2304,21 +2236,18 @@ class Tokenizer extends \AntlrLexer {
 									$alt22 = 1;
 								}
 							}
-
 						}
 						else {
 							if ((($LA22_1 >= $this->getToken('0') && $LA22_1 <= $this->getToken('38')) || ($LA22_1 >= $this->getToken('40') && $LA22_1 <= $this->getToken('65535')))) {
 								$alt22 = 1;
 							}
 						}
-
 					}
 					else {
 						if ((($LA22_0 >= $this->getToken('0') && $LA22_0 <= $this->getToken('38')) || ($LA22_0 >= $this->getToken('40') && $LA22_0 <= $this->getToken('65535')))) {
 							$alt22 = 1;
 						}
 					}
-
 					switch ($alt22) {
 						case 1 :
 							// Tokenizer.g:378:5: ( '\\'' | '\\'\\'' )? (~ ( '\\'' | '\\\\' ) | ECHAR | UNICODE_CHAR )
@@ -2348,7 +2277,6 @@ class Tokenizer extends \AntlrLexer {
 									// Tokenizer.g:380:9: '\\'\\''
 									{
 									$this->matchString("''");
-
 									}
 									break;
 							}
@@ -2391,7 +2319,6 @@ class Tokenizer extends \AntlrLexer {
 										$this->recover($mse);
 										throw $mse;
 									}
-
 									}
 									break;
 								case 2 :
@@ -2407,7 +2334,6 @@ class Tokenizer extends \AntlrLexer {
 									}
 									break;
 							}
-
 							}
 							break;
 						default :
@@ -2416,7 +2342,6 @@ class Tokenizer extends \AntlrLexer {
 					}
 				} while (true);
 				$this->matchString("'''");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -2452,21 +2377,18 @@ class Tokenizer extends \AntlrLexer {
 									$alt25 = 1;
 								}
 							}
-
 						}
 						else {
 							if ((($LA25_1 >= $this->getToken('0') && $LA25_1 <= $this->getToken('33')) || ($LA25_1 >= $this->getToken('35') && $LA25_1 <= $this->getToken('65535')))) {
 								$alt25 = 1;
 							}
 						}
-
 					}
 					else {
 						if ((($LA25_0 >= $this->getToken('0') && $LA25_0 <= $this->getToken('33')) || ($LA25_0 >= $this->getToken('35') && $LA25_0 <= $this->getToken('65535')))) {
 							$alt25 = 1;
 						}
 					}
-
 					switch ($alt25) {
 						case 1 :
 							// Tokenizer.g:397:5: ( '\"' | '\"\"' )? (~ ( '\"' | '\\\\' ) | ECHAR | UNICODE_CHAR )
@@ -2496,7 +2418,6 @@ class Tokenizer extends \AntlrLexer {
 									// Tokenizer.g:399:9: '\"\"'
 									{
 									$this->matchString("\"\"");
-
 									}
 									break;
 							}
@@ -2539,7 +2460,6 @@ class Tokenizer extends \AntlrLexer {
 										$this->recover($mse);
 										throw $mse;
 									}
-
 									}
 									break;
 								case 2 :
@@ -2555,7 +2475,6 @@ class Tokenizer extends \AntlrLexer {
 									}
 									break;
 							}
-
 							}
 							break;
 						default :
@@ -2564,7 +2483,6 @@ class Tokenizer extends \AntlrLexer {
 					}
 				} while (true);
 				$this->matchString("\"\"\"");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -2589,7 +2507,6 @@ class Tokenizer extends \AntlrLexer {
 					$this->recover($mse);
 					throw $mse;
 				}
-
 			}
 		}
 		catch (\Exception $e) {
@@ -2630,7 +2547,6 @@ class Tokenizer extends \AntlrLexer {
 					$this->recover($mse);
 					throw $mse;
 				}
-
 			}
 		}
 		catch (\Exception $e) {
@@ -2655,7 +2571,6 @@ class Tokenizer extends \AntlrLexer {
 					if ((($LA26_0 >= $this->getToken('9') && $LA26_0 <= $this->getToken('10')) || $LA26_0 == $this->getToken('13') || $LA26_0 == $this->getToken('32'))) {
 						$alt26 = 1;
 					}
-
 					switch ($alt26) {
 						case 1 :
 							// Tokenizer.g:
@@ -2668,7 +2583,6 @@ class Tokenizer extends \AntlrLexer {
 								$this->recover($mse);
 								throw $mse;
 							}
-
 							}
 							break;
 						default :
@@ -2719,7 +2633,6 @@ class Tokenizer extends \AntlrLexer {
 					$this->recover($mse);
 					throw $mse;
 				}
-
 			}
 		}
 		catch (\Exception $e) {
@@ -2763,7 +2676,6 @@ class Tokenizer extends \AntlrLexer {
 							{
 								$this->matchRange(48, 57);
 							}
-
 						}
 							break;
 				}
@@ -2780,7 +2692,6 @@ class Tokenizer extends \AntlrLexer {
 							$alt28 = 2;
 						}
 					}
-
 					switch ($alt28) {
 						case 1 :
 							// Tokenizer.g:490:5: PN_CHARS_U
@@ -2796,7 +2707,6 @@ class Tokenizer extends \AntlrLexer {
 								{
 									$this->matchRange(48, 57);
 								}
-
 							}
 								break;
 						default :
@@ -2804,7 +2714,6 @@ class Tokenizer extends \AntlrLexer {
 						//loop28;
 					}
 				} while (true);
-
 			}
 		}
 		catch (\Exception $e) {
@@ -2857,7 +2766,6 @@ class Tokenizer extends \AntlrLexer {
 						{
 							$this->matchRange(48, 57);
 						}
-
 					}
 						break;
 			}
@@ -2894,7 +2802,6 @@ class Tokenizer extends \AntlrLexer {
 								if ((($LA30_1 >= $this->getToken('45') && $LA30_1 <= $this->getToken('46')) || ($LA30_1 >= $this->getToken('48') && $LA30_1 <= $this->getToken('57')) || $LA30_1 == $this->getToken('95') || ($LA30_1 >= $this->getToken('97') && $LA30_1 <= $this->getToken('122')))) {
 									$alt30 = 1;
 								}
-
 							}
 							else {
 								if ($this->getToken('45') == $LA30) {
@@ -2902,7 +2809,6 @@ class Tokenizer extends \AntlrLexer {
 									if ((($LA30_2 >= $this->getToken('45') && $LA30_2 <= $this->getToken('46')) || ($LA30_2 >= $this->getToken('48') && $LA30_2 <= $this->getToken('57')) || $LA30_2 == $this->getToken('95') || ($LA30_2 >= $this->getToken('97') && $LA30_2 <= $this->getToken('122')))) {
 										$alt30 = 1;
 									}
-
 								}
 								else {
 									if ($this->getToken('48') == $LA30 || $this->getToken('49') == $LA30 || $this->getToken('50') == $LA30 || $this->getToken('51') == $LA30 || $this->getToken('52') == $LA30 || $this->getToken('53') == $LA30 || $this->getToken('54') == $LA30 || $this->getToken('55') == $LA30 || $this->getToken('56') == $LA30 || $this->getToken('57') == $LA30) {
@@ -2910,7 +2816,6 @@ class Tokenizer extends \AntlrLexer {
 										if ((($LA30_3 >= $this->getToken('45') && $LA30_3 <= $this->getToken('46')) || ($LA30_3 >= $this->getToken('48') && $LA30_3 <= $this->getToken('57')) || $LA30_3 == $this->getToken('95') || ($LA30_3 >= $this->getToken('97') && $LA30_3 <= $this->getToken('122')))) {
 											$alt30 = 1;
 										}
-
 									}
 									else {
 										if ($this->getToken('46') == $LA30) {
@@ -2919,7 +2824,6 @@ class Tokenizer extends \AntlrLexer {
 									}
 								}
 							}
-
 							switch ($alt30) {
 								case 1 :
 									// Tokenizer.g:515:7: PN_CHARS
@@ -2942,7 +2846,6 @@ class Tokenizer extends \AntlrLexer {
 						}
 						break;
 				}
-
 			}
 		}
 		catch (\Exception $e) {
@@ -2988,7 +2891,6 @@ class Tokenizer extends \AntlrLexer {
 							{
 								$this->matchRange(48, 57);
 							}
-
 						}
 							break;
 				}
@@ -3012,7 +2914,6 @@ class Tokenizer extends \AntlrLexer {
 								if ((($LA33_1 >= $this->getToken('45') && $LA33_1 <= $this->getToken('46')) || ($LA33_1 >= $this->getToken('48') && $LA33_1 <= $this->getToken('57')) || $LA33_1 == $this->getToken('95') || ($LA33_1 >= $this->getToken('97') && $LA33_1 <= $this->getToken('122')))) {
 									$alt33 = 1;
 								}
-
 							}
 							else {
 								if ($this->getToken('45') == $LA33) {
@@ -3020,7 +2921,6 @@ class Tokenizer extends \AntlrLexer {
 									if ((($LA33_2 >= $this->getToken('45') && $LA33_2 <= $this->getToken('46')) || ($LA33_2 >= $this->getToken('48') && $LA33_2 <= $this->getToken('57')) || $LA33_2 == $this->getToken('95') || ($LA33_2 >= $this->getToken('97') && $LA33_2 <= $this->getToken('122')))) {
 										$alt33 = 1;
 									}
-
 								}
 								else {
 									if ($this->getToken('48') == $LA33 || $this->getToken('49') == $LA33 || $this->getToken('50') == $LA33 || $this->getToken('51') == $LA33 || $this->getToken('52') == $LA33 || $this->getToken('53') == $LA33 || $this->getToken('54') == $LA33 || $this->getToken('55') == $LA33 || $this->getToken('56') == $LA33 || $this->getToken('57') == $LA33) {
@@ -3028,7 +2928,6 @@ class Tokenizer extends \AntlrLexer {
 										if ((($LA33_3 >= $this->getToken('45') && $LA33_3 <= $this->getToken('46')) || ($LA33_3 >= $this->getToken('48') && $LA33_3 <= $this->getToken('57')) || $LA33_3 == $this->getToken('95') || ($LA33_3 >= $this->getToken('97') && $LA33_3 <= $this->getToken('122')))) {
 											$alt33 = 1;
 										}
-
 									}
 									else {
 										if ($this->getToken('46') == $LA33) {
@@ -3037,7 +2936,6 @@ class Tokenizer extends \AntlrLexer {
 									}
 								}
 							}
-
 							switch ($alt33) {
 								case 1 :
 									// Tokenizer.g:530:7: PN_CHARS
@@ -3060,7 +2958,6 @@ class Tokenizer extends \AntlrLexer {
 						}
 						break;
 				}
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -3102,7 +2999,6 @@ class Tokenizer extends \AntlrLexer {
 			// Tokenizer.g:544:3: '^^'
 			{
 				$this->matchString("^^");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -3121,7 +3017,6 @@ class Tokenizer extends \AntlrLexer {
 			// Tokenizer.g:549:3: '&&'
 			{
 				$this->matchString("&&");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -3140,7 +3035,6 @@ class Tokenizer extends \AntlrLexer {
 			// Tokenizer.g:554:3: '||'
 			{
 				$this->matchString("||");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -3190,7 +3084,6 @@ class Tokenizer extends \AntlrLexer {
 							$alt35 = 1;
 						}
 					}
-
 					switch ($alt35) {
 						case 1 :
 							// Tokenizer.g:561:7: .
@@ -3228,7 +3121,6 @@ class Tokenizer extends \AntlrLexer {
 					$this->recover($mse);
 					throw $mse;
 				}
-
 			}
 		}
 		catch (\Exception $e) {
@@ -3515,7 +3407,6 @@ class Tokenizer extends \AntlrLexer {
 			// Tokenizer.g:648:3: '<='
 			{
 				$this->matchString("<=");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -3534,7 +3425,6 @@ class Tokenizer extends \AntlrLexer {
 			// Tokenizer.g:653:3: '>='
 			{
 				$this->matchString(">=");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;
@@ -3553,7 +3443,6 @@ class Tokenizer extends \AntlrLexer {
 			// Tokenizer.g:658:3: '!='
 			{
 				$this->matchString("!=");
-
 			}
 			$this->state->type = $_type;
 			$this->state->channel = $_channel;

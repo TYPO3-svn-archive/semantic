@@ -31,7 +31,7 @@ namespace T3\Semantic\Configuration\Exception;
  * @scope singleton
  * @api
  */
-class ReadOnlyException extends \Tx_Semantic_Exception {
+class ReadOnlyException extends \T3\Semantic\Exception {
 
 }
 ?>
