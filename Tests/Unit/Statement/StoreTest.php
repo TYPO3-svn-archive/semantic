@@ -47,10 +47,10 @@ $beerModel = 'http://www.purl.org/net/ontology/beer#';
 $store = $knowledgeBase->getStore();
 
 $availableModels = $store->getAvailableModels(true);
-
+//$store->importRdf($beerModel, 'http://www.purl.org/net/ontology/beer.owl', 'xml');
 if (!isset($availableModels[$beerModel])) {
 	var_dump($store->getNewModel($beerModel));
-	$store->importRdf($beerModel, 'http://www.purl.org/net/ontology/beer.owl', 'xml');
+
 } else {
 	$query = \T3\Semantic\Sparql\SimpleQuery::initWithString('
 	PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
