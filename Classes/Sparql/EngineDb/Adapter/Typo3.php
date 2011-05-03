@@ -7,6 +7,10 @@ namespace T3\Semantic\Sparql\EngineDb\Adapter;
  *  (c) 2011 Thomas Maroschik <tmaroschik@dfau.de>
  *  All rights reserved
  *
+ *  This class is a port of the corresponding class of the
+ *  {@link http://aksw.org/Projects/Erfurt Erfurt} project.
+ *  All credits go to the Erfurt team.
+ *
  *  This script is part of the TYPO3 project. The TYPO3 project is
  *  free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -60,9 +64,9 @@ class Typo3 {
 
 	/**
 	 *   Database connection object.
-	 * @var t3lib_DB zenddb connection
+	 * @var \t3lib_DB zenddb connection
 	 */
-	protected $dbConn;
+	protected $databaseConnection;
 
 	/**
 	 * The injected knowledge base
@@ -122,7 +126,7 @@ class Typo3 {
 	 * Constructor
 	 */
 	public function __construct($dbConn, $arModelIdMapping = array()) {
-		$this->dbConn = $dbConn;
+		$this->databaseConnection = $dbConn;
 		$this->arModelIdMapping = $arModelIdMapping;
 	}
 
@@ -288,8 +292,19 @@ class Typo3 {
 										 $this->query, $this, $this->sg->arVarAssignments);
 	}
 
+	public function execSelectQuery($select_fields, $from_table, $where_clause, $groupBy = '', $orderBy = '', $limit = '') {
+		return $this->databaseConnection->exec_SELECTgetRows($select_fields, $from_table, $where_clause, $groupBy, $orderBy, $limit);
+	}
+
 	public function sqlQuery($sql) {
-		return $this->dbConn->fetchAll($sql);
+		$data = array();
+		$res = $this->databaseConnection->sql_query($sql);
+		if ($res) {
+			while($row = $this->databaseConnection->sql_fetch_assoc($res)) {
+				$data[] = $row;
+			}
+		}
+		return $data;
 	}
 
 	// ------------------------------------------------------------------------
@@ -311,16 +326,16 @@ class Typo3 {
 			return array();
 		}
 		if ($nLimit === null && $nOffset == 0) {
-			$ret = $this->dbConn->sql_query($strSql);
+			$ret = $this->databaseConnection->sql_query($strSql);
 		} else {
 			if ($nLimit === null) {
-				$ret = $this->dbConn->sql_query($strSql . ' LIMIT ' . $nOffset . ', 18446744073709551615');
+				$ret = $this->databaseConnection->sql_query($strSql . ' LIMIT ' . $nOffset . ', 18446744073709551615');
 			} else {
-				$ret = $this->dbConn->sql_query($strSql . ' LIMIT ' . $nOffset . ', ' . $nLimit);
+				$ret = $this->databaseConnection->sql_query($strSql . ' LIMIT ' . $nOffset . ', ' . $nLimit);
 			}
 		}
 		$result = array();
-		while ($row = $this->dbConn->sql_fetch_assoc($ret)) {
+		while ($row = $this->databaseConnection->sql_fetch_assoc($ret)) {
 			$result[] = $row;
 		}
 		return $result;

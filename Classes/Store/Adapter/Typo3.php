@@ -7,6 +7,10 @@ namespace T3\Semantic\Store\Adapter;
  *  (c) 2011 Thomas Maroschik <tmaroschik@dfau.de>
  *  All rights reserved
  *
+ *  This class is a port of the corresponding class of the
+ *  {@link http://aksw.org/Projects/Erfurt Erfurt} project.
+ *  All credits go to the Erfurt team.
+ *
  *  This script is part of the TYPO3 project. The TYPO3 project is
  *  free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -103,7 +107,7 @@ class Typo3 implements AdapterInterface, \T3\Semantic\Store\Sql\SqlInterface {
 		$this->objectManager = $objectManager;
 	}
 
-	/** @see \\T3\Semantic\Store\Adapter\AdapterInterface */
+	/** @see \T3\Semantic\Store\Adapter\AdapterInterface */
 	public function addMultipleStatements($graphUri, array $statementsArray, array $options = array()) {
 		$modelInfoCache = $this->getModelInfos();
 		$graphId = $modelInfoCache[$graphUri]['modelId'];
@@ -246,7 +250,7 @@ class Typo3 implements AdapterInterface, \T3\Semantic\Store\Sql\SqlInterface {
 		}
 	}
 
-	/** @see \\T3\Semantic\Store\Adapter\AdapterInterface */
+	/** @see \T3\Semantic\Store\Adapter\AdapterInterface */
 	public function addStatement($graphUri, $subject, $predicate, $object, array $options = array()) {
 		$statementArray = array();
 		$statementArray["$subject"] = array();
@@ -261,7 +265,7 @@ class Typo3 implements AdapterInterface, \T3\Semantic\Store\Sql\SqlInterface {
 		}
 	}
 
-	/** @see \\T3\Semantic\Store\Adapter\AdapterInterface */
+	/** @see \T3\Semantic\Store\Adapter\AdapterInterface */
 	public function countWhereMatches($graphIris, $whereSpec, $countSpec, $distinct = false) {
 		$query = $this->objectManager->create('\T3\Semantic\Sparql\SimpleQuery');;
 		if (!$distinct) {
@@ -278,13 +282,13 @@ class Typo3 implements AdapterInterface, \T3\Semantic\Store\Sql\SqlInterface {
 		return 0;
 	}
 
-	/** @see \Erfurt_Store_Sql_Interface */
+	/** @see \T3\Semantic\Store\Sql\SqlInterface */
 	public function createTable($tableName, array $columns) {
 		throw new \Exception('TYPO3 Backend does not support create table actions. Do it via the exension manager.', 1303219098);
 	}
 
-	/** @see \\T3\Semantic\Store\Adapter\AdapterInterface */
-	public function createModel($graphUri, $type = \Erfurt_Store::MODEL_TYPE_OWL) {
+	/** @see \T3\Semantic\Store\Adapter\AdapterInterface */
+	public function createModel($graphUri, $type = \T3\Semantic\Store\Store::MODEL_TYPE_OWL) {
 		$data = array(
 			'uri' => &$graphUri
 		);
@@ -325,13 +329,13 @@ class Typo3 implements AdapterInterface, \T3\Semantic\Store\Sql\SqlInterface {
 		$cache = $this->knowledgeBase->getCache();
 		$cache->clean(\Zend_Cache::CLEANING_MODE_MATCHING_TAG, array('model_info'));
 		$this->modelInfoCache = null;
-		if ($type === \Erfurt_Store::MODEL_TYPE_OWL) {
+		if ($type === \T3\Semantic\Store\Store::MODEL_TYPE_OWL) {
 			$this->addStatement($graphUri, $graphUri, EF_RDF_TYPE, array('type' => 'uri', 'value' => EF_OWL_ONTOLOGY));
 			$this->modelInfoCache = null;
 		}
 	}
 
-	/** @see \\T3\Semantic\Store\Adapter\AdapterInterface */
+	/** @see \T3\Semantic\Store\Adapter\AdapterInterface */
 	public function deleteMatchingStatements($graphUri, $subject, $predicate, $object, array $options = array()) {
 		$modelInfoCache = $this->getModelInfos();
 		$modelId = $modelInfoCache[$graphUri]['modelId'];
@@ -396,7 +400,7 @@ class Typo3 implements AdapterInterface, \T3\Semantic\Store\Sql\SqlInterface {
 		return $ret;
 	}
 
-	/** @see \\T3\Semantic\Store\Adapter\AdapterInterface */
+	/** @see \T3\Semantic\Store\Adapter\AdapterInterface */
 	public function deleteMultipleStatements($graphUri, array $statementsArray) {
 		$modelInfoCache = $this->getModelInfos();
 		$modelId = $modelInfoCache[$graphUri]['modelId'];
@@ -458,7 +462,7 @@ class Typo3 implements AdapterInterface, \T3\Semantic\Store\Sql\SqlInterface {
 		}
 	}
 
-	/** @see \\T3\Semantic\Store\Adapter\AdapterInterface */
+	/** @see \T3\Semantic\Store\Adapter\AdapterInterface */
 	public function deleteModel($graphUri) {
 		$modelInfoCache = $this->getModelInfos();
 		if (isset($modelInfoCache[$graphUri]['modelId'])) {
@@ -479,12 +483,12 @@ class Typo3 implements AdapterInterface, \T3\Semantic\Store\Sql\SqlInterface {
 		$this->modelInfoCache = null;
 	}
 
-	/** @see \\T3\Semantic\Store\Adapter\AdapterInterface */
+	/** @see \T3\Semantic\Store\Adapter\AdapterInterface */
 	public function exportRdf($modelIri, $serializationType = 'xml', $filename = false) {
 		throw new \Exception('Not implemented yet.');
 	}
 
-	/** @see \\T3\Semantic\Store\Adapter\AdapterInterface */
+	/** @see \T3\Semantic\Store\Adapter\AdapterInterface */
 	public function getAvailableModels() {
 		$modelInfoCache = $this->getModelInfos();
 		$models = array();
@@ -498,7 +502,7 @@ class Typo3 implements AdapterInterface, \T3\Semantic\Store\Sql\SqlInterface {
 		return 'ZendDb';
 	}
 
-	/** @see \\T3\Semantic\Store\Adapter\AdapterInterface */
+	/** @see \T3\Semantic\Store\Adapter\AdapterInterface */
 	public function getBlankNodePrefix() {
 		return 'bNode';
 	}
@@ -536,7 +540,7 @@ class Typo3 implements AdapterInterface, \T3\Semantic\Store\Sql\SqlInterface {
 		}
 	}
 
-	/** @see \\T3\Semantic\Store\Adapter\AdapterInterface */
+	/** @see \T3\Semantic\Store\Adapter\AdapterInterface */
 	public function getModel($modelIri) {
 		// if model is already in cache return the cached value
 		if (isset($this->modelCache[$modelIri])) {
@@ -561,7 +565,7 @@ class Typo3 implements AdapterInterface, \T3\Semantic\Store\Sql\SqlInterface {
 		return $m;
 	}
 
-	/** @see \\T3\Semantic\Store\Adapter\AdapterInterface */
+	/** @see \T3\Semantic\Store\Adapter\AdapterInterface */
 	public function getNewModel($graphUri, $baseUri = '', $type = 'owl') {
 		$data = array(
 			'uri' => &$graphUri
@@ -611,26 +615,26 @@ class Typo3 implements AdapterInterface, \T3\Semantic\Store\Sql\SqlInterface {
 		return $m;
 	}
 
-	/** @see \\T3\Semantic\Store\Adapter\AdapterInterface */
+	/** @see \T3\Semantic\Store\Adapter\AdapterInterface */
 	public function getSupportedExportFormats() {
 		return array();
 	}
 
-	/** @see \\T3\Semantic\Store\Adapter\AdapterInterface */
+	/** @see \T3\Semantic\Store\Adapter\AdapterInterface */
 	public function getSupportedImportFormats() {
 		return array();
 	}
 
-	/** @see \\T3\Semantic\Store\Adapter\AdapterInterface */
+	/** @see \T3\Semantic\Store\Adapter\AdapterInterface */
 	public function importRdf($modelUri, $data, $type, $locator) {
 		// TODO fix or remove
-		if ($this->databaseConnection instanceof \Zend_Db_Adapter_Mysqli) {
-			$parser = \Erfurt_Syntax_RdfParser::rdfParserWithFormat($type);
+		if ($this->databaseConnection instanceof \t3lib_DB) {
+			$parser = $this->objectManager->create('\T3\Semantic\Syntax\RdfParser', $type);
 			$parsedArray = $parser->parse($data, $locator, $modelUri, false);
 			$modelInfoCache = $this->getModelInfos();
 			$modelId = $modelInfoCache["$modelUri"]['modelId'];
 			// create file
-			$tmpDir = $this->knowledgeBase->getTmpDir();
+			$tmpDir = $this->knowledgeBase->getTemporaryDirectory();
 			$filename = $tmpDir . '/import' . md5((string)time()) . '.csv';
 			$fileHandle = fopen($filename, 'w');
 			$count = 0;
@@ -795,7 +799,7 @@ class Typo3 implements AdapterInterface, \T3\Semantic\Store\Sql\SqlInterface {
 		$this->modelInfoCache = null;
 	}
 
-	/** @see \\T3\Semantic\Store\Adapter\AdapterInterface */
+	/** @see \T3\Semantic\Store\Adapter\AdapterInterface */
 	public function isModelAvailable($modelIri) {
 		$modelInfoCache = $this->getModelInfos();
 		if (isset($modelInfoCache[$modelIri])) {
@@ -805,17 +809,17 @@ class Typo3 implements AdapterInterface, \T3\Semantic\Store\Sql\SqlInterface {
 		}
 	}
 
-	/** @see \Erfurt_Store_Sql_Interface */
+	/** @see \T3\Semantic\Store\Sql\SqlInterface */
 	public function lastInsertId() {
 		return $this->databaseConnection->sql_insert_id();
 	}
 
-	/** @see \Erfurt_Store_Sql_Interface */
+	/** @see \T3\Semantic\Store\Sql\SqlInterface */
 	public function listTables($prefix = '') {
 		return $this->databaseConnection->admin_get_tables();
 	}
 
-	/** @see \\T3\Semantic\Store\Adapter\AdapterInterface */
+	/** @see \T3\Semantic\Store\Adapter\AdapterInterface */
 	public function sparqlAsk($query) {
 		//TODO works for me...., why hasnt this be enabled earlier? is the same as sparqlQuery... looks like the engine supports it. but there is probably a reason for this not to be supported
 		$start = microtime(true);
@@ -833,7 +837,7 @@ class Typo3 implements AdapterInterface, \T3\Semantic\Store\Sql\SqlInterface {
 		return $result;
 	}
 
-	/** @see \\T3\Semantic\Store\Adapter\AdapterInterface */
+	/** @see \T3\Semantic\Store\Adapter\AdapterInterface */
 	public function sparqlQuery($query, $options = array()) {
 		$resultform = (isset($options[STORE_RESULTFORMAT])) ? $options[STORE_RESULTFORMAT] : STORE_RESULTFORMAT_PLAIN;
 		$start = microtime(true);
@@ -851,7 +855,7 @@ class Typo3 implements AdapterInterface, \T3\Semantic\Store\Sql\SqlInterface {
 		return $result;
 	}
 
-	/** @see \Erfurt_Store_Sql_Interface */
+	/** @see \T3\Semantic\Store\Sql\SqlInterface */
 	public function sqlQuery($sqlQuery, $limit = PHP_INT_MAX, $offset = 0) {
 		$start = microtime(true);
 		// add limit/offset
@@ -962,10 +966,10 @@ class Typo3 implements AdapterInterface, \T3\Semantic\Store\Sql\SqlInterface {
 			}
 		}
 //		$sql = "SELECT id FROM $tableName WHERE vh = '$valueHash'";
-		$result = $this->databaseConnection->exec_SELECTgetSingleRow('id', $tableName, 'vh = "' . $valueHash .'"');
+		$result = $this->databaseConnection->exec_SELECTgetSingleRow('id', $tableName, 'vh = ' . $valueHash .'');
 		if (!$result) {
 			throw new \Exception('Fetching of uri id failed: ' .
-													 $this->databaseConnection->getConnection()->error);
+													 $this->databaseConnection->sql_error());
 		}
 		$id = $result['id'];
 		return $id;
@@ -973,7 +977,7 @@ class Typo3 implements AdapterInterface, \T3\Semantic\Store\Sql\SqlInterface {
 
 	/**
 	 *
-	 * @throws \Erfurt_Exception
+	 * @throws \T3\Semantic\Exception
 	 */
 	private function fetchModelInfos() {
 		$cache = $this->knowledgeBase->getCache();
@@ -1063,7 +1067,7 @@ class Typo3 implements AdapterInterface, \T3\Semantic\Store\Sql\SqlInterface {
 	 *
 	 * Currently we need three tables: 'models', 'statements' and 'namespaces'
 	 *
-	 * @throws \Erfurt_Exception
+	 * @throws \T3\Semantic\Exception
 	 * @return boolean Returns true if all tables are present.
 	 */
 	private function isSetup() {

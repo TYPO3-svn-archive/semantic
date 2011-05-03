@@ -8,7 +8,7 @@ namespace T3\Semantic\Rdfs;
  *  All rights reserved
  *
  *  This class is a port of the corresponding class of the
- * {@link http://aksw.org/Projects/Erfurt Erfurt} project.
+ *  {@link http://aksw.org/Projects/Erfurt Erfurt} project.
  *  All credits go to the Erfurt team.
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -42,8 +42,7 @@ class Model extends \T3\Semantic\Rdf\Model {
 	 * @return Erfurt_Rdfs_Resource
 	 */
 	public function getResource($resourceIri) {
-		require_once 'Erfurt/Rdfs/Resource.php';
-		return new Erfurt_Rdfs_Resource($resourceIri, $this);
+		return new \T3\Semantic\Rdfs\Resource($resourceIri, $this);
 	}
 
 }

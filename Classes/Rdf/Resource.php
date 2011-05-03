@@ -8,7 +8,7 @@ namespace T3\Semantic\Rdf;
  *  All rights reserved
  *
  *  This class is a port of the corresponding class of the
- * {@link http://aksw.org/Projects/Erfurt Erfurt} project.
+ *  {@link http://aksw.org/Projects/Erfurt Erfurt} project.
  *  All credits go to the Erfurt team.
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -85,6 +85,13 @@ class Resource extends Node {
 	protected $isBlankNode = false;
 
 	/**
+	 * The injected knowledge base
+	 *
+	 * @var \T3\Semantic\Object\ObjectManager
+	 */
+	protected $objectManager;
+
+	/**
 	 * An optional locator for the resource.
 	 *
 	 * If this property is set, the value of it (a URL) is used, when data
@@ -100,7 +107,7 @@ class Resource extends Node {
 	 * @param string $iri
 	 * @param Erfurt_Rdf_Model $model
 	 */
-	public function __construct($iri, Erfurt_Rdf_Model $model = null) {
+	public function __construct($iri, \T3\Semantic\Rdf\Model $model = null) {
 		$this->model = $model;
 		$namespaces = $this->model ? $this->model->getNamespaces() : array();
 		$matches = array();
@@ -130,6 +137,15 @@ class Resource extends Node {
 	}
 
 	/**
+	 * Injector method for a \T3\Semantic\Object\ObjectManager
+	 *
+	 * @var \T3\Semantic\Object\ObjectManager
+	 */
+	public function injectObjectManager(\T3\Semantic\Object\ObjectManager $objectManager) {
+		$this->objectManager = $objectManager;
+	}
+
+	/**
 	 * Returns a string representation of this resource.
 	 *
 	 * @return string
@@ -149,9 +165,7 @@ class Resource extends Node {
 	 * @return string the representation of this resource in a specified notation
 	 */
 	public function serialize($notation = 'xml') {
-
-		require_once('Erfurt/Syntax/RdfSerializer.php');
-		$serializer = Erfurt_Syntax_RdfSerializer::rdfSerializerWithFormat($notation);
+		$serializer = $this->objectManager->create('\T3\Semantic\Syntax\RdfSerializer', $notation);
 		return $serializer->serializeResourceToString($this->getIri(), $this->model->getModelIri(), true);
 	}
 
@@ -220,7 +234,7 @@ class Resource extends Node {
 	}
 
 	protected function _fetchDescription($maxDepth) {
-		$query = new Erfurt_Sparql_SimpleQuery();
+		$query = $this->objectManager->create('\T3\Semantic\Sparql\SimpleQuery');
 		$query->setProloguePart('SELECT ?p ?o')
 				->setWherePart(sprintf('{<%s> ?p ?o . }', $this->getIri()));
 		$description = array();

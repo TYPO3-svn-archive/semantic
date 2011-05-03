@@ -8,7 +8,7 @@ namespace T3\Semantic\Store;
  *  All rights reserved
  *
  *  This class is a port of the corresponding class of the
- * {@link http://aksw.org/Projects/Erfurt Erfurt} project.
+ *  {@link http://aksw.org/Projects/Erfurt Erfurt} project.
  *  All credits go to the Erfurt team.
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -27,7 +27,6 @@ namespace T3\Semantic\Store;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Enter descriptions here
  *
@@ -140,7 +139,7 @@ class Store implements \t3lib_Singleton {
 
 	/**
 	 * Access control instance
-	 * @var \Erfurt_Ac_Default
+	 * @var \T3\Semantic\AccessControl\Standard
 	 */
 	protected $accessControl;
 
@@ -155,6 +154,13 @@ class Store implements \t3lib_Singleton {
 	 * @var \Erfurt_Store_Backend_Adapter_Interface
 	 */
 	protected $backendAdapter;
+
+	/**
+	 * The injected event dispatcher
+	 *
+	 * @var \T3\Semantic\Event\Dispatcher
+	 */
+	protected $eventDispacher;
 
 	/**
 	 * The injected knowledge base
@@ -186,6 +192,15 @@ class Store implements \t3lib_Singleton {
 
 	// TODO elaborate relevance
 	private $importsClosure = array();
+
+	/**
+	 * Injector method for a \T3\Semantic\Event\Dispatcher
+	 *
+	 * @var \T3\Semantic\Event\Dispatcher
+	 */
+	public function injectEventDispatcher(\T3\Semantic\Event\Dispatcher $eventDispatcher) {
+		$this->eventDispatcher = $eventDispatcher;
+	}
 
 	/**
 	 * Injector method for a \T3\Semantic\KnowledgeBase
@@ -324,7 +339,7 @@ class Store implements \t3lib_Singleton {
 	 * @param string $graphIri
 	 * @param array  $statementsArray
 	 *
-	 * @throws \Erfurt_Exception
+	 * @throws \T3\Semantic\Exception
 	 */
 	public function addMultipleStatements($graphUri, array $statementsArray, $useAc = true) {
 		// TODO inject logger
@@ -358,11 +373,11 @@ class Store implements \t3lib_Singleton {
 	 * @param string $predicate (IRI, no blank node!)
 	 * @param string $object (IRI, blank node or literal)
 	 * @param array $options An array containing two keys 'subject_type' and 'object_type'. The value of each is
-	 * one of the defined constants of \Erfurt_Store: TYPE_IRI, TYPE_BLANKNODE and TYPE_LITERAL. In addtion to this
+	 * one of the defined constants of \T3\Semantic\Store\Store: TYPE_IRI, TYPE_BLANKNODE and TYPE_LITERAL. In addtion to this
 	 * two keys the options array can contain two keys 'literal_language' and 'literal_datatype', but only in case
 	 * the object of the statement is a literal.
 	 *
-	 * @throws \Erfurt_Exception Throws an exception if adding of statements fails.
+	 * @throws \T3\Semantic\Exception Throws an exception if adding of statements fails.
 	 */
 	public function addStatement($graphUri, $subject, $predicate, $object, $useAcl = true) {
 		// check whether model is available
@@ -412,14 +427,14 @@ class Store implements \t3lib_Singleton {
 				if (is_readable($modelPath)) {
 					// load SysOnt Model from file
 					$this->importRdf($sysOntModel, $modelPath, 'rdfxml',
-									 \Erfurt_Syntax_RdfParser::LOCATOR_FILE, false);
+									 \T3\Semantic\Syntax\RdfParser::LOCATOR_FILE, false);
 				} else {
 					// load SysOnt Model from Web
 					$this->importRdf($sysOntModel, $modelLocation, 'rdfxml',
-									 \Erfurt_Syntax_RdfParser::LOCATOR_URL, false);
+									 \T3\Semantic\Syntax\RdfParser::LOCATOR_URL, false);
 				}
 			}
-			catch (\Erfurt_Exception $e) {
+			catch (\T3\Semantic\Exception $e) {
 				// clear query cache completly
 				$queryCache = $this->knowledgeBase->getQueryCache();
 				$queryCache->cleanUpCache(array('mode' => 'uninstall'));
@@ -442,15 +457,15 @@ class Store implements \t3lib_Singleton {
 			try {
 				if (is_readable($schemaPath)) {
 					// load SysOnt from file
-					$this->importRdf($sysOntSchema, $schemaPath, 'rdfxml', \Erfurt_Syntax_RdfParser::LOCATOR_FILE,
+					$this->importRdf($sysOntSchema, $schemaPath, 'rdfxml', \T3\Semantic\Syntax\RdfParser::LOCATOR_FILE,
 									 false);
 				} else {
 					// load SysOnt from Web
-					$this->importRdf($sysOntSchema, $schemaLocation, 'rdfxml', \Erfurt_Syntax_RdfParser::LOCATOR_URL,
+					$this->importRdf($sysOntSchema, $schemaLocation, 'rdfxml', \T3\Semantic\Syntax\RdfParser::LOCATOR_URL,
 									 false);
 				}
 			}
-			catch (\Erfurt_Exception $e) {
+			catch (\T3\Semantic\Exception $e) {
 				// clear query cache completly
 				$queryCache = $this->knowledgeBase->getQueryCache();
 				$queryCache->cleanUpCache(array('mode' => 'uninstall'));
@@ -479,7 +494,7 @@ class Store implements \t3lib_Singleton {
 	 * @param array $tableSpec An associative array of SQL column names and columnd specs.
 	 */
 	public function createTable($tableName, array $columns) {
-		if ($this->backendAdapter instanceof \Erfurt_Store_Sql_Interface) {
+		if ($this->backendAdapter instanceof \T3\Semantic\Store\Sql\Sqlnterface) {
 			return $this->backendAdapter->createTable($tableName, $columns);
 		}
 		// TODO: use default SQL store
@@ -493,10 +508,10 @@ class Store implements \t3lib_Singleton {
 	 * @param mixed triple pattern $predicate (string or null)
 	 * @param mixed triple pattern $object (string or null)
 	 * @param array $options An array containing two keys 'subject_type' and 'object_type'. The value of each is
-	 * one of the defined constants of \Erfurt_Store: TYPE_IRI, TYPE_BLANKNODE and TYPE_LITERAL. In addtion to this
+	 * one of the defined constants of \T3\Semantic\Store\Store: TYPE_IRI, TYPE_BLANKNODE and TYPE_LITERAL. In addtion to this
 	 * two keys the options array can contain two keys 'literal_language' and 'literal_datatype'.
 	 *
-	 * @throws \Erfurt_Exception
+	 * @throws \T3\Semantic\Exception
 	 */
 	public function deleteMatchingStatements($graphUri, $subject, $predicate, $object, $options = array()) {
 		if (!isset($options['use_ac'])) {
@@ -517,13 +532,13 @@ class Store implements \t3lib_Singleton {
 				}
 				return $ret;
 			}
-			catch (\Erfurt_Store_Adapter_Exception $e) {
+			catch (\T3\Semantic\Store\Adapter\Exception $e) {
 				// TODO: Create a exception for too many matching values
 				// In this case we log without storing the payload. No rollback supported for such actions.
 				$event = $this->objectManager->create('\T3\Semantic\Event\Event', 'onDeleteMatchingStatements');
 				$event->graphUri = $graphUri;
 				$event->resource = $subject;
-				\Erfurt_Event_Dispatcher::getInstance()->trigger($event);
+				$this->eventDispacher->trigger($event);
 			}
 		}
 	}
@@ -534,7 +549,7 @@ class Store implements \t3lib_Singleton {
 	 * @param string $graphIri
 	 * @param array  $statementsArray
 	 *
-	 * @throws \Erfurt_Exception
+	 * @throws \T3\Semantic\Exception
 	 */
 	public function deleteMultipleStatements($graphUri, array $statementsArray) {
 		// check whether model is available
@@ -558,7 +573,7 @@ class Store implements \t3lib_Singleton {
 	 * @param string $modelIri The Iri, which identifies the model.
 	 * @param boolean $useAc Whether to use access control or not.
 	 *
-	 * @throws \Erfurt_Exception Throws an exception if no permission, model not existing or deletion fails.
+	 * @throws \T3\Semantic\Exception Throws an exception if no permission, model not existing or deletion fails.
 	 */
 	public function deleteModel($modelIri, $useAc = true) {
 		// check whether model is available
@@ -618,7 +633,7 @@ class Store implements \t3lib_Singleton {
 		if (in_array($serializationType, $this->backendAdapter->getSupportedExportFormats())) {
 			return $this->backendAdapter->exportRdf($modelIri, $serializationType, $filename);
 		} else {
-			$serializer = \Erfurt_Syntax_RdfSerializer::rdfSerializerWithFormat($serializationType);
+			$serializer = \T3\Semantic\Syntax\RdfSerializer::rdfSerializerWithFormat($serializationType);
 			return $serializer->serializeGraphToString($modelIri);
 		}
 	}
@@ -794,7 +809,7 @@ class Store implements \t3lib_Singleton {
 	 * @param string $modelIri The IRI, which identifies the model.
 	 * @param boolean $useAc Whether to use access control or not.
 	 * @throws \T3\Semantic\Store\Exception\StoreException if the requested model is not available.
-	 * @return \Erfurt_Rdf_Model Returns an instance of \Erfurt_Rdf_Model or one of its subclasses.
+	 * @return \T3\Semantic\Rdf\Model Returns an instance of \T3\Semantic\Rdf\Model or one of its subclasses.
 	 */
 	public function getModel($modelIri, $useAc = true) {
 		// check whether model exists and is visible
@@ -868,7 +883,7 @@ class Store implements \t3lib_Singleton {
 	 *
 	 * @throws \T3\Semantic\Store\Exception\StoreException
 	 *
-	 * @return \Erfurt_Rdf_Model
+	 * @return \T3\Semantic\Rdf\Model
 	 */
 	public function getNewModel($modelIri, $baseIri = '', $type = self::MODEL_TYPE_OWL, $useAc = true) {
 		// check model availablity
@@ -887,7 +902,7 @@ class Store implements \t3lib_Singleton {
 		try {
 			$this->backendAdapter->createModel($modelIri, $type);
 		}
-		catch (\Erfurt_Store_Adapter_Exception $e) {
+		catch (\T3\Semantic\Store\Adapter\Exception $e) {
 			$message = defined('_EFDEBUG')
 					? "Failed creating the model. \nReason: {$e->getMessage()}."
 					: 'Failed creating the model.';
@@ -964,9 +979,9 @@ class Store implements \t3lib_Singleton {
 	 *							  - 'n3' or 'nt'
 	 * @param string $locator Denotes whether $data is a local file or a URL.
 	 *
-	 * @throws \Erfurt_Exception
+	 * @throws \T3\Semantic\Exception
 	 */
-	public function importRdf($modelIri, $data, $type = 'auto', $locator = \Erfurt_Syntax_RdfParser::LOCATOR_FILE,
+	public function importRdf($modelIri, $data, $type = 'auto', $locator = \T3\Semantic\Syntax\RdfParser::LOCATOR_FILE,
 		$useAc = true) {
 		$queryCache = $this->knowledgeBase->getQueryCache();
 		$queryCache->invalidateWithModelIri($modelIri);
@@ -975,11 +990,11 @@ class Store implements \t3lib_Singleton {
 		}
 		if ($type === 'auto') {
 			// detect file type
-			if ($locator === \Erfurt_Syntax_RdfParser::LOCATOR_FILE && is_readable($data)) {
+			if ($locator === \T3\Semantic\Syntax\RdfParser::LOCATOR_FILE && is_readable($data)) {
 				$pathInfo = pathinfo($data);
 				$type = array_key_exists('extension', $pathInfo) ? $pathInfo['extension'] : '';
 			}
-			if ($locator === \Erfurt_Syntax_RdfParser::LOCATOR_URL) {
+			if ($locator === \T3\Semantic\Syntax\RdfParser::LOCATOR_URL) {
 				$headers['Location'] = true;
 				// set default content-type header
 				stream_context_get_default(array(
@@ -1052,7 +1067,7 @@ class Store implements \t3lib_Singleton {
 			$this->backendAdapter->init();
 			return $result;
 		} else {
-			$parser = \Erfurt_Syntax_RdfParser::rdfParserWithFormat($type);
+			$parser = $this->objectManager->create('\T3\Semantic\Syntax\RdfParser', $type);
 			$retVal = $parser->parseToStore($data, $locator, $modelIri, $useAc);
 			// After import re-initialize the backend (e.g. zenddb: fetch model infos again)
 			$this->backendAdapter->init();
@@ -1074,14 +1089,14 @@ class Store implements \t3lib_Singleton {
 	}
 
 	public function isSqlSupported() {
-		return ($this->backendAdapter instanceof \Erfurt_Store_Sql_Interface);
+		return ($this->backendAdapter instanceof \T3\Semantic\Store\Sql\Sqlnterface);
 	}
 
 	/**
 	 * Returns the ID for the last insert statement.
 	 */
 	public function lastInsertId() {
-		if ($this->backendAdapter instanceof \Erfurt_Store_Sql_Interface) {
+		if ($this->backendAdapter instanceof \T3\Semantic\Store\Sql\Sqlnterface) {
 			return $this->backendAdapter->lastInsertId();
 		}
 		// TODO: use default SQL store
@@ -1095,7 +1110,7 @@ class Store implements \t3lib_Singleton {
 	 * @return array|null
 	 */
 	public function listTables($prefix = '') {
-		if ($this->backendAdapter instanceof \Erfurt_Store_Sql_Interface) {
+		if ($this->backendAdapter instanceof \T3\Semantic\Store\Sql\Sqlnterface) {
 			return $this->backendAdapter->listTables($prefix);
 		}
 		// TODO: use default SQL store
@@ -1128,7 +1143,7 @@ class Store implements \t3lib_Singleton {
 	 * @param string $askSparql
 	 * @param boolean $useAc Whether to check for access control.
 	 */
-	public function sparqlAsk(\Erfurt_Sparql_SimpleQuery $queryObject, $useAc = true) {
+	public function sparqlAsk(\T3\Semantic\Sparql\SimpleQuery $queryObject, $useAc = true) {
 		// add owl:imports
 		foreach ($queryObject->getFrom() as $fromGraphUri) {
 			foreach ($this->getImportsClosure($fromGraphUri, true, $useAc) as $importedGraphUri) {
@@ -1151,7 +1166,7 @@ class Store implements \t3lib_Singleton {
 		}
 		$queryCache = $this->knowledgeBase->getQueryCache();
 		$sparqlResult = $queryCache->load((string)$queryObject, 'plain');
-		if ($sparqlResult == \Erfurt_Cache_Frontend_QueryCache::ERFURT_CACHE_NO_HIT) {
+		if ($sparqlResult == \T3\Semantic\Cache\Frontend\QueryCache::ERFURT_CACHE_NO_HIT) {
 			// TODO: check if adapter supports requested result format
 			$startTime = microtime(true);
 			$sparqlResult = $this->backendAdapter->sparqlAsk((string)$queryObject);
@@ -1163,11 +1178,11 @@ class Store implements \t3lib_Singleton {
 	}
 
 	/**
-	 * @param \Erfurt_Sparql_SimpleQuery $queryObject
+	 * @param \T3\Semantic\Sparql\SimpleQuery $queryObject
 	 * @param string $resultFormat Currently supported are: 'plain' and 'xml'
 	 * @param boolean $useAc Whether to check for access control or not.
 	 *
-	 * @throws \Erfurt_Exception Throws an exception if query is no string.
+	 * @throws \T3\Semantic\Exception Throws an exception if query is no string.
 	 *
 	 * @return mixed Returns a result depending on the query, e.g. an array or a boolean value.
 	 */
@@ -1287,7 +1302,7 @@ class Store implements \t3lib_Singleton {
 		$resultFormat = $options[STORE_RESULTFORMAT];
 		$queryCache = $this->knowledgeBase->getQueryCache();
 		$sparqlResult = $queryCache->load((string)$queryObject, $resultFormat);
-		if ($sparqlResult == \Erfurt_Cache_Frontend_QueryCache::ERFURT_CACHE_NO_HIT) {
+		if ($sparqlResult == \T3\Semantic\Cache\Frontend\QueryCache::ERFURT_CACHE_NO_HIT) {
 			// TODO: check if adapter supports requested result format
 			$startTime = microtime(true);
 			$sparqlResult = $this->backendAdapter->sparqlQuery($queryObject, $options);
@@ -1586,7 +1601,7 @@ class Store implements \t3lib_Singleton {
                     )
                 }
                 ORDER BY ASC(?order)';
-			$subSparql = \Erfurt_Sparql_SimpleQuery::initWithString($subSparql);
+			$subSparql = \T3\Semantic\Sparql\SimpleQuery::initWithString($subSparql);
 			// get sub items
 			$result = $this->backendAdapter->sparqlQuery($subSparql, array(STORE_RESULTFORMAT => STORE_RESULTFORMAT_PLAIN));
 			// break on first empty result

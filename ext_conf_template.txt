@@ -260,10 +260,12 @@ ac.action.config.1.uri = http://ns.ontowiki.net/SysOnt/Login
 ac.action.config.1.spec.type = RDF
 
 # cat=cache/general/700;	type=boolean;	label=LLL:EXT:semantic/Resources/Private/Language/locallang.xml:extmgm.cache.enable
-cache.enable = 0 # clear the cache if you switch from 0 to 1!
+cache.enable = 0
+# clear the cache if you switch from 0 to 1!
 
 # cat=cache/general/705;	type=text;	label=LLL:EXT:semantic/Resources/Private/Language/locallang.xml:extmgm.cache.path
-cache.path = cache # The path to a cache folder.
+cache.path = cache
+# The path to a cache folder.
 
 # cat=cache/general/710;	type=int;	label=LLL:EXT:semantic/Resources/Private/Language/locallang.xml:extmgm.cache.lifetime
 cache.lifetime = -1
@@ -272,13 +274,18 @@ cache.lifetime = -1
 cache.type = database ; database, sqllite
 
 # cat=cache/general/720;	type=text;	label=LLL:EXT:semantic/Resources/Private/Language/locallang.xml:extmgm.cache.sqlite.dbname
-cache.sqlite.dbname = ef_cache.sqlitedb ; sqlite only
+cache.sqlite.dbname = ef_cache.sqlitedb
+# sqlite only
 
-# cat=cache/general/725;	type=text;	label=LLL:EXT:semantic/Resources/Private/Language/locallang.xml:extmgm.cache.query.enable
+# cat=cache/general/725;	type=boolean;	label=LLL:EXT:semantic/Resources/Private/Language/locallang.xml:extmgm.cache.query.enable
 cache.query.enable = 0
 
 # cat=cache/general/730;	type=boolean;	label=LLL:EXT:semantic/Resources/Private/Language/locallang.xml:extmgm.cache.query.logging
 cache.query.logging = 0
+
+# cat=cache/general/735;	type=options[database];	label=LLL:EXT:semantic/Resources/Private/Language/locallang.xml:extmgm.cache.query.type
+cache.query.type = database
+# maybe in the near future further backends will be implemented
 
 
 # cat=mail/general/800;	type=text;	label=LLL:EXT:semantic/Resources/Private/Language/locallang.xml:extmgm.mail.hostname

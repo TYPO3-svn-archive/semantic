@@ -7,6 +7,10 @@ namespace T3\Semantic;
  *  (c) 2011 Thomas Maroschik <tmaroschik@dfau.de>
  *  All rights reserved
  *
+ *  This class is a port of the corresponding class of the
+ *  {@link http://aksw.org/Projects/Erfurt Erfurt} project.
+ *  All credits go to the Erfurt team.
+ *
  *  This script is part of the TYPO3 project. The TYPO3 project is
  *  free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -121,30 +125,30 @@ class KnowledgeBase implements \t3lib_Singleton {
 
 	/**
 	 * Contains an instance of the Erfurt access control class.
-	 * @var ErfurtaccessControl_Default
+	 * @var \T3\Semantic\AccessControl\Standard
 	 */
-	protected $accessControl = NULL;
+	protected $accessControl;
 
 	/**
 	 * Contains an instanciated access control model.
-	 * @var Erfurt_Rdf_Model
+	 * @var \T3\Semantic\Rdf\Model
 	 */
-	protected $accessControlModel = NULL;
+	protected $accessControlModel;
 
 	/**
-	 * Contains a reference to Zendauthentication singleton.
+	 * Contains a reference to authentication singleton.
 	 */
-	protected $authentication = NULL;
+	protected $authentication;
 
 	/**
 	 * Contains the cache object.
-	 * @var Zendcache_Core
+	 * @var \Zend_Cache_Core
 	 */
-	protected $cache = NULL;
+	protected $cache;
 
 	/**
 	 * Contains the cache backend.
-	 * @var Zendcache_Backend
+	 * @var \Zend_Cache_Backend
 	 */
 	protected $cacheBackend = NULL;
 
@@ -168,6 +172,11 @@ class KnowledgeBase implements \t3lib_Singleton {
 	 * @var \T3\Semantic\Configuration\CacheConfiguration
 	 */
 	protected $cacheConfiguration;
+
+	/**
+	 * @var \T3\Semantic\Configuration\GeneralConfiguration
+	 */
+	protected $generalConfiguration;
 
 	/**
 	 * @var \T3\Semantic\Configuration\NamespacesConfiguration
@@ -209,25 +218,25 @@ class KnowledgeBase implements \t3lib_Singleton {
 
 	/**
 	 * Contains the query cache object.
-	 * @var Erfurt_Cache_Frontend_QueryCache
+	 * @var \T3\Semantic\Cache\Frontend\QueryCache
 	 */
 	protected $queryCache = NULL;
 
 	/**
 	 * Contains the query cache backend.
-	 * @var Erfurt_Cache_Backend_QueryCache_Backend
+	 * @var \T3\Semantic\Cache\Backend\QueryCache\Backend
 	 */
 	protected $queryCacheBackend = NULL;
 
 	/**
 	 * Contains an instance of the store.
-	 * @var Erfurt_Store
+	 * @var \T3\Semantic\Store\Store
 	 */
 	protected $store = NULL;
 
 	/**
 	 * Contains an instanciated system ontology model.
-	 * @var Erfurt_Rdf_Model
+	 * @var \T3\Semantic\Rdf\Model
 	 */
 	protected $systemOntologyModel = NULL;
 
@@ -269,6 +278,15 @@ class KnowledgeBase implements \t3lib_Singleton {
 	 */
 	public function injectCacheConfiguration(Configuration\CacheConfiguration $cacheConfiguration) {
 		$this->cacheConfiguration = $cacheConfiguration;
+	}
+
+	/**
+	 * Injector method for a GeneralConfiguration
+	 *
+	 * @var \T3\Semantic\Configuration\GeneralConfiguration
+	 */
+	public function injectGeneralConfiguration(Configuration\GeneralConfiguration $generalConfiguration) {
+		$this->generalConfiguration = $generalConfiguration;
 	}
 
 	/**
@@ -340,8 +358,8 @@ class KnowledgeBase implements \t3lib_Singleton {
 	 * @param Zendconfiguration|NULL $config An optional config object that will be merged with
 	 * the Erfurt config.
 	 *
-	 * @return \Erfurt_App
-	 * @throws \Erfurt_Exception Throws an exception if the connection to the backend server fails.
+	 * @return \T3\Semantic\KnowledgeBase
+	 * @throws \T3\Semantic\Exception( Throws an exception if the connection to the backend server fails.
 	 */
 	protected function initializeObject() {
 		// Check for debug mode.
@@ -359,8 +377,8 @@ class KnowledgeBase implements \t3lib_Singleton {
 				$versioning->enableVersioning(false);
 			}
 		}
-		catch (\Erfurt_Exception $e) {
-			throw new \Erfurt_Exception($e->getMessage());
+		catch (\T3\Semantic\Exception $e) {
+			throw new \T3\Semantic\Exception($e->getMessage());
 		}
 		return $this;
 	}
@@ -535,7 +553,7 @@ class KnowledgeBase implements \t3lib_Singleton {
 	 */
 	public function authenticateWithFoafSsl($get = NULL, $redirectUrl = NULL) {
 		// Set up the authentication adapter.
-		$adapter = new \Erfurt_Auth_Adapter_FoafSsl($get, $redirectUrl);
+		$adapter = $this->objectManager->create(\T3\Semantic\Authentication\Adapter\FoafSsl, $get, $redirectUrl);
 		// Attempt authentication, saving the result.
 		$result = $this->getAuthentication()->authenticate($adapter);
 		// If the result is not valid, make sure the identity is cleared.
@@ -567,7 +585,7 @@ class KnowledgeBase implements \t3lib_Singleton {
 	/**
 	 * Returns an instance of the access control class.
 	 *
-	 * @return \Erfurt_Ac_Default
+	 * @return \T3\Semantic\AccessControl\Standard
 	 */
 	public function getAccessControl() {
 		if (NULL === $this->accessControl) {
@@ -583,7 +601,7 @@ class KnowledgeBase implements \t3lib_Singleton {
 	/**
 	 * Returns an instance of the access control model.
 	 *
-	 * @return \Erfurt_Rdf_Model
+	 * @return \T3\Semantic\Rdf\Model
 	 */
 	public function getAccessControlModel() {
 		if (NULL === $this->accessControlModel) {
@@ -637,7 +655,7 @@ class KnowledgeBase implements \t3lib_Singleton {
 				'lifetime' => $lifetime,
 				'automatic_serialization' => true
 			);
-			$this->cache = new \Erfurt_Cache_Frontend_ObjectCache($frontendOptions);
+			$this->cache = $this->objectManager->create('\T3\Semantic\Cache\Frontend\ObjectCache', $frontendOptions);
 			$backend = $this->getCacheBackend();
 			$this->cache->setBackend($backend);
 		}
@@ -673,7 +691,7 @@ class KnowledgeBase implements \t3lib_Singleton {
 	 * Returns the configuration object.
 	 *
 	 * @return \Zend_Config
-	 * @throws \Erfurt_Exception Throws an exception if no config is loaded.
+	 * @throws \T3\Semantic\Exception( Throws an exception if no config is loaded.
 	 */
 	public function getConfiguration() {
 		if (NULL === $this->configuration) {
@@ -722,6 +740,20 @@ class KnowledgeBase implements \t3lib_Singleton {
 			throw new Exception\ConfigurationNotLoadedException('Cache Configuration was not loaded.', 1303200192);
 		} else {
 			return $this->cacheConfiguration;
+		}
+	}
+
+	/**
+	 * Returns the configuration object.
+	 *
+	 * @return \T3\Semantic\Configuration\GeneralConfiguration
+	 * @throws \T3\Semantic\Exception\ConfigurationNotLoadedException Throws an exception if no config is loaded.
+	 */
+	public function getGeneralConfiguration() {
+		if (NULL === $this->generalConfiguration) {
+			throw new Exception\ConfigurationNotLoadedException('Cache Configuration was not loaded.', 1304403865);
+		} else {
+			return $this->generalConfiguration;
 		}
 	}
 
@@ -798,10 +830,10 @@ class KnowledgeBase implements \t3lib_Singleton {
 	/**
 	 * Returns the event dispatcher instance.
 	 *
-	 * @return \Erfurt_Event_Dispatcher
+	 * @return \T3\Semantic\Event\Dispatcher
 	 */
 	public function getEventDispatcher() {
-		$eventDispatcher = \Erfurt_Event_Dispatcher::getInstance();
+		$eventDispatcher = $this->objectManager->get('\T3\Semantic\Event\Dispatcher');
 		return $eventDispatcher;
 	}
 
@@ -851,7 +883,7 @@ class KnowledgeBase implements \t3lib_Singleton {
 	/**
 	 * Returns the namespace management module.
 	 *
-	 * @return \Erfurt_Namespaces
+	 * @return \T3\Semantic\Namespaces\Namespaces
 	 */
 	public function getNamespaces() {
 		if (NULL === $this->namespaces) {
@@ -861,7 +893,7 @@ class KnowledgeBase implements \t3lib_Singleton {
 						->getNamespacesConfiguration()->toArray() : array(),
 				'reserved_names' => isset($this->getUriConfiguration()->schemata) ? $this->getUriConfiguration()->schemata->toArray() : array()
 			);
-			$this->namespaces = new \Erfurt_Namespaces($namespacesOptions);
+			$this->namespaces = $this->objectManager->create('\T3\Semantic\Namespaces\Namespaces', $namespacesOptions);
 		}
 		return $this->namespaces;
 	}
@@ -869,11 +901,11 @@ class KnowledgeBase implements \t3lib_Singleton {
 	/**
 	 * Returns a query cache instance.
 	 *
-	 * @return Erfurt_Cache_Frontend_QueryCache
+	 * @return \T3\Semantic\Cache\Frontend\QueryCache
 	 */
 	public function getQueryCache() {
 		if (NULL === $this->queryCache) {
-			$this->queryCache = new \Erfurt_Cache_Frontend_QueryCache();
+			$this->queryCache = $this->objectManager->create('\T3\Semantic\Cache\Frontend\QueryCache');
 			$backend = $this->getQueryCacheBackend();
 			$this->queryCache->setBackend($backend);
 		}
@@ -899,7 +931,7 @@ class KnowledgeBase implements \t3lib_Singleton {
 	/**
 	 * Returns an instance of the system ontology model.
 	 *
-	 * @return \Erfurt_Rdf_Model
+	 * @return \T3\Semantic\Rdf\Model
 	 */
 	public function getSysOntModel() {
 		if (NULL === $this->systemOntologyModel) {
@@ -922,19 +954,19 @@ class KnowledgeBase implements \t3lib_Singleton {
 	}
 
 	/**
-	 * Convenience shortcut for Auth_Adapter_Rdf::getUsers().
+	 * Convenience shortcut for \T3\Semantic\Authentication\Adapter\Rdf::getUsers().
 	 *
 	 * @return array Returns a list of users.
 	 */
 	public function getUsers() {
-		$tempAdapter = new \Erfurt_Auth_Adapter_Rdf();
+		$tempAdapter = $this->objectManager->create('\T3\Semantic\Authentication\Adapter\Rdf');
 		return $tempAdapter->getUsers();
 	}
 
 	/**
 	 * Returns a versioning instance.
 	 *
-	 * @return \Erfurt_Versioning
+	 * @return \T3\Semantic\Versioning\Versioning
 	 */
 	public function getVersioning() {
 		if (NULL === $this->versioning) {
@@ -962,7 +994,7 @@ class KnowledgeBase implements \t3lib_Singleton {
 	 * @return \Zend_Auth_Result
 	 */
 	public function verifyOpenIdResult($get) {
-		$adapter = new \Erfurt_Auth_Adapter_OpenId(NULL, NULL, NULL, $get);
+		$adapter = $this->objectManager->create('\T3\Semantic\Authentication\Adapter\OpenId', NULL, NULL, NULL, $get);
 		$result = $this->getAuthentication()->authenticate($adapter);
 		if (!$result->isValid()) {
 			$this->getAuthentication()->clearIdentity();
@@ -974,24 +1006,24 @@ class KnowledgeBase implements \t3lib_Singleton {
 	 * Returns a cache backend as configured.
 	 *
 	 * @return \Zend_Cache_Backend
-	 * @throws \Erfurt_Exception
+	 * @throws \T3\Semantic\Exception(
 	 */
 	protected function getCacheBackend() {
 		if (NULL === $this->cacheBackend) {
 			// TODO: fix cache, temporarily disabled
 			if (!isset($this->getCacheConfiguration()->enable) || !(boolean)$this->getCacheConfiguration()->enable) {
-				$this->cacheBackend = new \Erfurt_Cache_Backend_Null();
+				$this->cacheBackend = $this->objectManager->create('\T3\Semantic\Cache\Backend\Null');
 			}
 				// cache is enabled
 			else {
 				// check for the cache type and throw an exception if cache type is not set
 				if (!isset($this->getCacheConfiguration()->type)) {
-					throw new \Erfurt_Exception('Cache type is not set in config.');
+					throw new \T3\Semantic\Exception('Cache type is not set in config.');
 				} else {
 					// check the type an whether type is supported
 					switch (strtolower($this->getCacheConfiguration()->type)) {
 						case 'database':
-							$this->cacheBackend = new \Erfurt_Cache_Backend_Database();
+							$this->cacheBackend = $this->objectManager->create('\T3\Semantic\Cache\Backend\Database');
 							break;
 						case 'sqlite':
 							if (isset($this->getCacheConfiguration()->sqlite->dbname)) {
@@ -999,14 +1031,14 @@ class KnowledgeBase implements \t3lib_Singleton {
 									'cache_db_complete_path' => $this->getCacheDir() . $this->getCacheConfiguration()->sqlite->dbname
 								);
 							} else {
-								throw new \Erfurt_Exception(
+								throw new \T3\Semantic\Exception(
 									'Cache database filename must be set for sqlite cache backend'
 								);
 							}
 							$this->cacheBackend = new \Zend_Cache_Backend_Sqlite($backendOptions);
 							break;
 						default:
-							throw new \Erfurt_Exception('Cache type is not supported.');
+							throw new \T3\Semantic\Exception('Cache type is not supported.');
 					}
 				}
 			}
@@ -1017,24 +1049,25 @@ class KnowledgeBase implements \t3lib_Singleton {
 	/**
 	 * Returns a query cache backend as configured.
 	 *
-	 * @return \Erfurt_Cache_Backend_QueryCache_Backend
-	 * @throws \Erfurt_Exception
+	 * @return \T3\Semantic\Cache\Backend\QueryCache\Backend
+	 * @throws \T3\Semantic\Exception(
 	 */
 	protected function getQueryCacheBackend() {
 		if (NULL === $this->queryCacheBackend) {
 			$backendOptions = array();
 			if (!isset($this->getCacheConfiguration()->query->enable) || ((boolean)$this->getCacheConfiguration()->query->enable === false)) {
-				$this->queryCacheBackend = new \Erfurt_Cache_Backend_QueryCache_Null();
+				$this->queryCacheBackend = $this->objectManager->create('\T3\Semantic\Cache\Backend\QueryCache\Null');
 			} else {
 				// cache is enabled
 				// check for the cache type and throw an exception if cache type is not set
 				if (!isset($this->getCacheConfiguration()->query->type)) {
-					throw new \Erfurt_Exception('Cache type is not set in config.');
+					var_dump($this->getCacheConfiguration());
+					throw new \T3\Semantic\Exception('Cache type is not set in config.');
 				} else {
 					// check the type an whether type is supported
 					switch (strtolower($this->getCacheConfiguration()->query->type)) {
 						case 'database':
-							$this->queryCacheBackend = new \Erfurt_Cache_Backend_QueryCache_Database();
+							$this->queryCacheBackend = $this->objectManager->create('\T3\Semantic\Cache\Backend\QueryCache\Database');
 							break;
 						#                       case 'file':
 						#                            $this->queryCacheBackend = new Erfurt_Cache_Backend_QueryCache_File();
@@ -1044,7 +1077,7 @@ class KnowledgeBase implements \t3lib_Singleton {
 						#                            $this->queryCacheBackend = new Erfurt_Cache_Backend_QueryCache_Memory();
 						#                            break;
 						default:
-							throw new \Erfurt_Exception('Cache type is not supported.');
+							throw new \T3\Semantic\Exception('Cache type is not supported.');
 					}
 				}
 			}

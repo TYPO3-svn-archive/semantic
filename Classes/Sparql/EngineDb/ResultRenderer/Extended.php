@@ -7,6 +7,10 @@ namespace T3\Semantic\Sparql\EngineDb\ResultRenderer;
  *  (c) 2011 Thomas Maroschik <tmaroschik@dfau.de>
  *  All rights reserved
  *
+ *  This class is a port of the corresponding class of the
+ *  {@link http://aksw.org/Projects/Erfurt Erfurt} project.
+ *  All credits go to the Erfurt team.
+ *
  *  This script is part of the TYPO3 project. The TYPO3 project is
  *  free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -42,7 +46,7 @@ class Extended implements EngineDb\ResultRenderer {
 
 	protected $query = null;
 	protected $engine = null;
-	protected $_vars = null;
+	protected $vars = null;
 
 	protected $uriValues = array();
 	protected $literalValues = array();
@@ -63,7 +67,7 @@ class Extended implements EngineDb\ResultRenderer {
 	public function convertFromDbResults($arRecordSets, Sparql\Query $query, $engine, $vars) {
 		$this->query = $query;
 		$this->engine = $engine;
-		$this->_vars = $vars;
+		$this->vars = $vars;
 		$strResultForm = $this->query->getResultForm();
 		switch ($strResultForm) {
 			case 'select':
@@ -78,7 +82,7 @@ class Extended implements EngineDb\ResultRenderer {
 				break;
 			case 'ask':
 				if (count($arRecordSets) > 1) {
-					throw new \Erfurt_Exception('More than one result set for a ' . $strResultForm . ' query!');
+					throw new \T3\Semantic\Exception('More than one result set for a ' . $strResultForm . ' query!');
 				}
 				$nCount = 0;
 				foreach ($arRecordSets[0] as $row) {
@@ -95,7 +99,7 @@ class Extended implements EngineDb\ResultRenderer {
 			case 'count':
 			case 'describe':
 			default:
-				throw new \Erfurt_Exception('Extended format not supported for:' . $strResultForm);
+				throw new \T3\Semantic\Exception('Extended format not supported for:' . $strResultForm);
 		}
 	}
 
@@ -137,58 +141,58 @@ class Extended implements EngineDb\ResultRenderer {
 	 */
 	protected function _createObjectFromDbRecordSetPart($row, $strVarBase, $strVar, $asArray = false) {
 		$strVarName = (string)$strVar;
-		if ($row[$this->_vars[$strVarName]['sql_value']] === null) {
+		if ($row[$this->vars[$strVarName]['sql_value']] === null) {
 			return null;
 		}
 		$result = null;
-		switch ($row[$this->_vars[$strVarName]['sql_is']]) {
+		switch ($row[$this->vars[$strVarName]['sql_is']]) {
 			case 0:
-				if ($row[$this->_vars[$strVarName]['sql_ref']] === null) {
-					$result = $this->_createResource($row[$this->_vars[$strVarName]['sql_value']]);
+				if ($row[$this->vars[$strVarName]['sql_ref']] === null) {
+					$result = $this->_createResource($row[$this->vars[$strVarName]['sql_value']]);
 				} else {
 					$result = $this->_createResource(
-						$this->uriValues[$row[$this->_vars[$strVarName]['sql_ref']]]);
+						$this->uriValues[$row[$this->vars[$strVarName]['sql_ref']]]);
 				}
 				break;
 			case 1:
-				if ($row[$this->_vars[$strVarName]['sql_ref']] === null) {
-					$result = $this->_createBlankNode($row[$this->_vars[$strVarName]['sql_value']]);
+				if ($row[$this->vars[$strVarName]['sql_ref']] === null) {
+					$result = $this->_createBlankNode($row[$this->vars[$strVarName]['sql_value']]);
 				} else {
 					$result = $this->_createBlankNode(
-						$this->uriValues[$row[$this->_vars[$strVarName]['sql_ref']]]);
+						$this->uriValues[$row[$this->vars[$strVarName]['sql_ref']]]);
 				}
 				break;
 			default:
-				if ($row[$this->_vars[$strVarName]['sql_ref']] === null) {
+				if ($row[$this->vars[$strVarName]['sql_ref']] === null) {
 					#$result = $this->_createLiteral(
 					#    $row[$this->_vars[$strVarName]['sql_value']], null, null);
-					if ($row[$this->_vars[$strVarName]['sql_dt_ref']] === null) {
+					if ($row[$this->vars[$strVarName]['sql_dt_ref']] === null) {
 						$result = $this->_createLiteral(
-							$row[$this->_vars[$strVarName]['sql_value']],
-							$row[$this->_vars[$strVarName]['sql_lang']],
-							$row[$this->_vars[$strVarName]['sql_type']]
+							$row[$this->vars[$strVarName]['sql_value']],
+							$row[$this->vars[$strVarName]['sql_lang']],
+							$row[$this->vars[$strVarName]['sql_type']]
 						);
 					} else {
 						$result = $this->_createLiteral(
-							$row[$this->_vars[$strVarName]['sql_value']],
-							$row[$this->_vars[$strVarName]['sql_lang']],
-							$this->uriValues[$row[$this->_vars[$strVarName]['sql_dt_ref']]]
+							$row[$this->vars[$strVarName]['sql_value']],
+							$row[$this->vars[$strVarName]['sql_lang']],
+							$this->uriValues[$row[$this->vars[$strVarName]['sql_dt_ref']]]
 						);
 					}
 				} else {
 					#$result = $this->_createLiteral(
 					#$this->literalValues[$row[$this->_vars[$strVarName]['sql_ref']]], null, null);
-					if ($row[$this->_vars[$strVarName]['sql_dt_ref']] === null) {
+					if ($row[$this->vars[$strVarName]['sql_dt_ref']] === null) {
 						$result = $this->_createLiteral(
-							$this->literalValues[$row[$this->_vars[$strVarName]['sql_ref']]],
-							$row[$this->_vars[$strVarName]['sql_lang']],
-							$row[$this->_vars[$strVarName]['sql_type']]
+							$this->literalValues[$row[$this->vars[$strVarName]['sql_ref']]],
+							$row[$this->vars[$strVarName]['sql_lang']],
+							$row[$this->vars[$strVarName]['sql_type']]
 						);
 					} else {
 						$result = $this->_createLiteral(
-							$this->literalValues[$row[$this->_vars[$strVarName]['sql_ref']]],
-							$row[$this->_vars[$strVarName]['sql_lang']],
-							$this->uriValues[$row[$this->_vars[$strVarName]['sql_dt_ref']]]
+							$this->literalValues[$row[$this->vars[$strVarName]['sql_ref']]],
+							$row[$this->vars[$strVarName]['sql_lang']],
+							$this->uriValues[$row[$this->vars[$strVarName]['sql_dt_ref']]]
 						);
 					}
 				}
@@ -211,14 +215,14 @@ class Extended implements EngineDb\ResultRenderer {
 	 */
 	protected function _createPredicateFromDbRecordSetPart($row, $strVarBase, $strVar, $asArray = false) {
 		$strVarName = (string)$strVar;
-		if ($row[$this->_vars[$strVarName]['sql_value']] === null) {
+		if ($row[$this->vars[$strVarName]['sql_value']] === null) {
 			return null;
 		}
 		$result = null;
-		if ($row[$this->_vars[$strVarName]['sql_ref']] === null) {
-			$result = $this->_createResource($row[$this->_vars[$strVarName]['sql_value']]);
+		if ($row[$this->vars[$strVarName]['sql_ref']] === null) {
+			$result = $this->_createResource($row[$this->vars[$strVarName]['sql_value']]);
 		} else {
-			$result = $this->_createResource($this->uriValues[$row[$this->_vars[$strVarName]['sql_ref']]]);
+			$result = $this->_createResource($this->uriValues[$row[$this->vars[$strVarName]['sql_ref']]]);
 		}
 		if ($asArray) {
 			return $result;
@@ -245,22 +249,22 @@ class Extended implements EngineDb\ResultRenderer {
 	 */
 	protected function _createSubjectFromDbRecordSetPart($row, $strVarBase, $strVar, $asArray = false) {
 		$strVarName = (string)$strVar;
-		if ($row[$this->_vars[$strVarName]['sql_value']] === null) {
+		if ($row[$this->vars[$strVarName]['sql_value']] === null) {
 			return null;
 		}
 		$result = null;
-		if ($row[$this->_vars[$strVarName]['sql_is']] === 0) {
-			if ($row[$this->_vars[$strVarName]['sql_ref']] === null) {
-				$result = $this->_createResource($row[$this->_vars[$strVarName]['sql_value']]);
+		if ($row[$this->vars[$strVarName]['sql_is']] === 0) {
+			if ($row[$this->vars[$strVarName]['sql_ref']] === null) {
+				$result = $this->_createResource($row[$this->vars[$strVarName]['sql_value']]);
 			} else {
-				$result = $this->_createResource($this->uriValues[$row[$this->_vars[$strVarName]['sql_ref']]]);
+				$result = $this->_createResource($this->uriValues[$row[$this->vars[$strVarName]['sql_ref']]]);
 			}
 		} else {
-			if ($row[$this->_vars[$strVarName]['sql_ref']] === null) {
-				$result = $this->_createBlankNode($row[$this->_vars[$strVarName]['sql_value']]);
+			if ($row[$this->vars[$strVarName]['sql_ref']] === null) {
+				$result = $this->_createBlankNode($row[$this->vars[$strVarName]['sql_value']]);
 			} else {
 				$result = $this->_createBlankNode(
-					$this->uriValues[$row[$this->_vars[$strVarName]['sql_ref']]]);
+					$this->uriValues[$row[$this->vars[$strVarName]['sql_ref']]]);
 			}
 		}
 		if ($asArray) {
@@ -279,7 +283,7 @@ class Extended implements EngineDb\ResultRenderer {
 			$head['vars'] = array();
 			$arResultVars = $this->query->getResultVars();
 			if (in_array('*', $arResultVars)) {
-				$arResultVars = array_keys($this->_vars);
+				$arResultVars = array_keys($this->vars);
 			}
 			foreach ($arResultVars as $var) {
 				$var = (string)$var;
@@ -305,18 +309,18 @@ class Extended implements EngineDb\ResultRenderer {
 		$arResult = array();
 		$arResultVars = $this->query->getResultVars();
 		if (in_array('*', $arResultVars)) {
-			$arResultVars = array_keys($this->_vars);
+			$arResultVars = array_keys($this->vars);
 		}
 		foreach ($dbRecordSet as $row) {
 			$arResultRow = array();
 			foreach ($arResultVars as $strVar) {
 				$strVarName = (string)$strVar;
 				$strVarId = ltrim($strVar, '?$');
-				if (!isset($this->_vars[$strVarName])) {
+				if (!isset($this->vars[$strVarName])) {
 					//variable is in select, but not in result (test: q-select-2)
 					//$arResultRow[$strVarId] = '';
 				} else {
-					$arVarSettings = $this->_vars[$strVarName];
+					$arVarSettings = $this->vars[$strVarName];
 					// Contains whether variable is s, p or o.
 					switch ($arVarSettings[1]) {
 						case 's':
@@ -332,7 +336,7 @@ class Extended implements EngineDb\ResultRenderer {
 								$row, $arVarSettings[0], $strVar, $asArray);
 							break;
 						default:
-							throw new \Erfurt_Exception('Variable has to be s, p or o.');
+							throw new \T3\Semantic\Exception('Variable has to be s, p or o.');
 					}
 				}
 			}
@@ -345,7 +349,7 @@ class Extended implements EngineDb\ResultRenderer {
 		// First, we need to check, whether there is a need to dereference some values
 		$refVariableNamesUri = array();
 		$refVariableNamesLit = array();
-		foreach ($this->_vars as $var) {
+		foreach ($this->vars as $var) {
 			if ($var[1] === 'o') {
 				if (isset($var['sql_ref'])) {
 					$refVariableNamesLit[] = $var['sql_ref'];
@@ -379,14 +383,14 @@ class Extended implements EngineDb\ResultRenderer {
 			}
 		}
 		if (count($refIdsUri) > 0) {
-			$sql = 'SELECT id, v FROM ef_uri WHERE id IN (' . implode(',', $refIdsUri) . ')';
+			$sql = 'SELECT id, v FROM tx_semantic_uri WHERE id IN (' . implode(',', $refIdsUri) . ')';
 			$result = $this->engine->sqlQuery($sql);
 			foreach ($result as $row) {
 				$this->uriValues[$row['id']] = $row['v'];
 			}
 		}
 		if (count($refIdsLit) > 0) {
-			$sql = 'SELECT id, v FROM ef_lit WHERE id IN (' . implode(',', $refIdsLit) . ')';
+			$sql = 'SELECT id, v FROM tx_semantic_literal WHERE id IN (' . implode(',', $refIdsLit) . ')';
 			$result = $this->engine->sqlQuery($sql);
 			foreach ($result as $row) {
 				$this->literalValues[$row['id']] = $row['v'];

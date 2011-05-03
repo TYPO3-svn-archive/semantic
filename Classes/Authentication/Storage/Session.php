@@ -8,7 +8,7 @@ namespace T3\Semantic\Authentication\Storage;
  *  All rights reserved
  *
  *  This class is a port of the corresponding class of the
- * {@link http://aksw.org/Projects/Erfurt Erfurt} project.
+ *  {@link http://aksw.org/Projects/Erfurt Erfurt} project.
  *  All credits go to the Erfurt team.
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is

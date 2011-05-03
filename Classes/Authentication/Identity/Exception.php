@@ -8,7 +8,7 @@ namespace T3\Semantic\Authentication\Identity;
  *  All rights reserved
  *
  *  This class is a port of the corresponding class of the
- * {@link http://aksw.org/Projects/Erfurt Erfurt} project.
+ *  {@link http://aksw.org/Projects/Erfurt Erfurt} project.
  *  All credits go to the Erfurt team.
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -35,7 +35,8 @@ namespace T3\Semantic\Authentication\Identity;
  * @subpackage $SUBPACKAGE$
  * @scope prototype
  */
-class Exception extends \Erfurt_Exception
-{
+class Exception extends \T3\Semantic\Exception {
 
 }
+
+?>

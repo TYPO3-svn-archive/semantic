@@ -8,7 +8,7 @@ namespace T3\Semantic\Authentication\Adapter;
  *  All rights reserved
  *
  *  This class is a port of the corresponding class of the
- * {@link http://aksw.org/Projects/Erfurt Erfurt} project.
+ *  {@link http://aksw.org/Projects/Erfurt Erfurt} project.
  *  All credits go to the Erfurt team.
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -129,8 +129,7 @@ class Typo3 implements AdapterInterface {
 	 * @return \T3\Semantic\Authentication\Result
 	 */
 	public function authenticate() {
-
-		if ($this->isLoginDisabled() === true || $this->username === 'Anonymous' || (TYPO3_MODE == 'FE' && !$GLOBALS["TSFE"]->loginUser)) {
+		if ($this->isLoginDisabled() === true || $this->username === 'Anonymous' || (TYPO3_MODE == 'FE' && !$GLOBALS["TSFE"]->loginUser && !isset($GLOBALS['BE_USER']))) {
 			$authResult = new \T3\Semantic\Authentication\Result(\T3\Semantic\Authentication\Result::SUCCESS, $this->getAnonymousUser());
 		} elseif (TYPO3_MODE == 'FE' && $GLOBALS["TSFE"]->loginUser){
 			$this->username = $GLOBALS["TSFE"]->fe_user->user['username'];
@@ -141,7 +140,7 @@ class Typo3 implements AdapterInterface {
 			$identity['anonymous']	= false;
 			$identityObject = $this->objectManager->create('\T3\Semantic\Authentication\Identity', $identity);
 			$authResult = new \T3\Semantic\Authentication\Result(\T3\Semantic\Authentication\Result::SUCCESS, $identityObject);
-		} elseif (TYPO3_MODE == 'BE' && isset($GLOBALS['BE_USER'])) {
+		} elseif (isset($GLOBALS['BE_USER'])) {
 			if ($GLOBALS['BE_USER']->isAdmin()) {
 				$authResult = new \T3\Semantic\Authentication\Result(\T3\Semantic\Authentication\Result::SUCCESS, $this->getSuperAdmin());
 			} else {

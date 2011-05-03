@@ -7,6 +7,10 @@ namespace T3\Semantic\Sparql\EngineDb\ResultRenderer;
  *  (c) 2011 Thomas Maroschik <tmaroschik@dfau.de>
  *  All rights reserved
  *
+ *  This class is a port of the corresponding class of the
+ *  {@link http://aksw.org/Projects/Erfurt Erfurt} project.
+ *  All credits go to the Erfurt team.
+ *
  *  This script is part of the TYPO3 project. The TYPO3 project is
  *  free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -133,7 +137,7 @@ class Plain implements EngineDb\ResultRenderer {
 			case 'count-distinct':
 			case 'ask':
 				if (count($arRecordSets) > 1) {
-					throw new \Erfurt_Exception('More than one result set for a ' . $strResultForm . ' query!');
+					throw new \T3\Semantic\Exception('More than one result set for a ' . $strResultForm . ' query!');
 				}
 				$nCount = 0;
 				foreach ($arRecordSets[0] as $row) {
@@ -403,7 +407,7 @@ class Plain implements EngineDb\ResultRenderer {
 								$row, $arVarSettings[0], $strVar, $asArray);
 							break;
 						default:
-							throw new \Erfurt_Exception('Variable has to be s, p or o.');
+							throw new \T3\Semantic\Exception('Variable has to be s, p or o.');
 					}
 				}
 			}
@@ -451,14 +455,14 @@ class Plain implements EngineDb\ResultRenderer {
 			}
 		}
 		if (count($refIdsUri) > 0) {
-			$sql = 'SELECT id, v FROM ef_uri WHERE id IN (' . implode(',', $refIdsUri) . ')';
+			$sql = 'SELECT id, v FROM tx_semantic_uri WHERE id IN (' . implode(',', $refIdsUri) . ')';
 			$result = $this->engine->sqlQuery($sql);
 			foreach ($result as $row) {
 				$this->uriValues[$row['id']] = $row['v'];
 			}
 		}
 		if (count($refIdsLit) > 0) {
-			$sql = 'SELECT id, v FROM ef_lit WHERE id IN (' . implode(',', $refIdsLit) . ')';
+			$sql = 'SELECT id, v FROM tx_semantic_literal WHERE id IN (' . implode(',', $refIdsLit) . ')';
 			$result = $this->engine->sqlQuery($sql);
 			foreach ($result as $row) {
 				$this->literalValues[$row['id']] = $row['v'];
