@@ -1,2 +1,0 @@
-http://code.google.com/p/ontowiki/source/list?repo=erfurt
-Rev 50b0fc9f7879 
