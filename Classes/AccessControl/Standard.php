@@ -1,6 +1,6 @@
 <?php
 declare(ENCODING = 'utf-8') ;
-namespace T3\Semantic\AccessControl;
+namespace Erfurt\AccessControl;
 /***************************************************************
  *  Copyright notice
  *
@@ -119,14 +119,14 @@ class Standard {
 	/**
 	 * The injected knowledge base
 	 *
-	 * @var \T3\Semantic\KnowledgeBase
+	 * @var \Erfurt\KnowledgeBase
 	 */
 	protected $knowledgeBase;
 
 	/**
 	 * The injected knowledge base
 	 *
-	 * @var \T3\Semantic\Object\ObjectManager
+	 * @var \Erfurt\Object\ObjectManager
 	 */
 	protected $objectManager;
 
@@ -135,20 +135,20 @@ class Standard {
 	// ------------------------------------------------------------------------
 
 	/**
-	 * Injector method for a \T3\Semantic\Object|ObjectManager
+	 * Injector method for a \Erfurt\Object|ObjectManager
 	 *
-	 * @var \T3\Semantic\Object|ObjectManager
+	 * @var \Erfurt\Object|ObjectManager
 	 */
-	public function injectObjectManager(\T3\Semantic\Object\ObjectManager $objectManager) {
+	public function injectObjectManager(\Erfurt\Object\ObjectManager $objectManager) {
 		$this->objectManager = $objectManager;
 	}
 
 	/**
-	 * Injector method for a \T3\Semantic\KnowledgeBase
+	 * Injector method for a \Erfurt\KnowledgeBase
 	 *
-	 * @var \T3\Semantic\KnowledgeBase
+	 * @var \Erfurt\KnowledgeBase
 	 */
-	public function injectKnowledgeBase(\T3\Semantic\KnowledgeBase $knowledgeBase) {
+	public function injectKnowledgeBase(\Erfurt\KnowledgeBase $knowledgeBase) {
 		$this->knowledgeBase = $knowledgeBase;
 	}
 
@@ -169,7 +169,7 @@ class Standard {
 				$actionConfig[$actions['uri']] = $actions['spec'];
 			}
 			// Now fetch the config from ac model and overwrite the values.
-			$query = $this->objectManager->create('\T3\Semantic\Sparql\SimpleQuery');
+			$query = $this->objectManager->create('\Erfurt\Sparql\SimpleQuery');
 			$query->setProloguePart('SELECT ?s ?o')
 					->setWherePart(
 				'WHERE {
@@ -531,7 +531,7 @@ class Standard {
 				$this->userRights[$userURI] = $userRights;
 				return $userRights;
 			}
-			$sparqlQuery = $this->objectManager->create('\T3\Semantic\Sparql\SimpleQuery');
+			$sparqlQuery = $this->objectManager->create('\Erfurt\Sparql\SimpleQuery');
 			$sparqlQuery->setProloguePart('SELECT ?group ?p ?o')
 					->setWherePart(
 				'WHERE {
@@ -542,7 +542,7 @@ class Standard {
 			if ($result = $this->sparql($this->accessControlModel, $sparqlQuery)) {
 				$this->filterAccess($result, $userRights);
 			}
-			$sparqlQuery = $this->objectManager->create('\T3\Semantic\Sparql\SimpleQuery');
+			$sparqlQuery = $this->objectManager->create('\Erfurt\Sparql\SimpleQuery');
 			$sparqlQuery->setProloguePart('SELECT ?s ?p ?o')
 					->setWherePart(
 				'WHERE {

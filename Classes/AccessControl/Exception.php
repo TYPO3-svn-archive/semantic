@@ -1,6 +1,6 @@
 <?php
 declare(ENCODING = 'utf-8') ;
-namespace T3\Semantic\AccessControl;
+namespace Erfurt\AccessControl;
 /***************************************************************
  *  Copyright notice
  *
@@ -36,7 +36,7 @@ namespace T3\Semantic\AccessControl;
  * @subpackage ac
  * @author Philipp Frischmuth <pfrischmuth@googlemail.com>
  */
-class Exception extends \T3\Semantic\Exception {
+class Exception extends \Erfurt\Exception {
 
 }
 

@@ -1,6 +1,6 @@
 <?php
 declare(ENCODING = 'utf-8') ;
-namespace T3\Semantic;
+namespace Erfurt;
 /***************************************************************
  *  Copyright notice
  *
