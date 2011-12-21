@@ -43,6 +43,14 @@ class Tx_Semantic_View_ContentView extends Tx_Fluid_View_TemplateView {
 		}
 	}
 
+	public function getTemplateIdentifier($actionName = NULL) {
+		if (trim($this->templateSource) !== '') {
+			return sha1($this->templateSource);
+		} else {
+			return parent::getTemplateIdentifier($actionName);
+		}
+	}
+
 	/**
 	 * @param  $templateSource The template source code.
 	 * @return void
